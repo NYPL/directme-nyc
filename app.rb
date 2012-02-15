@@ -8,8 +8,8 @@ class Application < Sinatra::Base
 	end
 
 	#main handlers
+	
 	get '/' do
-		@deps = ["views/testmodule"]
 		slim :index
 	end
 
