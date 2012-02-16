@@ -5,4 +5,4 @@ embed_images: datauri
 
 stylesheets:
     all:
-        - public/stylesheets/*.css
+        - public/css/*.css

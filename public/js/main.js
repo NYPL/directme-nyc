@@ -6,12 +6,5 @@ require.config({
 });
 
 require(['domReady', 'libs/modernizr-2.0.6', 'plugins', 'app'], function(domReady, modernizr, plugins, app) {
-	domReady(function () {
-		if (environment.hasOwnProperty('deps') && environment.deps !== null) {
-			app.initialize({depends: environment.deps});
-		}
-		else {
-			app.initialize();
-		}
-	});
+
 });
