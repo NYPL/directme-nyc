@@ -1,0 +1,8 @@
+embed_images: datauri
+#compress_assets: off
+
+#javascripts:
+
+stylesheets:
+    all:
+        - public/stylesheets/*.css

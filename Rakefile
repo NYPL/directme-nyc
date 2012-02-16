@@ -15,9 +15,12 @@ task :singit do
 end
 
 desc "less => css"
-task :less_css do
+task :to_css do
 	sh %{cd public/bootstrap/less; lessc bootstrap.less > ../../../public/css/bootstrap.css}
-	Dir.glob('public/less/*.less') do |file|
-		exec 'lessc #{file} > public/css/#{file}.css'
+	Dir.glob('public/less/*.less').sort_by do |file|
+		exec "lessc #{file} > public/css/#{File.basename file, '.less'}.css"
+	end
+	Dir.glob('public/scss/*.scss').sort_by do |file|
+		exec "sass --scss #{file}:public/css/#{File.basename file, '.scss'}.css"
 	end
 end
