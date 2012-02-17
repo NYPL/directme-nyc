@@ -1,5 +1,5 @@
 embed_images: datauri
-#compress_assets: off
+compress_assets: off
 
 #javascripts:
 
