@@ -1,3 +1,17 @@
+//globals
+
+//mixins
+@mixin box-sizing-mix($type:"border") {
+	box-sizing: #{$type}-box;
+	-webkit-box-sizing: #{$type}-box;
+	-moz-box-sizing: #{$type}-box;
+}
+
+//http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
+* {
+	@include box-sizing-mix
+}
+
 body {
 	background: transparent;
 }
