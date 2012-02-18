@@ -11,7 +11,6 @@ class Application < Sinatra::Base
 	#main handlers
 	
 	get '/' do
-		@page_title = "1940 Census"
 		slim :index
 	end
 

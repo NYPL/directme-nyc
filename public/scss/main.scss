@@ -7,6 +7,22 @@
 	-moz-box-sizing: #{$type}-box;
 }
 
+@mixin floating($height) {
+	margin-bottom: 20px;
+	padding: 20px;
+	background: #FFF;
+
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+
+	-webkit-box-shadow:0 0 15px #666666; 
+	-moz-box-shadow: 0 0 15px #666666; 
+	box-shadow:0 0 15px #666666; 
+
+	height: $height;
+}
+
 //http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
 * {
 	@include box-sizing-mix
@@ -17,5 +33,48 @@ body {
 }
 
 #main {
-	padding-top:60px;
+	padding-top:40px;
 }
+
+#nypl_bar {
+	font-family: "Kievit","Myriad Pro","Lucida Grande","Calibri",verdana,arial,helvetica,sans-serif;
+	position: relative;
+	height: 30px;
+	color: #fff;
+	font-size: 12px;
+	margin: 0;
+	padding: 6px 0 0 60px;
+
+	select {
+		font-size:12px;
+		height: 17px;
+		margin-left:5px;
+	}
+
+	form {
+		display:inline;
+	}
+}
+
+#content {
+	@include floating(400px)
+}
+
+#howto {
+	@include floating(400px)
+}
+
+#kickmap {
+	@include floating(600px)
+}
+
+#youtube {
+	@include floating(200px)
+}
+
+//for responsive issues seen
+span.nypl_link {
+	float:left;
+}
+
+
