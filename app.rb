@@ -11,6 +11,7 @@ class Application < Sinatra::Base
 	#main handlers
 	
 	get '/' do
+		@deps = ['modules/ytube']
 		slim :index
 	end
 

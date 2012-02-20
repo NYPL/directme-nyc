@@ -9,7 +9,6 @@
 
 @mixin floating($height) {
 	margin-bottom: 20px;
-	padding: 20px;
 	background: #FFF;
 
 	border-radius: 8px;
@@ -48,7 +47,8 @@ body {
 	select {
 		font-size:12px;
 		height: 17px;
-		margin-left:5px;
+		margin-left: 5px;
+		max-width: 180px;
 	}
 
 	form {
@@ -57,15 +57,15 @@ body {
 }
 
 #content {
-	@include floating(400px)
+	@include floating(350px)
 }
 
 #howto {
-	@include floating(400px)
+	@include floating(350px)
 }
 
 #kickmap {
-	@include floating(600px)
+	@include floating(500px)
 }
 
 #youtube {

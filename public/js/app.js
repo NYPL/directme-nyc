@@ -3,13 +3,16 @@ define(['require', 'jquery'], function(require, $) {
 		initialize: function(args) {
 			log('init app');
 			if(typeof args !== 'undefined') {
-				if(args.hasOwnProperty('depends')) {                                                                                                                                                                                                                                                                                                                     
-					require(args.depends, this.onDependsLoaded);
+				if(args.hasOwnProperty('depends')) {                                                                                                                                                                                                                                                                                                                   
+					require(args.depends, this.onDependsLoaded(args));
 				}
 			}
 		},
 
-		onDependsLoaded: function() {
+		onDependsLoaded: function(args) {
+			for (module in args) {
+				module.init;
+			}
 		}
 	};
 });
