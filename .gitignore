@@ -12,7 +12,6 @@ nohup.out
 .DS_Store
 
 #[RUBY]
-*.lock
 *.gem
 *.rbc
 .sass-cache
