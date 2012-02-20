@@ -23,12 +23,15 @@ class Application < Sinatra::Base
 	# ==============
 	use Rack::ShowExceptions
 
+	#set this when ready
+	#===========================================================
 	#$memcache = Dalli::Client.new
 	#set :cache_var, ENV['MEMCACHE_SERVERS']|| "localhost:11211"
 	#use Rack::Cache,
 	#	:verbose => true,
 	#	:metastore => "memcached://#{cache_var}",
 	#	:entitystore => "memcached://#{cache_var}"
+	#===========================================================
 
 	#Set Faraday adaptor + parse JSON responses
 	#farday 7.6 as of this code
