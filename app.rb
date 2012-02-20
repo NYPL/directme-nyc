@@ -11,7 +11,6 @@ class Application < Sinatra::Base
 	#main handlers
 	
 	get '/' do
-		@libs = ['libs/swfobject']
 		@deps = ['modules/ytube']
 		slim :index
 	end
