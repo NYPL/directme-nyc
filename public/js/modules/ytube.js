@@ -6,7 +6,7 @@ define(function() {
 	function embedYTVideo()
 	{
 		// embed youtube
-		var params		= {allowScriptAccess: "always"};
+		var params		= {allowScriptAccess: "always", "allowFullScreen": false};
 		var atts 		= {id: "myytplayer"};
 		var flashvars	= {};
 
@@ -15,8 +15,8 @@ define(function() {
 	}
 
 	function onYouTubePlayerReady(playerId) {
-		ytplayer = document.getElementById(ytapiplayer);
 		console.log("check event");
+		ytplayer = document.getElementById('myytplayer');
 		ytplayer.addEventListener("onError", "onPlayerError");
 	}
 
