@@ -13,6 +13,4 @@ test:
 
 production:  
  <<: *defaults
- port: 10015
- host: <%= ENV['MONGOHQ_URL'] %>
- database: prod_project
+ uri: <%= ENV['MONGOHQ_URL'] %>
