@@ -15,6 +15,7 @@ define(function() {
 	}
 
 	function onYouTubePlayerReady(playerId) {
+		console.log("check event");
 		ytplayer = document.getElementById(playerId);
 		ytplayer.addEventListener("onError", "onPlayerError");
 	}
