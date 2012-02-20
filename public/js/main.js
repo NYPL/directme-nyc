@@ -8,10 +8,17 @@ require.config({
 	}
 });
 
-require(['domReady', 'libs/modernizr-2.0.6', 'libs/swfobject', 'plugins', 'app'], 
-	function(domReady, modernizr, swfobject, plugins, app) { domReady(function () {
-		if (environment.hasOwnProperty('deps') && environment.deps !== null) {
+require(['domReady', 'libs/modernizr-2.0.6', 'plugins', 'app'], 
+	function(domReady, modernizr, plugins, app) { domReady(function () {
+		if (environment.hasOwnProperty('deps') && environment.hasOwnProperty('libs') 
+			&& environment.deps !== null && environment.libs !== null) {
+			app.initialize({depends: environment.deps, libs:environment.libs});
+		}
+		else if (environment.hasOwnProperty('deps') && environment.deps !== null) {
 			app.initialize({depends: environment.deps});
+		}
+		else if (environment.hasOwnProperty('libs') && environment.libs !== null) {
+			app.initialize({libs:environment.libs});
 		}
 		else {
 			app.initialize();
