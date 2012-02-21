@@ -1,3 +1,4 @@
+# Public: sinatra module to tie Loader in with main modular application, enabling the load of all modules + mixins
 module Sinatra
 	#lifted from https://gist.github.com/1331854/c1946a64ea9b166216f8821271952ddfdf388163
 	module Loader
@@ -13,6 +14,7 @@ module Sinatra
 	end
 end
 
+#Public: Methods that tie into Faraday's http restful requests, simplifying the naming convention (at later date => add put), extended into the Faracon Module
 module Methods
 	def get(url)
 		return Faraday.get url
@@ -23,6 +25,17 @@ module Methods
 	end
 end
 
+#Public: The Helpers that are loaded by the Sinatra Loader above
+#All modules are executed by calling their set methods
+
+#Examples
+#
+#log.info "information returns nil"
+#log.warning "bad move zeeshan"
+
+#Conn.get("https://api.twitter.com/1/statuses...")
+
+#error_json(404, 'bad news bears').to_json
 module MyHelpers
 	module Logging
 		extend self
@@ -35,7 +48,6 @@ module MyHelpers
 		end
 	end
 
-	#faraday is a long name
 	module Faraconn
 		extend self
 		module Conn

@@ -1,3 +1,7 @@
+/*	For Youtube Embed, reload iframe with random video_id from set of census youtube ids
+	- Return instantiaed function
+*/
+
 define(['jquery'], function($) {
 	function _init() {
 		var vids = ['cImIlPSuyR8']
