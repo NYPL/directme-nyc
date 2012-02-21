@@ -91,8 +91,8 @@ GEM
     typhoeus (0.3.3)
       mime-types
     tzinfo (0.3.31)
-    webmock (1.7.10)
-      addressable (~> 2.2, > 2.2.5)
+    webmock (1.8.0)
+      addressable (>= 2.2.7)
       crack (>= 0.1.7)
     yajl-ruby (1.1.0)
     yui-compressor (0.9.6)
