@@ -18,9 +18,11 @@ class Application < Sinatra::Base
 		@deps = ['modules/ytube']
 		slim :index
 	end
-
 	#################################################################
 
+
+
+	########################other handlers###########################
 	not_found do
 		status 404
 		slim :not_found, :locals => {"voo" => "404"}
@@ -29,5 +31,6 @@ class Application < Sinatra::Base
 	error do
 
 	end
+	#################################################################
 
 end
