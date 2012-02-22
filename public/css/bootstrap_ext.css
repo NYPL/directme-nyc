@@ -6762,3 +6762,12 @@ a.thumbnail:hover {
     margin-left: 30px;
   }
 }
+.thumbnails > li {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  float: none;
+}
+ul,
+ol {
+  margin: 0;
+}

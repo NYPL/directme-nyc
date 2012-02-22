@@ -9,7 +9,7 @@ define(['jquery'], function($) {
     		src: 'http://www.youtube.com/embed/' + vids[Math.floor(Math.random() * vids.length)],
     		frameborder: '0',
     		height: '200',
-    		width: '470'
+    		width: '570'
 		}).appendTo('#youtube');
 	}
 

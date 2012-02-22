@@ -1,5 +1,19 @@
 //globals
 
+//ie7 mixins => create IE stylesheet
+@mixin inline-blocky-hack {
+	zoom: 1;
+	*display: inline;
+}
+
+/* @mixin box-shadow-hack($blur) {
+	zoom: 1;
+	filter: progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=0), progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=90), progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=180), progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=270);
+} 
+=> currently replaced by PIE
+*/
+
+
 //mixins
 @mixin box-sizing-mix($type:"border") {
 	box-sizing: #{$type}-box;
@@ -7,24 +21,37 @@
 	-moz-box-sizing: #{$type}-box;
 }
 
-@mixin floating($height) {
-	margin-bottom: 20px;
-	background: #FFF;
+@mixin box-shadow-mix($blur, $r, $g, $b, $a) {
+	-webkit-box-shadow:0 0 #{$blur}px rgba($r, $g, $b, $a); 
+	-moz-box-shadow: 0 0 #{$blur}px rgba($r, $g, $b, $a); 
+	box-shadow:0 0 #{$blur}px rgba($r, $g, $b, $a); 
+	behavior: url('PIE.htc');
+	position: relative;
+}
 
-	border-radius: 8px;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
+@mixin box-radius-mix($pixels) {
+	border-radius: #{$pixels}px;
+	-moz-border-radius: #{$pixels}px;
+	-webkit-border-radius: #{$pixels}px;
+	behavior: url('PIE.htc');
+	position: relative;
+}
 
-	-webkit-box-shadow:0 0 15px #666666; 
-	-moz-box-shadow: 0 0 15px #666666; 
-	box-shadow:0 0 15px #666666; 
-
+@mixin floating($height, $bott:0) {
+	@if $bott == 1 {
+		margin-bottom: 20px;
+	}
 	height: $height;
+
+	position: relative;
+
+	@include box-radius-mix(8);
+	@include box-shadow-mix(15, 102, 102, 102, 0.4);
 }
 
 //http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
 * {
-	@include box-sizing-mix
+	@include box-sizing-mix;
 }
 
 body {
@@ -54,27 +81,43 @@ body {
 	form {
 		display:inline;
 	}
+
+	span.nypl_link {
+		float:left;
+	}
 }
 
 #content {
-	@include floating(350px)
+	@include floating(350px, $bott:1);
 }
 
 #howto {
-	@include floating(350px)
+	margin: 0 auto;
+	overflow: auto;
+
+	ul {
+		text-align:center;
+	}
+
+		li {
+			background: #FFF;
+			border: 1px solid black;
+			height: 150px;
+			width: 155px;
+			display: inline-block;
+			margin-top: 10px;
+
+			@include box-shadow-mix(5, 102, 102, 102, 1.0);
+			@include inline-blocky-hack;
+		}
+
+	@include floating(350px);
 }
 
 #kickmap {
-	@include floating(500px)
+	@include floating(500px, $bott:1);
 }
 
 #youtube {
-	@include floating(200px)
+	@include floating(200px);
 }
-
-//for responsive issues seen
-span.nypl_link {
-	float:left;
-}
-
-
