@@ -1,5 +1,6 @@
 embed_images: datauri
 compress_assets: off
+template_function: _.template
 
 #javascripts:
 

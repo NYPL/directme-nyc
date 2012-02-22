@@ -10,6 +10,9 @@ development:
 
 test:  
  <<: *defaults
+ port: 27017
+ host: localhost
+ database: dev_project
 
 production:  
  <<: *defaults

@@ -6,13 +6,6 @@
 
 #Public: for a bigger application, map each route/handler into a separate class, then map each class accordingly in config.ru
 class Application < Sinatra::Base
-
-	get '/css/:application.css' do |application|
-		if !application.include? 'bootstrap'
-			scss :"#{application}", :views => './public/scss'
-		end
-	end
-
 	#########################main handlers###########################
 	get '/' do
 		@deps = ['modules/ytube']
