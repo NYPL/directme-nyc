@@ -25,7 +25,7 @@
 	-webkit-box-shadow:0 0 #{$blur}px rgba($r, $g, $b, $a); 
 	-moz-box-shadow: 0 0 #{$blur}px rgba($r, $g, $b, $a); 
 	box-shadow:0 0 #{$blur}px rgba($r, $g, $b, $a); 
-	behavior: url('PIE.htc');
+	behavior: url('/PIE.htc');
 	position: relative;
 }
 
@@ -33,7 +33,7 @@
 	border-radius: #{$pixels}px;
 	-moz-border-radius: #{$pixels}px;
 	-webkit-border-radius: #{$pixels}px;
-	behavior: url('PIE.htc');
+	behavior: url('/PIE.htc');
 	position: relative;
 }
 
