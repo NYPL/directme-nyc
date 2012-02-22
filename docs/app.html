@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>app.js</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="app.html">app.js</a>
+          <a class="source" href="main.html">main.js</a>
+          <a class="source" href="modules/gmap.html">gmap.js</a>
+          <a class="source" href="modules/social.html">social.js</a>
+          <a class="source" href="modules/ytube.html">ytube.js</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>app.js</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-App_Initialization_for_all_handlers'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-App_Initialization_for_all_handlers">&#182;</a>
+        </div>
+        <h2>App Initialization for all handlers</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;require&#39;</span><span class="p">,</span> <span class="s1">&#39;jquery&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>requires handler dependent libraries and modules</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="nx">log</span><span class="p">(</span><span class="s1">&#39;init app&#39;</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">args</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;libs&#39;</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nx">require</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">libs</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onLibsLoaded</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">libs</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;depends&#39;</span><span class="p">))</span> <span class="p">{</span>                                                                                                                                                                                                                                                                                                                   
+          <span class="nx">require</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">depends</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onDependsLoaded</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">depends</span><span class="p">));</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">onLibsLoaded</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">libs</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;spec. libs loaded&#39;</span><span class="p">);</span>
+    <span class="p">},</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>on the <code>init</code> call for a module, a function should be instantiated</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <ul>
+<li>(later) like Backbone, init calls below should instantiate a <code>new</code> class, as each module should return a new instance of its class/view</li>
+</ul>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">onDependsLoaded</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mods</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;spec. modules being loaded and init_ed&#39;</span><span class="p">);</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">mods</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">mods</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">init</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">});</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

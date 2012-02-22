@@ -1,4 +1,4 @@
-/*	App Initialization for all handlers */
+/** ## App Initialization for all handlers */
 
 define(['require', 'jquery'], function(require, $) {
 	return {
@@ -19,9 +19,10 @@ define(['require', 'jquery'], function(require, $) {
 			console.log('spec. libs loaded');
 		},
 
-		//later, like Backbone, init calls below should instantiate a *new* class, as each module should return a new instance of its class/view
+		/** on the `init` call for a module, a function should be instantiated */
+		
+		//* (later) like Backbone, init calls below should instantiate a `new` class, as each module should return a new instance of its class/view
 		onDependsLoaded: function(mods) {
-			//on the init call for a module, a function should be instantiated
 			console.log('spec. modules being loaded and init_ed');
 			for (var i = 0; i < mods.length; i++) {
 				mods[i].init;

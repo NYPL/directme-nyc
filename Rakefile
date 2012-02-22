@@ -24,3 +24,8 @@ task :to_css do
 	#	exec "sass --scss #{file}:public/css/#{File.basename file, '.scss'}.css"
 	#end
 end
+
+desc "rocco_doc for js files (css in future?); only for js now"
+task :rocco_doc do
+	sh %{cd public/js; rocco -o ../../docs modules/*.js app.js main.js}
+end

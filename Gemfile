@@ -32,6 +32,7 @@ group :test do
 end
 
 group :development do
+	gem 'fl-rocco'
 	gem 'jammit'
     gem 'foreman'
     gem 'rerun' #yesness => https://github.com/alexch/rerun
