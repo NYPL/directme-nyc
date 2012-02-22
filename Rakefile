@@ -35,7 +35,7 @@ namespace :app do
 	task :setup => Rake::Task.tasks
 end
 
-namespace :starter do
+namespace :run do
 	desc "Start it up!"
 	task :singit do 
 		exec 'rerun -p "**/*.{rb,js,css,scss,sass,erb,html,haml,ru,coffee,slim,less}" -- bundle exec rackup --port 8888 config.ru'

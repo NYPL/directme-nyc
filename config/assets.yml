@@ -5,5 +5,5 @@ template_function: _.template
 #javascripts:
 
 stylesheets:
-    all:
+    boot:
         - public/css/*.css
