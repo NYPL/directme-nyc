@@ -37,10 +37,8 @@
 	position: relative;
 }
 
-@mixin floating($height:0, $bott:0) {
-	@if $bott == 1 {
-		margin-bottom: 20px;
-	}
+@mixin floating($height:0) {
+	margin-bottom: 20px;
 
 	@if $height > 0 {
 		height: #{$height}px;
@@ -91,7 +89,7 @@ body {
 }
 
 #content {
-	@include floating($height:350, $bott:1);
+	@include floating($height:350);
 }
 
 #howto {
@@ -118,7 +116,7 @@ body {
 }
 
 #kickmap {
-	@include floating($height:500, $bott:1);
+	@include floating($height:500);
 }
 
 #youtube {
