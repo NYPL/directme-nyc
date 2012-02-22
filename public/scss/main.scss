@@ -25,16 +25,18 @@
 	-webkit-box-shadow:0 0 #{$blur}px rgba($r, $g, $b, $a); 
 	-moz-box-shadow: 0 0 #{$blur}px rgba($r, $g, $b, $a); 
 	box-shadow:0 0 #{$blur}px rgba($r, $g, $b, $a); 
-	behavior: url('/PIE.htc');
+	behavior: url('/css/PIE.htc');
 	position: relative;
+	z-index: 0;
 }
 
 @mixin box-radius-mix($pixels) {
 	border-radius: #{$pixels}px;
 	-moz-border-radius: #{$pixels}px;
 	-webkit-border-radius: #{$pixels}px;
-	behavior: url('/PIE.htc');
+	behavior: url('/css/PIE.htc');
 	position: relative;
+	z-index: 0;
 }
 
 @mixin floating($height:0) {
@@ -43,8 +45,6 @@
 	@if $height > 0 {
 		height: #{$height}px;
 	}
-
-	position: relative;
 
 	@include box-radius-mix(8);
 	@include box-shadow-mix(15, 102, 102, 102, 0.4);
@@ -95,6 +95,7 @@ body {
 #howto {
 	margin: 0 auto;
 	overflow: auto;
+	min-height: 350px;
 
 	ul {
 		text-align:center;
