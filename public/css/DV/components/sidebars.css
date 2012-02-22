@@ -1,0 +1,16 @@
+.DV-sidebar-left .DV-well {
+	top: 0; left: 0px;
+}
+
+.DV-sidebar-right .DV-well {
+	top: 0; right: 0px;
+}
+
+.DV-sidebar.DV-hide {
+  display: none !important;
+}
+
+.DV-pages.DV-hide-sidebar {
+  right: 0;
+  left: 0;
+}

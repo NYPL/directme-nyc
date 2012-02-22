@@ -18,6 +18,14 @@ class Application < Sinatra::Base
 		@deps = ['modules/ytube']
 		slim :index
 	end
+
+	get '/census' do
+
+	end
+
+	post '/one_step' do
+		status 201
+	end
 	#################################################################
 
 
