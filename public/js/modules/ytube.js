@@ -10,7 +10,7 @@ define(['jquery'], function($) {
     		frameborder: '0',
     		height: '200',
     		width: '570'
-		}).appendTo('#youtube');
+		}).appendTo('.tubin');
 	}
 
 	/** Return instantiated function */

@@ -6771,3 +6771,8 @@ ul,
 ol {
   margin: 0;
 }
+select {
+  padding: 0;
+  margin: 0;
+  height: 0;
+}
