@@ -11,28 +11,40 @@ end
 
 namespace :app do
 
-	desc "jammit time"
-	task :jammit do
-		jammit
-	end
-
-	desc "rocco_doc for js files (css in future?); only for js now"
-	task :rocco_doc do
-		sh %{cd public/js; rocco -o ../docs modules/*.js app.js main.js}
-	end
-
 	desc "less => css"
-	task :to_css do
+	task :less_css do
+		puts "less => css"
 		Dir.glob('public/less/*.less').sort_by do |file|
 			exec "lessc #{file} --include-path=public/bootstrap/less/ \
 			> public/css/#{File.basename file, '.less'}.css"
 		end
+	end
+
+	desc "scss => css"
+	task :scss_css do
+		puts "scss => css"
 		Dir.glob('public/scss/*.scss').sort_by do |file|
 			exec "sass --scss #{file}:public/css/#{File.basename file, '.scss'}.css"
 		end
 	end
 
-	task :setup => Rake::Task.tasks
+	desc "rocco_doc for js files (css in future?); only for js now"
+	task :rocco_doc do
+		puts "rocco!"
+		sh %{cd public/js; rocco -o ../docs modules/*.js app.js main.js}
+	end
+
+	desc "jammit man!"
+	task :jammit do
+		puts "jammit!"
+		exec "jammit"
+	end
+
+	desc "run all rakes in namespace app"
+	task :setup do
+		sh %{rake app:less_css; rake app:scss_css; rake app:rocco_doc; rake app:jammit}
+	end
+
 end
 
 namespace :run do
