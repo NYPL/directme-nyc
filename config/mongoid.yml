@@ -1,19 +1,19 @@
 defaults: &defaults  
- name: nypl_labs_project
- identity_map_enabled: true
+    name: nypl_labs_project
+    identity_map_enabled: true
 
 development:  
- <<: *defaults
- port: 27017
- host: localhost
- database: dev_project
+    <<: *defaults
+    port: 27017
+    host: localhost
+    database: dev_project
 
 test:  
- <<: *defaults
- port: 27017
- host: localhost
- database: dev_project
+    <<: *defaults
+    port: 27017
+    host: localhost
+    database: dev_project
 
 production:  
- <<: *defaults
- uri: <%= ENV['MONGOHQ_URL'] %>
+    <<: *defaults
+    uri: <%= ENV['MONGOHQ_URL'] %>

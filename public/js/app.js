@@ -6,17 +6,10 @@ define(['require', 'jquery'], function(require, $) {
 			//requires handler dependent libraries and modules
 			log('init app');
 			if(typeof args !== 'undefined') {
-				if (args.hasOwnProperty('libs')) {
-					require(args.libs, this.onLibsLoaded(args.libs));
-				}
 				if(args.hasOwnProperty('depends')) {                                                                                                                                                                                                                                                                                                                   
 					require(args.depends, this.onDependsLoaded(args.depends));
 				}
 			}
-		},
-
-		onLibsLoaded: function(libs) {
-			console.log('spec. libs loaded');
 		},
 
 		/** on the `init` call for a module, a function should be instantiated */

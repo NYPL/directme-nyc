@@ -1,9 +1,41 @@
 embed_images: datauri
 compress_assets: off
 template_function: _.template
+gzip_assets: off
 
-#javascripts:
+javascripts:
+    viewer:                                                                                                                                                                                 
+        - public/js/DV/vendor/jquery-ui-1.8.1.custom.min.js                                                                                                                                                                                                                                                                                                                                                                   
+        - public/js/DV/vendor/jquery.acceptInput.js                                                                                                                                                                                    
+        - public/js/DV/vendor/jquery.placeholder.js                                                                                                                                                                                    
+        - public/js/DV/lib/initializer.js                                                                                                                                                                                              
+        - public/js/DV/lib/*.js                                                                                                                                                                                                        
+        - public/js/DV/schema/*.js                                                                                                                                                                                                     
+        - public/js/DV/elements/*.js                                                                                                                                                                                                   
+        - public/js/DV/models/*.js                                                                                                                                                                                                     
+        - public/js/DV/events/events.js                                                                                                                                                                                                
+        - public/js/DV/events/View*.js                                                                                                                                                                                                 
+        - public/js/DV/events/*.js                                                                                                                                                                                                     
+        - public/js/DV/helpers/helpers.js                                                         
+        - public/js/DV/helpers/*.js                                                                                                                                                                                                    
+        - public/js/DV/states/*.js                                                                                                                                                                                                     
+        - public/js/DV/controllers/*.js
+
+    templates:                                                                                                                                                                                                                                
+        - public/js/DV/views/*.jst
+
 
 stylesheets:
     boot:
-        - public/css/*.css
+        - public/css/bootstrap_ext.css
+        - public/css/main.css
+
+    viewer:                                                                                                                                                                                                                                   
+        - public/css/DV/components/reset.css                                                                                                                                                                                            
+        - public/css/DV/components/structure.css                                                                                                                                                                                        
+        - public/css/DV/components/ui.css                                                                                                                                                                                               
+        - public/css/DV/components/*.css                                                                                                                                                                                                
+        - public/css/DV/themes/plain.css
+
+    print:
+        - public/css/DV/print.css

@@ -1,7 +1,8 @@
 /**	For `Youtube Embed`, reload `iframe` with random video_id from set of census youtube ids */
 
 define(['jquery'], function($) {
-	function _init() {
+
+	(function() {
 		var vids = ['cImIlPSuyR8']
 		$('<iframe />', {
     		name: 'ytplayer',
@@ -11,10 +12,6 @@ define(['jquery'], function($) {
     		height: '200',
     		width: '570'
 		}).appendTo('.tubin');
-	}
-
-	/** Return instantiated function */
-	return {
-		init: _init()
-	};
+	})();
+	
 });

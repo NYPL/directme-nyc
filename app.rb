@@ -8,11 +8,20 @@
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-		@deps = ['modules/ytube']
+		@consts = ['order!libs/underscore', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/DV_bk']
 		slim :index
 	end
 
 	get '/census' do
+
+	end
+
+	get '/locations' do
+
+	end
+
+	get '/annotations' do
 
 	end
 

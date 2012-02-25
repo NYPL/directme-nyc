@@ -1,4 +1,5 @@
 //globals
+$nyplfont: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, helvetica, sans-serif;
 
 //ie7 mixins => create IE stylesheet
 @mixin inline-blocky-hack {
@@ -6,10 +7,7 @@
 	*display: inline;
 }
 
-/* @mixin box-shadow-hack($blur) {
-	zoom: 1;
-	filter: progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=0), progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=90), progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=180), progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=$blur, Direction=270);
-} 
+/* 
 => currently replaced by PIE
 */
 
@@ -51,21 +49,18 @@
 	@include box-shadow-mix(15, 102, 102, 102);
 }
 
-//http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
-* {
-	@include box-sizing-mix;
-}
-
 body {
 	background: transparent;
 }
 
 #main {
 	padding-top:40px;
+	//http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
+	@include box-sizing-mix;
 }
 
 #nypl_bar {
-	font-family: "Kievit","Myriad Pro","Lucida Grande","Calibri",verdana,arial,helvetica,sans-serif;
+	font-family: $nyplfont;
 	position: relative;
 	height: 30px;
 	color: #fff;
@@ -100,7 +95,6 @@ body {
 
 	ul {
 		text-align:center;
-	}
 
 		li {
 			background: #FFF;
@@ -113,6 +107,7 @@ body {
 			@include box-shadow-mix(5, 102, 102, 102);
 			@include inline-blocky-hack;
 		}
+	}
 
 	@include floating();
 }
@@ -139,4 +134,9 @@ body {
 			height: 100%;
 		}
 	}
+}
+
+//DV div load css only
+.DV {
+	position:relative;
 }

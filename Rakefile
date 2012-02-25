@@ -40,9 +40,15 @@ namespace :app do
 		exec "jammit"
 	end
 
+	desc "movement"
+	task :moveme do
+		puts "moving assets/js to modules"
+		sh %{mv public/assets/*.js public/js/modules}
+	end
+
 	desc "run all rakes in namespace app"
 	task :setup do
-		sh %{rake app:less_css; rake app:scss_css; rake app:rocco_doc; rake app:jammit}
+		sh %{rake app:less_css; rake app:scss_css; rake app:rocco_doc; rake app:jammit; rake app:moveme}
 	end
 
 end

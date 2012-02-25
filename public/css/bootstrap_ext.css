@@ -109,7 +109,7 @@ textarea {
 }
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "bookman", Georgia, sans-serif;
   font-size: 13px;
   line-height: 18px;
   color: #333333;
@@ -571,7 +571,7 @@ a:hover {
 }
 p {
   margin: 0 0 9px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "bookman", Georgia, sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
