@@ -17,7 +17,6 @@
           <a class="source" href="DV_bk.html">DV_bk.js</a>
           <a class="source" href="async_tk.html">async_tk.js</a>
           <a class="source" href="map.html">map.js</a>
-          <a class="source" href="social.html">social.js</a>
           <a class="source" href="templates.html">templates.js</a>
           <a class="source" href="viewer.html">viewer.js</a>
           <a class="source" href="ytube.html">ytube.js</a>
@@ -40,15 +39,27 @@
         
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <div class='highlight'><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;jquery&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">function</span> <span class="nx">_init</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">docURrl</span> <span class="o">=</span> <span class="s2">&quot;https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json&quot;</span>
     <span class="nx">DV</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">docURrl</span><span class="p">,</span> <span class="p">{</span> 
       <span class="nx">container</span><span class="o">:</span> <span class="s1">&#39;#DV-bk&#39;</span><span class="p">,</span>
-      <span class="nx">height</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
-      <span class="nx">width</span><span class="o">:</span> <span class="mi">940</span><span class="p">,</span>
-      <span class="nx">sidebar</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="nx">height</span><span class="o">:</span> <span class="mi">800</span><span class="p">,</span>
+      <span class="nx">width</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">modWidth</span><span class="p">()),</span>
+      <span class="nx">sidebar</span><span class="o">:</span> <span class="kc">false</span>
     <span class="p">});</span>
+
+    <span class="nx">onWindowChange</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">onWindowChange</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">resize</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#DV-bk&#39;</span><span class="p">).</span><span class="nx">width</span><span class="p">(</span><span class="nx">modWidth</span><span class="p">());</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">modWidth</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#main&#39;</span><span class="p">).</span><span class="nx">width</span><span class="p">();</span>
   <span class="p">}</span></pre></div>
       </td>
     </tr>

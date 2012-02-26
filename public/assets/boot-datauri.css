@@ -6762,6 +6762,9 @@ a.thumbnail:hover {
     margin-left: 30px;
   }
 }
+.navbar-fixed-top {
+  z-index: 2147483647;
+}
 .thumbnails > li {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -6906,6 +6909,3 @@ body {
       left: 0;
       width: 100%;
       height: 100%; }
-
-.DV {
-  position: relative; }

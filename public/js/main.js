@@ -17,7 +17,7 @@ require.config({
 //* Checks for deps and/or libs dependent on the handler/route/page call
 
 /** load pre-dom-ready globals */
-require(['modules/async_tk'], function(tk) { 
+require(['modules/async_tk', 'libs/jquery-1.7.1.min'], function(tk, $) { 
 		/** The environment object is loaded per `layout.slim` */
 		if (environment.hasOwnProperty('consts') && environment.consts !== null) {
 			/** load index/route/handler specific constant funcs */
@@ -27,7 +27,7 @@ require(['modules/async_tk'], function(tk) {
 		require(['order!domReady', 'order!libs/modernizr-2.0.6', 'order!app', 'order!plugins'], function(domReady, modernizr, app, plugins) { 
 			domReady(function() {
 				if (environment.hasOwnProperty('deps') && environment.deps !== null) {
-					app.initialize({depends: environment.deps, libs: environment.libs});
+					app.initialize({depends: environment.deps});
 				}
 				else {
 					app.initialize();

@@ -17,7 +17,6 @@
           <a class="source" href="modules/DV_bk.html">DV_bk.js</a>
           <a class="source" href="modules/async_tk.html">async_tk.js</a>
           <a class="source" href="modules/map.html">map.js</a>
-          <a class="source" href="modules/social.html">social.js</a>
           <a class="source" href="modules/templates.html">templates.js</a>
           <a class="source" href="modules/viewer.html">viewer.js</a>
           <a class="source" href="modules/ytube.html">ytube.js</a>
@@ -89,7 +88,7 @@
         <p>load pre-dom-ready globals</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nx">require</span><span class="p">([</span><span class="s1">&#39;modules/async_tk&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tk</span><span class="p">)</span> <span class="p">{</span> </pre></div>
+        <div class='highlight'><pre><span class="nx">require</span><span class="p">([</span><span class="s1">&#39;modules/async_tk&#39;</span><span class="p">,</span> <span class="s1">&#39;libs/jquery-1.7.1.min&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tk</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span> </pre></div>
       </td>
     </tr>
     <tr id='section-5'>
@@ -127,7 +126,7 @@
         <div class='highlight'><pre>    <span class="nx">require</span><span class="p">([</span><span class="s1">&#39;order!domReady&#39;</span><span class="p">,</span> <span class="s1">&#39;order!libs/modernizr-2.0.6&#39;</span><span class="p">,</span> <span class="s1">&#39;order!app&#39;</span><span class="p">,</span> <span class="s1">&#39;order!plugins&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domReady</span><span class="p">,</span> <span class="nx">modernizr</span><span class="p">,</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">plugins</span><span class="p">)</span> <span class="p">{</span> 
       <span class="nx">domReady</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">environment</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;deps&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">deps</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">app</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="nx">depends</span><span class="o">:</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">deps</span><span class="p">,</span> <span class="nx">libs</span><span class="o">:</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">libs</span><span class="p">});</span>
+          <span class="nx">app</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="nx">depends</span><span class="o">:</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">deps</span><span class="p">});</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="p">{</span>
           <span class="nx">app</span><span class="p">.</span><span class="nx">initialize</span><span class="p">();</span>
