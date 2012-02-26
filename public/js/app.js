@@ -10,6 +10,7 @@ define(['require', 'jquery'], function(require, $) {
 					require(args.depends, this.onDependsLoaded(args.depends));
 				}
 			}
+			return $;
 		},
 
 		/** on the `init` call for a module, a function should be instantiated */

@@ -7,7 +7,7 @@ define(['jquery'], function($) {
 		$('<iframe />', {
     		name: 'ytplayer',
     		id: 'ytplayer',
-    		src: 'http://www.youtube.com/embed/' + vids[Math.floor(Math.random() * vids.length)],
+    		src: 'http://www.youtube.com/embed/' + vids[Math.floor(Math.random() * vids.length)] + '?wmode=opaque',
     		frameborder: '0',
     		height: '200',
     		width: '570'
