@@ -3,7 +3,7 @@ define(['jquery'], function($) {
 		var docURrl = "https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json"
 		DV.load(docURrl, { 
 			container: '#DV-bk',
-			height: 800,
+			height: 1200,
 			width: parseInt(modWidth()),
 			sidebar: false
 		});
@@ -23,6 +23,6 @@ define(['jquery'], function($) {
 
 	/** Return instantiated function */
 	return {
-		init: _init()
+		init: _init
 	};
 });

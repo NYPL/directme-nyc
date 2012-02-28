@@ -6386,6 +6386,9 @@ a.thumbnail:hover {
   margin-bottom: 0px;
   float: none;
 }
+.navbar-fixed-top {
+  top: 20px;
+}
 ul, ol {
   margin: 0;
 }

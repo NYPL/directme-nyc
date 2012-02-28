@@ -1,6 +1,5 @@
-define(['jquery'], function($) {
+define(['jquery', 'modules/DV_load'], function($, loadDV) {
 	function _init() {
-
 		var DVmap = (function() {
 			var brooklyn = function() {
 				return $('#DV-bk');
@@ -30,8 +29,9 @@ define(['jquery'], function($) {
 	}
 
 	function mapLink(DVmap) {
-		log(DVmap)
 		$('.borough').on('click', function(event) {
+			log(DVmap);
+			loadDV.init()
 			$('html, body').animate({
 				scrollTop: DVmap[event.target.id].offset().top - $('.navbar').height()
 			}, 300);

@@ -8,12 +8,12 @@
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-		@consts = ['order!libs/underscore', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/DV_bk', 'order!modules/map']
+		@consts = ['order!libs/underscore', 'order!modules/ytube', 'order!libs/jquery.history', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!bootstrap/js/bootstrap-collapse.js', 'order!modules/map']
 		slim :index
 	end
 
-	get '/census' do
+	get '/results/:id' do
 
 	end
 

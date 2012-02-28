@@ -10,6 +10,9 @@ define(['require', 'jquery'], function(require, $) {
 					require(args.depends, this.onDependsLoaded(args.depends));
 				}
 			}
+
+			//call script funcs
+			this.onScrollNav();
 		},
 
 		/** on the `init` call for a module, a function should be instantiated */
@@ -18,8 +21,20 @@ define(['require', 'jquery'], function(require, $) {
 		onDependsLoaded: function(mods) {
 			console.log('spec. modules being loaded and init_ed');
 			for (var i = 0; i < mods.length; i++) {
+				log(mods[i])
 				mods[i].init;
 			}
+		},
+
+		onScrollNav: function() {
+			$(document).scroll(function(){
+				if ($('#nypl_bar').outerHeight() <= $(this).scrollTop()) {
+					$('.navbar-fixed-top').css('top', 0);
+				}
+				else {
+					$('.navbar-fixed-top').css('top', '20px');
+				}
+			});
 		}
 	};
 });

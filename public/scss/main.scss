@@ -37,13 +37,9 @@ $nyplfont: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, h
 	z-index: 0;
 }
 
-@mixin floating($height:0) {
+@mixin floating() {
 	margin-bottom: 20px;
 	background-color: #FFF;
-
-	@if $height > 0 {
-		height: #{$height}px;
-	}
 
 	@include box-radius-mix(8);
 	@include box-shadow-mix(15, 102, 102, 102);
@@ -54,7 +50,7 @@ body {
 }
 
 #main {
-	padding-top:40px;
+	padding-top:80px;
 	//http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
 	@include box-sizing-mix;
 }
@@ -62,11 +58,10 @@ body {
 #nypl_bar {
 	font-family: $nyplfont;
 	position: relative;
-	height: 30px;
 	color: #fff;
+	background-color: black;
 	font-size: 14px;
 	margin: 0;
-	padding: 6px 0 0 60px;
 
 	select {
 		font-size:12px;
@@ -84,40 +79,17 @@ body {
 	}
 }
 
+//main content area page 1
 #content {
-	@include floating($height:350);
-}
-
-#howto {
-	margin: 0 auto;
-	overflow: hidden;
-	min-height: 350px;
-
-	ul {
-		text-align:center;
-
-		li {
-			background: #FFF;
-			border: 1px solid black;
-			height: 130px;
-			width: 135px;
-			display: inline-block;
-			margin-top: 30px;
-
-			@include box-shadow-mix(5, 102, 102, 102);
-			@include inline-blocky-hack;
-		}
-	}
-
-	@include floating();
+	@include floating;
 }
 
 #kickmap {
-	@include floating($height:500);
+	@include floating;
 }
 
 #youtube {
-	@include floating($height:200);
+	@include floating;
 
 	.tubin {
 		position: relative;
@@ -134,8 +106,4 @@ body {
 			height: 100%;
 		}
 	}
-}
-
-.DV {
-	margin-top: 100px;
 }

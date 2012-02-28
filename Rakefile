@@ -56,6 +56,6 @@ end
 namespace :run do
 	desc "Start it up!"
 	task :singit do 
-		exec 'rerun -p "**/*.{rb,js,css,scss,sass,erb,html,haml,ru,coffee,slim,less}" -- bundle exec rackup --port 8888 config.ru'
+		exec 'rerun -p "**/*.{rb,js,css,erb,html,haml,ru,coffee,slim}" -- bundle exec rackup --port 8888 config.ru'
 	end
 end

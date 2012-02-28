@@ -1,5 +1,12 @@
 tests
-public/bootstrap
+public/bootstrap/docs
+public/bootstrap/img
+public/bootstrap/less
+public/bootstrap/.*
+public/bootstrap/LICENSE
+public/bootstrap/Makefile
+public/bootstrap/README*
+public/bootstrap/assets
 public/css
 public/scss
 public/less
