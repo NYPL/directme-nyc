@@ -40,8 +40,8 @@
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;jquery&#39;</span><span class="p">,</span> <span class="s1">&#39;modules/DV_load&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">loadDV</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">function</span> <span class="nx">_init</span><span class="p">()</span> <span class="p">{</span>
 
+  <span class="kd">function</span> <span class="nx">_init</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">DVmap</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">brooklyn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#DV-bk&#39;</span><span class="p">);</span>
@@ -72,11 +72,13 @@
 
   <span class="kd">function</span> <span class="nx">mapLink</span><span class="p">(</span><span class="nx">DVmap</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.borough&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">loadDV</span><span class="p">.</span><span class="nx">init</span><span class="p">;</span>
-      <span class="nx">$</span><span class="p">(</span><span class="nx">DVmap</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">]).</span><span class="nx">show</span><span class="p">();</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;html, body&#39;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
-        <span class="nx">scrollTop</span><span class="o">:</span> <span class="nx">DVmap</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">].</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.navbar&#39;</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span>
-      <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">loadDV</span><span class="p">.</span><span class="nx">init</span><span class="p">()).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">setPlace</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">+</span> <span class="mi">500</span><span class="p">;</span>
+        <span class="nx">DVmap</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">].</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;margin-top&#39;</span><span class="p">,</span> <span class="nx">setPlace</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;html, body&#39;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+          <span class="nx">scrollTop</span><span class="o">:</span> <span class="nx">DVmap</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">].</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.navbar&#39;</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span>
+        <span class="p">},</span> <span class="mi">1500</span><span class="p">);</span>
+      <span class="p">});</span>
       <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">});</span>
   <span class="p">}</span></pre></div>

@@ -1,4 +1,5 @@
 define(['jquery', 'modules/DV_load'], function($, loadDV) {
+
 	function _init() {
 		var DVmap = (function() {
 			var brooklyn = function() {
@@ -30,11 +31,13 @@ define(['jquery', 'modules/DV_load'], function($, loadDV) {
 
 	function mapLink(DVmap) {
 		$('.borough').on('click', function(event) {
-			log(DVmap);
-			loadDV.init()
-			$('html, body').animate({
-				scrollTop: DVmap[event.target.id].offset().top - $('.navbar').height()
-			}, 300);
+			$.when(loadDV.init()).done(function() {
+				var setPlace = $(window).height();
+				DVmap[event.target.id].css('margin-top', setPlace + 'px');
+				$('html, body').animate({
+					scrollTop: DVmap[event.target.id].offset().top - $('.navbar').height()
+				}, 1000);
+			});
 			return false;
 		});
 	}

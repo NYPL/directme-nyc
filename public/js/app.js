@@ -27,12 +27,13 @@ define(['require', 'jquery'], function(require, $) {
 		},
 
 		onScrollNav: function() {
+			var o_top = $('.navbar-fixed-top').css('top');
 			$(document).scroll(function(){
 				if ($('#nypl_bar').outerHeight() <= $(this).scrollTop()) {
 					$('.navbar-fixed-top').css('top', 0);
 				}
 				else {
-					$('.navbar-fixed-top').css('top', '20px');
+					$('.navbar-fixed-top').css('top', o_top);
 				}
 			});
 		}

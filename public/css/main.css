@@ -16,7 +16,8 @@ body {
   color: #fff;
   background-color: black;
   font-size: 14px;
-  margin: 0; }
+  margin: 0;
+  height: 50px; }
   #nypl_bar select {
     font-size: 12px;
     margin-left: 5px;
@@ -86,7 +87,3 @@ body {
       left: 0;
       width: 100%;
       height: 100%; }
-
-.DV {
-  margin-top: 300px;
-  visibility: hidden; }
