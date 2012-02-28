@@ -8,8 +8,8 @@
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-		@consts = ['order!libs/underscore', 'order!modules/ytube', 'order!libs/jquery.history', 'order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!bootstrap/js/bootstrap-collapse.js', 'order!modules/map']
+		@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/map', 'order!bootstrap/js/bootstrap-collapse.js']
 		slim :index
 	end
 
@@ -18,6 +18,10 @@ class Application < Sinatra::Base
 	end
 
 	get '/locations' do
+
+	end
+
+	get '/boroughs' do
 
 	end
 

@@ -17,7 +17,7 @@ body {
   background-color: black;
   font-size: 14px;
   margin: 0;
-  height: 50px; }
+  height: 30px; }
   #nypl_bar select {
     font-size: 12px;
     margin-left: 5px;
@@ -28,62 +28,15 @@ body {
   #nypl_bar span.nypl_link {
     float: left; }
 
-#content {
-  margin-bottom: 20px;
-  background-color: #FFF;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  behavior: url("/css/PIE.htc");
+#youtube .tubin {
   position: relative;
-  z-index: 0;
-  -webkit-box-shadow: 0 0 15px #666666;
-  -moz-box-shadow: 0 0 15px #666666;
-  box-shadow: 0 0 15px #666666;
-  behavior: url("/css/PIE.htc");
-  position: relative;
-  z-index: 0; }
-
-#kickmap {
-  margin-bottom: 20px;
-  background-color: #FFF;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  behavior: url("/css/PIE.htc");
-  position: relative;
-  z-index: 0;
-  -webkit-box-shadow: 0 0 15px #666666;
-  -moz-box-shadow: 0 0 15px #666666;
-  box-shadow: 0 0 15px #666666;
-  behavior: url("/css/PIE.htc");
-  position: relative;
-  z-index: 0; }
-
-#youtube {
-  margin-bottom: 20px;
-  background-color: #FFF;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  behavior: url("/css/PIE.htc");
-  position: relative;
-  z-index: 0;
-  -webkit-box-shadow: 0 0 15px #666666;
-  -moz-box-shadow: 0 0 15px #666666;
-  box-shadow: 0 0 15px #666666;
-  behavior: url("/css/PIE.htc");
-  position: relative;
-  z-index: 0; }
-  #youtube .tubin {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden; }
-    #youtube .tubin iframe, #youtube .tubin object, #youtube .tubin embed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%; }
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden; }
+  #youtube .tubin iframe, #youtube .tubin object, #youtube .tubin embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }

@@ -62,7 +62,7 @@ body {
 	background-color: black;
 	font-size: 14px;
 	margin: 0;
-	height: 50px;
+	height: 30px;
 
 	select {
 		font-size:12px;
@@ -82,16 +82,14 @@ body {
 
 //main content area page 1
 #content {
-	@include floating;
+
 }
 
-#kickmap {
-	@include floating;
+#map {
+
 }
 
 #youtube {
-	@include floating;
-
 	.tubin {
 		position: relative;
 		padding-bottom: 56.25%;

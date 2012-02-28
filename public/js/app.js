@@ -21,7 +21,6 @@ define(['require', 'jquery'], function(require, $) {
 		onDependsLoaded: function(mods) {
 			console.log('spec. modules being loaded and init_ed');
 			for (var i = 0; i < mods.length; i++) {
-				log(mods[i])
 				mods[i].init;
 			}
 		},
@@ -30,9 +29,11 @@ define(['require', 'jquery'], function(require, $) {
 			var o_top = $('.navbar-fixed-top').css('top');
 			$(document).scroll(function(){
 				if ($('#nypl_bar').outerHeight() <= $(this).scrollTop()) {
+					$('#nypl_bar').hide();
 					$('.navbar-fixed-top').css('top', 0);
 				}
 				else {
+					$('#nypl_bar').show();
 					$('.navbar-fixed-top').css('top', o_top);
 				}
 			});
