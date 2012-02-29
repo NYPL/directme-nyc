@@ -5,18 +5,18 @@ _.extend(DV.Schema.helpers, {
 			var hasResults = (response.results.length > 0) ? true : false;
 
 			var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
-			this.viewer.$('span.DV-totalSearchResult').text(text);
-			this.viewer.$('span.DV-searchQuery').text(response.query);
 			if (hasResults) {
 
 			}
 		}, this);
 
 		var failResponse = function() {
-			this.viewer.$('.DV-currentSearchResult').text('Search is not available at this time');
-			this.viewer.$('span.DV-searchQuery').text(query);
-			this.viewer.$('.DV-searchResults').addClass('DV-noResults');
 		};
+
+		var searchURI = this.viewer.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
+		log(searchURI);
+		if (this.viewer.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
+		//DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
 	},
 
 	clearSearch: function(e) {

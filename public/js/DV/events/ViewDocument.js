@@ -13,7 +13,7 @@ DV.Schema.events.ViewDocument = {
   },
   search: function(e){
     e.preventDefault();
-    
+    this.helpers.getSearchResponse(this.elements.searchInput.val());
     return false;
   }
 }

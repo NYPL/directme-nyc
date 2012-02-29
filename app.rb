@@ -9,8 +9,12 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/map', 'order!bootstrap/js/bootstrap-collapse.js']
+		@deps = ['order!modules/map']
 		slim :index
+	end
+
+	post '/one_step' do
+		status 201
 	end
 
 	get '/results/:id' do
@@ -21,7 +25,15 @@ class Application < Sinatra::Base
 
 	end
 
+	get '/locations/:id' do
+
+	end
+
 	get '/boroughs' do
+
+	end
+
+	get '/boroughs/:id' do
 
 	end
 
@@ -29,8 +41,8 @@ class Application < Sinatra::Base
 
 	end
 
-	post '/one_step' do
-		status 201
+	get '/annotations/:id' do
+
 	end
 	#################################################################
 

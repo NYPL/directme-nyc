@@ -323,23 +323,6 @@
       text-decoration: underline;
     }
 
-  .DV-permalink {
-    zoom: 1;
-    font-size: 16px;
-    background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQhJREFUeNrsVlEKwyAM1dHbeaMxMG6wnajny2IXR2ptDOtHGVgItdb3fHmxVo+I7sh1cQevyTJonmegW+THFEIAswIBBo7IfX0FApxnTdznBFlXQawl/2QizYpCUY5U3vm6jLVhRYVQ9CJF16YHMmeZgiC8Ezg2y1gZBix7AdOzt3iwlKoYpoFMC4kUPOh2k4b1CPJA4Dq7AtZKuKmCtmRNBKd8jYNgEAyCQfBnBN57oECO9UabN1Ut+GeKvFtHbsP3vREMoi9+5rURrMAtAqsHWLyozweabJQpiPZzNX4v56pdCNNmwj3DJFj1qTIsthRpBJNinOl8YF4w3RRaFeiBc5x/PngLMADORZMdSLOIKwAAAABJRU5ErkJggg==") no-repeat 0 0;
-    padding-left: 16px;
-    cursor: pointer;
-    position: relative;
-    visibility: hidden;
-    left: 7px; top: -2px;
-  }
-    .DV-annotation:hover .DV-permalink {
-      visibility: visible;
-    }
-    .DV-permalink:hover {
-      background-position: 0 -32px;
-    }
-
   /* ---------------------------------------------------- excerpt */
   .DV-annotationExcerpt{
     -moz-box-shadow: inset 0 0 5px rgb(0,0,0);
@@ -1963,98 +1946,6 @@ span.DV-highlighted{
 
 .DV-viewDocument .DV-annotationRegionBorder {
   display: block;
-}
-.DV-viewSearch .DV-pageCollection{
-  cursor: text;
-}
-
-.DV-viewSearch .DV-allAnnotations,
-.DV-viewSearch .DV-bar{
-  display:none;
-}
-
-.DV-viewSearch .DV-search,
-.DV-viewSearch .DV-searchBar{
-  display:block;
-}
-
-.DV-viewSearch .DV-totalAnnotations,
-.DV-viewSearch .DV-currentAnnotationPrefix{
-  display:none;
-}
-
-.DV-viewSearch .DV-textPage{
-  margin-top:50px;
-}
-
-.DV-viewSearch .DV-textCurrentPage{
-  top:60px;
-}
-
-.DV-viewSearch .DV-sidebar-right .DV-well .DV-chaptersContainer div.DV-hasChildren div,
-.DV-viewSearch .DV-sidebar-right .DV-well .DV-chaptersContainer span.DV-expander,
-.DV-viewSearch .DV-annotationMarker{
-  display:none !important;
-}
-
-.DV-viewSearch .DV-sidebar-right .DV-well .DV-chaptersContainer div.DV-hasChildren div.DV-first{
-  display:block !important;
-}
-
-.DV-viewSearch .DV-sidebar-right .DV-well .DV-chaptersContainer div.DV-hasChildren div.DV-first span.DV-trigger{
-  margin-left:-1px;
-}
-
-.DV-viewSearch .DV-annotationMarker,
-.DV-viewSearch .DV-chapter{
-  margin-left:14px;
-}
-.DV-viewText .DV-pageCollection{
-  cursor: text;
-}
-
-.DV-viewText .DV-set,
-.DV-viewText .DV-bar,
-.DV-viewText .DV-allAnnotations{
-  display:none;
-}
-
-.DV-viewText .DV-text{
-  display:block;
-}
-
-.DV-viewText .DV-currentAnnotationPrefix,
-.DV-viewText .DV-totalAnnotations{
-  display:none;
-}
-
-.DV-viewText .DV-sidebar .DV-well .DV-chaptersContainer div.DV-hasChildren div,
-.DV-viewText .DV-sidebar .DV-well .DV-chaptersContainer span.DV-expander{
-  display:none !important;
-}
-
-.DV-viewText .DV-sidebar .DV-well .DV-chaptersContainer div.DV-hasChildren div.DV-first{
-  display:block !important;
-}
-
-.DV-viewText .DV-sidebar .DV-well .DV-chaptersContainer div.DV-hasChildren div.DV-first .DV-trigger{
-  margin-left:-1px;
-}
-
-.DV-viewText .DV-annotationMarker,
-.DV-viewText .DV-chapter{
-  margin-left:14px;
-}
-
-.DV-textView{
-  display:none;
-}
-
-.DV-docViewer.DV-searchable .DV-textView{
-  display:inline;
-}
-.DV-docViewer.DV-searchable .DV-textView.DV-hide{
-  display:none;
 }
 .DV-viewThumbnails .DV-allAnnotations,
 .DV-viewThumbnails .DV-text,

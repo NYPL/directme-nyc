@@ -32,6 +32,9 @@ define(['jquery'], function($) {
 	function modWidth() {
 		return $('#main').width();
 	}
+	function modHeight(selector) {
+		return $(window).height();
+	}
 
 	function loader(borough) {
 		var dfd = $.Deferred();
@@ -41,12 +44,12 @@ define(['jquery'], function($) {
 				dfd.resolve(
 					DV.load(docURrl, { 
 						container: '#' + borough.selector,
-						height: 1200,
+						height: parseInt(modHeight()),
 						width: parseInt(modWidth()),
-						sidebar: true
+						sidebar: false
 					})
 				);
-		 	}, 700);
+		 	}, 500);
 			onWindowChange('#' + borough.selector);
 		});
 

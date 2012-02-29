@@ -27,7 +27,9 @@ DV.Schema.events = {
     var pageIds       = this.helpers.sortPages(middlePage - 1);
     var total         = doc.totalPages;
     if (doc.currentPage() != currentPage) doc.setPageIndex(currentPage - 1);
-    this.drawPageAt(pageIds, middlePage - 1);
+    if (pageIds !== undefined && pageIds.length > 0) {
+      this.drawPageAt(pageIds, middlePage - 1);
+    }
   },
 
   // Draw the page at the given index.
@@ -54,49 +56,6 @@ DV.Schema.events = {
       }
       viewer.busy = false;
     }
-  },
-
-  loadText: function(pageIndex,afterLoad){
-
-    pageIndex = (!pageIndex) ? this.models.document.currentIndex() : parseInt(pageIndex,10);
-    this._previousTextIndex = pageIndex;
-
-    var me = this;
-
-    var processText = function(text) {
-
-      var pageNumber = parseInt(pageIndex,10)+1;
-      me.viewer.$('.DV-textContents').replaceWith('<pre class="DV-textContents">' + text + '</pre>');
-      me.elements.currentPage.text(pageNumber);
-      me.elements.textCurrentPage.text('p. '+(pageNumber));
-      me.models.document.setPageIndex(pageIndex);
-      me.helpers.setActiveChapter(me.models.chapters.getChapterId(pageIndex));
-
-      if (me.viewer.openEditor == 'editText' &&
-          !(pageNumber in me.models.document.originalPageText)) {
-        me.models.document.originalPageText[pageNumber] = text;
-      }
-      if (me.viewer.openEditor == 'editText') {
-        me.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
-      }
-
-      if(afterLoad) afterLoad.call(me.helpers);
-    };
-
-    if (me.viewer.schema.text[pageIndex]) {
-      return processText(me.viewer.schema.text[pageIndex]);
-    }
-
-    var handleResponse = DV.jQuery.proxy(function(response) {
-      processText(me.viewer.schema.text[pageIndex] = response);
-    }, this);
-
-    this.viewer.$('.DV-textContents').text('');
-
-    var textURI = me.viewer.schema.document.resources.page.text.replace('{page}', pageIndex + 1);
-    var crossDomain = this.helpers.isCrossDomain(textURI);
-    if (crossDomain) textURI += '?callback=?';
-    DV.jQuery[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
   },
 
   resetTracker: function(){

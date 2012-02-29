@@ -50,6 +50,7 @@ DV.Schema.helpers = {
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
+      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
 
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
@@ -71,7 +72,6 @@ DV.Schema.helpers = {
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
       collection.delegate('.DV-textCurrentPage', 'click', _.bind(this.permalinkPage, this, 'text'));
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
-      collection.delegate('.DV-permalink', 'click', _.bind(this.permalinkAnnotation, this));
 
       // Thumbnails
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
@@ -431,9 +431,6 @@ DV.Schema.helpers = {
       // Handle annotation loading in document view
       history.register(/document\/p(\d*)\/a(\d*)$/, _.bind(events.handleHashChangeViewDocumentAnnotation,this.events));
 
-      // Handle annotation loading in annotation view
-      history.register(/annotation\/a(\d*)$/, _.bind(events.handleHashChangeViewAnnotationAnnotation,this.events));
-
       // Handle loading of the pages view
       history.register(/pages$/, _.bind(events.handleHashChangeViewPages, events));
     },
@@ -456,17 +453,17 @@ DV.Schema.helpers = {
       var ranges = [];
       if (zoom <= 500) {
         var zoom2 = (zoom + 700) / 2;
-        ranges = [zoom, zoom2, 700, 850, 1000];
+        ranges = [zoom, zoom2, 700, 850, 1000, 2500, 5000];
       } else if (zoom <= 750) {
         var zoom2 = ((1000 - 700) / 3) + zoom;
         var zoom3 = ((1000 - 700) / 3)*2 + zoom;
-        ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
+        ranges = [.66*zoom, zoom, zoom2, zoom3, 1000, 2500, 5000];
       } else if (750 < zoom && zoom <= 850){
         var zoom2 = ((1000 - zoom) / 2) + zoom;
-        ranges = [.66*zoom, 700, zoom, zoom2, 1000];
+        ranges = [.66*zoom, 700, zoom, zoom2, 1000, 2500, 5000];
       } else if (850 < zoom && zoom < 1000){
         var zoom2 = ((zoom - 700) / 2) + 700;
-        ranges = [.66*zoom, 700, zoom2, zoom, 1000];
+        ranges = [.66*zoom, 700, zoom2, zoom, 1000, 2500, 5000];
       } else if (zoom >= 1000) {
         zoom = 1000;
         ranges = this.viewer.models.document.ZOOM_RANGES;

@@ -1649,7 +1649,7 @@ DV.model.Document = function(viewer){
   this.totalDocumentHeight       = 0;
   this.totalPages                = 0;
   this.additionalPaddingOnPage   = 0;
-  this.ZOOM_RANGES               = [500, 700, 800, 900, 1000];
+  this.ZOOM_RANGES               = [500, 700, 800, 900, 1000, 2500, 5000];
 
   var data                       = this.viewer.schema.data;
 
@@ -1917,7 +1917,9 @@ DV.Schema.events = {
     var pageIds       = this.helpers.sortPages(middlePage - 1);
     var total         = doc.totalPages;
     if (doc.currentPage() != currentPage) doc.setPageIndex(currentPage - 1);
-    this.drawPageAt(pageIds, middlePage - 1);
+    if (pageIds !== undefined && pageIds.length > 0) {
+      this.drawPageAt(pageIds, middlePage - 1);
+    }
   },
 
   // Draw the page at the given index.
@@ -1944,49 +1946,6 @@ DV.Schema.events = {
       }
       viewer.busy = false;
     }
-  },
-
-  loadText: function(pageIndex,afterLoad){
-
-    pageIndex = (!pageIndex) ? this.models.document.currentIndex() : parseInt(pageIndex,10);
-    this._previousTextIndex = pageIndex;
-
-    var me = this;
-
-    var processText = function(text) {
-
-      var pageNumber = parseInt(pageIndex,10)+1;
-      me.viewer.$('.DV-textContents').replaceWith('<pre class="DV-textContents">' + text + '</pre>');
-      me.elements.currentPage.text(pageNumber);
-      me.elements.textCurrentPage.text('p. '+(pageNumber));
-      me.models.document.setPageIndex(pageIndex);
-      me.helpers.setActiveChapter(me.models.chapters.getChapterId(pageIndex));
-
-      if (me.viewer.openEditor == 'editText' &&
-          !(pageNumber in me.models.document.originalPageText)) {
-        me.models.document.originalPageText[pageNumber] = text;
-      }
-      if (me.viewer.openEditor == 'editText') {
-        me.viewer.$('.DV-textContents').attr('contentEditable', true).addClass('DV-editing');
-      }
-
-      if(afterLoad) afterLoad.call(me.helpers);
-    };
-
-    if (me.viewer.schema.text[pageIndex]) {
-      return processText(me.viewer.schema.text[pageIndex]);
-    }
-
-    var handleResponse = DV.jQuery.proxy(function(response) {
-      processText(me.viewer.schema.text[pageIndex] = response);
-    }, this);
-
-    this.viewer.$('.DV-textContents').text('');
-
-    var textURI = me.viewer.schema.document.resources.page.text.replace('{page}', pageIndex + 1);
-    var crossDomain = this.helpers.isCrossDomain(textURI);
-    if (crossDomain) textURI += '?callback=?';
-    DV.jQuery[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
   },
 
   resetTracker: function(){
@@ -2081,7 +2040,7 @@ DV.Schema.events.ViewDocument = {
   },
   search: function(e){
     e.preventDefault();
-    
+    this.helpers.getSearchResponse(this.elements.searchInput.val());
     return false;
   }
 }
@@ -2132,19 +2091,6 @@ _.extend(DV.Schema.events, {
       this.viewer.pageSet.setActiveAnnotation(annotation);
       this.viewer.openingAnnotationFromHash = true;
       this.viewer.open('ViewDocument');
-    }
-  },
-
-  // #annotation/a[annotationID]
-  handleHashChangeViewAnnotationAnnotation: function(annotation){
-    var annotation  = parseInt(annotation,10);
-    var viewer = this.viewer;
-
-    if(viewer.state === 'ViewAnnotation'){
-      viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[annotation]);
-    }else{
-      viewer.activeAnnotationId = annotation;
-      this.viewer.open('ViewAnnotation');
     }
   },
 
@@ -2273,6 +2219,7 @@ DV.Schema.helpers = {
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
+      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
 
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
@@ -2294,7 +2241,6 @@ DV.Schema.helpers = {
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
       collection.delegate('.DV-textCurrentPage', 'click', _.bind(this.permalinkPage, this, 'text'));
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
-      collection.delegate('.DV-permalink', 'click', _.bind(this.permalinkAnnotation, this));
 
       // Thumbnails
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
@@ -2654,9 +2600,6 @@ DV.Schema.helpers = {
       // Handle annotation loading in document view
       history.register(/document\/p(\d*)\/a(\d*)$/, _.bind(events.handleHashChangeViewDocumentAnnotation,this.events));
 
-      // Handle annotation loading in annotation view
-      history.register(/annotation\/a(\d*)$/, _.bind(events.handleHashChangeViewAnnotationAnnotation,this.events));
-
       // Handle loading of the pages view
       history.register(/pages$/, _.bind(events.handleHashChangeViewPages, events));
     },
@@ -2679,17 +2622,17 @@ DV.Schema.helpers = {
       var ranges = [];
       if (zoom <= 500) {
         var zoom2 = (zoom + 700) / 2;
-        ranges = [zoom, zoom2, 700, 850, 1000];
+        ranges = [zoom, zoom2, 700, 850, 1000, 2500, 5000];
       } else if (zoom <= 750) {
         var zoom2 = ((1000 - 700) / 3) + zoom;
         var zoom3 = ((1000 - 700) / 3)*2 + zoom;
-        ranges = [.66*zoom, zoom, zoom2, zoom3, 1000];
+        ranges = [.66*zoom, zoom, zoom2, zoom3, 1000, 2500, 5000];
       } else if (750 < zoom && zoom <= 850){
         var zoom2 = ((1000 - zoom) / 2) + zoom;
-        ranges = [.66*zoom, 700, zoom, zoom2, 1000];
+        ranges = [.66*zoom, 700, zoom, zoom2, 1000, 2500, 5000];
       } else if (850 < zoom && zoom < 1000){
         var zoom2 = ((zoom - 700) / 2) + 700;
-        ranges = [.66*zoom, 700, zoom2, zoom, 1000];
+        ranges = [.66*zoom, 700, zoom2, zoom, 1000, 2500, 5000];
       } else if (zoom >= 1000) {
         zoom = 1000;
         ranges = this.viewer.models.document.ZOOM_RANGES;
@@ -3131,18 +3074,18 @@ _.extend(DV.Schema.helpers, {
 			var hasResults = (response.results.length > 0) ? true : false;
 
 			var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
-			this.viewer.$('span.DV-totalSearchResult').text(text);
-			this.viewer.$('span.DV-searchQuery').text(response.query);
 			if (hasResults) {
 
 			}
 		}, this);
 
 		var failResponse = function() {
-			this.viewer.$('.DV-currentSearchResult').text('Search is not available at this time');
-			this.viewer.$('span.DV-searchQuery').text(query);
-			this.viewer.$('.DV-searchResults').addClass('DV-noResults');
 		};
+
+		var searchURI = this.viewer.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
+		log(searchURI);
+		if (this.viewer.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
+		//DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
 	},
 
 	clearSearch: function(e) {
@@ -3158,81 +3101,80 @@ _.extend(DV.Schema.helpers, {
 });
 DV.Schema.states = {
 
-  InitialLoad: function(){
-    // If we're in an unsupported browser ... bail.
-    if (this.helpers.unsupportedBrowser()) return;
+	InitialLoad: function(){
+		// If we're in an unsupported browser ... bail.
+		if (this.helpers.unsupportedBrowser()) return;
 
-    // Insert the Document Viewer HTML into the DOM.
-    this.helpers.renderViewer();
+		// Insert the Document Viewer HTML into the DOM.
+		this.helpers.renderViewer();
 
-    // Assign element references.
-    this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this);
+		// Assign element references.
+		this.events.elements = this.helpers.elements = this.elements = new DV.Elements(this);
 
-    // Render included components, and hide unused portions of the UI.
-    this.helpers.renderComponents();
+		// Render included components, and hide unused portions of the UI.
+		this.helpers.renderComponents();
 
-    // Render chapters and notes navigation:
-    this.helpers.renderNavigation();
+		// Render chapters and notes navigation:
+		this.helpers.renderNavigation();
 
-    // Render CSS rules for showing/hiding specific pages:
-    this.helpers.renderSpecificPageCss();
+		// Render CSS rules for showing/hiding specific pages:
+		this.helpers.renderSpecificPageCss();
 
-    // Instantiate pageset and build accordingly
-    this.pageSet = new DV.PageSet(this);
-    this.pageSet.buildPages();
+		// Instantiate pageset and build accordingly
+		this.pageSet = new DV.PageSet(this);
+		this.pageSet.buildPages();
 
-    // BindEvents
-    this.helpers.bindEvents(this);
+		// BindEvents
+		this.helpers.bindEvents(this);
 
-    this.helpers.positionViewer();
-    this.models.document.computeOffsets();
-    this.helpers.addObserver('drawPages');
-    this.helpers.registerHashChangeEvents();
-    this.dragReporter = new DV.DragReporter(this, '.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationContent' });
-    this.helpers.startCheckTimer();
-    this.helpers.handleInitialState();
-    _.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
-  },
+		this.helpers.positionViewer();
+		this.models.document.computeOffsets();
+		this.helpers.addObserver('drawPages');
+		this.helpers.registerHashChangeEvents();
+		this.dragReporter = new DV.DragReporter(this, '.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationContent' });
+		this.helpers.startCheckTimer();
+		this.helpers.handleInitialState();
+		_.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
+	},
 
-  ViewAnnotation: function(){
-    this.helpers.reset();
-    this.helpers.ensureAnnotationImages();
-    this.activeAnnotationId = null;
-    this.acceptInput.deny();
-    // Nudge IE to force the annotations to repaint.
-    if (DV.jQuery.browser.msie) {
-      this.elements.annotations.css({zoom : 0});
-      this.elements.annotations.css({zoom : 1});
-    }
+	ViewAnnotation: function(){
+		this.helpers.reset();
+		this.helpers.ensureAnnotationImages();
+		this.activeAnnotationId = null;
+		this.acceptInput.deny();
+		// Nudge IE to force the annotations to repaint.
+		if (DV.jQuery.browser.msie) {
+			this.elements.annotations.css({zoom : 0});
+			this.elements.annotations.css({zoom : 1});
+		}
 
-    this.helpers.toggleContent('viewAnnotations');
-    this.compiled.next();
-    return true;
-  },
+		this.helpers.toggleContent('viewAnnotations');
+		this.compiled.next();
+		return true;
+	},
 
-  ViewDocument: function(){
-    this.helpers.reset();
-    this.helpers.addObserver('drawPages');
-    this.dragReporter.setBinding();
-    this.elements.window.mouseleave(DV.jQuery.proxy(this.dragReporter.stop, this.dragReporter));
-    this.acceptInput.allow();
+	ViewDocument: function(){
+		this.helpers.reset();
+		this.helpers.addObserver('drawPages');
+		this.dragReporter.setBinding();
+		this.elements.window.mouseleave(DV.jQuery.proxy(this.dragReporter.stop, this.dragReporter));
+		this.acceptInput.allow();
 
-    this.helpers.toggleContent('viewDocument');
+		this.helpers.toggleContent('viewDocument');
 
-    this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));
+		this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));
 
-    this.helpers.jump(this.models.document.currentIndex());
-    return true;
-  },
+		this.helpers.jump(this.models.document.currentIndex());
+		return true;
+	},
 
-  ViewThumbnails: function() {
-    this.helpers.reset();
-    this.helpers.toggleContent('viewThumbnails');
-    this.thumbnails = new DV.Thumbnails(this);
-    this.thumbnails.render();
-    return true;
-  }
-
+	ViewThumbnails: function() {
+		this.helpers.reset();
+		this.helpers.toggleContent('viewThumbnails');
+		this.thumbnails = new DV.Thumbnails(this);
+		this.thumbnails.render();
+		return true;
+	}, 
 };
 
 // The API references it's viewer.

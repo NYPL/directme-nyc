@@ -4937,7 +4937,25 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
     <span class="k">this</span><span class="p">.</span><span class="nx">thumbnails</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">Thumbnails</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">thumbnails</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
     <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="p">},</span> 
+
+  <span class="nx">ViewSearch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="nx">searchRequest</span><span class="p">);</span>
+    <span class="p">}</span> 
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">searchRequest</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">getSearchResponse</span><span class="p">(</span><span class="nx">searchRequest</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">acceptInput</span><span class="p">.</span><span class="nx">deny</span><span class="p">();</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">toggleContent</span><span class="p">(</span><span class="s1">&#39;viewSearch&#39;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">},</span>
 
 <span class="p">};</span></pre></div>
       </td>
