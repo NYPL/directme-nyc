@@ -46,24 +46,10 @@ DV.Schema.helpers = {
       viewer.$('.DV-thumbnailsView').delegate('.DV-trigger','click',function(e){
         context.open('ViewThumbnails');
       });
-      viewer.$('.DV-textView').delegate('.DV-trigger','click',function(e){
 
-        // history.save('text/p'+context.models.document.currentPage());
-        context.open('ViewText');
-      });
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
-      viewer.$('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
-        e.preventDefault();
-        // history.save('text/p'+context.models.document.currentPage());
-        context.open('ViewText');
-      });
-      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
-
-      viewer.$('.DV-searchResults').delegate('span.DV-resultPrevious','click', DV.jQuery.proxy(this.highlightPreviousMatch, this));
-
-      viewer.$('.DV-searchResults').delegate('span.DV-resultNext','click', DV.jQuery.proxy(this.highlightNextMatch, this));
 
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
@@ -326,12 +312,6 @@ DV.Schema.helpers = {
         case 'ViewDocument':
           url += '#document/p' + currentPage;
           break;
-        case 'ViewSearch':
-          url += '#search/p' + currentPage + '/' + encodeURIComponent(this.elements.searchInput.val());
-          break;
-        case 'ViewText':
-          url += '#text/p' + currentPage;
-          break;
         case 'ViewThumbnails':
           url += '#pages/p' + currentPage; // need to set up a route to catch this.
           break;
@@ -380,7 +360,7 @@ DV.Schema.helpers = {
     // },
 
     toggleContent: function(toggleClassName){
-      this.elements.viewer.removeClass('DV-viewText DV-viewSearch DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
+      this.elements.viewer.removeClass('DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
     },
 
     jump: function(pageIndex, modifier, forceRedraw){
@@ -456,15 +436,6 @@ DV.Schema.helpers = {
 
       // Handle loading of the pages view
       history.register(/pages$/, _.bind(events.handleHashChangeViewPages, events));
-
-      // Handle page loading in text view
-      history.register(/text\/p(\d*)$/, _.bind(events.handleHashChangeViewText,this.events));
-
-      // Handle entity display requests.
-      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/, _.bind(events.handleHashChangeViewEntity,this.events));
-
-      // Handle search requests
-      history.register(/search\/p(\d*)\/(.*)$/, _.bind(events.handleHashChangeViewSearchRequest,this.events));
     },
 
     // Sets up the zoom slider to match the appropriate for the specified

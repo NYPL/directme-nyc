@@ -48,9 +48,10 @@
   <span class="kd">function</span> <span class="nx">mapLink</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.borough&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">loadDV</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">)).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;loaded!&quot;</span><span class="p">);</span>
         <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;html, body&#39;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
           <span class="nx">scrollTop</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">loadDV</span><span class="p">.</span><span class="nx">loaded</span><span class="p">()).</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span>
-        <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+        <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
       <span class="p">});</span>
       <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">});</span>

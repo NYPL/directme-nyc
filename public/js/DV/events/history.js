@@ -59,39 +59,9 @@ _.extend(DV.Schema.events, {
     }
   },
 
-  // #text/p[pageID]
-  handleHashChangeViewText: function(page){
-    var pageIndex = parseInt(page,10) - 1;
-    if(this.viewer.state === 'ViewText'){
-      this.events.loadText(pageIndex);
-    }else{
-      this.models.document.setPageIndex(pageIndex);
-      this.viewer.open('ViewText');
-    }
-  },
-
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
     this.viewer.open('ViewThumbnails');
-  },
-
-  // #search/[searchString]
-  handleHashChangeViewSearchRequest: function(page,query){
-    var pageIndex = parseInt(page,10) - 1;
-    this.elements.searchInput.val(decodeURIComponent(query));
-
-    if(this.viewer.state !== 'ViewSearch'){
-      this.models.document.setPageIndex(pageIndex);
-    }
-    this.viewer.open('ViewSearch');
-  },
-
-  // #entity/p[pageID]/[searchString]/[offset]:[length]
-  handleHashChangeViewEntity: function(page, name, offset, length) {
-    page = parseInt(page,10) - 1;
-    name = decodeURIComponent(name);
-    this.elements.searchInput.val(name);
-    this.models.document.setPageIndex(page);
-    this.states.ViewEntity(name, parseInt(offset, 10), parseInt(length, 10));
   }
+
 });

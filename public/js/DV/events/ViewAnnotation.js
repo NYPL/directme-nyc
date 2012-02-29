@@ -33,7 +33,6 @@ DV.Schema.events.ViewAnnotation = {
   },
   search: function(e){
     e.preventDefault();
-    this.viewer.open('ViewSearch');
 
     return false;
   }

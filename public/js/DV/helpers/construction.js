@@ -20,7 +20,6 @@ _.extend(DV.Schema.helpers, {
     });
     var footerHTML = JST.footer({options : this.viewer.options});
     var sidebarLeftHTML = JST.sidebarLeft({options : this.viewer.options, descriptionContainer: JST.descriptionContainer({ description: description})});
-    var sidebarRightHTML = JST.sidebarRight({options : this.viewer.options});
 
     var pdfURL = doc.resources.pdf;
     pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
@@ -36,7 +35,6 @@ _.extend(DV.Schema.helpers, {
       header: headerHTML,
       footer: footerHTML,
       sidebar_left: sidebarLeftHTML,
-      sidebar_right: sidebarRightHTML,
       pdf_url: pdfURL,
       print_notes_url: printNotesURL,
       autoZoom: this.viewer.options.zoom == 'auto'
@@ -235,7 +233,6 @@ _.extend(DV.Schema.helpers, {
 
     if (this.viewer.options.sidebar) {
       this.viewer.$('.DV-sidebar-left').show();
-      this.viewer.$('.DV-sidebar-right').show();
     }
 
     // Check if the zoom is showing, and if not, shorten the width of search

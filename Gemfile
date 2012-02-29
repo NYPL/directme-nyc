@@ -5,7 +5,7 @@ gem 'rake'
 gem 'rack'
 gem 'dalli'
 
-gem 'puma'
+gem 'thin'
 
 #if mongo
 gem 'bson_ext'

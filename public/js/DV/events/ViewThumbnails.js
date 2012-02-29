@@ -9,8 +9,7 @@ DV.Schema.events.ViewThumbnails = {
   },
   search: function(e){
     e.preventDefault();
-
-    this.viewer.open('ViewSearch');
+    
     return false;
   }
 };

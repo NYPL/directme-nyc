@@ -55,6 +55,7 @@ class Application < Sinatra::Base
 	# ======================
 	#server settings
 	disable :run
+	set :server, %w[thin mongrel webrick]
 
 	root_dir = File.dirname(__FILE__)
 

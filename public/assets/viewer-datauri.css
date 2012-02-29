@@ -88,7 +88,7 @@
 .DV-pages{
   overflow: auto;
   position: absolute;
-  left: 266px; right: 266px; top: 0; bottom: 0;
+  left: 266px; right: 0; top: 0; bottom: 0;
   z-index:10001;
 }
 
@@ -938,14 +938,6 @@
 
 .DV-activePage{
   z-index:16000 !important;
-}
-
-.DV-sidebar-left .DV-well {
-	top: 0; left: 0px;
-}
-
-.DV-sidebar-right .DV-well {
-	top: 0; right: 0px;
 }
 
 .DV-sidebar.DV-hide {

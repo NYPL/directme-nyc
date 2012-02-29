@@ -1387,7 +1387,6 @@ DV.Schema.elements =
   { name: 'navigation',         query: 'div.DV-navigation' },
   { name: 'chaptersContainer',  query: 'div.DV-chaptersContainer' },
   { name: 'searchInput',        query: 'input.DV-searchInput' },
-  { name: 'textCurrentPage',    query: 'span.DV-textCurrentPage' },
   { name: 'coverPages',         query: 'div.DV-cover' },
   { name: 'fullscreen',         query: 'div.DV-fullscreen' },
 ];
@@ -2063,7 +2062,6 @@ DV.Schema.events.ViewAnnotation = {
   },
   search: function(e){
     e.preventDefault();
-    this.viewer.open('ViewSearch');
 
     return false;
   }
@@ -2083,47 +2081,10 @@ DV.Schema.events.ViewDocument = {
   },
   search: function(e){
     e.preventDefault();
-
-    this.viewer.open('ViewSearch');
+    
     return false;
   }
 }
-DV.Schema.events.ViewSearch = {
-  next: function(e){
-    var nextPage = this.models.document.nextPage();
-    this.loadText(nextPage);
-
-    this.viewer.open('ViewText');
-  },
-  previous: function(e){
-    var previousPage = this.models.document.previousPage();
-    this.loadText(previousPage);
-
-    this.viewer.open('ViewText');
-  },
-  search: function(e){
-    e.preventDefault();
-    this.helpers.getSearchResponse(this.elements.searchInput.val());
-
-    return false;
-  }
-};
-DV.Schema.events.ViewText = {
-  next: function(e){
-    var nextPage = this.models.document.nextPage();
-    this.loadText(nextPage);
-  },
-  previous: function(e){
-    var previousPage = this.models.document.previousPage();
-    this.loadText(previousPage);
-  },
-  search: function(e){
-    e.preventDefault();
-    this.viewer.open('ViewSearch');
-
-    return false;
-  }
-};
 DV.Schema.events.ViewThumbnails = {
   next: function(){
     var nextPage = this.models.document.nextPage();
@@ -2135,8 +2096,7 @@ DV.Schema.events.ViewThumbnails = {
   },
   search: function(e){
     e.preventDefault();
-
-    this.viewer.open('ViewSearch');
+    
     return false;
   }
 };
@@ -2201,41 +2161,11 @@ _.extend(DV.Schema.events, {
     }
   },
 
-  // #text/p[pageID]
-  handleHashChangeViewText: function(page){
-    var pageIndex = parseInt(page,10) - 1;
-    if(this.viewer.state === 'ViewText'){
-      this.events.loadText(pageIndex);
-    }else{
-      this.models.document.setPageIndex(pageIndex);
-      this.viewer.open('ViewText');
-    }
-  },
-
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
     this.viewer.open('ViewThumbnails');
-  },
-
-  // #search/[searchString]
-  handleHashChangeViewSearchRequest: function(page,query){
-    var pageIndex = parseInt(page,10) - 1;
-    this.elements.searchInput.val(decodeURIComponent(query));
-
-    if(this.viewer.state !== 'ViewSearch'){
-      this.models.document.setPageIndex(pageIndex);
-    }
-    this.viewer.open('ViewSearch');
-  },
-
-  // #entity/p[pageID]/[searchString]/[offset]:[length]
-  handleHashChangeViewEntity: function(page, name, offset, length) {
-    page = parseInt(page,10) - 1;
-    name = decodeURIComponent(name);
-    this.elements.searchInput.val(name);
-    this.models.document.setPageIndex(page);
-    this.states.ViewEntity(name, parseInt(offset, 10), parseInt(length, 10));
   }
+
 });
 
 _.extend(DV.Schema.events, {
@@ -2339,24 +2269,10 @@ DV.Schema.helpers = {
       viewer.$('.DV-thumbnailsView').delegate('.DV-trigger','click',function(e){
         context.open('ViewThumbnails');
       });
-      viewer.$('.DV-textView').delegate('.DV-trigger','click',function(e){
 
-        // history.save('text/p'+context.models.document.currentPage());
-        context.open('ViewText');
-      });
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
-      viewer.$('.DV-searchBar').delegate('.DV-closeSearch','click',function(e){
-        e.preventDefault();
-        // history.save('text/p'+context.models.document.currentPage());
-        context.open('ViewText');
-      });
-      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
-
-      viewer.$('.DV-searchResults').delegate('span.DV-resultPrevious','click', DV.jQuery.proxy(this.highlightPreviousMatch, this));
-
-      viewer.$('.DV-searchResults').delegate('span.DV-resultNext','click', DV.jQuery.proxy(this.highlightNextMatch, this));
 
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
@@ -2619,12 +2535,6 @@ DV.Schema.helpers = {
         case 'ViewDocument':
           url += '#document/p' + currentPage;
           break;
-        case 'ViewSearch':
-          url += '#search/p' + currentPage + '/' + encodeURIComponent(this.elements.searchInput.val());
-          break;
-        case 'ViewText':
-          url += '#text/p' + currentPage;
-          break;
         case 'ViewThumbnails':
           url += '#pages/p' + currentPage; // need to set up a route to catch this.
           break;
@@ -2673,7 +2583,7 @@ DV.Schema.helpers = {
     // },
 
     toggleContent: function(toggleClassName){
-      this.elements.viewer.removeClass('DV-viewText DV-viewSearch DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
+      this.elements.viewer.removeClass('DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
     },
 
     jump: function(pageIndex, modifier, forceRedraw){
@@ -2749,15 +2659,6 @@ DV.Schema.helpers = {
 
       // Handle loading of the pages view
       history.register(/pages$/, _.bind(events.handleHashChangeViewPages, events));
-
-      // Handle page loading in text view
-      history.register(/text\/p(\d*)$/, _.bind(events.handleHashChangeViewText,this.events));
-
-      // Handle entity display requests.
-      history.register(/entity\/p(\d*)\/(.*)\/(\d+):(\d+)$/, _.bind(events.handleHashChangeViewEntity,this.events));
-
-      // Handle search requests
-      history.register(/search\/p(\d*)\/(.*)$/, _.bind(events.handleHashChangeViewSearchRequest,this.events));
     },
 
     // Sets up the zoom slider to match the appropriate for the specified
@@ -2917,7 +2818,6 @@ _.extend(DV.Schema.helpers, {
     });
     var footerHTML = JST.footer({options : this.viewer.options});
     var sidebarLeftHTML = JST.sidebarLeft({options : this.viewer.options, descriptionContainer: JST.descriptionContainer({ description: description})});
-    var sidebarRightHTML = JST.sidebarRight({options : this.viewer.options});
 
     var pdfURL = doc.resources.pdf;
     pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
@@ -2933,7 +2833,6 @@ _.extend(DV.Schema.helpers, {
       header: headerHTML,
       footer: footerHTML,
       sidebar_left: sidebarLeftHTML,
-      sidebar_right: sidebarRightHTML,
       pdf_url: pdfURL,
       print_notes_url: printNotesURL,
       autoZoom: this.viewer.options.zoom == 'auto'
@@ -3132,7 +3031,6 @@ _.extend(DV.Schema.helpers, {
 
     if (this.viewer.options.sidebar) {
       this.viewer.$('.DV-sidebar-left').show();
-      this.viewer.$('.DV-sidebar-right').show();
     }
 
     // Check if the zoom is showing, and if not, shorten the width of search
@@ -3227,201 +3125,36 @@ _.extend(DV.Schema.helpers, {
 });
 
 _.extend(DV.Schema.helpers, {
-  getSearchResponse: function(query){
-    var handleResponse = DV.jQuery.proxy(function(response){
-      this.viewer.searchResponse = response;
-      var hasResults = (response.results.length > 0) ? true : false;
+	getSearchResponse: function(query){
+			var handleResponse = DV.jQuery.proxy(function(response){
+			this.viewer.searchResponse = response;
+			var hasResults = (response.results.length > 0) ? true : false;
 
-      var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
-      this.viewer.$('span.DV-totalSearchResult').text(text);
-      this.viewer.$('span.DV-searchQuery').text(response.query);
-      if (hasResults) {
-        // this.viewer.history.save('search/p'+response.results[0]+'/'+response.query);
-        var currentPage = this.viewer.models.document.currentPage();
-        var page = (_.include(response.results, currentPage)) ? currentPage : response.results[0];
-        this.events.loadText(page - 1, this.highlightSearchResponses);
-      } else {
-        this.highlightSearchResponses();
-      }
-    }, this);
+			var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
+			this.viewer.$('span.DV-totalSearchResult').text(text);
+			this.viewer.$('span.DV-searchQuery').text(response.query);
+			if (hasResults) {
 
-    var failResponse = function() {
-      this.viewer.$('.DV-currentSearchResult').text('Search is not available at this time');
-      this.viewer.$('span.DV-searchQuery').text(query);
-      this.viewer.$('.DV-searchResults').addClass('DV-noResults');
-    };
+			}
+		}, this);
 
-    var searchURI = this.viewer.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
-    if (this.viewer.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
-    DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
-  },
-  acceptInputCallBack: function(){
-    var pageIndex = parseInt(this.elements.currentPage.text(),10) - 1;
-    // sanitize input
+		var failResponse = function() {
+			this.viewer.$('.DV-currentSearchResult').text('Search is not available at this time');
+			this.viewer.$('span.DV-searchQuery').text(query);
+			this.viewer.$('.DV-searchResults').addClass('DV-noResults');
+		};
+	},
 
-    pageIndex       = (pageIndex === '') ? 0 : pageIndex;
-    pageIndex       = (pageIndex < 0) ? 0 : pageIndex;
-    pageIndex       = (pageIndex+1 > this.models.document.totalPages) ? this.models.document.totalPages-1 : pageIndex;
-    var pageNumber  = pageIndex+1;
+	clearSearch: function(e) {
+		this.elements.searchInput.val('').keyup().focus();
+	},
 
-    this.elements.currentPage.text(pageNumber);
-    this.viewer.$('.DV-pageNumberContainer input').val(pageNumber);
-
-    if(this.viewer.state === 'ViewDocument' ||
-       this.viewer.state === 'ViewThumbnails'){
-      // this.viewer.history.save('document/p'+pageNumber);
-      this.jump(pageIndex);
-    }else if(this.viewer.state === 'ViewText'){
-      // this.viewer.history.save('text/p'+pageNumber);
-      this.events.loadText(pageIndex);
-    }
-
-  },
-  highlightSearchResponses: function(){
-
-    var viewer    = this.viewer;
-    var response  = viewer.searchResponse;
-
-    if(!response) return false;
-
-    var results         = response.results;
-    var currentResultEl = this.viewer.$('.DV-currentSearchResult');
-
-    if (results.length == 0){
-      currentResultEl.text('No Results');
-      this.viewer.$('.DV-searchResults').addClass('DV-noResults');
-    }else{
-      this.viewer.$('.DV-searchResults').removeClass('DV-noResults');
-    }
-    for(var i = 0; i < response.results.length; i++){
-      if(this.models.document.currentPage() === response.results[i]){
-        currentResultEl.text('Page ' + (i+1) + ' ');
-        break;
-      }
-    }
-
-    // Replaces spaces in query with `\s+` to match newlines in textContent,
-    // escape regex char contents (like "()"), and only match on word boundaries.
-    var query             = '\\b' + response.query.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&").replace(/\s+/g, '\\s+') + '\\b';
-    var textContent       = this.viewer.$('.DV-textContents');
-    var currentPageText   = textContent.text();
-    var pattern           = new RegExp(query,"ig");
-    var replacement       = currentPageText.replace(pattern,'<span class="DV-searchMatch">$&</span>');
-
-    textContent.html(replacement);
-
-    var highlightIndex = (viewer.toHighLight) ? viewer.toHighLight : 0;
-    this.highlightMatch(highlightIndex);
-
-    // cleanup
-    currentResultEl = null;
-    textContent     = null;
-
-  },
-  // Highlight a single instance of an entity on the page. Make sure to
-  // convert into proper UTF8 before trying to get the entity length, and
-  // then back into UTF16 again.
-  highlightEntity: function(offset, length) {
-    this.viewer.$('.DV-searchResults').addClass('DV-noResults');
-    var textContent = this.viewer.$('.DV-textContents');
-    var text        = textContent.text();
-    var pre         = text.substr(0, offset);
-    var entity      = text.substr(offset, length);
-    var post        = text.substr(offset + length);
-    text            = [pre, '<span class="DV-searchMatch">', entity, '</span>', post].join('');
-    textContent.html(text);
-    this.highlightMatch(0);
-  },
-
-  highlightMatch: function(index){
-    var highlightsOnThisPage   = this.viewer.$('.DV-textContents span.DV-searchMatch');
-    if (highlightsOnThisPage.length == 0) return false;
-    var currentPageIndex    = this.getCurrentSearchPageIndex();
-    var toHighLight         = this.viewer.toHighLight;
-
-    if(toHighLight){
-      if(toHighLight !== false){
-        if(toHighLight === 'last'){
-          index = highlightsOnThisPage.length - 1;
-        }else if(toHighLight === 'first'){
-          index = 0;
-        }else{
-          index = toHighLight;
-        }
-      }
-      toHighLight = false;
-    }
-    var searchResponse = this.viewer.searchResponse;
-    if (searchResponse) {
-      if(index === (highlightsOnThisPage.length)){
-
-        if(searchResponse.results.length === currentPageIndex+1){
-          return;
-        }
-        toHighLight = 'first';
-        this.events.loadText(searchResponse.results[currentPageIndex + 1] - 1,this.highlightSearchResponses);
-
-        return;
-      }else if(index === -1){
-        if(currentPageIndex-1 < 0){
-          return  false;
-        }
-        toHighLight = 'last';
-        this.events.loadText(searchResponse.results[currentPageIndex - 1] - 1,this.highlightSearchResponses);
-
-        return;
-      }
-      highlightsOnThisPage.removeClass('DV-highlightedMatch');
-    }
-
-    var match = this.viewer.$('.DV-textContents span.DV-searchMatch:eq('+index+')');
-    match.addClass('DV-highlightedMatch');
-
-    this.elements.window[0].scrollTop = match.position().top - 50;
-    if (searchResponse) searchResponse.highlighted = index;
-
-    // cleanup
-    highlightsOnThisPage = null;
-    match = null;
-  },
-  getCurrentSearchPageIndex: function(){
-    var searchResponse = this.viewer.searchResponse;
-    if(!searchResponse) {
-      return false;
-    }
-    var docModel = this.models.document;
-    for(var i = 0,len = searchResponse.results.length; i<len;i++){
-      if(searchResponse.results[i] === docModel.currentPage()){
-        return i;
-      }
-    }
-  },
-  highlightPreviousMatch: function(e){
-    e.preventDefault();
-    this.highlightMatch(this.viewer.searchResponse.highlighted-1);
-  },
-  highlightNextMatch: function(e){
-    e.preventDefault(e);
-    this.highlightMatch(this.viewer.searchResponse.highlighted+1);
-  },
-
-  clearSearch: function(e) {
-    this.elements.searchInput.val('').keyup().focus();
-  },
-
-  showEntity: function(name, offset, length) {
-    this.viewer.$('span.DV-totalSearchResult').text('');
-    this.viewer.$('span.DV-searchQuery').text(name);
-    this.viewer.$('span.DV-currentSearchResult').text("Searching");
-    this.events.loadText(this.models.document.currentIndex(), _.bind(this.viewer.helpers.highlightEntity, this.viewer.helpers, offset, length));
-  },
-  cleanUpSearch: function(){
-    var viewer            = this.viewer;
-    viewer.searchResponse = null;
-    viewer.toHighLight    = null;
-    if (this.elements) this.elements.searchInput.keyup().blur();
-  }
-
+	cleanUpSearch: function(){
+		var viewer            = this.viewer;
+		viewer.searchResponse = null;
+		viewer.toHighLight    = null;
+		if (this.elements) this.elements.searchInput.keyup().blur();
+	}
 });
 DV.Schema.states = {
 
@@ -3489,38 +3222,6 @@ DV.Schema.states = {
     this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));
 
     this.helpers.jump(this.models.document.currentIndex());
-    return true;
-  },
-
-  ViewEntity: function(name, offset, length) {
-    this.helpers.reset();
-    this.helpers.toggleContent('viewSearch');
-    this.helpers.showEntity(name, offset, length);
-  },
-
-  ViewSearch: function(){
-    this.helpers.reset();
-
-    if(this.elements.searchInput.val() == '') {
-      this.elements.searchInput.val(searchRequest);
-    } else {
-      var searchRequest = this.elements.searchInput.val();
-    }
-
-    this.helpers.getSearchResponse(searchRequest);
-    this.acceptInput.deny();
-
-    this.helpers.toggleContent('viewSearch');
-
-    return true;
-  },
-
-  ViewText: function(){
-    this.helpers.reset();
-    this.acceptInput.allow();
-    this.pageSet.zoomText();
-    this.helpers.toggleContent('viewText');
-    this.events.loadText();
     return true;
   },
 

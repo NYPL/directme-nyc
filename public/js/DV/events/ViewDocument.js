@@ -13,8 +13,7 @@ DV.Schema.events.ViewDocument = {
   },
   search: function(e){
     e.preventDefault();
-
-    this.viewer.open('ViewSearch');
+    
     return false;
   }
 }

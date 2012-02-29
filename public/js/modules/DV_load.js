@@ -4,7 +4,6 @@ define(['jquery'], function($) {
 	var loaded = "";
 
 	function _init(borough) {
-
 		var DVloader = {
 			brooklyn: {
 				url: "https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json",
@@ -16,17 +15,17 @@ define(['jquery'], function($) {
 			}
 		};
 
-		loader(DVloader[borough])
-		onWindowChange();
+		var res_dfd = loader(DVloader[borough]);
+		return res_dfd.promise();
 	}
 
 	function DVloaded() {
 		return loaded;
 	}
 
-	function onWindowChange() {
+	function onWindowChange(selector) {
 		$(window).resize(function() {
-			$('#DV-bk').width(modWidth());
+			$(selector).width(modWidth());
 		});
 	}
 
@@ -35,15 +34,23 @@ define(['jquery'], function($) {
 	}
 
 	function loader(borough) {
+		var dfd = $.Deferred();
 		$.when(createDiv(borough.selector)).done(function() {
 			var docURrl = borough.url;
-			DV.load(docURrl, { 
-				container: '#' + borough.selector,
-				height: 1200,
-				width: parseInt(modWidth()),
-				sidebar: false
-			});
+		 	setTimeout(function() {
+				dfd.resolve(
+					DV.load(docURrl, { 
+						container: '#' + borough.selector,
+						height: 1200,
+						width: parseInt(modWidth()),
+						sidebar: true
+					})
+				);
+		 	}, 700);
+			onWindowChange('#' + borough.selector);
 		});
+
+		return dfd;
 	}
 
 	function createDiv(selector) {
@@ -52,7 +59,8 @@ define(['jquery'], function($) {
 		var setPlace = 0;
 		if ($('.DV > *').length > 0) {
 			setPlace = $('.active').height() + 'px';
-			$.when($('.active').remove()).done(function() {
+			$('.active').remove().promise().done(function() {
+				log("removed!");
 				$('.DV').append('<div id=' + selector + ' class="span12 active"></div>');
 				$(query_sel).css('margin-top', setPlace);
 			});

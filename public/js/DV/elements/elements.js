@@ -20,7 +20,6 @@ DV.Schema.elements =
   { name: 'navigation',         query: 'div.DV-navigation' },
   { name: 'chaptersContainer',  query: 'div.DV-chaptersContainer' },
   { name: 'searchInput',        query: 'input.DV-searchInput' },
-  { name: 'textCurrentPage',    query: 'span.DV-textCurrentPage' },
   { name: 'coverPages',         query: 'div.DV-cover' },
   { name: 'fullscreen',         query: 'div.DV-fullscreen' },
 ];
