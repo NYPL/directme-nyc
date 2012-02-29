@@ -39,10 +39,38 @@
         
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;jquery&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+        <div class='highlight'><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;jquery&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>anon globals</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">loaded</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
   <span class="kd">function</span> <span class="nx">_init</span><span class="p">(</span><span class="nx">borough</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">loader</span><span class="p">(</span><span class="nx">borough</span><span class="p">)</span>
+
+    <span class="kd">var</span> <span class="nx">DVloader</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">brooklyn</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json&quot;</span><span class="p">,</span>
+        <span class="nx">selector</span><span class="o">:</span> <span class="s2">&quot;DV-bk&quot;</span>
+      <span class="p">},</span>
+      <span class="nx">manhattan</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json&quot;</span><span class="p">,</span>
+        <span class="nx">selector</span><span class="o">:</span> <span class="s2">&quot;DV-man&quot;</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">loader</span><span class="p">(</span><span class="nx">DVloader</span><span class="p">[</span><span class="nx">borough</span><span class="p">])</span>
     <span class="nx">onWindowChange</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">DVloaded</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">loaded</span><span class="p">;</span>
   <span class="p">}</span>
 
   <span class="kd">function</span> <span class="nx">onWindowChange</span><span class="p">()</span> <span class="p">{</span>
@@ -56,39 +84,48 @@
   <span class="p">}</span>
 
   <span class="kd">function</span> <span class="nx">loader</span><span class="p">(</span><span class="nx">borough</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">DVloader</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="nx">brooklyn</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json&quot;</span><span class="p">,</span>
-        <span class="nx">selector</span><span class="o">:</span> <span class="s2">&quot;#DV-bk&quot;</span>
-      <span class="p">},</span>
-      <span class="nx">manhattan</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json&quot;</span><span class="p">,</span>
-        <span class="nx">selector</span><span class="o">:</span> <span class="s2">&quot;#DV-man&quot;</span>
-      <span class="p">}</span>
-    <span class="p">};</span>
-
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">DVloader</span><span class="p">)</span>
-    <span class="kd">var</span> <span class="nx">docURrl</span> <span class="o">=</span> <span class="nx">DVloader</span><span class="p">[</span><span class="nx">borough</span><span class="p">].</span><span class="nx">url</span>
-    <span class="nx">DV</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">docURrl</span><span class="p">,</span> <span class="p">{</span> 
-      <span class="nx">container</span><span class="o">:</span> <span class="nx">DVloader</span><span class="p">[</span><span class="nx">borough</span><span class="p">].</span><span class="nx">selector</span><span class="p">,</span>
-      <span class="nx">height</span><span class="o">:</span> <span class="mi">1200</span><span class="p">,</span>
-      <span class="nx">width</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">modWidth</span><span class="p">()),</span>
-      <span class="nx">sidebar</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">createDiv</span><span class="p">(</span><span class="nx">borough</span><span class="p">.</span><span class="nx">selector</span><span class="p">)).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">docURrl</span> <span class="o">=</span> <span class="nx">borough</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+      <span class="nx">DV</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">docURrl</span><span class="p">,</span> <span class="p">{</span> 
+        <span class="nx">container</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="nx">borough</span><span class="p">.</span><span class="nx">selector</span><span class="p">,</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="mi">1200</span><span class="p">,</span>
+        <span class="nx">width</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">modWidth</span><span class="p">()),</span>
+        <span class="nx">sidebar</span><span class="o">:</span> <span class="kc">false</span>
+      <span class="p">});</span>
     <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">createDiv</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">query_sel</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="nx">selector</span><span class="p">;</span>
+    <span class="nx">loaded</span> <span class="o">=</span> <span class="nx">query_sel</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">setPlace</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV &gt; *&#39;</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">setPlace</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.active&#39;</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.active&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&#39;</span> <span class="o">+</span> <span class="nx">selector</span> <span class="o">+</span> <span class="s1">&#39; class=&quot;span12 active&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">query_sel</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;margin-top&#39;</span><span class="p">,</span> <span class="nx">setPlace</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">setPlace</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#main&#39;</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&#39;</span> <span class="o">+</span> <span class="nx">selector</span> <span class="o">+</span> <span class="s1">&#39; class=&quot;span12 active&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">query_sel</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;margin-top&#39;</span><span class="p">,</span> <span class="nx">setPlace</span><span class="p">);</span>
+    <span class="p">}</span>
   <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-2'>
+    <tr id='section-3'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-2">&#182;</a>
+          <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
         <p>Return instantiated function</p>
 
       </td>
       <td class=code>
         <div class='highlight'><pre>  <span class="k">return</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="nx">_init</span>
+    <span class="nx">init</span><span class="o">:</span> <span class="nx">_init</span><span class="p">,</span>
+    <span class="nx">loaded</span><span class="o">:</span> <span class="nx">DVloaded</span>
   <span class="p">};</span>
 <span class="p">});</span></pre></div>
       </td>

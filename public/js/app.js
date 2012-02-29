@@ -12,7 +12,7 @@ define(['require', 'jquery'], function(require, $) {
 			}
 
 			//call script funcs
-			this.onScrollNav();
+			//this.onScrollNav();
 		},
 
 		/** on the `init` call for a module, a function should be instantiated */
@@ -26,17 +26,6 @@ define(['require', 'jquery'], function(require, $) {
 		},
 
 		onScrollNav: function() {
-			var o_top = $('.navbar-fixed-top').css('top');
-			$(document).scroll(function(){
-				if ($('#nypl_bar').outerHeight() <= $(this).scrollTop()) {
-					$('#nypl_bar').hide();
-					$('.navbar-fixed-top').css('top', 0);
-				}
-				else {
-					$('#nypl_bar').show();
-					$('.navbar-fixed-top').css('top', o_top);
-				}
-			});
 		}
 	};
 });

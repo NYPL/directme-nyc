@@ -65,11 +65,11 @@
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>call script funcs</p>
+        <p>call script funcs
+this.onScrollNav();</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>      <span class="k">this</span><span class="p">.</span><span class="nx">onScrollNav</span><span class="p">();</span>
-    <span class="p">},</span></pre></div>
+        <div class='highlight'><pre>    <span class="p">},</span></pre></div>
       </td>
     </tr>
     <tr id='section-4'>
@@ -102,17 +102,6 @@
     <span class="p">},</span>
 
     <span class="nx">onScrollNav</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">o_top</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.navbar-fixed-top&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">);</span>
-      <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">scroll</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nypl_bar&#39;</span><span class="p">).</span><span class="nx">outerHeight</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">())</span> <span class="p">{</span>
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nypl_bar&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.navbar-fixed-top&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="p">{</span>
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nypl_bar&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.navbar-fixed-top&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="nx">o_top</span><span class="p">);</span>
-        <span class="p">}</span>
-      <span class="p">});</span>
     <span class="p">}</span>
   <span class="p">};</span>
 <span class="p">});</span></pre></div>

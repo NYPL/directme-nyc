@@ -50,7 +50,7 @@ body {
 }
 
 #main {
-	padding-top:80px;
+	padding-top:20px;
 	//http://paulirish.com/2012/box-sizing-border-box-ftw/ => works in IE8?
 	@include box-sizing-mix;
 }
