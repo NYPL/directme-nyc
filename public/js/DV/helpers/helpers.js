@@ -70,7 +70,6 @@ DV.Schema.helpers = {
       collection.delegate('.DV-saveAnnotationDraft','click', DV.jQuery.proxy(this.saveAnnotation, this));
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
-      collection.delegate('.DV-textCurrentPage', 'click', _.bind(this.permalinkPage, this, 'text'));
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
 
       // Thumbnails
@@ -442,7 +441,7 @@ DV.Schema.helpers = {
       var zoom;
       if (this.viewer.options.zoom == 'auto') {
         zoom = Math.min(
-          700,
+          1000,
           windowWidth - (this.viewer.models.pages.REDUCED_PADDING * 2)
         );
       } else {
@@ -451,21 +450,16 @@ DV.Schema.helpers = {
 
       // Setup ranges for auto-width zooming
       var ranges = [];
-      if (zoom <= 500) {
-        var zoom2 = (zoom + 700) / 2;
-        ranges = [zoom, zoom2, 700, 850, 1000, 2500, 5000];
-      } else if (zoom <= 750) {
-        var zoom2 = ((1000 - 700) / 3) + zoom;
-        var zoom3 = ((1000 - 700) / 3)*2 + zoom;
-        ranges = [.66*zoom, zoom, zoom2, zoom3, 1000, 2500, 5000];
-      } else if (750 < zoom && zoom <= 850){
-        var zoom2 = ((1000 - zoom) / 2) + zoom;
-        ranges = [.66*zoom, 700, zoom, zoom2, 1000, 2500, 5000];
-      } else if (850 < zoom && zoom < 1000){
-        var zoom2 = ((zoom - 700) / 2) + 700;
-        ranges = [.66*zoom, 700, zoom2, zoom, 1000, 2500, 5000];
-      } else if (zoom >= 1000) {
+      if (zoom >= 1000) {
         zoom = 1000;
+        ranges = this.viewer.models.document.ZOOM_RANGES;
+      } 
+      else if (1000 < zoom && zoom < 3000) {
+        var zoom2 = ((zoom - 1000) / 2) + 1000;
+        ranges = [1000, zoom2, 3000]
+      }
+      else if (zoom >= 3000) {
+        zoom = 3000;
         ranges = this.viewer.models.document.ZOOM_RANGES;
       }
       this.viewer.models.document.ZOOM_RANGES = ranges;

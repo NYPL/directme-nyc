@@ -33,3 +33,6 @@ log
 #[Rubinius]
 *.rbc
 .rbx/
+
+#[SCRIPTS]
+#scripts

@@ -9,8 +9,16 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/map']
+		@deps = ['order!modules/map', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
 		slim :index
+	end
+
+	get '/help' do
+
+	end
+
+	get '/credits' do
+
 	end
 
 	post '/one_step' do
@@ -29,19 +37,23 @@ class Application < Sinatra::Base
 
 	end
 
-	get '/boroughs' do
+	get '/dvs' do
 
 	end
 
-	get '/boroughs/:id' do
+	get '/dvs/:id' do
 
 	end
 
-	get '/annotations' do
+	get '/stories' do
 
 	end
 
-	get '/annotations/:id' do
+	get '/stories/:id' do
+
+	end
+
+	get '/m' do
 
 	end
 	#################################################################

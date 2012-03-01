@@ -9,7 +9,8 @@ require.config({
 		require: 'libs/require',
 		jquery: 'libs/jquery-1.7.1.min',
 		libs: 'libs',
-		modules: 'modules'
+		modules: 'modules',
+		bootstrap: 'bootstrap'
 	}
 });
 

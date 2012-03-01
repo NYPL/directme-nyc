@@ -13,11 +13,11 @@ DV.model.Pages = function(viewer) {
   this.pageNoteHeights = [];
 
   // In pixels.
-  this.BASE_WIDTH      = 700;
-  this.BASE_HEIGHT     = 906;
+  this.BASE_WIDTH      = 1000;
+  this.BASE_HEIGHT     = 3417;
 
   // Factors for scaling from image size to zoomlevel.
-  this.SCALE_FACTORS   = {'500': 0.714, '700': 1.0, '800': 0.8, '900': 0.9, '1000': 1.0};
+  this.SCALE_FACTORS   = {'1000': 1.0, '2000': 0.8, '3000': 1.0};
 
   // For viewing page text.
   this.DEFAULT_PADDING = 100;
