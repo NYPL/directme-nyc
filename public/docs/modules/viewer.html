@@ -2553,7 +2553,7 @@ delete callbacks.</p>
   <span class="k">this</span><span class="p">.</span><span class="nx">totalDocumentHeight</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">totalPages</span>                <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">additionalPaddingOnPage</span>   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">ZOOM_RANGES</span>               <span class="o">=</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">1000</span><span class="p">];</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">ZOOM_RANGES</span>               <span class="o">=</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">];</span>
 
   <span class="kd">var</span> <span class="nx">data</span>                       <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 
@@ -2991,7 +2991,9 @@ image sources for each page, and the page proportions.</p>
     <span class="kd">var</span> <span class="nx">pageIds</span>       <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">sortPages</span><span class="p">(</span><span class="nx">middlePage</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
     <span class="kd">var</span> <span class="nx">total</span>         <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">totalPages</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">currentPage</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">currentPage</span><span class="p">)</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">setPageIndex</span><span class="p">(</span><span class="nx">currentPage</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">drawPageAt</span><span class="p">(</span><span class="nx">pageIds</span><span class="p">,</span> <span class="nx">middlePage</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pageIds</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">pageIds</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">drawPageAt</span><span class="p">(</span><span class="nx">pageIds</span><span class="p">,</span> <span class="nx">middlePage</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
@@ -3026,49 +3028,6 @@ image sources for each page, and the page proportions.</p>
       <span class="p">}</span>
       <span class="nx">viewer</span><span class="p">.</span><span class="nx">busy</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
-  <span class="p">},</span>
-
-  <span class="nx">loadText</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">pageIndex</span><span class="p">,</span><span class="nx">afterLoad</span><span class="p">){</span>
-
-    <span class="nx">pageIndex</span> <span class="o">=</span> <span class="p">(</span><span class="o">!</span><span class="nx">pageIndex</span><span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">currentIndex</span><span class="p">()</span> <span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">pageIndex</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_previousTextIndex</span> <span class="o">=</span> <span class="nx">pageIndex</span><span class="p">;</span>
-
-    <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
-    <span class="kd">var</span> <span class="nx">processText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="kd">var</span> <span class="nx">pageNumber</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">pageIndex</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-      <span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-textContents&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="s1">&#39;&lt;pre class=&quot;DV-textContents&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">text</span> <span class="o">+</span> <span class="s1">&#39;&lt;/pre&gt;&#39;</span><span class="p">);</span>
-      <span class="nx">me</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">currentPage</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">pageNumber</span><span class="p">);</span>
-      <span class="nx">me</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">textCurrentPage</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;p. &#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">pageNumber</span><span class="p">));</span>
-      <span class="nx">me</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">setPageIndex</span><span class="p">(</span><span class="nx">pageIndex</span><span class="p">);</span>
-      <span class="nx">me</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">setActiveChapter</span><span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">chapters</span><span class="p">.</span><span class="nx">getChapterId</span><span class="p">(</span><span class="nx">pageIndex</span><span class="p">));</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">openEditor</span> <span class="o">==</span> <span class="s1">&#39;editText&#39;</span> <span class="o">&amp;&amp;</span>
-          <span class="o">!</span><span class="p">(</span><span class="nx">pageNumber</span> <span class="k">in</span> <span class="nx">me</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">originalPageText</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">me</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">originalPageText</span><span class="p">[</span><span class="nx">pageNumber</span><span class="p">]</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">openEditor</span> <span class="o">==</span> <span class="s1">&#39;editText&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-textContents&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;contentEditable&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;DV-editing&#39;</span><span class="p">);</span>
-      <span class="p">}</span>
-
-      <span class="k">if</span><span class="p">(</span><span class="nx">afterLoad</span><span class="p">)</span> <span class="nx">afterLoad</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">helpers</span><span class="p">);</span>
-    <span class="p">};</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">text</span><span class="p">[</span><span class="nx">pageIndex</span><span class="p">])</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">processText</span><span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">text</span><span class="p">[</span><span class="nx">pageIndex</span><span class="p">]);</span>
-    <span class="p">}</span>
-
-    <span class="kd">var</span> <span class="nx">handleResponse</span> <span class="o">=</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">processText</span><span class="p">(</span><span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">text</span><span class="p">[</span><span class="nx">pageIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">response</span><span class="p">);</span>
-    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-textContents&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-
-    <span class="kd">var</span> <span class="nx">textURI</span> <span class="o">=</span> <span class="nx">me</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;{page}&#39;</span><span class="p">,</span> <span class="nx">pageIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">crossDomain</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">isCrossDomain</span><span class="p">(</span><span class="nx">textURI</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">crossDomain</span><span class="p">)</span> <span class="nx">textURI</span> <span class="o">+=</span> <span class="s1">&#39;?callback=?&#39;</span><span class="p">;</span>
-    <span class="nx">DV</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">[</span><span class="nx">crossDomain</span> <span class="o">?</span> <span class="s1">&#39;getJSON&#39;</span> <span class="o">:</span> <span class="s1">&#39;get&#39;</span><span class="p">](</span><span class="nx">textURI</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">handleResponse</span><span class="p">);</span>
   <span class="p">},</span>
 
   <span class="nx">resetTracker</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
@@ -3179,7 +3138,7 @@ image sources for each page, and the page proportions.</p>
         <div class='highlight'><pre>  <span class="p">},</span>
   <span class="nx">search</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
     <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
-    
+    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">getSearchResponse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">());</span>
     <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -3258,31 +3217,10 @@ image sources for each page, and the page proportions.</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-annotation/a[annotationID]'>
+    <tr id='section-135'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-annotation/a[annotationID]">&#182;</a>
-        </div>
-        <h1>annotation/a[annotationID]</h1>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>  <span class="nx">handleHashChangeViewAnnotationAnnotation</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">annotation</span><span class="p">){</span>
-    <span class="kd">var</span> <span class="nx">annotation</span>  <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">annotation</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">viewer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">;</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="s1">&#39;ViewAnnotation&#39;</span><span class="p">){</span>
-      <span class="nx">viewer</span><span class="p">.</span><span class="nx">pageSet</span><span class="p">.</span><span class="nx">showAnnotation</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nx">annotations</span><span class="p">.</span><span class="nx">byId</span><span class="p">[</span><span class="nx">annotation</span><span class="p">]);</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-      <span class="nx">viewer</span><span class="p">.</span><span class="nx">activeAnnotationId</span> <span class="o">=</span> <span class="nx">annotation</span><span class="p">;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;ViewAnnotation&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">},</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-136'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-136">&#182;</a>
+          <a class="pilcrow" href="#section-135">&#182;</a>
         </div>
         <p>Default route if all else fails</p>
       </td>
@@ -3295,10 +3233,10 @@ image sources for each page, and the page proportions.</p>
       <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">jump</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-137'>
+    <tr id='section-136'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-137">&#182;</a>
+          <a class="pilcrow" href="#section-136">&#182;</a>
         </div>
         <p>this.viewer.history.save(&lsquo;document/p1&rsquo;);</p>
       </td>
@@ -3335,10 +3273,10 @@ image sources for each page, and the page proportions.</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">loadText</span><span class="p">(</span><span class="nx">annotation</span><span class="p">.</span><span class="nx">index</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-138'>
+    <tr id='section-137'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-138">&#182;</a>
+          <a class="pilcrow" href="#section-137">&#182;</a>
         </div>
         <p>this.viewer.history.save(&lsquo;text/p&rsquo;+pageNumber);</p>
       </td>
@@ -3353,10 +3291,10 @@ image sources for each page, and the page proportions.</p>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">chapterEl</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-139'>
+    <tr id='section-138'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-139">&#182;</a>
+          <a class="pilcrow" href="#section-138">&#182;</a>
         </div>
         <p>its a header, take it to the page</p>
       </td>
@@ -3370,10 +3308,10 @@ image sources for each page, and the page proportions.</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">loadText</span><span class="p">(</span><span class="nx">chapterIndex</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-140'>
+    <tr id='section-139'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-140">&#182;</a>
+          <a class="pilcrow" href="#section-139">&#182;</a>
         </div>
         <p>this.viewer.history.save(&lsquo;text/p&rsquo;+pageNumber);</p>
       </td>
@@ -3383,10 +3321,10 @@ image sources for each page, and the page proportions.</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">jump</span><span class="p">(</span><span class="nx">chapterIndex</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-141'>
+    <tr id='section-140'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-141">&#182;</a>
+          <a class="pilcrow" href="#section-140">&#182;</a>
         </div>
         <p>this.viewer.history.save(&lsquo;document/p&rsquo;+pageNumber);</p>
       </td>
@@ -3410,10 +3348,10 @@ image sources for each page, and the page proportions.</p>
     <span class="nx">annotationClassName</span><span class="o">:</span> <span class="s1">&#39;.DV-annotation&#39;</span><span class="p">,</span></pre></div>
       </td>
     </tr>
-    <tr id='section-142'>
+    <tr id='section-141'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-142">&#182;</a>
+          <a class="pilcrow" href="#section-141">&#182;</a>
         </div>
         <p>Bind all events for the docviewer
 live/delegate are the preferred methods of event attachment</p>
@@ -3438,10 +3376,10 @@ live/delegate are the preferred methods of event attachment</p>
       <span class="p">});</span></pre></div>
       </td>
     </tr>
-    <tr id='section-143'>
+    <tr id='section-142'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-143">&#182;</a>
+          <a class="pilcrow" href="#section-142">&#182;</a>
         </div>
         <p>next/previous</p>
       </td>
@@ -3463,10 +3401,10 @@ live/delegate are the preferred methods of event attachment</p>
       <span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-documentView&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-trigger&#39;</span><span class="p">,</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span></pre></div>
       </td>
     </tr>
-    <tr id='section-144'>
+    <tr id='section-143'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-144">&#182;</a>
+          <a class="pilcrow" href="#section-143">&#182;</a>
         </div>
         <p>history.save(&lsquo;document/p&rsquo;+context.models.document.currentPage());</p>
       </td>
@@ -3479,13 +3417,14 @@ live/delegate are the preferred methods of event attachment</p>
 
       <span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-allAnnotations&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-annotationGoto .DV-trigger&#39;</span><span class="p">,</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">gotoPage</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span>
 
-      <span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;form.DV-searchDocument&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">));</span></pre></div>
+      <span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;form.DV-searchDocument&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">));</span>
+      <span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-searchBox&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-searchInput-cancel&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">clearSearch</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span></pre></div>
       </td>
     </tr>
-    <tr id='section-145'>
+    <tr id='section-144'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-145">&#182;</a>
+          <a class="pilcrow" href="#section-144">&#182;</a>
         </div>
         <p>Prevent navigation elements from being selectable when clicked.</p>
       </td>
@@ -3508,14 +3447,13 @@ live/delegate are the preferred methods of event attachment</p>
       <span class="nx">collection</span><span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-deleteAnnotation&#39;</span><span class="p">,</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">deleteAnnotation</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span>
       <span class="nx">collection</span><span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-pageNumber&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">permalinkPage</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">));</span>
       <span class="nx">collection</span><span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-textCurrentPage&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">permalinkPage</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">));</span>
-      <span class="nx">collection</span><span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-annotationTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">permalinkAnnotation</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span>
-      <span class="nx">collection</span><span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-permalink&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">permalinkAnnotation</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span></pre></div>
+      <span class="nx">collection</span><span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;.DV-annotationTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">permalinkAnnotation</span><span class="p">,</span> <span class="k">this</span><span class="p">));</span></pre></div>
       </td>
     </tr>
-    <tr id='section-146'>
+    <tr id='section-145'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-146">&#182;</a>
+          <a class="pilcrow" href="#section-145">&#182;</a>
         </div>
         <p>Thumbnails</p>
       </td>
@@ -3528,10 +3466,10 @@ live/delegate are the preferred methods of event attachment</p>
           <span class="nx">viewer</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;ViewDocument&#39;</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-147'>
+    <tr id='section-146'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-147">&#182;</a>
+          <a class="pilcrow" href="#section-146">&#182;</a>
         </div>
         <p>viewer.history.save(&lsquo;document/p&rsquo;+pageNumber);</p>
       </td>
@@ -3540,10 +3478,10 @@ live/delegate are the preferred methods of event attachment</p>
       <span class="p">});</span></pre></div>
       </td>
     </tr>
-    <tr id='section-148'>
+    <tr id='section-147'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-148">&#182;</a>
+          <a class="pilcrow" href="#section-147">&#182;</a>
         </div>
         <p>Handle iPad / iPhone scroll events&hellip;</p>
       </td>
@@ -3589,10 +3527,10 @@ live/delegate are the preferred methods of event attachment</p>
       <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-149'>
+    <tr id='section-148'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-149">&#182;</a>
+          <a class="pilcrow" href="#section-148">&#182;</a>
         </div>
         <p>When the document is scrolled, even in the background, resume polling.</p>
       </td>
@@ -3606,10 +3544,10 @@ live/delegate are the preferred methods of event attachment</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-150'>
+    <tr id='section-149'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-150">&#182;</a>
+          <a class="pilcrow" href="#section-149">&#182;</a>
         </div>
         <p>Unbind jQuery events that have been bound to objects outside of the viewer.</p>
       </td>
@@ -3629,10 +3567,10 @@ live/delegate are the preferred methods of event attachment</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-151'>
+    <tr id='section-150'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-151">&#182;</a>
+          <a class="pilcrow" href="#section-150">&#182;</a>
         </div>
         <p>We&rsquo;re entering the Notes tab &mdash; make sure that there are no data-src
 attributes remaining.</p>
@@ -3662,10 +3600,10 @@ attributes remaining.</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">isFocus</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-152'>
+    <tr id='section-151'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-152">&#182;</a>
+          <a class="pilcrow" href="#section-151">&#182;</a>
         </div>
         <p>pause draw timer</p>
       </td>
@@ -3683,10 +3621,10 @@ attributes remaining.</p>
       <span class="p">}</span><span class="k">else</span><span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-153'>
+    <tr id='section-152'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-153">&#182;</a>
+          <a class="pilcrow" href="#section-152">&#182;</a>
         </div>
         <p>pause draw timer</p>
       </td>
@@ -3704,10 +3642,10 @@ attributes remaining.</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">isFocus</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-154'>
+    <tr id='section-153'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-154">&#182;</a>
+          <a class="pilcrow" href="#section-153">&#182;</a>
         </div>
         <p>restart draw timer</p>
       </td>
@@ -3752,10 +3690,10 @@ attributes remaining.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-155'>
+    <tr id='section-154'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-155">&#182;</a>
+          <a class="pilcrow" href="#section-154">&#182;</a>
         </div>
         <p>Click to open a page&rsquo;s permalink.</p>
       </td>
@@ -3773,10 +3711,10 @@ attributes remaining.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-156'>
+    <tr id='section-155'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-156">&#182;</a>
+          <a class="pilcrow" href="#section-155">&#182;</a>
         </div>
         <p>Click to open an annotation&rsquo;s permalink.</p>
       </td>
@@ -3807,10 +3745,10 @@ attributes remaining.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-157'>
+    <tr id='section-156'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-157">&#182;</a>
+          <a class="pilcrow" href="#section-156">&#182;</a>
         </div>
         <p>Is the given URL on a remote domain?</p>
       </td>
@@ -3835,10 +3773,10 @@ attributes remaining.</p>
         <span class="nx">viewer</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;ViewDocument&#39;</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-158'>
+    <tr id='section-157'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-158">&#182;</a>
+          <a class="pilcrow" href="#section-157">&#182;</a>
         </div>
         <p>this.viewer.history.save(&lsquo;document/p&rsquo;+(parseInt(annotation.index,10)+1));</p>
       </td>
@@ -3852,10 +3790,10 @@ attributes remaining.</p>
       <span class="kd">var</span> <span class="nx">currentPage</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">currentPage</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-159'>
+    <tr id='section-158'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-159">&#182;</a>
+          <a class="pilcrow" href="#section-158">&#182;</a>
         </div>
         <p>construct url fragment based on current viewer state</p>
       </td>
@@ -3875,10 +3813,10 @@ attributes remaining.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-160'>
+    <tr id='section-159'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-160">&#182;</a>
+          <a class="pilcrow" href="#section-159">&#182;</a>
         </div>
         <p>Determine the correct DOM page ordering for a given page index.</p>
       </td>
@@ -3904,10 +3842,10 @@ attributes remaining.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-161'>
+    <tr id='section-160'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-161">&#182;</a>
+          <a class="pilcrow" href="#section-160">&#182;</a>
         </div>
         <p>TODO: This function is not currently being called. Candidate for removal.</p>
       </td>
@@ -3915,10 +3853,10 @@ attributes remaining.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-162'>
+    <tr id='section-161'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-162">&#182;</a>
+          <a class="pilcrow" href="#section-161">&#182;</a>
         </div>
         <p>setWindowSize: function(windowDimensions){
   var viewer          = this.viewer;
@@ -3982,10 +3920,10 @@ attributes remaining.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-163'>
+    <tr id='section-162'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-163">&#182;</a>
+          <a class="pilcrow" href="#section-162">&#182;</a>
         </div>
         <p>Position the viewer on the page. For a full screen viewer, this means
 absolute from the current y offset to the bottom of the viewport.</p>
@@ -4007,10 +3945,10 @@ absolute from the current y offset to the bottom of the viewport.</p>
       <span class="kd">var</span> <span class="nx">history</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">history</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-164'>
+    <tr id='section-163'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-164">&#182;</a>
+          <a class="pilcrow" href="#section-163">&#182;</a>
         </div>
         <p>Default route</p>
       </td>
@@ -4018,10 +3956,10 @@ absolute from the current y offset to the bottom of the viewport.</p>
         <div class='highlight'><pre>      <span class="nx">history</span><span class="p">.</span><span class="nx">defaultCallback</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">handleHashChangeDefault</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-165'>
+    <tr id='section-164'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-165">&#182;</a>
+          <a class="pilcrow" href="#section-164">&#182;</a>
         </div>
         <p>Handle page loading</p>
       </td>
@@ -4029,10 +3967,10 @@ absolute from the current y offset to the bottom of the viewport.</p>
         <div class='highlight'><pre>      <span class="nx">history</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="sr">/document\/p(\d*)$/</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">handleHashChangeViewDocumentPage</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">));</span></pre></div>
       </td>
     </tr>
-    <tr id='section-166'>
+    <tr id='section-165'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-166">&#182;</a>
+          <a class="pilcrow" href="#section-165">&#182;</a>
         </div>
         <p>Legacy NYT stuff</p>
       </td>
@@ -4041,10 +3979,10 @@ absolute from the current y offset to the bottom of the viewport.</p>
       <span class="nx">history</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="sr">/p=(\d*)$/</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">handleHashChangeLegacyViewDocumentPage</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">));</span></pre></div>
       </td>
     </tr>
-    <tr id='section-167'>
+    <tr id='section-166'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-167">&#182;</a>
+          <a class="pilcrow" href="#section-166">&#182;</a>
         </div>
         <p>Handle annotation loading in document view</p>
       </td>
@@ -4052,21 +3990,10 @@ absolute from the current y offset to the bottom of the viewport.</p>
         <div class='highlight'><pre>      <span class="nx">history</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="sr">/document\/p(\d*)\/a(\d*)$/</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">handleHashChangeViewDocumentAnnotation</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">));</span></pre></div>
       </td>
     </tr>
-    <tr id='section-168'>
+    <tr id='section-167'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-168">&#182;</a>
-        </div>
-        <p>Handle annotation loading in annotation view</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>      <span class="nx">history</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="sr">/annotation\/a(\d*)$/</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">handleHashChangeViewAnnotationAnnotation</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">));</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-169'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-169">&#182;</a>
+          <a class="pilcrow" href="#section-167">&#182;</a>
         </div>
         <p>Handle loading of the pages view</p>
       </td>
@@ -4075,10 +4002,10 @@ absolute from the current y offset to the bottom of the viewport.</p>
     <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-170'>
+    <tr id='section-168'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-170">&#182;</a>
+          <a class="pilcrow" href="#section-168">&#182;</a>
         </div>
         <p>Sets up the zoom slider to match the appropriate for the specified
 initial zoom level, and real document page sizes.</p>
@@ -4097,10 +4024,10 @@ initial zoom level, and real document page sizes.</p>
       <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-171'>
+    <tr id='section-169'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-171">&#182;</a>
+          <a class="pilcrow" href="#section-169">&#182;</a>
         </div>
         <p>Setup ranges for auto-width zooming</p>
       </td>
@@ -4108,17 +4035,17 @@ initial zoom level, and real document page sizes.</p>
         <div class='highlight'><pre>      <span class="kd">var</span> <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[];</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">zoom</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">zoom2</span> <span class="o">=</span> <span class="p">(</span><span class="nx">zoom</span> <span class="o">+</span> <span class="mi">700</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[</span><span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">850</span><span class="p">,</span> <span class="mi">1000</span><span class="p">];</span>
+        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[</span><span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">850</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">];</span>
       <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">zoom</span> <span class="o">&lt;=</span> <span class="mi">750</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">zoom2</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1000</span> <span class="o">-</span> <span class="mi">700</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="nx">zoom</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">zoom3</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1000</span> <span class="o">-</span> <span class="mi">700</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">zoom</span><span class="p">;</span>
-        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">66</span><span class="o">*</span><span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="nx">zoom3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">];</span>
+        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">66</span><span class="o">*</span><span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="nx">zoom3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">];</span>
       <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="mi">750</span> <span class="o">&lt;</span> <span class="nx">zoom</span> <span class="o">&amp;&amp;</span> <span class="nx">zoom</span> <span class="o">&lt;=</span> <span class="mi">850</span><span class="p">){</span>
         <span class="kd">var</span> <span class="nx">zoom2</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1000</span> <span class="o">-</span> <span class="nx">zoom</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">zoom</span><span class="p">;</span>
-        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">66</span><span class="o">*</span><span class="nx">zoom</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">];</span>
+        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">66</span><span class="o">*</span><span class="nx">zoom</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="nx">zoom</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">];</span>
       <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="mi">850</span> <span class="o">&lt;</span> <span class="nx">zoom</span> <span class="o">&amp;&amp;</span> <span class="nx">zoom</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">){</span>
         <span class="kd">var</span> <span class="nx">zoom2</span> <span class="o">=</span> <span class="p">((</span><span class="nx">zoom</span> <span class="o">-</span> <span class="mi">700</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">700</span><span class="p">;</span>
-        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">66</span><span class="o">*</span><span class="nx">zoom</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="nx">zoom</span><span class="p">,</span> <span class="mi">1000</span><span class="p">];</span>
+        <span class="nx">ranges</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">66</span><span class="o">*</span><span class="nx">zoom</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="nx">zoom2</span><span class="p">,</span> <span class="nx">zoom</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">];</span>
       <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">zoom</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">zoom</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
         <span class="nx">ranges</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">ZOOM_RANGES</span><span class="p">;</span>
@@ -4150,10 +4077,10 @@ initial zoom level, and real document page sizes.</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-172'>
+    <tr id='section-170'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-172">&#182;</a>
+          <a class="pilcrow" href="#section-170">&#182;</a>
         </div>
         <p>Return the annotation Object that connects with the element in the DOM</p>
       </td>
@@ -4168,10 +4095,10 @@ initial zoom level, and real document page sizes.</p>
       <span class="k">if</span><span class="p">(</span><span class="nx">annotationObject</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">annotationId</span><span class="p">){</span></pre></div>
       </td>
     </tr>
-    <tr id='section-173'>
+    <tr id='section-171'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-173">&#182;</a>
+          <a class="pilcrow" href="#section-171">&#182;</a>
         </div>
         <p>cleanup</p>
       </td>
@@ -4186,10 +4113,10 @@ initial zoom level, and real document page sizes.</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-174'>
+    <tr id='section-172'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-174">&#182;</a>
+          <a class="pilcrow" href="#section-172">&#182;</a>
         </div>
         <p>Set of bridges to access annotation methods
 Toggle</p>
@@ -4202,10 +4129,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-175'>
+    <tr id='section-173'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-175">&#182;</a>
+          <a class="pilcrow" href="#section-173">&#182;</a>
         </div>
         <p>Show annotation</p>
       </td>
@@ -4217,10 +4144,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-176'>
+    <tr id='section-174'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-176">&#182;</a>
+          <a class="pilcrow" href="#section-174">&#182;</a>
         </div>
         <p>Hide annotation</p>
       </td>
@@ -4232,10 +4159,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-177'>
+    <tr id='section-175'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-177">&#182;</a>
+          <a class="pilcrow" href="#section-175">&#182;</a>
         </div>
         <p>Jump to the next annotation</p>
       </td>
@@ -4247,10 +4174,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-178'>
+    <tr id='section-176'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-178">&#182;</a>
+          <a class="pilcrow" href="#section-176">&#182;</a>
         </div>
         <p>Jump to the previous annotation</p>
       </td>
@@ -4262,10 +4189,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-179'>
+    <tr id='section-177'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-179">&#182;</a>
+          <a class="pilcrow" href="#section-177">&#182;</a>
         </div>
         <p>Update currentpage text to indicate current annotation</p>
       </td>
@@ -4275,10 +4202,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-180'>
+    <tr id='section-178'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-180">&#182;</a>
+          <a class="pilcrow" href="#section-178">&#182;</a>
         </div>
         <p>Update active annotation limits</p>
       </td>
@@ -4308,10 +4235,10 @@ Toggle</p>
 <span class="p">});</span></pre></div>
       </td>
     </tr>
-    <tr id='section-181'>
+    <tr id='section-179'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-181">&#182;</a>
+          <a class="pilcrow" href="#section-179">&#182;</a>
         </div>
         <p>Renders the navigation sidebar for chapters and annotations.</p>
       </td>
@@ -4372,10 +4299,10 @@ Toggle</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-182'>
+    <tr id='section-180'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-182">&#182;</a>
+          <a class="pilcrow" href="#section-180">&#182;</a>
         </div>
         <p>If there is no description, no navigation, and no sections, tighten up
 the sidebar.</p>
@@ -4468,10 +4395,10 @@ the sidebar.</p>
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-183'>
+    <tr id='section-181'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-183">&#182;</a>
+          <a class="pilcrow" href="#section-181">&#182;</a>
         </div>
         <p>insert and observe the nav</p>
       </td>
@@ -4493,10 +4420,10 @@ the sidebar.</p>
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-184'>
+    <tr id='section-182'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-184">&#182;</a>
+          <a class="pilcrow" href="#section-182">&#182;</a>
         </div>
         <p>Hide or show all of the components on the page that may or may not be
 present, depending on what the document provides.</p>
@@ -4505,10 +4432,10 @@ present, depending on what the document provides.</p>
         <div class='highlight'><pre>  <span class="nx">renderComponents</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-185'>
+    <tr id='section-183'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-185">&#182;</a>
+          <a class="pilcrow" href="#section-183">&#182;</a>
         </div>
         <p>Hide the overflow of the body, unless we&rsquo;re positioned.</p>
       </td>
@@ -4519,10 +4446,10 @@ present, depending on what the document provides.</p>
       <span class="nx">DV</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">(</span><span class="s2">&quot;html, body&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="nx">overflow</span> <span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="p">});</span></pre></div>
       </td>
     </tr>
-    <tr id='section-186'>
+    <tr id='section-184'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-186">&#182;</a>
+          <a class="pilcrow" href="#section-184">&#182;</a>
         </div>
         <p>Hide the border, if we&rsquo;re a full-screen viewer in the body tag.</p>
       </td>
@@ -4533,10 +4460,10 @@ present, depending on what the document provides.</p>
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-187'>
+    <tr id='section-185'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-187">&#182;</a>
+          <a class="pilcrow" href="#section-185">&#182;</a>
         </div>
         <p>Hide and show navigation flags:</p>
       </td>
@@ -4549,10 +4476,10 @@ present, depending on what the document provides.</p>
     <span class="kd">var</span> <span class="nx">noFooter</span> <span class="o">=</span> <span class="p">(</span><span class="o">!</span><span class="nx">showAnnotations</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">showPages</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">showSearch</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">sidebar</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-188'>
+    <tr id='section-186'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-188">&#182;</a>
+          <a class="pilcrow" href="#section-186">&#182;</a>
         </div>
         <p>Hide annotations, if there are none:</p>
       </td>
@@ -4561,10 +4488,10 @@ present, depending on what the document provides.</p>
     <span class="nx">$annotationsView</span><span class="p">[</span><span class="nx">showAnnotations</span> <span class="o">?</span> <span class="s1">&#39;show&#39;</span> <span class="o">:</span> <span class="s1">&#39;hide&#39;</span><span class="p">]();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-189'>
+    <tr id='section-187'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-189">&#182;</a>
+          <a class="pilcrow" href="#section-187">&#182;</a>
         </div>
         <p>Hide the text tab, if it&rsquo;s disabled.</p>
       </td>
@@ -4580,10 +4507,10 @@ present, depending on what the document provides.</p>
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-190'>
+    <tr id='section-188'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-190">&#182;</a>
+          <a class="pilcrow" href="#section-188">&#182;</a>
         </div>
         <p>Hide the Pages tab if there is only 1 page in the document.</p>
       </td>
@@ -4593,10 +4520,10 @@ present, depending on what the document provides.</p>
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-191'>
+    <tr id='section-189'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-191">&#182;</a>
+          <a class="pilcrow" href="#section-189">&#182;</a>
         </div>
         <p>Hide the Documents tab if it&rsquo;s the only tab left.</p>
       </td>
@@ -4608,10 +4535,10 @@ present, depending on what the document provides.</p>
     <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">roundTabCorners</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-192'>
+    <tr id='section-190'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-192">&#182;</a>
+          <a class="pilcrow" href="#section-190">&#182;</a>
         </div>
         <p>Remove and re-render the nav controls.
 Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a one-page doc.</p>
@@ -4642,10 +4569,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-193'>
+    <tr id='section-191'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-193">&#182;</a>
+          <a class="pilcrow" href="#section-191">&#182;</a>
         </div>
         <p>Check if the zoom is showing, and if not, shorten the width of search</p>
       </td>
@@ -4657,10 +4584,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
     <span class="p">},</span> <span class="k">this</span><span class="p">));</span></pre></div>
       </td>
     </tr>
-    <tr id='section-194'>
+    <tr id='section-192'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-194">&#182;</a>
+          <a class="pilcrow" href="#section-192">&#182;</a>
         </div>
         <p>Set the currentPage element reference.</p>
       </td>
@@ -4670,10 +4597,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-195'>
+    <tr id='section-193'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-195">&#182;</a>
+          <a class="pilcrow" href="#section-193">&#182;</a>
         </div>
         <p>Reset the view state to a baseline, when transitioning between views.</p>
       </td>
@@ -4763,19 +4690,28 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
       <span class="kd">var</span> <span class="nx">hasResults</span> <span class="o">=</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
 
       <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">hasResults</span> <span class="o">?</span> <span class="s1">&#39;of &#39;</span><span class="o">+</span><span class="nx">response</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">:</span> <span class="s1">&#39; &#39;</span><span class="p">;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;span.DV-totalSearchResult&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;span.DV-searchQuery&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">query</span><span class="p">);</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">hasResults</span><span class="p">)</span> <span class="p">{</span>
 
       <span class="p">}</span>
     <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">failResponse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-currentSearchResult&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;Search is not available at this time&#39;</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;span.DV-searchQuery&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.DV-searchResults&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;DV-noResults&#39;</span><span class="p">);</span>
     <span class="p">};</span>
-  <span class="p">},</span>
+
+    <span class="kd">var</span> <span class="nx">searchURI</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;{query}&#39;</span><span class="p">,</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">query</span><span class="p">));</span>
+    <span class="nx">log</span><span class="p">(</span><span class="nx">searchURI</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">isCrossDomain</span><span class="p">(</span><span class="nx">searchURI</span><span class="p">))</span> <span class="nx">searchURI</span> <span class="o">+=</span> <span class="s1">&#39;&amp;callback=?&#39;</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-194'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-194">&#182;</a>
+        </div>
+        <p>DV.jQuery.ajax({url : searchURI, dataType : &lsquo;json&rsquo;, success : handleResponse, error : failResponse});</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="p">},</span>
 
   <span class="nx">clearSearch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">keyup</span><span class="p">().</span><span class="nx">focus</span><span class="p">();</span>
@@ -4793,10 +4729,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="nx">InitialLoad</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span></pre></div>
       </td>
     </tr>
-    <tr id='section-196'>
+    <tr id='section-195'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-196">&#182;</a>
+          <a class="pilcrow" href="#section-195">&#182;</a>
         </div>
         <p>If we&rsquo;re in an unsupported browser &hellip; bail.</p>
       </td>
@@ -4804,10 +4740,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre>    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">unsupportedBrowser</span><span class="p">())</span> <span class="k">return</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-197'>
+    <tr id='section-196'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-197">&#182;</a>
+          <a class="pilcrow" href="#section-196">&#182;</a>
         </div>
         <p>Insert the Document Viewer HTML into the DOM.</p>
       </td>
@@ -4815,10 +4751,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">renderViewer</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-198'>
+    <tr id='section-197'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-198">&#182;</a>
+          <a class="pilcrow" href="#section-197">&#182;</a>
         </div>
         <p>Assign element references.</p>
       </td>
@@ -4826,10 +4762,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">elements</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">elements</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">Elements</span><span class="p">(</span><span class="k">this</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-199'>
+    <tr id='section-198'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-199">&#182;</a>
+          <a class="pilcrow" href="#section-198">&#182;</a>
         </div>
         <p>Render included components, and hide unused portions of the UI.</p>
       </td>
@@ -4837,10 +4773,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">renderComponents</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-200'>
+    <tr id='section-199'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-200">&#182;</a>
+          <a class="pilcrow" href="#section-199">&#182;</a>
         </div>
         <p>Render chapters and notes navigation:</p>
       </td>
@@ -4848,10 +4784,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">renderNavigation</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-201'>
+    <tr id='section-200'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-201">&#182;</a>
+          <a class="pilcrow" href="#section-200">&#182;</a>
         </div>
         <p>Render CSS rules for showing/hiding specific pages:</p>
       </td>
@@ -4859,10 +4795,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">renderSpecificPageCss</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-202'>
+    <tr id='section-201'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-202">&#182;</a>
+          <a class="pilcrow" href="#section-201">&#182;</a>
         </div>
         <p>Instantiate pageset and build accordingly</p>
       </td>
@@ -4871,10 +4807,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
     <span class="k">this</span><span class="p">.</span><span class="nx">pageSet</span><span class="p">.</span><span class="nx">buildPages</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-203'>
+    <tr id='section-202'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-203">&#182;</a>
+          <a class="pilcrow" href="#section-202">&#182;</a>
         </div>
         <p>BindEvents</p>
       </td>
@@ -4898,10 +4834,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
     <span class="k">this</span><span class="p">.</span><span class="nx">acceptInput</span><span class="p">.</span><span class="nx">deny</span><span class="p">();</span></pre></div>
       </td>
     </tr>
-    <tr id='section-204'>
+    <tr id='section-203'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-204">&#182;</a>
+          <a class="pilcrow" href="#section-203">&#182;</a>
         </div>
         <p>Nudge IE to force the annotations to repaint.</p>
       </td>
@@ -4938,32 +4874,13 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
     <span class="k">this</span><span class="p">.</span><span class="nx">thumbnails</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
     <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
   <span class="p">},</span> 
-
-  <span class="nx">ViewSearch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="nx">searchRequest</span><span class="p">);</span>
-    <span class="p">}</span> 
-    <span class="k">else</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">searchRequest</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">searchInput</span><span class="p">.</span><span class="nx">val</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">getSearchResponse</span><span class="p">(</span><span class="nx">searchRequest</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">acceptInput</span><span class="p">.</span><span class="nx">deny</span><span class="p">();</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">toggleContent</span><span class="p">(</span><span class="s1">&#39;viewSearch&#39;</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-  <span class="p">},</span>
-
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-205'>
+    <tr id='section-204'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-205">&#182;</a>
+          <a class="pilcrow" href="#section-204">&#182;</a>
         </div>
         <p>The API references it&rsquo;s viewer.</p>
       </td>
@@ -4973,10 +4890,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-206'>
+    <tr id='section-205'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-206">&#182;</a>
+          <a class="pilcrow" href="#section-205">&#182;</a>
         </div>
         <p>Set up the API class.</p>
       </td>
@@ -4984,10 +4901,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
         <div class='highlight'><pre><span class="nx">DV</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-207'>
+    <tr id='section-206'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-207">&#182;</a>
+          <a class="pilcrow" href="#section-206">&#182;</a>
         </div>
         <p>Return the current page of the document.</p>
       </td>
@@ -4997,10 +4914,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-208'>
+    <tr id='section-207'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-208">&#182;</a>
+          <a class="pilcrow" href="#section-207">&#182;</a>
         </div>
         <p>Set the current page of the document.</p>
       </td>
@@ -5010,10 +4927,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-209'>
+    <tr id='section-208'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-209">&#182;</a>
+          <a class="pilcrow" href="#section-208">&#182;</a>
         </div>
         <p>Register a callback for when the page is changed.</p>
       </td>
@@ -5023,10 +4940,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-210'>
+    <tr id='section-209'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-210">&#182;</a>
+          <a class="pilcrow" href="#section-209">&#182;</a>
         </div>
         <p>Return the page number for one of the three physical page DOM elements, by id:</p>
       </td>
@@ -5037,10 +4954,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-211'>
+    <tr id='section-210'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-211">&#182;</a>
+          <a class="pilcrow" href="#section-210">&#182;</a>
         </div>
         <p>Get the document&rsquo;s canonical schema</p>
       </td>
@@ -5050,10 +4967,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-212'>
+    <tr id='section-211'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-212">&#182;</a>
+          <a class="pilcrow" href="#section-211">&#182;</a>
         </div>
         <p>Get the document&rsquo;s canonical ID.</p>
       </td>
@@ -5063,10 +4980,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-213'>
+    <tr id='section-212'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-213">&#182;</a>
+          <a class="pilcrow" href="#section-212">&#182;</a>
         </div>
         <p>Get the document&rsquo;s numerical ID.</p>
       </td>
@@ -5076,10 +4993,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-214'>
+    <tr id='section-213'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-214">&#182;</a>
+          <a class="pilcrow" href="#section-213">&#182;</a>
         </div>
         <p>Return the current zoom factor of the document.</p>
       </td>
@@ -5090,10 +5007,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-215'>
+    <tr id='section-214'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-215">&#182;</a>
+          <a class="pilcrow" href="#section-214">&#182;</a>
         </div>
         <p>Return the current zoom factor of the document relative to the base zoom.</p>
       </td>
@@ -5105,10 +5022,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-216'>
+    <tr id='section-215'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-216">&#182;</a>
+          <a class="pilcrow" href="#section-215">&#182;</a>
         </div>
         <p>Return the total number of pages in the document.</p>
       </td>
@@ -5118,10 +5035,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-217'>
+    <tr id='section-216'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-217">&#182;</a>
+          <a class="pilcrow" href="#section-216">&#182;</a>
         </div>
         <p>Return the name of the contributor, if available.</p>
       </td>
@@ -5131,10 +5048,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-218'>
+    <tr id='section-217'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-218">&#182;</a>
+          <a class="pilcrow" href="#section-217">&#182;</a>
         </div>
         <p>Return the name of the contributing organization, if available.</p>
       </td>
@@ -5144,10 +5061,10 @@ Don&rsquo;t show the nav controls if there&rsquo;s no sidebar, and it&rsquo;s a 
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-219'>
+    <tr id='section-218'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-219">&#182;</a>
+          <a class="pilcrow" href="#section-218">&#182;</a>
         </div>
         <p>Change the documents' sections, re-rendering the navigation. &ldquo;sections&rdquo;
 should be an array of sections in the canonical format:
@@ -5162,10 +5079,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-220'>
+    <tr id='section-219'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-220">&#182;</a>
+          <a class="pilcrow" href="#section-219">&#182;</a>
         </div>
         <p>Get a list of every section in the document.</p>
       </td>
@@ -5175,10 +5092,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-221'>
+    <tr id='section-220'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-221">&#182;</a>
+          <a class="pilcrow" href="#section-220">&#182;</a>
         </div>
         <p>Get the document&rsquo;s description.</p>
       </td>
@@ -5188,10 +5105,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-222'>
+    <tr id='section-221'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-222">&#182;</a>
+          <a class="pilcrow" href="#section-221">&#182;</a>
         </div>
         <p>Set the document&rsquo;s description and update the sidebar.</p>
       </td>
@@ -5204,10 +5121,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-223'>
+    <tr id='section-222'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-223">&#182;</a>
+          <a class="pilcrow" href="#section-222">&#182;</a>
         </div>
         <p>Get the document&rsquo;s related article url.</p>
       </td>
@@ -5217,10 +5134,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-224'>
+    <tr id='section-223'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-224">&#182;</a>
+          <a class="pilcrow" href="#section-223">&#182;</a>
         </div>
         <p>Set the document&rsquo;s related article url.</p>
       </td>
@@ -5232,10 +5149,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-225'>
+    <tr id='section-224'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-225">&#182;</a>
+          <a class="pilcrow" href="#section-224">&#182;</a>
         </div>
         <p>Get the document&rsquo;s published url.</p>
       </td>
@@ -5245,10 +5162,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-226'>
+    <tr id='section-225'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-226">&#182;</a>
+          <a class="pilcrow" href="#section-225">&#182;</a>
         </div>
         <p>Set the document&rsquo;s published url.</p>
       </td>
@@ -5258,10 +5175,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-227'>
+    <tr id='section-226'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-227">&#182;</a>
+          <a class="pilcrow" href="#section-226">&#182;</a>
         </div>
         <p>Get the document&rsquo;s title.</p>
       </td>
@@ -5271,10 +5188,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-228'>
+    <tr id='section-227'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-228">&#182;</a>
+          <a class="pilcrow" href="#section-227">&#182;</a>
         </div>
         <p>Set the document&rsquo;s title.</p>
       </td>
@@ -5297,10 +5214,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-229'>
+    <tr id='section-228'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-229">&#182;</a>
+          <a class="pilcrow" href="#section-228">&#182;</a>
         </div>
         <p>Set the page text for the given page of a document in the local cache.</p>
       </td>
@@ -5310,10 +5227,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-230'>
+    <tr id='section-229'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-230">&#182;</a>
+          <a class="pilcrow" href="#section-229">&#182;</a>
         </div>
         <p>Reset all modified page text to the original values from the server cache.</p>
       </td>
@@ -5340,10 +5257,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-231'>
+    <tr id='section-230'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-231">&#182;</a>
+          <a class="pilcrow" href="#section-230">&#182;</a>
         </div>
         <p>Redraw the UI. Call redraw(true) to also redraw annotations and pages.</p>
       </td>
@@ -5375,10 +5292,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-232'>
+    <tr id='section-231'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-232">&#182;</a>
+          <a class="pilcrow" href="#section-231">&#182;</a>
         </div>
         <p>Add a new annotation to the document, prefilled to any extent.</p>
       </td>
@@ -5392,10 +5309,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-233'>
+    <tr id='section-232'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-233">&#182;</a>
+          <a class="pilcrow" href="#section-232">&#182;</a>
         </div>
         <p>Register a callback for when an annotation is saved.</p>
       </td>
@@ -5405,10 +5322,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-234'>
+    <tr id='section-233'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-234">&#182;</a>
+          <a class="pilcrow" href="#section-233">&#182;</a>
         </div>
         <p>Register a callback for when an annotation is deleted.</p>
       </td>
@@ -5430,10 +5347,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-235'>
+    <tr id='section-234'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-235">&#182;</a>
+          <a class="pilcrow" href="#section-234">&#182;</a>
         </div>
         <p>set the state. This takes &ldquo;ViewDocument,&rdquo; &ldquo;ViewThumbnails&rdquo;, &ldquo;ViewText&rdquo;</p>
       </td>
@@ -5464,10 +5381,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-236'>
+    <tr id='section-235'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-236">&#182;</a>
+          <a class="pilcrow" href="#section-235">&#182;</a>
         </div>
         <p>Request the loading of an external JS file.</p>
       </td>
@@ -5477,10 +5394,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-237'>
+    <tr id='section-236'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-237">&#182;</a>
+          <a class="pilcrow" href="#section-236">&#182;</a>
         </div>
         <p>Set first/last styles for tabs.</p>
       </td>
@@ -5492,10 +5409,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-238'>
+    <tr id='section-237'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-238">&#182;</a>
+          <a class="pilcrow" href="#section-237">&#182;</a>
         </div>
         <p>Register hooks into DV&rsquo;s hash history</p>
       </td>
@@ -5505,10 +5422,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-239'>
+    <tr id='section-238'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-239">&#182;</a>
+          <a class="pilcrow" href="#section-238">&#182;</a>
         </div>
         <p>Clobber DV&rsquo;s existing history hooks</p>
       </td>
@@ -5519,10 +5436,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-240'>
+    <tr id='section-239'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-240">&#182;</a>
+          <a class="pilcrow" href="#section-239">&#182;</a>
         </div>
         <p>Unload the viewer.</p>
       </td>
@@ -5535,10 +5452,10 @@ should be an array of sections in the canonical format:
   <span class="p">},</span></pre></div>
       </td>
     </tr>
-    <tr id='section-241'>
+    <tr id='section-240'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-241">&#182;</a>
+          <a class="pilcrow" href="#section-240">&#182;</a>
         </div>
         <p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; Enter/Leave Edit Modes &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
       </td>
@@ -5591,10 +5508,10 @@ should be an array of sections in the canonical format:
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-242'>
+    <tr id='section-241'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-242">&#182;</a>
+          <a class="pilcrow" href="#section-241">&#182;</a>
         </div>
         <p>inherit main api</p>
       </td>
@@ -5613,10 +5530,10 @@ should be an array of sections in the canonical format:
   <span class="k">this</span><span class="p">.</span><span class="nx">history</span>        <span class="o">=</span> <span class="k">new</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">History</span><span class="p">(</span><span class="k">this</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-243'>
+    <tr id='section-242'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-243">&#182;</a>
+          <a class="pilcrow" href="#section-242">&#182;</a>
         </div>
         <p>Build the data models</p>
       </td>
@@ -5627,10 +5544,10 @@ should be an array of sections in the canonical format:
   <span class="k">this</span><span class="p">.</span><span class="nx">states</span>     <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span> <span class="nx">DV</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">states</span><span class="p">);</span></pre></div>
       </td>
     </tr>
-    <tr id='section-244'>
+    <tr id='section-243'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-244">&#182;</a>
+          <a class="pilcrow" href="#section-243">&#182;</a>
         </div>
         <p>state values</p>
       </td>
@@ -5659,10 +5576,10 @@ should be an array of sections in the canonical format:
     <span class="nx">models</span>      <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">models</span><span class="p">,</span></pre></div>
       </td>
     </tr>
-    <tr id='section-245'>
+    <tr id='section-244'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-245">&#182;</a>
+          <a class="pilcrow" href="#section-244">&#182;</a>
         </div>
         <p>this allows us to bind events to call the method corresponding to the current state</p>
       </td>
@@ -5706,10 +5623,10 @@ should be an array of sections in the canonical format:
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-246'>
+    <tr id='section-245'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-246">&#182;</a>
+          <a class="pilcrow" href="#section-245">&#182;</a>
         </div>
         <p>Transition to a given state &hellip; unless we&rsquo;re already in it.</p>
       </td>
@@ -5735,10 +5652,10 @@ should be an array of sections in the canonical format:
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-247'>
+    <tr id='section-246'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-247">&#182;</a>
+          <a class="pilcrow" href="#section-246">&#182;</a>
         </div>
         <p>Record a hit on this document viewer.</p>
       </td>
@@ -5754,10 +5671,10 @@ should be an array of sections in the canonical format:
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-248'>
+    <tr id='section-247'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-248">&#182;</a>
+          <a class="pilcrow" href="#section-247">&#182;</a>
         </div>
         <p>jQuery object, scoped to this viewer&rsquo;s container.</p>
       </td>
@@ -5768,10 +5685,10 @@ should be an array of sections in the canonical format:
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-249'>
+    <tr id='section-248'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-249">&#182;</a>
+          <a class="pilcrow" href="#section-248">&#182;</a>
         </div>
         <p>The origin function, kicking off the entire documentViewer render.</p>
       </td>
@@ -5790,10 +5707,10 @@ should be an array of sections in the canonical format:
   <span class="nx">DV</span><span class="p">.</span><span class="nx">viewers</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span>     <span class="o">=</span> <span class="nx">viewer</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-250'>
+    <tr id='section-249'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-250">&#182;</a>
+          <a class="pilcrow" href="#section-249">&#182;</a>
         </div>
         <p>Once we have the JSON representation in-hand, finish loading the viewer.</p>
       </td>
@@ -5811,10 +5728,10 @@ should be an array of sections in the canonical format:
   <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-251'>
+    <tr id='section-250'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-251">&#182;</a>
+          <a class="pilcrow" href="#section-250">&#182;</a>
         </div>
         <p>If we&rsquo;ve been passed the JSON directly, we can go ahead,
 otherwise make a JSONP request to fetch it.</p>
@@ -5835,10 +5752,10 @@ otherwise make a JSONP request to fetch it.</p>
   <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-252'>
+    <tr id='section-251'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-252">&#182;</a>
+          <a class="pilcrow" href="#section-251">&#182;</a>
         </div>
         <p>If we&rsquo;re being asked the fetch the templates, load them remotely before
 continuing.</p>
@@ -5854,10 +5771,10 @@ continuing.</p>
 <span class="p">};</span></pre></div>
       </td>
     </tr>
-    <tr id='section-253'>
+    <tr id='section-252'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-253">&#182;</a>
+          <a class="pilcrow" href="#section-252">&#182;</a>
         </div>
         <p>If the document viewer has been loaded dynamically, allow the external
 script to specify the onLoad behavior.</p>

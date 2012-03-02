@@ -1,33 +1,6 @@
 /* 
 => currently replaced by PIE
 */
-body {
-  background: transparent; }
-
-#main {
-  padding-top: 20px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box; }
-
-#nypl_bar {
-  font-family: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, helvetica, sans-serif;
-  position: relative;
-  color: #fff;
-  background-color: black;
-  font-size: 14px;
-  margin: 0;
-  height: 30px; }
-  #nypl_bar select {
-    font-size: 12px;
-    margin-left: 5px;
-    max-width: 180px;
-    height: 18px; }
-  #nypl_bar form {
-    display: inline; }
-  #nypl_bar span.nypl_link {
-    float: left; }
-
 #youtube .tubin {
   position: relative;
   padding-bottom: 56.25%;

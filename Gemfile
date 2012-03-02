@@ -27,15 +27,15 @@ gem 'slim'
 gem 'sass'
 
 group :test do
-	gem 'rack-test', :require => 'rack/test'
-	gem 'webmock'
+      gem 'rack-test', :require => 'rack/test'
+      gem 'webmock'
 end
 
 group :development do
-	gem 'fl-rocco'
-	gem 'jammit'
-    gem 'foreman'
-    gem 'rerun' #yesness => https://github.com/alexch/rerun
+      gem 'fl-rocco'
+      gem 'jammit'
+      gem 'foreman'
+      gem 'rerun' #yesness => https://github.com/alexch/rerun
 end
 
 group :production do

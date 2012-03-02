@@ -49,7 +49,7 @@ define(['jquery'], function($) {
 						sidebar: false
 					})
 				);
-		 	}, 500);
+		 	}, 1000);
 			onWindowChange('#' + borough.selector);
 		});
 
