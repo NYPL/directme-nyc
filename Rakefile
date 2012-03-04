@@ -53,7 +53,7 @@ namespace :app do
 
 	desc "run all rakes in namespace app"
 	task :setup do
-		sh %{rake app:less_css; rake app:scss_css; rake app:rocco_doc; rake app:jammit; rake app:moveme}
+		sh %{rake app:less_css; rake app:scss_css; rake app:jammit; rake app:moveme}
 	end
 
 end

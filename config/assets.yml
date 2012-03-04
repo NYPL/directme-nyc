@@ -29,7 +29,8 @@ stylesheets:
     boot:
         - public/css/bootstrap_ext.css
         - public/css/reset.css
-        - public/css/main.css
+        - public/css/base-960.css
+        - public/css/other.css
 
     viewer:                                                                                                                                                                                                                                   
         - public/css/DV/components/reset.css                                                                                                                                                                                            

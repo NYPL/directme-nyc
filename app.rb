@@ -10,7 +10,7 @@ class Application < Sinatra::Base
 	get '/' do
 		@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/map', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
-		slim :index
+		slim :main
 	end
 
 	get '/help' do

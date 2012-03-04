@@ -10,7 +10,7 @@ define(['jquery', 'modules/DV_load'], function($, loadDV) {
 				log("loaded!");
 				$('html, body').animate({
 					scrollTop: $(loadDV.loaded()).offset().top
-				}, 300);
+				}, 500);
 			});
 			return false;
 		});

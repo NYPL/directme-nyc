@@ -47,10 +47,10 @@ html
     body
         div#wrapper
             ==slim :header
-
+            /! main
             div#main
                 ==yield
-
+            /! --main--
             ==slim :footer
 
     /[if lt IE 7]

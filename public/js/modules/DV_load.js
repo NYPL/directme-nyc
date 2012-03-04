@@ -32,6 +32,7 @@ define(['jquery'], function($) {
 	function modWidth() {
 		return $('#main').width();
 	}
+
 	function modHeight(selector) {
 		return $(window).height();
 	}
@@ -44,7 +45,7 @@ define(['jquery'], function($) {
 				dfd.resolve(
 					DV.load(docURrl, { 
 						container: '#' + borough.selector,
-						height: parseInt(modHeight()),
+						height: 1200,
 						width: parseInt(modWidth()),
 						sidebar: false
 					})
@@ -64,13 +65,13 @@ define(['jquery'], function($) {
 			setPlace = $('.active').height() + 'px';
 			$('.active').remove().promise().done(function() {
 				log("removed!");
-				$('.DV').append('<div id=' + selector + ' class="span12 active"></div>');
+				$('.DV').append('<div id=' + selector + ' class="active"></div>');
 				$(query_sel).css('margin-top', setPlace);
 			});
 		}
 		else {
 			setPlace = $('#main').height() + 'px';
-			$('.DV').append('<div id=' + selector + ' class="span12 active"></div>');
+			$('.DV').append('<div id=' + selector + ' class="active"></div>');
 			$(query_sel).css('margin-top', setPlace);
 		}
 	}

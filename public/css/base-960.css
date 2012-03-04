@@ -1,0 +1,141 @@
+div.spacer {
+	clear: both;
+	height: 0px;
+}
+
+p {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+
+/* DROP SHADOWS [http://nicolasgallagher.com/css-drop-shadows-without-images/demo/] */
+.drop-shadow {
+            position:relative;
+            float:left;
+            width:200px;    
+            padding:1em; 
+            margin:2em 10px 4em; 
+            background:#fff;
+}
+
+.drop-shadow:before,
+.drop-shadow:after {
+	content:"";
+	position:absolute; 
+}
+
+.drop-shadow:before {
+            top:0;
+            bottom:0;
+            left:10px;
+            right:10px;
+            -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            box-shadow:0 0 15px rgba(0,0,0,0.6);
+            -moz-border-radius:100px / 10px;
+            border-radius:100px / 10px;
+}
+
+/* MAIN STRUCTURE */
+
+#wrapper {
+	width: 960px;
+	margin: 0 auto;
+	background: #eee; /* remove */
+}
+
+#header {
+	height: 70px;
+}
+
+#header h1 {
+	font-size: 36px;
+	width: 300px;
+	float: left;
+}
+
+#nav_bar {
+	font-size: 18px;
+	width: 300px;
+	float: right;
+}
+
+#nav_bar a {
+	margin-left: 30px;
+}
+
+#main {
+	/* background should go here */
+	/* background: url(../images/background.png);*/
+	padding-top: 24px;
+}
+
+#blurb {
+	background: rgba(125,0,125,0.2); /* remove */
+	width: 230px;
+	float: left;
+	margin: 0 5px 0 5px;
+}
+
+#borough_selector {
+	background: rgba(125,0,125,0.2); /* remove */
+	width: 470px;
+	float: left;
+	margin: 0 5px 0 5px;
+}
+
+#borough_selector {
+	background: rgba(125,0,125,0.2); /* remove */
+	width: 470px;
+	float: left;
+	margin: 0 5px 0 5px;
+	margin-bottom: 24px;
+}
+
+#arrow {
+	background: rgba(125,0,125,0.2); /* remove */
+	width: 230px;
+	margin-top: 90px;
+	float: left;
+}
+
+#boroughs {
+	background: rgba(125,0,125,0.2); /* remove */
+	float: right;
+	width: 230px;
+	display: inline-block;
+	font-size: 48px;
+}
+
+#tip {
+	background: rgba(125,0,125,0.2); /* remove */
+	width: 230px;
+	float: left;
+	margin: 0 5px 0 5px;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+
+#nytimes {
+	clear: both;
+}
+
+#video {
+	width: 230px;
+	border: 1px solid #ccc;
+	padding: 4px;
+	display: inline-block;
+	margin-left: 480px;
+}
+
+#video .embed {
+	background: rgba(0,220,0,0.2); /* remove */
+	width: 230px;
+	height: 162px;
+}
+
+#footer {
+	height: 120px;
+	margin-top: 60px;
+}
