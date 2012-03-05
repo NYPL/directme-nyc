@@ -12,6 +12,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.7)
+    base32 (0.2.0)
     bson (1.6.0)
     bson_ext (1.6.0)
       bson (= 1.6.0)
@@ -100,6 +101,7 @@ GEM
     typhoeus (0.3.3)
       mime-types
     tzinfo (0.3.32)
+    uuidtools (2.1.2)
     webmock (1.8.0)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
@@ -111,6 +113,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  base32
   bson_ext
   dalli
   faraday
@@ -132,4 +135,5 @@ DEPENDENCIES
   slim
   thin
   typhoeus
+  uuidtools
   webmock

@@ -33,11 +33,11 @@ borough_pages = {
 }
 
 def init_json(borough, num_pages):
-	_check = db.loaders.find_one({'DV.title': '1940-%s-telephone-directory' % (borough)})
+	_check = db.loaders.find_one({'DV.borough': borough})
 	if _check is None:
 		_id = gen_random_id()
 	else:
-		db.loaders.ensure_index({"DV.title":1})
+		db.loaders.ensure_index("DV.borough")
 		_id = _check['_id']
 
 	init_json = {
@@ -49,17 +49,16 @@ def init_json(borough, num_pages):
 		"pages": num_pages,
 		"resources": {
 			"page": {
-				"image": "http://1940census.nypl.org.s3.amazonaws.com/%s/p{page}-{size}.jpg" % (borough)
+				"image": "http://1940census.nypl.org.s3.amazonaws.com/%s/p{page}--{size}.jpg" % (borough)
 			}
 		}, 
 		"pdf": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.pdf" % (borough, borough),
 		"thumbnail": "http://1940census.nypl.org.s3.amazonaws.com/%s/p1--small.jpg" % (borough),
-		"sections": [],
-		"source": None,
-		"title": "1940-%s-telephone-directory" % (borough)
+		"title": "1940-%s-telephone-directory" % (borough),
+		"borough": borough,
 	}
 
-	db.loaders.update({'_id':init_json['id']}, {'$set': {'DV':init_json}}, upsert=True)
+	db.loaders.update({'_id':init_json['id']}, {'$set' : {'DV':init_json}}, upsert=True)
 
 if __name__ == "__main__":
 	for borough, pages in borough_pages.iteritems():

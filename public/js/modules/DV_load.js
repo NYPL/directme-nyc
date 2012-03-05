@@ -41,7 +41,7 @@ define(['jquery'], function($) {
 				dfd.resolve(
 					DV.load(docURrl, { 
 						container: '#' + borough.selector,
-						height: 1200,
+						height: 1600,
 						width: parseInt(modWidth()),
 						sidebar: false
 					})

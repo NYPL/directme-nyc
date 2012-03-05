@@ -10,6 +10,7 @@ class Application < Sinatra::Base
         get '/' do
                 @consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
                 @deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
+                log.info gen_random_id()
                 slim :main
         end
 
@@ -21,15 +22,16 @@ class Application < Sinatra::Base
 
         end
 
-        post '/one_step' do
-                status 201
-        end
-
         get '/results/:id' do
 
         end
 
+        post '/one_step' do
+        	status 201
+        end
+
         get '/locations' do
+        	content_type :json
 
         end
 
@@ -38,11 +40,31 @@ class Application < Sinatra::Base
         end
 
         get '/dvs' do
+			callback = params.delete('callback') # jsonp
+			json = Loaders.without(:_id).to_json
 
+			if callback
+				content_type :js
+				response = "#{callback}(#{json})" 
+			else
+				content_type :json
+				response = json
+			end
+			response
         end
 
         get '/dvs/:id' do
+        	callback = params.delete('callback') # jsonp
+        	json = Loaders.find(params['id']).to_json
 
+        	if callback
+        		content_type :js
+        		response = "#{callback}(#{json})" 
+        	else
+        		content_type :json
+        		response = json
+        	end
+        	response
         end
 
         get '/stories' do

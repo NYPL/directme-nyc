@@ -8,7 +8,7 @@ require 'bundler/setup'
 
 Bundler.require
 
-%w(base64 digest/sha2 timeout date logger yaml).each do |requirement|
+%w(base64 digest/md5 timeout date logger yaml).each do |requirement|
 	require requirement
 end
 
@@ -22,6 +22,7 @@ class Application < Sinatra::Base
 	# = Middleware =
 	# ==============
 	use Rack::ShowExceptions
+	use Rack::Mongoid::Middleware::IdentityMap
 
 	#set this when ready
 	#===========================================================

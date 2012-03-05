@@ -2,10 +2,12 @@ define(['jquery', 'modules/DV_load'], function($, loadDV) {
 
 	function _init() {
 		//load jsons
+		var urlpath = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
-		//testset
-		$.getJSON('https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json?callback=?', function(data) {
-			environment.testset = data
+		$.getJSON(urlpath + 'dvs?callback=?', function(data) {
+			for (var i = 0; i < data.length; i++) {
+				environment[data[i].DV.borough] = data[i].DV 
+			}
 		});
 
 		return mapLink()

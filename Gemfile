@@ -26,6 +26,10 @@ gem 'rack-cache', :require => 'rack/cache'
 gem 'slim'
 gem 'sass'
 
+#id-y things
+gem 'base32', :require => 'Base32'
+gem 'uuidtools'
+
 group :test do
       gem 'rack-test', :require => 'rack/test'
       gem 'webmock'
