@@ -1,7 +1,9 @@
 import pymongo
 import argparse
-import json
 import datetime
+import base64
+import hashlib
+import uuid
 
 # ~ mongohq => mongo_conn is os.environ.get("MONGOHQ_URL")
 # ~ mongohq => mongo_dbname is app****
@@ -17,7 +19,11 @@ opts = parser.parse_args()
 connection = pymongo.Connection(opts.mongo_conn, int(opts.mongo_port))                                                                                              
 db = connection[opts.mongo_dbname]
 
-boroughs = {
+def gen_random_id():
+	k = base64.b32encode(hashlib.md5(uuid.uuid1().bytes).digest())
+	return k.lower().rstrip('=')
+
+borough_pages = {
 	'manhattan': 0, 
 	'brooklyn': 0, 
 	'queens': 0, 
@@ -27,29 +33,36 @@ boroughs = {
 }
 
 def init_json(borough, num_pages):
+	_check = db.loaders.find_one({'DV.title': '1940-%s-telephone-directory' % (borough)})
+	if _check is None:
+		_id = gen_random_id()
+	else:
+		db.loaders.ensure_index({"DV.title":1})
+		_id = _check['_id']
+
 	init_json = {
 		"annotations": [],
-		"canonical_url": "",
-		"contributor": "",
-		"contributor_organization": "",
+		"canonical_url": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.html" % (borough, borough),
 		"created_at": datetime.datetime.utcnow().isoformat(),
 		"description": "",
-		"id": "1940-%s-telephone-directory" % (borough),
+		"id": _id,
 		"pages": num_pages,
 		"resources": {
 			"page": {
 				"image": "http://1940census.nypl.org.s3.amazonaws.com/%s/p{page}-{size}.jpg" % (borough)
 			}
 		}, 
-		"pdf": "",
+		"pdf": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.pdf" % (borough, borough),
 		"thumbnail": "http://1940census.nypl.org.s3.amazonaws.com/%s/p1--small.jpg" % (borough),
 		"sections": [],
 		"source": None,
 		"title": "1940-%s-telephone-directory" % (borough)
 	}
 
+	db.loaders.update({'_id':init_json['id']}, {'$set': {'DV':init_json}}, upsert=True)
+
 if __name__ == "__main__":
-	for borough, pages in boroughs.iteritems():
+	for borough, pages in borough_pages.iteritems():
 		init_json(borough, pages)
 
 

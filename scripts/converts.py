@@ -4,6 +4,11 @@ from boto.s3.key import Key
 import os
 import fnmatch
 import argparse
+from pyPdf import PdfFileWriter, PdfFileReader
+
+pdf_output = PdfFileWriter()
+
+#[TODO] make sure to sort by page order in the directories... if not already automagically
 
 #parser stuff
 parser = argparse.ArgumentParser(description='Doc Viewer Conversions for Census/Directories Project')
@@ -51,6 +56,26 @@ def loop_to_zon():
 	#delete conversions once on amazon
 	print "delete converted files... which are now on amazon"
 	subprocess.call('rm %s/*.%s' % (opts.outdir, opts.out_ext), shell=True)
+
+	print "make pdf of document for download"
+	for pdf in fnmatch.filter (os.listdir(opts.outdir), '*.pdf'):
+		pdf_input = PdfFileReader(file("%s/%s" % (opts.indir, pdf), "rb"))
+		pdf_output.addPage(pdf_input.getPage(0))
+
+	pdf_title = "1940-%s-telephone-directory.pdf" % opts.borough
+	outputStream = file("%s/%s" % (opts.outdir, pdf_title), "wb")
+	pdf_output.write(outputStream)
+	outputStream.close()
+
+	k = Key(bucket)
+	k.key = '%s/%s' % (opts.borough, pdf_title)
+	k.set_metadata("Content-Type", 'application/pdf')
+	k.set_contents_from_filename('%s/%s' % (opts.outdir, pdf_title), policy='public-read')
+	k.set_acl('public-read')
+
+	print "delete pdf created, now on amazon"
+	subprocess.call('rm %s/%s' % (opts.outdir, pdf_title), shell=True)
+
 
 
 if __name__ == "__main__":
