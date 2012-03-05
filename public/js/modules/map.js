@@ -1,7 +1,14 @@
 define(['jquery', 'modules/DV_load'], function($, loadDV) {
 
 	function _init() {
-		return mapLink();
+		//load jsons
+
+		//testset
+		$.getJSON('https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json?callback=?', function(data) {
+			environment.testset = data
+		});
+
+		return mapLink()
 	}
 
 	function mapLink() {

@@ -17,31 +17,39 @@ opts = parser.parse_args()
 connection = pymongo.Connection(opts.mongo_conn, int(opts.mongo_port))                                                                                              
 db = connection[opts.mongo_dbname]
 
-
-init_json = {
-	"annotations": [],
-	"canonical_url": "",
-	"contributor": "",
-	"contributor_organization": "",
-	"created_at": datetime.datetime.utcnow().isoformat(),
-	"description": "",
-	"id": "",
-	"pages": 0,
-	"resources": {
-		"page": {
-			"image": "https://s3.amazonaws.com/s3.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}-{size}.gif", 
-			"text": "https://www.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}.txt"
-		}
-	}, 
-	"pdf": "",
-	"published_url": "",
-	"search": "",
-	"thumbnail": "",
-	"sections": [],
-	"source": None,
-	"title": ""
+boroughs = {
+	'manhattan': 0, 
+	'brooklyn': 0, 
+	'queens': 0, 
+	'bronx': 0, 
+	'staten': 0,
+	'testset': 281
 }
 
-print json.dumps(init_json)
+def init_json(borough, num_pages):
+	init_json = {
+		"annotations": [],
+		"canonical_url": "",
+		"contributor": "",
+		"contributor_organization": "",
+		"created_at": datetime.datetime.utcnow().isoformat(),
+		"description": "",
+		"id": "1940-%s-telephone-directory" % (borough),
+		"pages": num_pages,
+		"resources": {
+			"page": {
+				"image": "http://1940census.nypl.org.s3.amazonaws.com/%s/p{page}-{size}.jpg" % (borough)
+			}
+		}, 
+		"pdf": "",
+		"thumbnail": "http://1940census.nypl.org.s3.amazonaws.com/%s/p1--small.jpg" % (borough),
+		"sections": [],
+		"source": None,
+		"title": "1940-%s-telephone-directory" % (borough)
+	}
+
+if __name__ == "__main__":
+	for borough, pages in boroughs.iteritems():
+		init_json(borough, pages)
 
 

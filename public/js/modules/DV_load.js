@@ -5,13 +5,9 @@ define(['jquery'], function($) {
 
 	function _init(borough) {
 		var DVloader = {
-			brooklyn: {
-				url: "https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json",
-				selector: "DV-bk"
-			},
-			manhattan: {
-				url: "https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json",
-				selector: "DV-man"
+			testset: {
+				json_obj: environment.testset,
+				selector: "DV-testset"
 			}
 		};
 
@@ -40,7 +36,7 @@ define(['jquery'], function($) {
 	function loader(borough) {
 		var dfd = $.Deferred();
 		$.when(createDiv(borough.selector)).done(function() {
-			var docURrl = borough.url;
+			var docURrl = borough.json_obj;
 		 	setTimeout(function() {
 				dfd.resolve(
 					DV.load(docURrl, { 
@@ -50,7 +46,7 @@ define(['jquery'], function($) {
 						sidebar: false
 					})
 				);
-		 	}, 1000);
+		 	}, 700);
 			onWindowChange('#' + borough.selector);
 		});
 
