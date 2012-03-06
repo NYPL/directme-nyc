@@ -259,13 +259,8 @@ p {
 	color: #666;
 }
 
-#frm-annotate {
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-#frm-annotate #content {
-	width: 100%;
+#frm-annotate textarea {
+	width: 210px;
 	height: 120px;
 	margin-bottom: 4px;
 }
@@ -614,6 +609,14 @@ div.spacer {
 	margin-bottom: 12px;
 }
 
+#annotations #frm-annotate {
+	margin-bottom: 12px;
+}
+
+#annotations #frm-annotate textarea {
+	margin: 0 5px 6px 5px;
+}
+
 #geo {
 	float: right;
 	width: 470px;
@@ -634,7 +637,7 @@ div.spacer {
 #nytimes {
 	clear: none;
 	float: right;
-	width: 470px;
+	width: 480px;
 }
 
 #ticker .title {
