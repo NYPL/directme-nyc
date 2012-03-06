@@ -8,17 +8,17 @@
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-			@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
-			@deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
-			slim :main
+		@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
+		slim :main
 	end
 
 	get '/help' do
-
+		slim :help
 	end
 
 	get '/credits' do
-
+		slim :credits
 	end
 
 	get '/results/:id' do
@@ -26,6 +26,7 @@ class Application < Sinatra::Base
 	end
 
 	post '/one_step' do
+		@gen_id = gen_random_id()
 		status 201
 	end
 
@@ -122,12 +123,8 @@ class Application < Sinatra::Base
 
 	########################other handlers###########################
 	not_found do
-			status 404
-			slim :not_found, :locals => {"voo" => "404"}
-	end
-
-	error do
-
+		status 404
+		slim :not_found
 	end
 	#################################################################
 

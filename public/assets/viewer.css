@@ -1715,14 +1715,14 @@ span.DV-highlighted{
 .DV-zoomBox{
   background: url(../images/DV/embed/bar.png?1329940696) repeat-x 0 88%;
   height:20px;
-  width:85px;
+  width:45px;
   float: left;
   position:relative;
   cursor: pointer;
 }
   .DV-narrowControls .DV-zoomBox {
     background: url(../images/DV/embed/bar_small.png?1329940696) repeat-x 0 88%;
-    width:49px;
+    width:25px;
   }
 
 .DV-zoomBox .ui-slider-handle{

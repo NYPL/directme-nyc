@@ -237,7 +237,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if ((this.elements.viewer.width() <= 700) && (showAnnotations || showPages || showSearch)) {
+      if ((this.elements.viewer.width() <= 800) && (showAnnotations || showPages || showSearch)) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));

@@ -1314,7 +1314,7 @@ DV.Schema = function() {
   this.elements     = {};
   this.text         = {};
   this.data         = {
-    zoomLevel               : 700,
+    zoomLevel               : 800,
     pageWidthPadding        : 20,
     additionalPaddingOnPage : 30,
     state                   : { page: { previous: 0, current: 0, next: 1 } }
@@ -1796,7 +1796,7 @@ DV.model.Pages = function(viewer) {
   this.BASE_HEIGHT     = 959;
 
   // Factors for scaling from image size to zoomlevel.
-  this.SCALE_FACTORS   = {'800': 1.0, '1500': 0.8, '2000': 1.0};
+  this.SCALE_FACTORS   = {'800': 1.0, '1500': 0.7, '2000': 1.0};
 
   // For viewing page text.
   this.DEFAULT_PADDING = 100;
@@ -2183,7 +2183,7 @@ DV.Schema.helpers = {
       viewer.slider = viewer.$('.DV-zoomBox').slider({
         step: 1,
         min: 0,
-        max: 4,
+        max: 2,
         value: value,
         slide: function(el,d){
           boundZoom(context.models.document.ZOOM_RANGES[parseInt(d.value, 10)]);
@@ -2508,25 +2508,6 @@ DV.Schema.helpers = {
       }
     },
 
-    // TODO: This function is not currently being called. Candidate for removal.
-
-    // setWindowSize: function(windowDimensions){
-    //   var viewer          = this.viewer;
-    //   var elements        = this.elements;
-    //   var headerHeight    = elements.header.outerHeight() + 15;
-    //   var offset          = DV.jQuery(this.viewer.options.container).offset().top;
-    //   var uiHeight        = Math.round((windowDimensions.height) - headerHeight - offset);
-    //
-    //   // doc window
-    //   elements.window.css({ height: uiHeight, width: windowDimensions.width-267 });
-    //
-    //   // well
-    //   elements.well.css( { height: uiHeight });
-    //
-    //   // store this for later
-    //   viewer.windowDimensions = windowDimensions;
-    // },
-
     toggleContent: function(toggleClassName){
       this.elements.viewer.removeClass('DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
     },
@@ -2610,21 +2591,21 @@ DV.Schema.helpers = {
       var zoom;
       if (this.viewer.options.zoom == 'auto') {
         zoom = Math.min(
-          1000,
+          800,
           windowWidth - (this.viewer.models.pages.REDUCED_PADDING * 2)
         );
       } else {
         zoom = this.viewer.options.zoom;
       }
-
+      log("zoom: " + zoom)
       // Setup ranges for auto-width zooming
       var ranges = [];
-      if (zoom <= 800) {
-        zoom = 800;
-        ranges = this.viewer.models.document.ZOOM_RANGES;
-      } 
-      else if (800 < zoom && zoom < 2000) {
+      if (zoom <= 768) {
         var zoom2 = ((zoom - 800) / 2) + 800;
+        ranges = [zoom, zoom2, 2000]
+      } 
+      else if (768 < zoom && zoom < 2000) {
+        var zoom2 = ((2000 - zoom) / 3) + 800;
         ranges = [800, zoom2, 2000]
       }
       else if (zoom >= 2000) {
@@ -2972,7 +2953,7 @@ _.extend(DV.Schema.helpers, {
 
     // Check if the zoom is showing, and if not, shorten the width of search
     _.defer(_.bind(function() {
-      if ((this.elements.viewer.width() <= 700) && (showAnnotations || showPages || showSearch)) {
+      if ((this.elements.viewer.width() <= 800) && (showAnnotations || showPages || showSearch)) {
         this.viewer.$('.DV-controls').addClass('DV-narrowControls');
       }
     }, this));

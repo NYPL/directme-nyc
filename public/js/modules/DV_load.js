@@ -26,7 +26,7 @@ define(['jquery'], function($) {
 	}
 
 	function modWidth() {
-		return $('#main').width();
+		return $('body').width();
 	}
 
 	function modHeight(selector) {
