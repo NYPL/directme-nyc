@@ -3,18 +3,11 @@ div.spacer {
 	height: 0px;
 }
 
-h1, h2, h3, h4, p {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-bottom: 6px;
-}
-
 /* MAIN STRUCTURE */
 
 #wrapper {
 	width: 960px;
 	margin: 0 auto;
-	background: #eee; /* remove */
 }
 
 #nypl_bar {
@@ -61,14 +54,12 @@ h1, h2, h3, h4, p {
 }
 
 #blurb {
-	background: rgba(125,0,125,0.2); /* remove */
 	float: left;
 	width: 230px;
 	margin: 0 5px 0 5px;
 }
 
 #borough_selector {
-	background: rgba(125,0,125,0.2); /* remove */
 	width: 470px;
 	float: left;
 	margin: 0 5px 0 5px;
@@ -76,14 +67,12 @@ h1, h2, h3, h4, p {
 }
 
 #arrow {
-	background: rgba(125,0,125,0.2); /* remove */
 	width: 230px;
 	margin-top: 90px;
 	float: left;
 }
 
 #boroughs {
-	background: rgba(125,0,125,0.2); /* remove */
 	float: right;
 	width: 230px;
 	display: inline-block;
@@ -91,14 +80,14 @@ h1, h2, h3, h4, p {
 }
 
 #tip {
-	background: rgba(125,0,125,0.2); /* remove */
 	position: absolute;
-	top: 220px;
+	top: 204px;
 	left: 120px;
 	width: 230px;
 	margin: 0 5px 0 5px;
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
+	background: #fff;
 }
 
 #nytimes {
@@ -209,7 +198,6 @@ h1, h2, h3, h4, p {
 }
 
 #video .embed {
-	background: rgba(0,220,0,0.2); /* remove */
 	width: 230px;
 	height: 162px;
 }
