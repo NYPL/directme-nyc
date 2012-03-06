@@ -90,6 +90,108 @@ address,abbr { font-style:normal }
 iframe:not(.auto-link) { display:none ! important; visibility:hidden ! important; margin-left: -10000px ! important  }
 
 /* more varnish stripping as necessary... */
+body {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+	font-size: 12px;
+}
+
+strong {
+	font-weight: bold;
+}
+
+a {
+	color: #666;
+}
+
+a.hi, .hl {
+	color: #f00;
+}
+
+h1, h2, h3, h4, p {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 6px;
+}
+
+p {
+	margin-bottom: 1em;
+	line-height: 1.4em;
+}
+
+#header h1 {
+	font-size: 36px;
+}
+
+#nav_bar a {
+	font-size: 18px;
+	color: #000;
+	line-height: 1.8em;
+}
+
+#nav_bar a:hover, #nav_bar a:active, #boroughs li a:hover, #boroughs li a:active {
+	color: #f00;
+}
+
+#arrow p {
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: bold;
+	padding-right: 60px;
+	margin-left: 24px;
+	background: url(../images/sprites.png?1331053054) 120px -70px no-repeat;
+}
+
+#boroughs li {
+	font-family: league-gothic, "League Gothic", Impact, sans-serif;
+	line-height: 0.85em;
+}
+
+#boroughs li a {
+	color: #000;
+}
+
+#tip {
+	padding: 12px 0;
+}
+
+#tip h3 {
+	font-size: 16px;
+	color: #666;
+}
+
+#tip .content {
+	font-size: 20px;
+	line-height: 1.2em;
+}
+
+#tip a {
+	margin: 0 5px;
+}
+
+#nytimes .title {
+	font-weight: bold;
+}
+
+#nytimes p {
+	height: 12px;
+	margin: 0;
+}
+
+#nytimes .logo {
+	display: inline-block;
+	width: 137px;
+	height: 20px;
+	background: url(../images/sprites.png?1331053054) 0 -123px no-repeat;
+	margin-left: 3px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#searchterms {
+	font-size: 24px;
+}
+
 div.spacer {
 	clear: both;
 	height: 0px;
@@ -297,152 +399,6 @@ div.spacer {
 #footer {
 	height: 120px;
 	margin-top: 24px;
-}
-
-#searchterms {
-	margin-bottom: 12px;
-}
-
-#results, #annotations {
-	float: left;
-	width: 230px;
-	margin: 0 5px 0 5px;
-	margin-bottom: 12px;
-}
-
-#geo {
-	float: right;
-	width: 470px;
-	border: 1px solid #ccc;
-	padding: 4px;
-	margin-bottom: 12px;
-}
-
-#nyplmap, #gmap {
-	float: left;
-}
-
-#nyplmap {
-	margin-right: 10px;
-}
-
-#nytimes {
-	clear: none;
-	float: right;
-	width: 470px;
-}
-
-#ticker .title {
-	float: none;
-	width: auto;
-}
-
-#ticker .content {
-	float: none;
-	width: auto;
-	margin-top: 6px;
-}
-
-body {
-	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
-	font-size: 12px;
-}
-
-strong {
-	font-weight: bold;
-}
-
-a {
-	color: #666;
-}
-
-a.hi, .hl {
-	color: #f00;
-}
-
-h1, h2, h3, h4, p {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-bottom: 6px;
-}
-
-p {
-	margin-bottom: 1em;
-	line-height: 1.4em;
-}
-
-#header h1 {
-	font-size: 36px;
-}
-
-#nav_bar a {
-	font-size: 18px;
-	color: #000;
-	line-height: 1.8em;
-}
-
-#nav_bar a:hover, #nav_bar a:active, #boroughs li a:hover, #boroughs li a:active {
-	color: #f00;
-}
-
-#arrow p {
-	text-transform: uppercase;
-	font-size: 18px;
-	font-weight: bold;
-	padding-right: 60px;
-	margin-left: 24px;
-	background: url(../images/sprites.png?1331052837) 120px -70px no-repeat;
-}
-
-#boroughs li {
-	font-family: league-gothic, "League Gothic", Impact, sans-serif;
-	line-height: 0.85em;
-}
-
-#boroughs li a {
-	color: #000;
-}
-
-#tip {
-	padding: 12px 0;
-}
-
-#tip h3 {
-	font-size: 16px;
-	color: #666;
-}
-
-#tip .content {
-	font-size: 20px;
-	line-height: 1.2em;
-}
-
-#tip a {
-	margin: 0 5px;
-}
-
-#nytimes .title {
-	font-weight: bold;
-}
-
-#nytimes p {
-	height: 12px;
-	margin: 0;
-}
-
-#nytimes .logo {
-	display: inline-block;
-	width: 137px;
-	height: 20px;
-	background: url(../images/sprites.png?1331052837) 0 -123px no-repeat;
-	margin-left: 3px;
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-#searchterms {
-	font-size: 24px;
 }
 
 /* 
