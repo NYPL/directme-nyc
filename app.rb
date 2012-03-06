@@ -22,7 +22,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/results/:id' do
-
+		slim :results
 	end
 
 	post '/one_step' do

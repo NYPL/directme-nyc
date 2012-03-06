@@ -1,0 +1,73 @@
+h1#searchterms 1172 Teller Ave, Bronx, NY
+	
+/! geo
+div#geo
+	div#nyplmap
+		img src="images/nyplmap.png"
+
+	div#gmap
+		img src="images/gmap.png"
+/! --geo--
+
+/! results
+div#results
+	div.crosscontent
+		h3 More than one ED
+		p There is more than one possible ED for this address. For best results finding a census record narrow your search by selecting a cross street:
+		select name="crossstreet"
+			option Select cross street
+			option 1 St
+			option 2 St
+			option 3 St
+
+	div.EDcontent
+		h3 Find Census Record for ED
+		p Click to find the National Archive Census Record for an ED
+		p Results powered by: 
+			a href="http://stephenmorse.com/census/"
+				span1-Step
+		table#EDlist
+			tr
+				td.EDnumber 
+					a href="http://www.archives.gov" 3-170
+				td.NARAlink
+					a href="http://www.archives.gov" Find in the National Archives
+			tr
+				td.EDnumber 
+					a href="http://www.archives.gov" 3-169
+				td.NARAlink
+					a href="http://www.archives.gov" Find in the National Archives
+			tr
+				td.EDnumber 
+					a href="http://www.archives.gov" 3-168
+				td.NARAlink
+					a href="http://www.archives.gov" Find in the National Archives
+			tr
+				td.EDnumber 
+					a href="http://www.archives.gov" 3-167
+				td.NARAlink
+					a href="http://www.archives.gov" Find in the National Archives
+/! --results--
+
+/! annotations
+div#annotations
+	div.content
+		h3 Stories about this address
+		p Patron-generated stories of this area.
+			br
+			a href="#" Legal info
+			
+			div.annotation
+				h4.title This was my grandma’s house in 1940
+				p.content It’s amazing how much has changed since then!
+				p.author Posted by 
+					strong Bob 
+					2 hours ago
+
+/! --annotations
+
+==slim :nytimes
+
+div.spacer
+	
+==slim :footer

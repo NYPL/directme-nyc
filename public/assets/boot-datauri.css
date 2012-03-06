@@ -2588,38 +2588,10 @@ div.spacer {
 	height: 0px;
 }
 
-p {
+h1, h2, h3, h4, p {
 	margin-left: 5px;
 	margin-right: 5px;
-}
-
-
-/* DROP SHADOWS [http://nicolasgallagher.com/css-drop-shadows-without-images/demo/] */
-.drop-shadow {
-            position:relative;
-            float:left;
-            width:200px;    
-            padding:1em; 
-            margin:2em 10px 4em; 
-            background:#fff;
-}
-
-.drop-shadow:before,
-.drop-shadow:after {
-	content:"";
-	position:absolute; 
-}
-
-.drop-shadow:before {
-            top:0;
-            bottom:0;
-            left:10px;
-            right:10px;
-            -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
-            -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
-            box-shadow:0 0 15px rgba(0,0,0,0.6);
-            -moz-border-radius:100px / 10px;
-            border-radius:100px / 10px;
+	margin-bottom: 6px;
 }
 
 /* MAIN STRUCTURE */
@@ -2630,36 +2602,53 @@ p {
 	background: #eee; /* remove */
 }
 
+#nypl_bar {
+	background: #000;
+	height: 30px;
+	color: #fff;
+}
+
 #header {
+	background: #fff;
 	height: 70px;
+	border-bottom: 2px solid #000;
 }
 
 #header h1 {
-	font-size: 36px;
 	width: 300px;
 	float: left;
 }
 
 #nav_bar {
-	font-size: 18px;
-	width: 300px;
 	float: right;
+	width: 300px;
+	top: 0;
 }
 
 #nav_bar a {
+	display: inline-block;
 	margin-left: 30px;
+	border-top: 5px solid #fff;
+	padding-top: 30px;
+}
+
+#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current {
+	border-top-color: #f00;
 }
 
 #main {
-	/* background should go here */
-	/* background: url(../images/background.png);*/
+	position: relative;
+	background: url(../images/background.png?1331049270);
 	padding-top: 24px;
+	padding-bottom: 48px;
+	z-index: 1;
+	border-bottom: 1px solid #000;
 }
 
 #blurb {
 	background: rgba(125,0,125,0.2); /* remove */
+	float: left;
 	width: 230px;
-	float: left;
 	margin: 0 5px 0 5px;
 }
 
@@ -2668,14 +2657,7 @@ p {
 	width: 470px;
 	float: left;
 	margin: 0 5px 0 5px;
-}
-
-#borough_selector {
-	background: rgba(125,0,125,0.2); /* remove */
-	width: 470px;
-	float: left;
-	margin: 0 5px 0 5px;
-	margin-bottom: 24px;
+	margin-bottom: 12px;
 }
 
 #arrow {
@@ -2695,8 +2677,10 @@ p {
 
 #tip {
 	background: rgba(125,0,125,0.2); /* remove */
+	position: absolute;
+	top: 220px;
+	left: 120px;
 	width: 230px;
-	float: left;
 	margin: 0 5px 0 5px;
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
@@ -2704,7 +2688,102 @@ p {
 
 #nytimes {
 	clear: both;
+	margin-top: 12px;
 }
+
+#ticker .title, #ticker .content {
+	position: relative;
+	z-index: 2;
+}
+
+#ticker .title {
+	float: left;
+	width: 120px;
+}
+
+#ticker .content {
+	float: left;
+	width: 810px;
+	height: 17px;
+	overflow: hidden;
+}
+
+#nytimes .footer {
+	width: 230px;
+	margin: 12px auto 0 auto;
+	text-align: center;
+}
+
+/* DROP SHADOWS [http://nicolasgallagher.com/css-drop-shadows-without-images/demo/] */
+
+#ticker {
+	position:relative;
+	padding:5px; 
+	background:#fff;
+	z-index: 1;
+}
+
+#ticker:before,
+#ticker:after {
+	content:"";
+	position:absolute; 
+}
+
+
+#ticker:before {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+	box-shadow: 0 0 10px rgba(0,0,0,0.6);
+	z-index: -1;
+}
+
+
+#ticker:after {
+	top: 0;
+	bottom: 0;
+	left: -10px;
+	right: -10px;
+	background: #fff;
+	z-index: 0;
+}
+
+#ticker .content:before, #ticker .content:after {
+	content:".";
+	position:absolute; 
+	width: 64px;
+	color: #fff;
+}
+
+#ticker .content:before {
+	left: 0;
+	top: 0;
+	background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
+	background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	background: linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
+}
+
+
+#ticker .content:after {
+	right: 0;
+	top: 0;
+	background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	background: linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );
+}
+
+/* END TICKER SHADOWS */
 
 #video {
 	width: 230px;
@@ -2722,7 +2801,63 @@ p {
 
 #footer {
 	height: 120px;
-	margin-top: 60px;
+	margin-top: 24px;
+}
+
+#searchterms {
+	margin-bottom: 12px;
+}
+
+#results, #annotations {
+	float: left;
+	width: 230px;
+	margin: 0 5px 0 5px;
+	margin-bottom: 12px;
+}
+
+#geo {
+	float: right;
+	width: 470px;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin-bottom: 12px;
+}
+
+#nyplmap, #gmap {
+	float: left;
+}
+
+#nyplmap {
+	margin-right: 10px;
+}
+
+#nytimes {
+	clear: none;
+	float: right;
+	width: 470px;
+}
+
+#ticker .title {
+	float: none;
+	width: auto;
+}
+
+#ticker .content {
+	float: none;
+	width: auto;
+	margin-top: 6px;
+}
+
+strong {
+	font-weight: bold;
+}
+
+#header h1 {
+	font-size: 36px;
+}
+
+#searchterms {
+	font-size: 24px;
 }
 
 /* 
