@@ -167,8 +167,8 @@ p {
 	color: #666;
 }
 
-#frm-annotate #content {
-	width: 100%;
+#frm-annotate textarea {
+	width: 210px;
 	height: 120px;
 	margin-bottom: 4px;
 }

@@ -9,6 +9,14 @@
 	margin-bottom: 12px;
 }
 
+#annotations #frm-annotate {
+	margin-bottom: 12px;
+}
+
+#annotations #frm-annotate textarea {
+	margin: 0 5px 6px 5px;
+}
+
 #geo {
 	float: right;
 	width: 470px;
@@ -29,7 +37,7 @@
 #nytimes {
 	clear: none;
 	float: right;
-	width: 470px;
+	width: 480px;
 }
 
 #ticker .title {
