@@ -52,25 +52,7 @@
 }
 
 /* media queries */
-@media screen and (min-width: 0px) and (max-width: 620px) {
-	#annotations {
-		float: none;
-		position: relative;
-		display: inline-block;
-		width: 470px;
-	}
-
-	#annotations .content, #annotations #frm-annotate {
-		float: left;
-		width: 230px;
-	}
-
-	#annotations .content {
-		margin-right: 10px;
-	}
-}
-
-@media screen and (min-width: 620px) and (max-width: 960px) {
+@media screen and (min-width: 0px) and (max-width: 960px) {
 	#geo {
 		float: left;
 	}
@@ -99,5 +81,23 @@
 		clear: both;
 		float: none;
 		width: auto;
+	}
+}
+
+@media screen and (min-width: 0px) and (max-width: 620px) {
+	#annotations {
+		float: none;
+		position: relative;
+		display: inline-block;
+		width: 470px;
+	}
+
+	#annotations .content, #annotations #frm-annotate {
+		float: left;
+		width: 230px;
+	}
+
+	#annotations .content {
+		margin-right: 10px;
 	}
 }

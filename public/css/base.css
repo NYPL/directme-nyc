@@ -209,6 +209,16 @@ div.spacer {
 }
 
 /* media queries */
+@media screen and (min-width: 0px) and (max-width: 960px) {
+	#wrapper {
+		width: 720px;
+	}
+
+	#ticker .content {
+		width: 570px;
+	}
+}
+
 @media screen and (min-width: 0px) and (max-width: 620px) {
 	#wrapper {
 		width: 480px;
@@ -267,14 +277,4 @@ div.spacer {
 		margin-top: 6px;
 	}
 
-}
-
-@media screen and (min-width: 620px) and (max-width: 960px) {
-	#wrapper {
-		width: 720px;
-	}
-
-	#ticker .content {
-		width: 570px;
-	}
 }

@@ -528,6 +528,16 @@ div.spacer {
 }
 
 /* media queries */
+@media screen and (min-width: 0px) and (max-width: 960px) {
+	#wrapper {
+		width: 720px;
+	}
+
+	#ticker .content {
+		width: 570px;
+	}
+}
+
 @media screen and (min-width: 0px) and (max-width: 620px) {
 	#wrapper {
 		width: 480px;
@@ -587,17 +597,6 @@ div.spacer {
 	}
 
 }
-
-@media screen and (min-width: 620px) and (max-width: 960px) {
-	#wrapper {
-		width: 720px;
-	}
-
-	#ticker .content {
-		width: 570px;
-	}
-}
-
 #searchterms {
 	margin-bottom: 12px;
 }
@@ -652,25 +651,7 @@ div.spacer {
 }
 
 /* media queries */
-@media screen and (min-width: 0px) and (max-width: 620px) {
-	#annotations {
-		float: none;
-		position: relative;
-		display: inline-block;
-		width: 470px;
-	}
-
-	#annotations .content, #annotations #frm-annotate {
-		float: left;
-		width: 230px;
-	}
-
-	#annotations .content {
-		margin-right: 10px;
-	}
-}
-
-@media screen and (min-width: 620px) and (max-width: 960px) {
+@media screen and (min-width: 0px) and (max-width: 960px) {
 	#geo {
 		float: left;
 	}
@@ -699,6 +680,24 @@ div.spacer {
 		clear: both;
 		float: none;
 		width: auto;
+	}
+}
+
+@media screen and (min-width: 0px) and (max-width: 620px) {
+	#annotations {
+		float: none;
+		position: relative;
+		display: inline-block;
+		width: 470px;
+	}
+
+	#annotations .content, #annotations #frm-annotate {
+		float: left;
+		width: 230px;
+	}
+
+	#annotations .content {
+		margin-right: 10px;
 	}
 }
 /* 
