@@ -488,6 +488,7 @@ div.spacer {
 #geo {
 	float: right;
 	width: 470px;
+	background: #fff;
 	border: 1px solid #ccc;
 	padding: 4px;
 	margin-bottom: 12px;
