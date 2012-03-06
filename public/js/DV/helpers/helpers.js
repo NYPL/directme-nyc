@@ -432,7 +432,7 @@ DV.Schema.helpers = {
       // Setup ranges for auto-width zooming
       var ranges = [];
       if (zoom <= 768) {
-        var zoom2 = ((zoom - 800) / 2) + 800;
+        var zoom2 = ((800 - zoom) / 2) + 800;
         ranges = [zoom, zoom2, 2000]
       } 
       else if (768 < zoom && zoom < 2000) {
