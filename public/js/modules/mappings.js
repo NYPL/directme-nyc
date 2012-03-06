@@ -17,8 +17,9 @@ define(['jquery', 'modules/DV_load'], function($, loadDV) {
 		$('.borough').on('click', function(event) {
 			$.when(loadDV.init(event.target.id)).done(function() {
 				log("loaded!");
+				$('.reheader').show();
 				$('html, body').animate({
-					scrollTop: $(loadDV.loaded()).offset().top
+					scrollTop: $('.DV').offset().top
 				}, 500);
 			});
 			return false;

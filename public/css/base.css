@@ -6,6 +6,9 @@ div.spacer {
 /* MAIN STRUCTURE */
 
 #wrapper {
+}
+
+#mainwrapper {
 	width: 960px;
 	margin: 0 auto;
 }
@@ -50,7 +53,6 @@ div.spacer {
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
-	border-bottom: 1px solid #000;
 }
 
 #blurb {
@@ -204,13 +206,13 @@ div.spacer {
 }
 
 #footer {
-	height: 120px;
-	margin-top: 24px;
+	padding: 24px 0 100px 0;
+	border-top: 1px solid #000;
 }
 
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
-	#wrapper {
+	#mainwrapper {
 		width: 720px;
 	}
 
@@ -220,7 +222,7 @@ div.spacer {
 }
 
 @media screen and (min-width: 0px) and (max-width: 620px) {
-	#wrapper {
+	#mainwrapper {
 		width: 480px;
 	}
 

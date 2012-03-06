@@ -1,8 +1,5 @@
 define(['jquery'], function($) {
 
-	//anon globals
-	var loaded = "";
-
 	function _init(borough) {
 		var DVloader = {
 			testset: {
@@ -19,10 +16,6 @@ define(['jquery'], function($) {
 		return res_dfd.promise();
 	}
 
-	function DVloaded() {
-		return loaded;
-	}
-
 	function onWindowChange(selector) {
 		$(window).resize(function() {
 			$(selector).width(modWidth());
@@ -33,14 +26,11 @@ define(['jquery'], function($) {
 		return $('body').width();
 	}
 
-	function modHeight(selector) {
-		return $(window).height();
-	}
-
 	function loader(borough) {
 		var dfd = $.Deferred();
 		$.when(createDiv(borough.selector)).done(function() {
 			var docURrl = borough.json_obj;
+			offset = $(window).width() - $('.DV').width();
 		 	setTimeout(function() {
 				dfd.resolve(
 					DV.load(docURrl, { 
@@ -58,24 +48,23 @@ define(['jquery'], function($) {
 	}
 
 	function createDiv(selector) {
-		var query_sel = '#' + selector;
-		loaded = query_sel;
-		var setPlace = 0;
-		if ($('.DV > *').length > 0) {
-			$('.active').remove().promise().done(function() {
-				log("removed!");
+			var query_sel = '#' + selector;
+			var setPlace = 0;
+			if ($('.DV > .active').length > 0) {
+				$('.active').remove().promise().done(function() {
+					log("removed!");
+					$('.DV').append('<div id=' + selector + ' class="active"></div>');
+				});
+			}
+			else {
+				setPlace = $('#mainwrapper').height() + 'px';
 				$('.DV').append('<div id=' + selector + ' class="active"></div>');
-			});
+				$('.DV').css('margin-top', setPlace);
+			}
 		}
-		else {
-			setPlace = $('#main').height() + 'px';
-			$('.DV').append('<div id=' + selector + ' class="active"></div>');
-		}
-	}
 
 	/** Return instantiated function */
 	return {
-		init: _init,
-		loaded: DVloaded
+		init: _init
 	};
 });

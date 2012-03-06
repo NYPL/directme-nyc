@@ -49,6 +49,7 @@ html
             ==slim :nypl
             ==slim :header
             /! main
+        div#mainwrapper
             div#main
                 ==yield
             /! --main--
@@ -56,6 +57,8 @@ html
             
         /! viewers
         div.DV
+            div.reheader
+                ==slim :header
         /! --viewers
 
     /[if lt IE 7]

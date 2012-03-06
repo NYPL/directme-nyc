@@ -86,7 +86,8 @@
 }
 
 .DV-pages{
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: absolute;
   left: 266px; right: 0; top: 0; bottom: 0;
   z-index:10001;

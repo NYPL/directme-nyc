@@ -6,10 +6,6 @@
 	*display: inline;
 }
 
-/* 
-=> currently replaced by PIE
-*/
-
 //mixins
 @mixin box-sizing-mix($type:"border") {
 	box-sizing: #{$type}-box;
@@ -33,4 +29,13 @@
 	behavior: url('/css/PIE.htc');
 	position: relative;
 	z-index: 0;
+}
+
+
+.DV {
+	overflow: hidden;
+
+	.reheader {
+		display: none;
+	}
 }

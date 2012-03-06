@@ -2145,64 +2145,6 @@ input[type="submit"].btn.small {
 .btn-small .caret {
   margin-top: 4px;
 }
-.alert {
-  padding: 8px 35px 8px 14px;
-  margin-bottom: 18px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  background-color: #fcf8e3;
-  border: 1px solid #fbeed5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-.alert,
-.alert-heading {
-  color: #c09853;
-}
-.alert .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
-  line-height: 18px;
-}
-.alert-success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-}
-.alert-success,
-.alert-success .alert-heading {
-  color: #468847;
-}
-.alert-danger,
-.alert-error {
-  background-color: #f2dede;
-  border-color: #eed3d7;
-}
-.alert-danger,
-.alert-error,
-.alert-danger .alert-heading,
-.alert-error .alert-heading {
-  color: #b94a48;
-}
-.alert-info {
-  background-color: #d9edf7;
-  border-color: #bce8f1;
-}
-.alert-info,
-.alert-info .alert-heading {
-  color: #3a87ad;
-}
-.alert-block {
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-.alert-block > p,
-.alert-block > ul {
-  margin-bottom: 0;
-}
-.alert-block p + p {
-  margin-top: 5px;
-}
 .modal-open .dropdown-menu {
   z-index: 2050;
 }
@@ -2489,6 +2431,10 @@ input[type="submit"].btn.small {
 }
 .invisible {
   visibility: hidden;
+}
+select,
+input[type="file"] {
+  height: 20px;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -2818,6 +2764,9 @@ div.spacer {
 /* MAIN STRUCTURE */
 
 #wrapper {
+}
+
+#mainwrapper {
 	width: 960px;
 	margin: 0 auto;
 }
@@ -2862,7 +2811,6 @@ div.spacer {
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
-	border-bottom: 1px solid #000;
 }
 
 #blurb {
@@ -3016,13 +2964,13 @@ div.spacer {
 }
 
 #footer {
-	height: 120px;
-	margin-top: 24px;
+	padding: 24px 0 100px 0;
+	border-top: 1px solid #000;
 }
 
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
-	#wrapper {
+	#mainwrapper {
 		width: 720px;
 	}
 
@@ -3032,7 +2980,7 @@ div.spacer {
 }
 
 @media screen and (min-width: 0px) and (max-width: 620px) {
-	#wrapper {
+	#mainwrapper {
 		width: 480px;
 	}
 
@@ -3193,6 +3141,7 @@ div.spacer {
 		margin-right: 10px;
 	}
 }
-/* 
-=> currently replaced by PIE
-*/
+.DV {
+  overflow: hidden; }
+  .DV .reheader {
+    display: none; }
