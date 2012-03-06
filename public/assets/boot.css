@@ -138,7 +138,7 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331053054) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331054296) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -181,7 +181,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331053054) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331054296) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -399,6 +399,50 @@ div.spacer {
 #footer {
 	height: 120px;
 	margin-top: 24px;
+}
+
+#searchterms {
+	margin-bottom: 12px;
+}
+
+#results, #annotations {
+	float: left;
+	width: 230px;
+	margin: 0 5px 0 5px;
+	margin-bottom: 12px;
+}
+
+#geo {
+	float: right;
+	width: 470px;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin-bottom: 12px;
+}
+
+#nyplmap, #gmap {
+	float: left;
+}
+
+#nyplmap {
+	margin-right: 10px;
+}
+
+#nytimes {
+	clear: none;
+	float: right;
+	width: 470px;
+}
+
+#ticker .title {
+	float: none;
+	width: auto;
+}
+
+#ticker .content {
+	float: none;
+	width: auto;
+	margin-top: 6px;
 }
 
 /* 

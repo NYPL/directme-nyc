@@ -3,10 +3,10 @@ h1#searchterms 1172 Teller Ave, Bronx, NY
 /! geo
 div#geo
 	div#nyplmap
-		img src="images/nyplmap.png"
+		img src="/images/nyplmap.png"
 
 	div#gmap
-		img src="images/gmap.png"
+		img src="/images/gmap.png"
 /! --geo--
 
 /! results
@@ -23,9 +23,7 @@ div#results
 	div.EDcontent
 		h3 Find Census Record for ED
 		p Click to find the National Archive Census Record for an ED
-		p Results powered by: 
-			a href="http://stephenmorse.com/census/"
-				span1-Step
+		| <p>Results powered by: <a href="http://stephenmorse.com/census/"><span>1-Step</span></a></p>
 		table#EDlist
 			tr
 				td.EDnumber 
@@ -54,20 +52,26 @@ div#annotations
 	div.content
 		h3 Stories about this address
 		p Patron-generated stories of this area.
-			br
-			a href="#" Legal info
-			
-			div.annotation
-				h4.title This was my grandma’s house in 1940
-				p.content It’s amazing how much has changed since then!
-				p.author Posted by 
-					strong Bob 
-					2 hours ago
+		| <p>Patron-generated stories of this area.<br /><a href="#">Legal info</a></p>
 
+		div.annotation
+			h4.title This was my grandma’s house in 1940
+			| <p class="content">It’s amazing how much has changed since then!</p>
+			| <p class="author">Posted by <strong>Bob</strong> 2 hours ago</p>
+		div.annotation
+			h4.title Love the maps
+			| <p class="content">How cool is it to have the map of 1940!</p>
+			| <p class="author">Posted by <strong>Mary</strong> 5 hours ago</p>
+
+		form#frm-annotate
+			textarea#content placeholder="Share your story..."
+			input#fb-submit type="button" value="Post with Facebook"
+			| <br />
+			input#tw-submit type="button" value="Post with Twitter"
+			| <br />
+			input#g-submit type="button" value="Post with Google"
 /! --annotations
 
 ==slim :nytimes
 
 div.spacer
-	
-==slim :footer

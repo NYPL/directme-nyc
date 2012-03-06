@@ -30,6 +30,7 @@ stylesheets:
         - public/css/reset.css
         - public/css/text.css
         - public/css/base.css
+        - public/css/results.css
         - public/css/other.css
 
     viewer:                                                                                                                                                                                                                                   
