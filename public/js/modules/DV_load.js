@@ -8,6 +8,10 @@ define(['jquery'], function($) {
 			testset: {
 				json_obj: environment.testset,
 				selector: "DV-testset"
+			},
+			brooklyn: {
+				json_obj: environment.testset,
+				selector: "DV-brooklyn"
 			}
 		};
 
@@ -58,17 +62,14 @@ define(['jquery'], function($) {
 		loaded = query_sel;
 		var setPlace = 0;
 		if ($('.DV > *').length > 0) {
-			setPlace = $('.active').height() + 'px';
 			$('.active').remove().promise().done(function() {
 				log("removed!");
 				$('.DV').append('<div id=' + selector + ' class="active"></div>');
-				$(query_sel).css('margin-top', setPlace);
 			});
 		}
 		else {
 			setPlace = $('#main').height() + 'px';
 			$('.DV').append('<div id=' + selector + ' class="active"></div>');
-			$(query_sel).css('margin-top', setPlace);
 		}
 	}
 

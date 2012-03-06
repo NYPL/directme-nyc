@@ -46,12 +46,14 @@ html
 
     body
         div#wrapper
+            ==slim :nypl
             ==slim :header
             /! main
             div#main
                 ==yield
             /! --main--
             ==slim :footer
+            
         /! viewers
         div.DV
         /! --viewers
