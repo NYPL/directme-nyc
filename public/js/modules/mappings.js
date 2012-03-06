@@ -6,7 +6,7 @@ define(['jquery', 'modules/DV_load'], function($, loadDV) {
 
 		$.getJSON(urlpath + 'dvs?callback=?', function(data) {
 			for (var i = 0; i < data.length; i++) {
-				environment[data[i].DV.borough] = data[i].DV 
+				environment[data[i].borough] = data[i]
 			}
 		});
 

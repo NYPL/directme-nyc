@@ -6,91 +6,129 @@
 
 #Public: for a bigger application, map each route/handler into a separate class, then map each class accordingly in config.ru
 class Application < Sinatra::Base
-        #########################main handlers###########################
-        get '/' do
-                @consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
-                @deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
-                log.info gen_random_id()
-                slim :main
-        end
+	#########################main handlers###########################
+	get '/' do
+			@consts = ['order!libs/underscore', 'order!libs/jquery.history', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
+			@deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
+			slim :main
+	end
 
-        get '/help' do
+	get '/help' do
 
-        end
+	end
 
-        get '/credits' do
+	get '/credits' do
 
-        end
+	end
 
-        get '/results/:id' do
+	get '/results/:id' do
 
-        end
+	end
 
-        post '/one_step' do
-        	status 201
-        end
+	post '/one_step' do
+		status 201
+	end
 
-        get '/locations' do
-        	content_type :json
+	get '/locations' do
+		callback = params.delete('callback') # jsonp
+		json = ""
 
-        end
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
 
-        get '/locations/:id' do
+	end
 
-        end
+	get '/locations/:id' do
+		callback = params.delete('callback') # jsonp
+		json = ""
 
-        get '/dvs' do
-			callback = params.delete('callback') # jsonp
-			json = Loaders.without(:_id).to_json
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
 
-			if callback
-				content_type :js
-				response = "#{callback}(#{json})" 
-			else
-				content_type :json
-				response = json
-			end
-			response
-        end
+	get '/dvs' do
+		callback = params.delete('callback') # jsonp
+		json = Loaders.all.to_json
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
 
-        get '/dvs/:id' do
-        	callback = params.delete('callback') # jsonp
-        	json = Loaders.find(params['id']).to_json
+	get '/dvs/:id' do
+		callback = params.delete('callback') # jsonp
+		json = Loaders.find(params['id']).to_json
 
-        	if callback
-        		content_type :js
-        		response = "#{callback}(#{json})" 
-        	else
-        		content_type :json
-        		response = json
-        	end
-        	response
-        end
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
 
-        get '/stories' do
+	get '/stories' do
+		callback = params.delete('callback') # jsonp
+		json = ""
 
-        end
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
 
-        get '/stories/:id' do
+	get '/stories/:id' do
+		callback = params.delete('callback') # jsonp
+		json = ""
 
-        end
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
 
-        get '/m' do
+	get '/m' do
 
-        end
-        #################################################################
+	end
+	#################################################################
 
 
 
-        ########################other handlers###########################
-        not_found do
-                status 404
-                slim :not_found, :locals => {"voo" => "404"}
-        end
+	########################other handlers###########################
+	not_found do
+			status 404
+			slim :not_found, :locals => {"voo" => "404"}
+	end
 
-        error do
+	error do
 
-        end
-        #################################################################
+	end
+	#################################################################
 
 end

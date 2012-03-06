@@ -19,8 +19,8 @@ parser.add_argument('-input', action='store', dest='indir', help='Store the inpu
 parser.add_argument('-output', action='store', dest='outdir', help='Store the output folder of converted images')
 parser.add_argument('-in_ext', action='store', dest='in_ext', help='Convert from which exstention', default='jp2')
 parser.add_argument('-out_ext', action='store', dest='out_ext', help='Convert to which exstention', default='jpg')
-parser.add_argument('-large', action='store', dest='large', help='large image size', default='3000')
-parser.add_argument('-normal', action='store', dest='normal', help='normal image size', default='1000')
+parser.add_argument('-large', action='store', dest='large', help='large image size', default='2000')
+parser.add_argument('-normal', action='store', dest='normal', help='normal image size', default='800')
 parser.add_argument('-small', action='store', dest='small', help='small image size', default='180')
 
 #special arg for census, borough
@@ -36,9 +36,9 @@ if opts.outdir is None:
 	opts.outdir = opts.indir
 
 def convert(filename, idx):
-	subprocess.call('gm convert -size 1000x %s/%s -resize %sx %s/p%s--large.%s' % (opts.indir, filename, opts.large, opts.outdir, idx, opts.out_ext), shell=True)
-	subprocess.call('gm convert -size 1000x %s/%s -resize %sx %s/p%s--normal.%s' % (opts.indir, filename, opts.normal, opts.outdir, idx, opts.out_ext), shell=True)
-	subprocess.call('gm convert -size 180x %s/%s -resize %sx %s/p%s--small.%s' % (opts.indir, filename, opts.small, opts.outdir, idx, opts.out_ext), shell=True)
+	subprocess.call('gm convert -size %sx %s/%s -resize %sx %s/p%s--large.%s' % (opts.large, opts.indir, filename, opts.large, opts.outdir, idx, opts.out_ext), shell=True)
+	subprocess.call('gm convert -size %sx %s/%s -resize %sx %s/p%s--normal.%s' % (opts.normal, opts.indir, filename, opts.normal, opts.outdir, idx, opts.out_ext), shell=True)
+	subprocess.call('gm convert -size %sx %s/%s -resize %sx %s/p%s--small.%s' % (opts.small, opts.indir, filename, opts.small, opts.outdir, idx, opts.out_ext), shell=True)
 
 def loop_to_zon():
 	index = 0

@@ -450,16 +450,16 @@ DV.Schema.helpers = {
 
       // Setup ranges for auto-width zooming
       var ranges = [];
-      if (zoom >= 1000) {
-        zoom = 1000;
+      if (zoom <= 800) {
+        zoom = 800;
         ranges = this.viewer.models.document.ZOOM_RANGES;
       } 
-      else if (1000 < zoom && zoom < 3000) {
-        var zoom2 = ((zoom - 1000) / 2) + 1000;
-        ranges = [1000, zoom2, 3000]
+      else if (800 < zoom && zoom < 2000) {
+        var zoom2 = ((zoom - 800) / 2) + 800;
+        ranges = [800, zoom2, 2000]
       }
-      else if (zoom >= 3000) {
-        zoom = 3000;
+      else if (zoom >= 2000) {
+        zoom = 2000;
         ranges = this.viewer.models.document.ZOOM_RANGES;
       }
       this.viewer.models.document.ZOOM_RANGES = ranges;

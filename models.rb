@@ -1,20 +1,11 @@
 class Loaders
 	include Mongoid::Document
-
 	identity :type => String
-
-	embeds_one :dv
-end
-
-class DV
-	include Mongoid::Document
 	cache
-	embedded_in :loaders
 
 	field :canonical_url, :type => String
-	field :created_at, :type => DateTime
+	field :created_at, :type => String
 	field :description, :type => String
-	field :id, :type => String
 	field :pages, :type => Integer
 	field :pdf, :type => String
 	field :thumbnail, :type => String
@@ -24,13 +15,14 @@ class DV
 	has_many :annotations
 end
 
-class Resources
+class Resource
 	include Mongoid::Document
 	cache
-	embedded_in :dv
+	embedded_in :loaders
+
+	identity :type => String
 
 	field :page, :type => Hash
-	attr_protected :page
 end
 
 class Locations
@@ -49,6 +41,6 @@ class Annotations
 
 	identity :type => String
 
-	belongs_to :dv
+	belongs_to :loaders
 end
 
