@@ -192,6 +192,8 @@ p {
 	font-size: 24px;
 }
 
+
+
 div.spacer {
 	clear: both;
 	height: 0px;
@@ -401,6 +403,77 @@ div.spacer {
 	margin-top: 24px;
 }
 
+/* media queries */
+@media screen and (min-width: 0px) and (max-width: 620px) {
+	#wrapper {
+		width: 480px;
+	}
+
+	#header {
+		height: 100px;
+	}
+
+	#header h1, #nav_bar, #blurb {
+		width: auto;
+		float: none;
+	}
+
+	#header {
+		text-align: center;
+	}
+
+	#nav_bar a:first-child {
+		margin: 0;
+	}
+
+	#nav_bar a {
+		display: inline-block;
+		margin-left: 30px;
+		border-top: none;
+		border-bottom: 5px solid #fff;
+		padding-top: 14px;
+		padding-bottom: 7px;
+	}
+
+	#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current {
+		border-bottom-color: #f00;
+	}
+
+
+	#blurb {
+		margin-bottom: 12px;
+	}
+
+	#tip {
+		position: relative;
+		display: inline-block;
+		top: auto;
+		left: auto;
+		width: auto;
+		margin: 0;
+	}
+
+	#video {
+		display: none;
+	}
+
+	#ticker .content {
+		width: 470px;
+		margin-top: 6px;
+	}
+
+}
+
+@media screen and (min-width: 620px) and (max-width: 960px) {
+	#wrapper {
+		width: 720px;
+	}
+
+	#ticker .content {
+		width: 570px;
+	}
+}
+
 #searchterms {
 	margin-bottom: 12px;
 }
@@ -445,6 +518,56 @@ div.spacer {
 	margin-top: 6px;
 }
 
+/* media queries */
+@media screen and (min-width: 0px) and (max-width: 620px) {
+	#annotations {
+		float: none;
+		position: relative;
+		display: inline-block;
+		width: 470px;
+	}
+
+	#annotations .content, #annotations #frm-annotate {
+		float: left;
+		width: 230px;
+	}
+
+	#annotations .content {
+		margin-right: 10px;
+	}
+}
+
+@media screen and (min-width: 620px) and (max-width: 960px) {
+	#geo {
+		float: left;
+	}
+
+	#results {
+		width: 470px;
+		margin-right: 470px;
+	}
+
+	#results .crosscontent, #results .EDcontent {
+		float: left;
+		width: 230px;
+	}
+
+	#results .crosscontent {
+		margin-right: 10px;
+	}
+
+	#annotations {
+		float: none;
+		position: absolute;
+		right: 0;
+	}
+
+	#nytimes {
+		clear: both;
+		float: none;
+		width: auto;
+	}
+}
 /* 
 => currently replaced by PIE
 */

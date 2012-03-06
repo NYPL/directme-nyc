@@ -41,3 +41,54 @@
 	width: auto;
 	margin-top: 6px;
 }
+
+/* media queries */
+@media screen and (min-width: 0px) and (max-width: 620px) {
+	#annotations {
+		float: none;
+		position: relative;
+		display: inline-block;
+		width: 470px;
+	}
+
+	#annotations .content, #annotations #frm-annotate {
+		float: left;
+		width: 230px;
+	}
+
+	#annotations .content {
+		margin-right: 10px;
+	}
+}
+
+@media screen and (min-width: 620px) and (max-width: 960px) {
+	#geo {
+		float: left;
+	}
+
+	#results {
+		width: 470px;
+		margin-right: 470px;
+	}
+
+	#results .crosscontent, #results .EDcontent {
+		float: left;
+		width: 230px;
+	}
+
+	#results .crosscontent {
+		margin-right: 10px;
+	}
+
+	#annotations {
+		float: none;
+		position: absolute;
+		right: 0;
+	}
+
+	#nytimes {
+		clear: both;
+		float: none;
+		width: auto;
+	}
+}
