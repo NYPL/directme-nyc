@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, p, ul {
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 6px;
@@ -223,4 +223,37 @@ p {
 
 #frm-annotate a#g-submit span:after {
 	background-position: 0 -53px;
+}
+
+/* TEMPLATE PAGES */
+
+#templateheader {
+	font-size: 24px;
+}
+
+#toc, #templatecontent {
+	font-size: 16px;
+	line-height: 1.4em;
+}
+
+#toc a {
+	color: #f00;
+}
+
+#templatecontent .q:before {
+	content: "Q/ ";
+}
+
+#templatecontent .q {
+	color: #666;
+}
+
+#templatecontent .a:before {
+	content: "A/ ";
+}
+
+.photo .caption {
+	font-size: 12px;
+	color: #666;
+	margin-bottom: 0;
 }

@@ -79,6 +79,7 @@ div.spacer {
 	width: 230px;
 	display: inline-block;
 	font-size: 48px;
+	margin-right: 0;
 }
 
 #tip {
@@ -208,6 +209,44 @@ div.spacer {
 #footer {
 	padding: 24px 0 100px 0;
 	border-top: 1px solid #000;
+}
+
+/* TEMPLATE PAGES */
+
+#templateheader {
+	float: left;
+	width: 230px;
+	margin: 0 10px 0 5px;
+}
+
+#toc {
+	float: left;
+	width: 470px;
+	margin-bottom: 12px;
+}
+
+#templatecontent {
+	clear: both;
+	width: 710px;
+}
+
+#templatecontent .q	{
+	margin-bottom: 0;
+}
+
+#templatecontent .q, #templatecontent .a {
+	float: right;
+	width: 460px;
+	margin-right: 0;
+}
+
+#templatecontent .photo {
+	float: left;
+	width: 230px;
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin-right: 5px;
 }
 
 /* media queries */
