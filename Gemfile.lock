@@ -102,7 +102,7 @@ GEM
       mime-types
     tzinfo (0.3.32)
     uuidtools (2.1.2)
-    webmock (1.8.1)
+    webmock (1.8.2)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
     yajl-ruby (1.1.0)

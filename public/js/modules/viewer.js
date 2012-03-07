@@ -939,10 +939,11 @@ DV.Page.prototype.drawImage = function(imageURL) {
   }
   var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : null;
   if (imageLINK !== null) {
-    log("foo")
-    this.magImageEl.replaceWith('<img class="DV-mag" src="'+imageLINK+'" />');
+    log("do mag, normal --> large")
+    this.magImageEl.attr('href', imageLINK);
   }
   else {
+    this.magImageEl.attr('href', ''); 
   }
   // Replace the image completely because of some funky loading bugs we were having
   this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
