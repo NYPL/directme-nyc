@@ -930,15 +930,20 @@ DV.Page.prototype.sizeImage = function() {
 // draw the image and update surrounding image containers with the right size
 DV.Page.prototype.drawImage = function(imageURL) {
   var imageHeight = this.model_pages.getPageHeight(this.index);
-  var imageLINK = this.model_pages.getSizeName()
+  var magSize = this.model_pages.getSizeName()
   // var imageUrl = this.model_pages.imageURL(this.index);
   if(imageURL == this.pageImageEl.attr('src') && imageHeight == this.pageImageEl.attr('height')) {
     // already scaled and drawn
     this.el.addClass('DV-loaded').removeClass('DV-loading');
     return;
   }
-  var magSize = imageLINK === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : null;
-
+  var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : null;
+  if (imageLINK !== null) {
+    log("foo")
+    this.magImageEl.replaceWith('<img class="DV-mag" src="'+imageLINK+'" />');
+  }
+  else {
+  }
   // Replace the image completely because of some funky loading bugs we were having
   this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
   // Update element reference

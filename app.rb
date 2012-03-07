@@ -8,8 +8,9 @@
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-		@consts = ['order!libs/underscore', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates', 'order!libs/jquery.anythingzoomer.min']
-		@deps = ['order!modules/mappings','order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
+		@consts = ['order!libs/underscore', 'order!modules/ytube', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
+		@DV = true
 		slim :main
 	end
 
