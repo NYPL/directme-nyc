@@ -57,7 +57,7 @@ define(['jquery'], function($) {
 				});
 			}
 			else {
-				setPlace = $('#mainwrapper').height() + 'px';
+				setPlace = $(window).height() + 'px';
 				$('.DV').append('<div id=' + selector + ' class="active"></div>');
 				$('.DV').css('margin-top', setPlace);
 			}
