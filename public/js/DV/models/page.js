@@ -46,6 +46,11 @@ DV.model.Pages.prototype = {
     return url;
   },
 
+  getSizeName: function() {
+    var size = this.zoomLevel > this.BASE_WIDTH ? 'large' : 'normal';
+    return size
+  },
+
   zeroPad : function(num, count) {
     var string = num.toString();
     while (string.length < count) string = '0' + string;

@@ -3217,3 +3217,9 @@ div.spacer {
   overflow: hidden; }
   .DV .reheader {
     display: none; }
+
+.loupe {
+  background-color: #555;
+  background: rgba(0, 0, 0, 0.25);
+  border: 5px solid rgba(0, 0, 0, 0);
+  cursor: url(../images/blank.png?1331093745), url(../images/blank.cur?1331093756), none; }

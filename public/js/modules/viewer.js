@@ -700,8 +700,8 @@ DV.Page = function(viewer, argHash){
   this.pageNumberEl     = this.el.find('span.DV-pageNumber');
   this.pageInsertEl     = this.el.find('.DV-pageNoteInsert');
   this.removedOverlayEl = this.el.find('.DV-overlay');
+  this.magImageEl       = this.el.find('.DV-mag')
   this.pageImageEl      = this.getPageImage();
-
   this.pageEl           = this.el.find('div.DV-page');
   this.annotationContainerEl = this.el.find('div.DV-annotations');
   this.coverEl          = this.el.find('div.DV-cover');
@@ -930,12 +930,14 @@ DV.Page.prototype.sizeImage = function() {
 // draw the image and update surrounding image containers with the right size
 DV.Page.prototype.drawImage = function(imageURL) {
   var imageHeight = this.model_pages.getPageHeight(this.index);
+  var imageLINK = this.model_pages.getSizeName()
   // var imageUrl = this.model_pages.imageURL(this.index);
   if(imageURL == this.pageImageEl.attr('src') && imageHeight == this.pageImageEl.attr('height')) {
     // already scaled and drawn
     this.el.addClass('DV-loaded').removeClass('DV-loading');
     return;
   }
+  var magSize = imageLINK === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : null;
 
   // Replace the image completely because of some funky loading bugs we were having
   this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
@@ -1825,6 +1827,11 @@ DV.model.Pages.prototype = {
     return url;
   },
 
+  getSizeName: function() {
+    var size = this.zoomLevel > this.BASE_WIDTH ? 'large' : 'normal';
+    return size
+  },
+
   zeroPad : function(num, count) {
     var string = num.toString();
     while (string.length < count) string = '0' + string;
@@ -2542,10 +2549,9 @@ DV.Schema.helpers = {
     constructPages: function(){
       var pages = [];
       var totalPagesToCreate = (this.viewer.schema.data.totalPages < 3) ? this.viewer.schema.data.totalPages : 3;
-
       var height = this.models.pages.height;
       for (var i = 0; i < totalPagesToCreate; i++) {
-        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, baseHeight: height }));
+        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, pageMagSource: null, pagebaseHeight: height }));
       }
 
       return pages.join('');
