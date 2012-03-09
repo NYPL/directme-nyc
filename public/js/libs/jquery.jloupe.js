@@ -12,10 +12,6 @@ jQuery.fn.jloupe = function(o){
 		margin:6,
 		cursorOffsetX:0,
 		cursorOffsetY:0,
-		radiusLT:0,
-		radiusLB:100,
-		radiusRT:100,
-		radiusRB:100,
 		borderColor:'#999',
 		backgroundColor:'#fff',
 		image: false,
@@ -48,35 +44,7 @@ jQuery.fn.jloupe = function(o){
 		.css('marginTop', options.margin +'px')
 		.appendTo(loupe);
 
-	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
-
-	if($.support.cssProperty('borderRadius')){
-		if(options.image) loupe.css('backgroundImage', 'url('+ options.image +')');
-		
-		$(view)
-			.css('border-top-left-radius', options.radiusLT)
-			.css('border-bottom-left-radius', options.radiusLB)
-			.css('border-bottom-right-radius', options.radiusRB)
-			.css('border-top-right-radius', options.radiusRT)
-			.css('-moz-border-radius-topleft', options.radiusLT)
-			.css('-moz-border-radius-bottomright', options.radiusRB)
-			.css('-moz-border-radius-bottomleft', options.radiusLB)
-			.css('-moz-border-radius-topright', options.radiusRT);
-		if(!options.image || options.repeat) {
-			$(loupe)
-				.css('border-top-left-radius', options.radiusLT)
-				.css('border-bottom-left-radius', options.radiusLB)
-				.css('border-bottom-right-radius', options.radiusRB)
-				.css('border-top-right-radius', options.radiusRT)
-				.css('-moz-border-radius-topleft', options.radiusLT)
-				.css('-moz-border-radius-bottomright', options.radiusRB)
-				.css('-moz-border-radius-bottomleft', options.radiusLB)
-				.css('-moz-border-radius-topright', options.radiusRT);
-		}
-	}
-	else {
-		//css pie here for ie8
-	}		
+	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);	
 		
 	$(this).each(function(){
 		var h = $(this).parent('a').attr('href');

@@ -28,16 +28,12 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 
 	function setupMag(magClass) {
 		$(magClass).jloupe ({
-			radiusLT: 10,
-			radiusRT: 10,
-			radiusRB: 10, 
-			radiusLB: 10,
 			width: 480,
-			height: 120,
+			height: 108,
 			fade: true,
 			cursorOffsetX:parseInt(-480/2),
 			cursorOffsetY:-130,
-			borderColor:'#f2730b'
+			borderColor:'#333'
 		})
 	}
 
