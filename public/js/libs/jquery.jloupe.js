@@ -17,7 +17,7 @@ jQuery.fn.jloupe = function(o){
 		radiusRT:100,
 		radiusRB:100,
 		borderColor:'#999',
-		backgroundColor:'#ddd',
+		backgroundColor:'#fff',
 		image: false,
 		repeat: false,
 		fade: true
@@ -76,7 +76,6 @@ jQuery.fn.jloupe = function(o){
 	}
 	else {
 		//css pie here for ie8
-		alert("hey");
 	}		
 		
 	$(this).each(function(){
