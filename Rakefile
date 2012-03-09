@@ -9,6 +9,31 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+namespace :db do
+	desc "heroku sync install"
+	task :installs do
+		sh %{heroku plugins:install http://github.com/pedro/heroku-mongo-sync.git}
+	end
+
+	desc "heroku push"
+	task :push do
+		heroku_app = ENV["APP"]
+		mdb_port = ENV["PORT"] || 27017
+		mdb_db = ENV["DB"] || 'dev_project'
+		sh %{export MONGO_URL=mongodb://localhost:#{mdb_port}/#{mdb_db};heroku mongo:push --app #{heroku_app}}
+	end
+
+	desc "heroku pull"
+	task :pull do
+		heroku_app = ENV["APP"]
+		mdb_port = ENV["PORT"] || 27017
+		mdb_db = ENV["DB"] || 'dev_project'
+		sh %{export MONGO_URL=mongodb://localhost:#{mdb_port}/#{mdb_db};heroku mongo:pull --app #{heroku_app}}
+	end
+
+end
+
+
 namespace :app do
 
 	desc "less => css"

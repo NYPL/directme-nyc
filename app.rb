@@ -11,15 +11,18 @@ class Application < Sinatra::Base
 		@consts = ['order!libs/underscore', 'order!modules/ytube','order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/mappings', 'order!bootstrap/js/bootstrap-modal.js', 'bootstrap/js/bootstrap-tooltip.js', 'bootstrap/js/bootstrap-typeahead.js']
 		@DV = true
+		@base = true
 		slim :main
 	end
 
 	get '/help' do
 		@consts = ['order!libs/jquery.history']
+		@base = true
 		slim :help
 	end
 
 	get '/credits' do
+		@base = true
 		slim :credits
 	end
 

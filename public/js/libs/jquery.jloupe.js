@@ -80,7 +80,7 @@ jQuery.fn.jloupe = function(o){
 			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
 			zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
 			zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
-			//log('coords: ' + (posx) + ", " + zlo);
+			log('coords: ' + ((-zlo) + options._offset) + ", " + zto);
 			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
 		},
 		mouseleave: function(){

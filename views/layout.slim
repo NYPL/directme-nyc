@@ -19,17 +19,10 @@ html
         meta name="keywords" content=""
         meta name="viewport" content="width=device-width, initial-scale=1"
 
-        | <!--[if (!IE)|(gte IE 8)]><!-->
-        | <link rel="stylesheet" type="text/css" href="/assets/boot-datauri.css" />
-        | <link rel="stylesheet" type="text/css" href="/assets/viewer-datauri.css" media="screen" />                                                                                                                                           
-        | <link rel="stylesheet" type="text/css" href="/assets/plain-datauri.css" media="screen" />
-        | <!--<![endif]-->
-
-        | <!--[if lte IE 7]>
-        | <link rel='stylesheet' type='text/css' href='/assets/boot.css' />
-        | <link rel="stylesheet" type="text/css" href="/assets/viewer.css" media="screen" />                                                                                                                                           
-        | <link rel="stylesheet" type="text/css" href="/assets/plain.css" media="screen" />
-        | <![endif]-->
+        - if @base
+            ==slim :home_css
+        - else
+            ==slim :results_css
 
         link rel='shortcut icon' href='/favicon.ico'
         link rel='apple-touch-icon' href='/images/apple-touch-icon.png' 
