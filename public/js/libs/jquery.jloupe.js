@@ -9,14 +9,15 @@ jQuery.fn.jloupe = function(o){
 	var options = {		
 		width:200,
 		height:200,
-		margin:6,
+		margin:0,
 		cursorOffsetX:0,
 		cursorOffsetY:0,
 		borderColor:'#999',
 		backgroundColor:'#fff',
 		image: false,
 		repeat: false,
-		fade: true
+		fade: true,
+		_offset: 35
 	};
 	if(o) {
 		jQuery.extend(options, o);
@@ -66,12 +67,20 @@ jQuery.fn.jloupe = function(o){
 				posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
 				posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 			}
-			$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
+			if ((posx + options.cursorOffsetX) > ($('.DV').width() - options.width)) {
+				$(loupe).offset({top:posy+options.cursorOffsetY, left:$('.DV').width()-options.width});
+			}
+			else if ((posx + options.cursorOffsetX) < 0) {
+				$(loupe).offset({top:posy+options.cursorOffsetY, left:0});
+			}
+			else {
+				$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
+			}
 			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
 			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
-			zlo = (((posx - o.left) / this.width) * w *-1) + options.margin;
+			zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
 			zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
-			log('coords: ' + (posx) + ", " + zlo);
+			//log('coords: ' + (posx) + ", " + zlo);
 			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
 		},
 		mouseleave: function(){
