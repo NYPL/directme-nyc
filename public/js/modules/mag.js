@@ -2,7 +2,9 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 
 	function _init() {
 		pubsub();
-		$.subscribe('pages', recFunc);
+		$.subscribe('pages', recFunc)
+
+		$.subscribe('clickSpot', clickModal);
 	}
 
 	function pubsub() {
@@ -37,8 +39,12 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 		})
 	}
 
+	function clickModal(e, left_pos, right_pos) {
+		log(left_pos + ", " + right_pos)
+	}
+
 	/** Return instantiated function */
 	return {
-		init: _init()
+		init: _init,
 	};
 });
