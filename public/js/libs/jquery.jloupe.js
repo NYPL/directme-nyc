@@ -101,7 +101,7 @@ jQuery.fn.jloupe = function(o){
 			$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
 			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
 			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
-			zlo = (((posx - o.left) / this.width) * w *-1) + (options.width/2.5);
+			zlo = (((posx - o.left) / this.width) * w *-1) + options.margin;
 			zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2.5);
 			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
 		},

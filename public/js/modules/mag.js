@@ -32,10 +32,10 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 			radiusRT: 10,
 			radiusRB: 10, 
 			radiusLB: 10,
-			width: 300,
+			width: 480,
 			height: 120,
 			fade: true,
-			cursorOffsetX:parseInt(-305/2),
+			cursorOffsetX:parseInt(-480/2),
 			cursorOffsetY:-130,
 			borderColor:'#f2730b'
 		})
