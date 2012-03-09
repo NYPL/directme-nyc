@@ -10,6 +10,7 @@
   margin: 0;
   overflow: hidden;
   border: 1px solid #aaa; border-left: 0; border-right: 0;
+  background-color: #BBB;
 }
 
 .DV-printMessage {

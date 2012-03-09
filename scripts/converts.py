@@ -19,7 +19,7 @@ parser.add_argument('-input', action='store', dest='indir', help='Store the inpu
 parser.add_argument('-output', action='store', dest='outdir', help='Store the output folder of converted images')
 parser.add_argument('-in_ext', action='store', dest='in_ext', help='Convert from which exstention', default='jp2')
 parser.add_argument('-out_ext', action='store', dest='out_ext', help='Convert to which exstention', default='jpg')
-parser.add_argument('-large', action='store', dest='large', help='large image size', default='2000')
+parser.add_argument('-large', action='store', dest='large', help='large image size', default='1600')
 parser.add_argument('-normal', action='store', dest='normal', help='normal image size', default='800')
 parser.add_argument('-small', action='store', dest='small', help='small image size', default='180')
 

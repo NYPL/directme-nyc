@@ -692,7 +692,7 @@ DV.History.prototype = {
 
 DV.Page = function(viewer, argHash){
   this.viewer           = viewer;
-
+  this.api              = this.viewer.api;
   this.index            = argHash.index;
   for(var key in argHash) this[key] = argHash[key];
   this.el               = this.viewer.$(this.el);
@@ -948,7 +948,7 @@ DV.Page.prototype.drawImage = function(imageURL) {
 
   // Update the status of the image load
   this.el.addClass('DV-loaded').removeClass('DV-loading');
-  $.publish('pages', []);
+  this.api.updateMag(jQuery, 'pages');
 };
 
 DV.PageSet = function(viewer){
@@ -1392,6 +1392,7 @@ DV.Schema.elements =
   { name: 'searchInput',        query: 'input.DV-searchInput' },
   { name: 'coverPages',         query: 'div.DV-cover' },
   { name: 'fullscreen',         query: 'div.DV-fullscreen' },
+  { name: 'mag',                query: 'div.DV-mag' }
 ];
 DV.model.Annotations = function(viewer) {
   this.LEFT_MARGIN              = 25;
@@ -1652,7 +1653,7 @@ DV.model.Document = function(viewer){
   this.totalDocumentHeight       = 0;
   this.totalPages                = 0;
   this.additionalPaddingOnPage   = 0;
-  this.ZOOM_RANGES               = [800, 1500, 2000];
+  this.ZOOM_RANGES               = [800, 1000, 1200];
 
   var data                       = this.viewer.schema.data;
 
@@ -1799,7 +1800,7 @@ DV.model.Pages = function(viewer) {
   this.BASE_HEIGHT     = 959;
 
   // Factors for scaling from image size to zoomlevel.
-  this.SCALE_FACTORS   = {'800': 1.0, '1500': 0.7, '2000': 1.0};
+  this.SCALE_FACTORS   = {'800': 1.0, '1000': 0.5, '1200': 0.5};
 
   // For viewing page text.
   this.DEFAULT_PADDING = 100;
@@ -2612,14 +2613,14 @@ DV.Schema.helpers = {
       var ranges = [];
       if (zoom <= 768) {
         var zoom2 = ((800 - zoom) / 2) + 800;
-        ranges = [zoom, zoom2, 2000]
+        ranges = [zoom, zoom2, 1200]
       } 
-      else if (768 < zoom && zoom < 2000) {
-        var zoom2 = ((2000 - zoom) / 3) + 800;
-        ranges = [800, zoom2, 2000]
+      else if (768 < zoom && zoom < 1500) {
+        var zoom2 = ((1200 - zoom) / 3) + 800;
+        ranges = [800, zoom2, 1200]
       }
-      else if (zoom >= 2000) {
-        zoom = 2000;
+      else if (zoom >= 1200) {
+        zoom = 1200;
         ranges = this.viewer.models.document.ZOOM_RANGES;
       }
       this.viewer.models.document.ZOOM_RANGES = ranges;
@@ -3450,9 +3451,13 @@ DV.Api.prototype = {
 };
 
 //inherit main api
-_.extend(DV.Api, {
 
+//for concepts of pub/sub => observers interacting with module library on project
+_.extend(DV.Api.prototype, {
 
+	updateMag : function(jQuery, _event) {
+		jQuery.publish(_event, []);
+	}
 
 });
 DV.DocumentViewer = function(options) {

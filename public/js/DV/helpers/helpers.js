@@ -435,14 +435,14 @@ DV.Schema.helpers = {
       var ranges = [];
       if (zoom <= 768) {
         var zoom2 = ((800 - zoom) / 2) + 800;
-        ranges = [zoom, zoom2, 2000]
+        ranges = [zoom, zoom2, 1200]
       } 
-      else if (768 < zoom && zoom < 2000) {
-        var zoom2 = ((2000 - zoom) / 3) + 800;
-        ranges = [800, zoom2, 2000]
+      else if (768 < zoom && zoom < 1500) {
+        var zoom2 = ((1200 - zoom) / 3) + 800;
+        ranges = [800, zoom2, 1200]
       }
-      else if (zoom >= 2000) {
-        zoom = 2000;
+      else if (zoom >= 1200) {
+        zoom = 1200;
         ranges = this.viewer.models.document.ZOOM_RANGES;
       }
       this.viewer.models.document.ZOOM_RANGES = ranges;

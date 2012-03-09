@@ -2,7 +2,7 @@
 
 DV.Page = function(viewer, argHash){
   this.viewer           = viewer;
-
+  this.api              = this.viewer.api;
   this.index            = argHash.index;
   for(var key in argHash) this[key] = argHash[key];
   this.el               = this.viewer.$(this.el);
@@ -258,5 +258,5 @@ DV.Page.prototype.drawImage = function(imageURL) {
 
   // Update the status of the image load
   this.el.addClass('DV-loaded').removeClass('DV-loading');
-  $.publish('pages', []);
+  this.api.updateMag(jQuery, 'pages');
 };

@@ -3,6 +3,6 @@
 }
 
 .DV-pages.DV-hide-sidebar {
-  right: 0;
-  left: 0;
+  right: 10px;
+  left: 10px;
 }

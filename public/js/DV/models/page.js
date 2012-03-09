@@ -17,7 +17,7 @@ DV.model.Pages = function(viewer) {
   this.BASE_HEIGHT     = 959;
 
   // Factors for scaling from image size to zoomlevel.
-  this.SCALE_FACTORS   = {'800': 1.0, '1500': 0.7, '2000': 1.0};
+  this.SCALE_FACTORS   = {'800': 1.0, '1000': 0.5, '1200': 0.5};
 
   // For viewing page text.
   this.DEFAULT_PADDING = 100;

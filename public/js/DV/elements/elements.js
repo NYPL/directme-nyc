@@ -22,4 +22,5 @@ DV.Schema.elements =
   { name: 'searchInput',        query: 'input.DV-searchInput' },
   { name: 'coverPages',         query: 'div.DV-cover' },
   { name: 'fullscreen',         query: 'div.DV-fullscreen' },
+  { name: 'mag',                query: 'div.DV-mag' }
 ];
