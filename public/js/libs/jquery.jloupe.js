@@ -1,7 +1,7 @@
 /*
  jQuery Loupe v1.3.2
  https://github.com/iufer/jLoupe
- w/ edits by Zeeshan Lakhani
+ w/ edits/changes/additions by Zeeshan Lakhani
 */
 
 jQuery.fn.jloupe = function(o){
