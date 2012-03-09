@@ -87,6 +87,6 @@ a object,:link object,:visited object
 address,abbr { font-style:normal }
 
 /* get rid of ad frames inserted by local wifi connections e.g. AnchorFree */
-iframe:not(.auto-link) { display:none ! important; visibility:hidden ! important; margin-left: -10000px ! important  }
+/* iframe:not(.auto-link) { display:none ! important; visibility:hidden ! important; margin-left: -10000px ! important  } */
 
 /* more varnish stripping as necessary... */

@@ -1,6 +1,7 @@
 /*
  jQuery Loupe v1.3.2
  https://github.com/iufer/jLoupe
+ w/ edits by Zeeshan Lakhani
 */
 
 jQuery.fn.jloupe = function(o){
@@ -9,8 +10,8 @@ jQuery.fn.jloupe = function(o){
 		width:200,
 		height:200,
 		margin:6,
-		cursorOffsetX:10,
-		cursorOffsetY:10,
+		cursorOffsetX:0,
+		cursorOffsetY:0,
 		radiusLT:0,
 		radiusLB:100,
 		radiusRT:100,
@@ -29,6 +30,7 @@ jQuery.fn.jloupe = function(o){
 	}
 	var loupe = $('<div />').addClass('thejloupe')
 		.css('position','absolute')
+		.css('z-index', '30001')
 		.css('width',options.width +'px')
 		.css('height',options.height +'px')
 		.css('backgroundColor', options.borderColor)
@@ -71,6 +73,10 @@ jQuery.fn.jloupe = function(o){
 				.css('-moz-border-radius-bottomleft', options.radiusLB)
 				.css('-moz-border-radius-topright', options.radiusRT);
 		}
+	}
+	else {
+		//css pie here for ie8
+		alert("hey");
 	}		
 		
 	$(this).each(function(){
@@ -80,34 +86,36 @@ jQuery.fn.jloupe = function(o){
 		var i = $('<img />').attr('src', s);	
 		$(this).data('zoom',i);		
 	})
-	.bind('mousemove', function(e){ 
-		var o = $(this).offset();
-		var i = $(this).data('zoom');
-		var posx = 0, posy = 0;
-		if(e.pageX || e.pageY){
-			posx = e.pageX;
-			posy = e.pageY;
+	.on({
+		mousemove: function(e){ 
+			var o = $(this).offset();
+			var i = $(this).data('zoom');
+			var posx = 0, posy = 0;
+			if(e.pageX || e.pageY){
+				posx = e.pageX;
+				posy = e.pageY;
+			}
+			else if(e.clientX || e.clientY){
+				posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+				posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+			}
+			$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
+			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
+			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
+			zlo = (((posx - o.left) / this.width) * w *-1) + (options.width/2.5);
+			zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2.5);
+			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
+		},
+		mouseleave: function(){
+			$(loupe).stop(true, true);
+			if(options.fade) $(loupe).fadeOut(100);
+			else $(loupe).hide();
+		},
+		mouseenter: function(){
+			$(loupe).stop(true, true);
+			if(options.fade) $(loupe).fadeIn();
+			else $(loupe).show();
 		}
-		else if(e.clientX || e.clientY){
-			posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-			posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-		}
-		$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
-		w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
-		h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
-		zlo = (((posx - o.left) / this.width) * w *-1) + (options.width/2.5);
-		zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2.5);
-		$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
-	})
-	.bind('mouseleave', function(){
-		$(loupe).stop(true, true);
-		if(options.fade) $(loupe).fadeOut(100);
-		else $(loupe).hide();
-	})
-	.bind('mouseenter', function(){
-		$(loupe).stop(true, true);
-		if(options.fade) $(loupe).fadeIn();
-		else $(loupe).show();
 	});
 	
 	return this;
@@ -126,8 +134,3 @@ $.support.cssProperty = (function() {
   }
   return cssProperty;
 })();
-
-
-$(function(){ $('.jLoupe, .jloupe').jloupe(); });
-
-

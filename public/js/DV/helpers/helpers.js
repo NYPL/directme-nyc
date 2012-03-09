@@ -52,6 +52,9 @@ DV.Schema.helpers = {
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
       viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
 
+      //make mag not clickable
+      viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
+
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
 

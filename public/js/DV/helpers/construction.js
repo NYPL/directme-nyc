@@ -6,6 +6,7 @@ _.extend(DV.Schema.helpers, {
     return _.size(this.models.annotations.byId) > 0;
   },
 
+
   renderViewer: function(){
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();

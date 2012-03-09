@@ -937,23 +937,18 @@ DV.Page.prototype.drawImage = function(imageURL) {
     this.el.addClass('DV-loaded').removeClass('DV-loading');
     return;
   }
-  var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : null;
-  if (imageLINK !== null) {
-    log("do mag, normal --> large")
-    this.magImageEl.attr('href', imageLINK);
-  }
-  else {
-    this.magImageEl.attr('href', ''); 
-  }
+  var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : imageURL;
+  this.magImageEl.attr('href', imageLINK);
   // Replace the image completely because of some funky loading bugs we were having
   this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
+
   // Update element reference
   this.setPageImage();
-
   this.sizeImage();
 
   // Update the status of the image load
   this.el.addClass('DV-loaded').removeClass('DV-loading');
+  $.publish('pages', []);
 };
 
 DV.PageSet = function(viewer){
@@ -2234,6 +2229,9 @@ DV.Schema.helpers = {
       viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
       viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
 
+      //make mag not clickable
+      viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
+
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
 
@@ -2734,6 +2732,7 @@ _.extend(DV.Schema.helpers, {
     return _.size(this.models.annotations.byId) > 0;
   },
 
+
   renderViewer: function(){
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
@@ -2985,56 +2984,6 @@ _.extend(DV.Schema.helpers, {
     this.elements.window.scrollTop(0);
   }
 
-});
-_.extend(DV.Schema.helpers,{
-  showAnnotationEdit : function(e) {
-    var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
-    var area   = this.viewer.$('.DV-annotationTextArea', annoEl);
-    annoEl.addClass('DV-editing');
-    area.focus();
-  },
-  cancelAnnotationEdit : function(e) {
-    var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
-    var anno   = this.getAnnotationModel(annoEl);
-    this.viewer.$('.DV-annotationTitleInput', annoEl).val(anno.title);
-    this.viewer.$('.DV-annotationTextArea', annoEl).val(anno.text);
-    if (anno.unsaved) {
-      this.models.annotations.removeAnnotation(anno);
-    } else {
-      annoEl.removeClass('DV-editing');
-    }
-  },
-  saveAnnotation : function(e, option) {
-    var target = this.viewer.$(e.target);
-    var annoEl = target.closest(this.annotationClassName);
-    var anno   = this.getAnnotationModel(annoEl);
-    if (!anno) return;
-    anno.title     = this.viewer.$('.DV-annotationTitleInput', annoEl).val();
-    anno.text      = this.viewer.$('.DV-annotationTextArea', annoEl).val();
-    anno.owns_note = anno.unsaved ? true : anno.owns_note;
-    if (anno.owns_note) {
-      anno.author              = anno.author || dc.account.name;
-      anno.author_organization = anno.author_organization || (dc.account.isReal && dc.account.organization.name);
-    }
-    if (target.hasClass('DV-saveAnnotationDraft'))  anno.access = 'exclusive';
-    else if (annoEl.hasClass('DV-accessExclusive')) anno.access = 'public';
-    if (option == 'onlyIfText' &&
-        (!anno.title || anno.title == 'Untitled Note') &&
-        !anno.text &&
-        !anno.server_id) {
-      return this.models.annotations.removeAnnotation(anno);
-    }
-    annoEl.removeClass('DV-editing');
-    this.models.annotations.fireSaveCallbacks(anno);
-    this.viewer.api.redraw(true);
-    if (this.viewer.activeAnnotation) this.viewer.pageSet.showAnnotation(anno);
-  },
-  deleteAnnotation : function(e) {
-    var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
-    var anno   = this.getAnnotationModel(annoEl);
-    this.models.annotations.removeAnnotation(anno);
-    this.models.annotations.fireDeleteCallbacks(anno);
-  }
 });
 _.extend(DV.Schema.helpers, {
   resetNavigationState: function(){

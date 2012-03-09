@@ -9,7 +9,7 @@ gem 'thin'
 
 #if mongo
 gem 'bson_ext'
-gem 'mongoid'
+gem 'mongoid', :git => "git://github.com/mongoid/mongoid.git"
 
 gem 'faraday'
 gem 'faraday_middleware'

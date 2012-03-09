@@ -1931,7 +1931,7 @@ a object,:link object,:visited object
 address,abbr { font-style:normal }
 
 /* get rid of ad frames inserted by local wifi connections e.g. AnchorFree */
-iframe:not(.auto-link) { display:none ! important; visibility:hidden ! important; margin-left: -10000px ! important  }
+/* iframe:not(.auto-link) { display:none ! important; visibility:hidden ! important; margin-left: -10000px ! important  } */
 
 /* more varnish stripping as necessary... */
 body {
@@ -2400,6 +2400,16 @@ div.spacer {
 #video .embed {
 	width: 230px;
 	height: 162px;
+	position: relative;
+	overflow: hidden;
+}
+
+#video .embed iframe, object, embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 #footer {

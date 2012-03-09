@@ -20,27 +20,13 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 				$('.reheader').show();
 				$('html, body').animate({
 					scrollTop: $('.DV').offset().top
-				}, 500);
-				require(['libs/jquery.jloupe'], function(loupe) {
-					setupMag('.DV-pageImage');
+				}, 500)
+				require(['modules/mag'], function(showMag) {
+					showMag.init;
 				});
 			});
 			return false;
 		});
-	}
-
-	function setupMag(magClass) {
-		$(magClass).jloupe ({
-			radiusLT: 0,
-			radiusRT: 10,
-			radiusRB: 0,
-			radiusLB: 10,
-			width: 300,
-			height: 150,
-			borderColor: '#f2730b',
-			backgroundColor: '#000',
-			fade: false
-		})
 	}
 
 	/** Return instantiated function */

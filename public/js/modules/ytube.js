@@ -9,9 +9,7 @@ define(['jquery'], function($) {
     		id: 'ytplayer',
     		src: 'http://www.youtube.com/embed/' + vids[Math.floor(Math.random() * vids.length)] + '?wmode=opaque',
     		frameborder: '0',
-    		width: '370',
-    		height: '370'
-		}).appendTo('.tubin');
+		}).appendTo('.embed');
 	})();
 	
 });
