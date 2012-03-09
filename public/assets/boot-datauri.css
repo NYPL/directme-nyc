@@ -2473,9 +2473,9 @@ div.spacer {
 .thejloupeview:after {
 	content: "";
 	position: absolute;
-	width: 488px;
+	width: 480px;
 	height: 108px;
-	background: url(../css/..images/magnifier.png) -6px 45px no-repeat;
+	background: url(../images/magnifier.png?1331318555) 0px 45px no-repeat;
 }
 
 /* media queries */

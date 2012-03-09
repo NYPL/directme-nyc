@@ -32,7 +32,7 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 			height: 108,
 			fade: true,
 			cursorOffsetX:parseInt(-480/2),
-			cursorOffsetY:-130,
+			cursorOffsetY:-123,
 			borderColor:'#333'
 		})
 	}
