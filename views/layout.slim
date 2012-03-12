@@ -19,10 +19,10 @@ html
         meta name="keywords" content=""
         meta name="viewport" content="width=device-width, initial-scale=1"
 
-        - if @base
-            ==slim :home_css
-        - else
+        - if @results
             ==slim :results_css
+        - else
+            ==slim :home_css
 
         link rel='shortcut icon' href='/favicon.ico'
         link rel='apple-touch-icon' href='/images/apple-touch-icon.png' 
@@ -34,27 +34,18 @@ html
             var environment = {
                 page_title: 'NYPL Labs',
                 deps: $.parseJSON('#{{@deps}}'),
-                consts: $.parseJSON('#{{@consts}}')
+                consts: $.parseJSON('#{{@consts}}'),
+                borough: '#{borough}'
             };
 
     body
         div#wrapper
             ==slim :nypl
             ==slim :header
-            /! main
-        div#mainwrapper
-            div#main
-                ==yield
-            /! --main--
+          
+        ==yield
+
         ==slim :footer
-            
-        - if @DV
-            /! viewers
-            div.DV
-                div.reheader
-                    ==slim :header
-            ==slim :modal
-            /! --viewers
 
     /[if lt IE 7]
         script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"

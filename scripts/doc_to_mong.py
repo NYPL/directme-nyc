@@ -33,18 +33,20 @@ borough_pages = {
 }
 
 def init_json(borough, num_pages):
+	elem_id = None
 	_check = db.loaders.find_one({'borough': borough})
 	if _check is None:
-		_id = gen_random_id()
+		_id = borough
 	else:
 		db.loaders.ensure_index("borough")
-		_id = _check['_id']
+		_id = _check['borough']
+		elem_id = _check['_id']
 
 	init_json = {
 		"canonical_url": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.html" % (borough, borough),
 		"created_at": datetime.datetime.utcnow().isoformat(),
 		"description": "",
-		"_id": _id,
+		"borough": _id,
 		"pages": num_pages,
 		"resources": {
 			"page": {
@@ -53,11 +55,13 @@ def init_json(borough, num_pages):
 		}, 
 		"pdf": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.pdf" % (borough, borough),
 		"thumbnail": "http://1940census.nypl.org.s3.amazonaws.com/%s/p1--small.jpg" % (borough),
-		"title": "1940-%s-telephone-directory" % (borough),
-		"borough": borough,
+		"title": "1940-%s-telephone-directory" % (borough)
 	}
 
-	db.loaders.save(init_json)
+	if elem_id:
+		db.loaders.update({'_id': elem_id}, init_json)
+	else: 
+		db.loaders.save(init_json)
 
 if __name__ == "__main__":
 	for borough, pages in borough_pages.iteritems():

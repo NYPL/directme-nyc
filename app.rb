@@ -8,26 +8,27 @@
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-		@consts = ['order!libs/underscore', 'order!modules/ytube','order!modules/viewer', 
-					'order!modules/templates']
-		@deps = ['order!modules/pubsub', 'order!modules/mappings', 'order!modules/magpie', 
-					'order!modules/bootstraps']
-		@DV = true
-		@base = true
-		slim :main
+		@consts = ['order!modules/ytube']
+		@deps = ['order!modules/mappings']
+		slim :main, :locals => {"borough" => nil}
+	end
+
+	get '/DV/:borough' do
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/pubsub', 'order!modules/DV_load', 'order!modules/magpie', 'order!modules/bootstraps']
+		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
 	end
 
 	get '/help' do
-		@base = true
 		slim :help
 	end
 
 	get '/credits' do
-		@base = true
 		slim :credits
 	end
 
 	get '/results/:id' do
+		@results = true
 		slim :results
 	end
 
@@ -65,22 +66,9 @@ class Application < Sinatra::Base
 		response
 	end
 
-	get '/dvs' do
+	get '/dvs/:borough.json' do
 		callback = params.delete('callback') # jsonp
-		json = Loaders.all.to_json
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
-	end
-
-	get '/dvs/:id' do
-		callback = params.delete('callback') # jsonp
-		json = Loaders.find(params['id']).to_json
+		json = Loaders.where(borough: "#{params['borough']}").first().to_json
 
 		if callback
 			content_type :js

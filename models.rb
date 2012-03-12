@@ -1,7 +1,6 @@
 class Loaders
 	include Mongoid::Document
-	cache
-
+	#cache
 	field :canonical_url, :type => String
 	field :created_at, :type => String
 	field :description, :type => String
@@ -9,6 +8,7 @@ class Loaders
 	field :pdf, :type => String
 	field :thumbnail, :type => String
 	field :title, :type => String
+	field :id, :type => String
 
 	embeds_one :resources
 	has_many :annotations

@@ -1,42 +1,43 @@
-/! blurb
-div#blurb
-	p Find New Yorkers living in any of the five boroughs in the just-released 1940 Census Documents from the National Archive using our Enumeration District Finder. Select a borough to the right to start your search.
-	p You can also read and share stories of people and places you find in our telephone books.
-/! --blurb--
+div#mainwrapper
+	div#main
+		/! blurb
+		div#blurb
+			p Find New Yorkers living in any of the five boroughs in the just-released 1940 Census Documents from the National Archive using our Enumeration District Finder. Select a borough to the right to start your search.
+			p You can also read and share stories of people and places you find in our telephone books.
+		/! --blurb--
 
-/! borough_selector
-div#borough_selector
-	div#arrow 
-		p Select a borough
+		/! borough_selector
+		div#borough_selector
+			div#arrow 
+				p Select a borough
 
-	ul#boroughs
-		li
-			a#testset.borough href="#" TESTSET
-		li
-			a#bronx.borough href="#" BRONX
-		li
-			a#queens.borough href="#" QUEENS
-		li
-			a#brooklyn.borough href="#" BROOKLYN
-		li
-			a#manhattan.borough href="#" MANHATTAN
-		li
-			a#staten.borough href="#" STATEN ISLAND
-/! --borough_selector--
+			ul#boroughs
+				li
+					a#testset.borough href="#" TESTSET
+				li
+					a#bronx.borough href="#" BRONX
+				li
+					a#queens.borough href="#" QUEENS
+				li
+					a#brooklyn.borough href="#" BROOKLYN
+				li
+					a#manhattan.borough href="#" MANHATTAN
+				li
+					a#staten.borough href="#" STATEN ISLAND
+		/! --borough_selector--
 
-/! tip
-div#tip
-	h3 Quick tip:
-	p.content To find a census record you first need to find the Enumeration District (ED) of the place where that person lived.
-	a.hi href="#" What is an Enumeration District?
-/! --tip--
+		/! tip
+		div#tip
+			h3 Quick tip:
+			p.content To find a census record you first need to find the Enumeration District (ED) of the place where that person lived.
+			a.hi href="#" What is an Enumeration District?
+		/! --tip--
 
-/! video
-div#video
-	div.embed
-/! --video--
+		/! video
+		div#video
+			div.embed
+		/! --video--
 
-==slim :nytimes
+		==slim :nytimes
 
-div.spacer
-
+		div.spacer

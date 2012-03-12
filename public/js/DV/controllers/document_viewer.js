@@ -115,7 +115,7 @@ DV.DocumentViewer.prototype.jQuery = function(selector, context) {
 // The origin function, kicking off the entire documentViewer render.
 DV.load = function(documentRep, options) {
   options = options || {};
-  var id  = documentRep._id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
+  var id  = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
   var defaults = {
     container : document.body,
     zoom      : 'auto',
@@ -127,7 +127,8 @@ DV.load = function(documentRep, options) {
   DV.viewers[id]     = viewer;
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
-    var viewer = DV.viewers[json._id];
+    log(json);
+    var viewer = DV.viewers[json.borough] || DV.viewers[json.id] || DV.viewers[json._id];
     viewer.schema.importCanonicalDocument(json);
     viewer.loadModels();
     DV.jQuery(function() {

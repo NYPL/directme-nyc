@@ -2,7 +2,6 @@
 
 DV.Page = function(viewer, argHash){
   this.viewer           = viewer;
-  this.api              = this.viewer.api;
   this.index            = argHash.index;
   for(var key in argHash) this[key] = argHash[key];
   this.el               = this.viewer.$(this.el);
@@ -250,7 +249,7 @@ DV.Page.prototype.drawImage = function(imageURL) {
   var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : imageURL;
   this.magImageEl.attr('href', imageLINK);
   // Replace the image completely because of some funky loading bugs we were having
-  this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" src="'+imageURL+'" />');
+  this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" id="DV-pageImage-'+this.pageImageEl.parents('.DV-set').attr('data-id')+'" src="'+imageURL+'" />');
 
   // Update element reference
   this.setPageImage();
@@ -258,5 +257,5 @@ DV.Page.prototype.drawImage = function(imageURL) {
 
   // Update the status of the image load
   this.el.addClass('DV-loaded').removeClass('DV-loading');
-  this.api.updateMag(jQuery, 'pages');
+  this.viewer.api.updateMag(jQuery, 'pages');
 };
