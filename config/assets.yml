@@ -24,6 +24,11 @@ javascripts:
     templates:                                                                                                                                                                                                                                
         - public/js/DV/views/*.jst
 
+    bootstraps:
+        - public/bootstrap/js/bootstrap-modal.js
+        - public/bootstrap/js/bootstrap-transition.js
+        - public/bootstrap/js/bootstrap-tooltip.js
+        - public/bootstrap/js/bootstrap-popover.js
 
 stylesheets:
     results:

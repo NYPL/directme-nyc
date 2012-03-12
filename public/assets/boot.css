@@ -1688,6 +1688,21 @@ input[type="submit"].btn.small {
 .modal-backdrop.fade.in {
   z-index: 20000;
 }
+.modal-open .popover {
+  z-index: 20001;
+}
+.modal {
+  width: 350px;
+  position: absolute;
+  top: 0px;
+  margin-top: 0px;
+}
+.modal .fade {
+  top: 0px;
+}
+.modal .fade .in {
+  top: 0px;
+}
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -2433,3 +2448,6 @@ div.spacer {
 
 #loc_add {
   z-index: 20001; }
+
+.popover h1, .popover h2, .popover h3, .popover h4, .popover p, .popover ul {
+  margin: 0; }

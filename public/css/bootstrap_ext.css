@@ -1688,3 +1688,18 @@ input[type="submit"].btn.small {
 .modal-backdrop.fade.in {
   z-index: 20000;
 }
+.modal-open .popover {
+  z-index: 20001;
+}
+.modal {
+  width: 350px;
+  position: absolute;
+  top: 0px;
+  margin-top: 0px;
+}
+.modal .fade {
+  top: 0px;
+}
+.modal .fade .in {
+  top: 0px;
+}

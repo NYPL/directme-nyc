@@ -380,7 +380,6 @@ DV.Schema.helpers = {
       for (var i = 0; i < totalPagesToCreate; i++) {
         pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, pageMagSource: null, pagebaseHeight: height }));
       }
-
       return pages.join('');
     },
 

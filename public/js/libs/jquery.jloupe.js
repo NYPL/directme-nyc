@@ -28,7 +28,7 @@ jQuery.fn.jloupe = function(o){
 	}
 	var loupe = $('<div />').addClass('thejloupe')
 		.css('position','absolute')
-		.css('z-index', '30001')
+		.css('z-index', '20003')
 		.css('width',options.width +'px')
 		.css('height',options.height +'px')
 		.css('backgroundColor', options.borderColor)
@@ -49,8 +49,8 @@ jQuery.fn.jloupe = function(o){
 	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
 
 	if(options.locked) var locked_mode = options.locked;	
-		
 	$(this).each(function(){
+		log("jslsljs")
 		var h = $(this).parent('a').attr('href');
 		var s = $(this).attr('src');
 		s = (h) ? h : s;
@@ -62,7 +62,7 @@ jQuery.fn.jloupe = function(o){
 			if (locked_mode !== true) {
 				var o = $(this).offset();
 				var i = $(this).data('zoom');
-				var posx = 0, posy = 0;
+				posx = 0, posy = 0;
 				if(e.pageX || e.pageY){
 					posx = e.pageX;
 					posy = e.pageY;
@@ -74,7 +74,7 @@ jQuery.fn.jloupe = function(o){
 				if ((posx + options.cursorOffsetX) > ($('.DV').width() - options.width)) {
 					$(loupe).offset({top:posy+options.cursorOffsetY, left:$('.DV').width()-options.width});
 				}
-				else if ((posx + options.cursorOffsetX) < 0) {
+				else if ((posx + options.cursorOffsetX) <= 0) {
 					$(loupe).offset({top:posy+options.cursorOffsetY, left:0});
 				}
 				else {
@@ -102,8 +102,9 @@ jQuery.fn.jloupe = function(o){
 			}
 		},
 		click: function(e) {
+			e.preventDefault();
 			locked_mode = true;
-			$.publish('clickSpot', [parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
+			$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
 		}
 	});
 	

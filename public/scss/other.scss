@@ -1,37 +1,5 @@
-//globals
-
-//ie7 mixins => create IE stylesheet
-@mixin inline-blocky-hack {
-	zoom: 1;
-	*display: inline;
-}
-
-//mixins
-@mixin box-sizing-mix($type:"border") {
-	box-sizing: #{$type}-box;
-	-webkit-box-sizing: #{$type}-box;
-	-moz-box-sizing: #{$type}-box;
-}
-
-@mixin box-shadow-mix($blur, $r, $g, $b) {
-	-webkit-box-shadow:0 0 #{$blur}px rgb($r, $g, $b); 
-	-moz-box-shadow: 0 0 #{$blur}px rgb($r, $g, $b); 
-	box-shadow:0 0 #{$blur}px rgb($r, $g, $b); 
-	behavior: url('/css/PIE.htc');
-	position: relative;
-	z-index: 0;
-}
-
-@mixin box-radius-mix($pixels) {
-	border-radius: #{$pixels}px;
-	-moz-border-radius: #{$pixels}px;
-	-webkit-border-radius: #{$pixels}px;
-	behavior: url('/css/PIE.htc');
-	position: relative;
-	z-index: 0;
-}
-
-
+//z_additions 
+//------------------------------------------------------------
 .DV {
 	overflow: hidden;
 
@@ -56,3 +24,10 @@
 #loc_add {
 	z-index: 20001;
 }
+
+.popover {
+	h1, h2, h3, h4, p, ul {
+		margin: 0;
+	}
+}
+//--------------------------------------------------------------

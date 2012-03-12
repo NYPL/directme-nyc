@@ -18,5 +18,5 @@ DV.Schema.events.ViewDocument = {
     this.helpers.getSearchResponse(this.elements.searchInput.val());
     return false;
   }
-
+  
 }

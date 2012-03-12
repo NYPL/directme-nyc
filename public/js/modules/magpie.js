@@ -3,12 +3,15 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 	function _init() {
 		$.subscribe('pages', recFunc)
 		$.subscribe('clickSpot', funModal);
+		require(['libs/jquery.jloupe'], function() {});
 	}
 
 	function recFunc(e) {
-		require(['libs/jquery.jloupe'], function() {
-			setupMag('.DV-pageImage');
-		});
+		if ($('.thejloupe').length > 3) {
+			$('.thejloupe').first().children().remove();
+			$('.thejloupe').first().remove();
+		}
+		setupMag('.DV-pageImage');
 	}
 
 	function setupMag(magClass) {
@@ -23,12 +26,15 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 		})
 	}
 
-	function funModal(e, left_pos, right_pos) {
-		log(left_pos + ", " + right_pos)
-		$('#loc_add').modal('show')
+	function funModal(e, curr_left, curr_right, large_left, large_right) {
+		$('#loc_add').on('show', function() {
+			//$('.modal').css('top', ); 
+			$('.popovers').popover();
+		});
 		$('#loc_add').on('hide', function () {
 			reInitMag();
 		});
+		$('#loc_add').modal('show');
 	}
 
 	function reInitMag() {

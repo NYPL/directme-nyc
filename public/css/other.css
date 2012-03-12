@@ -15,3 +15,6 @@
 
 #loc_add {
   z-index: 20001; }
+
+.popover h1, .popover h2, .popover h3, .popover h4, .popover p, .popover ul {
+  margin: 0; }
