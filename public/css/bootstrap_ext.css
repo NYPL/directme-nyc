@@ -1684,3 +1684,7 @@ input[type="submit"].btn.small {
 .invisible {
   visibility: hidden;
 }
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  z-index: 20000;
+}

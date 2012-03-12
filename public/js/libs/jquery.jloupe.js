@@ -17,7 +17,8 @@ jQuery.fn.jloupe = function(o){
 		image: false,
 		repeat: false,
 		fade: true,
-		_offset: 35
+		_offset: 35,
+		locked: false
 	};
 	if(o) {
 		jQuery.extend(options, o);
@@ -45,54 +46,63 @@ jQuery.fn.jloupe = function(o){
 		.css('marginTop', options.margin +'px')
 		.appendTo(loupe);
 
-	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);	
+	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
+
+	if(options.locked) var locked_mode = options.locked;	
 		
 	$(this).each(function(){
 		var h = $(this).parent('a').attr('href');
 		var s = $(this).attr('src');
 		s = (h) ? h : s;
 		var i = $('<img />').attr('src', s);	
-		$(this).data('zoom',i);		
+		$(this).data('zoom',i);	
 	})
 	.on({
 		mousemove: function(e){ 
-			var o = $(this).offset();
-			var i = $(this).data('zoom');
-			var posx = 0, posy = 0;
-			if(e.pageX || e.pageY){
-				posx = e.pageX;
-				posy = e.pageY;
+			if (locked_mode !== true) {
+				var o = $(this).offset();
+				var i = $(this).data('zoom');
+				var posx = 0, posy = 0;
+				if(e.pageX || e.pageY){
+					posx = e.pageX;
+					posy = e.pageY;
+				}
+				else if(e.clientX || e.clientY){
+					posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+					posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+				}
+				if ((posx + options.cursorOffsetX) > ($('.DV').width() - options.width)) {
+					$(loupe).offset({top:posy+options.cursorOffsetY, left:$('.DV').width()-options.width});
+				}
+				else if ((posx + options.cursorOffsetX) < 0) {
+					$(loupe).offset({top:posy+options.cursorOffsetY, left:0});
+				}
+				else {
+					$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
+				}
+				w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
+				h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
+				zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
+				zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
+				$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
 			}
-			else if(e.clientX || e.clientY){
-				posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-				posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-			}
-			if ((posx + options.cursorOffsetX) > ($('.DV').width() - options.width)) {
-				$(loupe).offset({top:posy+options.cursorOffsetY, left:$('.DV').width()-options.width});
-			}
-			else if ((posx + options.cursorOffsetX) < 0) {
-				$(loupe).offset({top:posy+options.cursorOffsetY, left:0});
-			}
-			else {
-				$(loupe).offset({top:posy+options.cursorOffsetY, left:posx+options.cursorOffsetX});
-			}
-			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
-			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
-			zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
-			zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
-			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
 		},
 		mouseleave: function(){
-			$(loupe).stop(true, true);
-			if(options.fade) $(loupe).fadeOut(100);
-			else $(loupe).hide();
+			if (locked_mode !== true) {
+				$(loupe).stop(true, true);
+				if(options.fade) $(loupe).fadeOut(100);
+				else $(loupe).hide();
+			}
 		},
 		mouseenter: function(){
-			$(loupe).stop(true, true);
-			if(options.fade) $(loupe).fadeIn();
-			else $(loupe).show();
+			if (locked_mode !== true) {
+				$(loupe).stop(true, true);
+				if(options.fade) $(loupe).fadeIn();
+				else $(loupe).show();
+			}
 		},
 		click: function(e) {
+			locked_mode = true;
 			$.publish('clickSpot', [parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
 		}
 	});

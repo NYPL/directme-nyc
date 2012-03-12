@@ -21,11 +21,6 @@ define(['require', 'jquery', 'modules/DV_load'], function(require, $, loadDV) {
 				$('html, body').animate({
 					scrollTop: $('.DV').offset().top
 				}, 500)
-				require(['modules/mag'], function(showMag) {
-					showMag.init();
-					showMag.pages;
-					showMag.clickSpot;
-				});
 			});
 			return false;
 		});
