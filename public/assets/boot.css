@@ -1700,7 +1700,7 @@ input[type="submit"].btn.small {
 .modal .fade {
   top: 0px;
 }
-.modal .fade .in {
+.modal.fade.in {
   top: 0px;
 }
 

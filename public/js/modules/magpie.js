@@ -7,11 +7,11 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 	}
 
 	function recFunc(e) {
-		if ($('.thejloupe').length > 3) {
-			$('.thejloupe').first().children().remove();
-			$('.thejloupe').first().remove();
-		}
-		setupMag('.DV-pageImage');
+		$('.thejloupe').remove().promise().done(function() {
+			$('.thejloupeview').remove().promise().done(function () {
+				setupMag('.DV-pageImage');
+			});
+		});
 	}
 
 	function setupMag(magClass) {
@@ -38,11 +38,7 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 	}
 
 	function reInitMag() {
-		$('.thejloupe').remove().promise().done(function() {
-			$('.thejloupeview').remove().promise().done(function () {
-				$.publish('pages', []);
-			});
-		});
+		$.publish('pages', []);
 	}
 
 	/** Return instantiated function */
