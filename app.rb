@@ -109,7 +109,7 @@ class Application < Sinatra::Base
 		response
 	end
 
-	get '/streets:borough.json' do
+	get '/streets/:borough.json' do
 		callback = params.delete('callback') # jsonp
 		json = Streets.where(borough: "#{params['borough']}").first().to_json
 

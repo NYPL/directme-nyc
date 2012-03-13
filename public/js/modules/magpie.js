@@ -54,6 +54,7 @@ define(['require', 'jquery'], function(require, $) {
 	}
 
 	function reInitMag() {
+		$('.modal').hide();
 		$.publish('pages', []);
 	}
 

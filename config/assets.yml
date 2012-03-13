@@ -29,6 +29,9 @@ javascripts:
         - public/bootstrap/js/bootstrap-tooltip.js
         - public/bootstrap/js/bootstrap-popover.js
 
+    # maps:
+    #     - public/js/libs
+
 stylesheets:
     results:
         - public/css/reset.css

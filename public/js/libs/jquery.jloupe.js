@@ -126,13 +126,12 @@ jQuery.fn.jloupe = function(o){
 
 		click: function(e) {
 			e.preventDefault();
-
 			if (locked_mode !== true) {
 				locked_mode = true;
 				$('.thejloupe').animate({
 					top: $(window).height()/2,
 					left: ($(window).width()/2) - ($('.thejloupe').width()/2)
-					}, 500, function() {
+					}, 300, function() {
 						$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
 				});
 			}

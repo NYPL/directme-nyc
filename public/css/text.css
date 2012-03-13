@@ -276,10 +276,13 @@ p {
 
 .modal #frm-modal-street {
 	width: 200px;
+	margin-left: 5px;
 }
 
 .modal .frm-help {
 	color: #666;
+	font-size: 18px;
+	padding-left:3px;
 }
 
 #header_compact #nav_bar a {
