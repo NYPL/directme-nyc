@@ -10,12 +10,13 @@ class Application < Sinatra::Base
 	get '/' do
 		@consts = ['order!modules/ytube']
 		@deps = ['order!modules/mappings']
-		slim :main, :locals => {"borough" => nil}
+		slim :main
 	end
 
 	get '/DV/:borough' do
 		@consts = ['order!libs/underscore', 'order!libs/jquery-ui-1.8.18.custom.min','order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/pubsub', 'order!modules/DV_load', 'order!modules/magpie', 'order!modules/bootstraps', 'order!modules/fuzzy']
+		@DV = true
 		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
 	end
 

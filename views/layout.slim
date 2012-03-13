@@ -30,22 +30,35 @@ html
         /! require.js => special version
         script data-main="/js/main.js" src="/js/libs/require-jquery.js"
 
-        javascript:
-            var environment = {
-                page_title: 'NYPL Labs',
-                deps: $.parseJSON('#{{@deps}}'),
-                consts: $.parseJSON('#{{@consts}}'),
-                borough: '#{borough}'
-            };
+        - if @DV
+            javascript:
+                var environment = {
+                    page_title: 'NYPL Labs',
+                    deps: $.parseJSON('#{{@deps}}'),
+                    consts: $.parseJSON('#{{@consts}}'),
+                    borough: '#{borough}'
+                };
+
+        - else
+            javascript:
+                var environment = {
+                    page_title: 'NYPL Labs',
+                    deps: $.parseJSON('#{{@deps}}'),
+                    consts: $.parseJSON('#{{@consts}}'),
+                };
 
     body
         div#wrapper
             ==slim :nypl
-            ==slim :header
+            - if @DV
+                ==slim :headercompact
+            - else
+                ==slim :header
           
         ==yield
 
-        ==slim :footer
+        - if not @DV
+            ==slim :footer
 
     /[if lt IE 7]
         script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"

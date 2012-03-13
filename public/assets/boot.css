@@ -1846,7 +1846,7 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331054296) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331674915) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -1889,7 +1889,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331054296) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331674915) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -1906,7 +1906,7 @@ p {
 
 .onesteplogo {
 	display: inline-block;
-	background: url(../images/sprites.png?1331054296) 0 0 no-repeat;
+	background: url(../images/sprites.png?1331674915) 0 0 no-repeat;
 	width: 18px;
 	height: 18px;
 	text-indent: 100%;
@@ -2006,7 +2006,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331054296) no-repeat;
+	background: url(../images/sprites.png?1331674915) no-repeat;
 }
 
 #frm-annotate a#fb-submit span:after {
@@ -2055,7 +2055,6 @@ p {
 }
 
 .modal, .popover {
-	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
 }
 
 .modal em, .popover em {
@@ -2073,14 +2072,22 @@ p {
 
 .modal #frm-modal-street {
 	width: 200px;
-	margin-left: 10px;
 }
 
 .modal .frm-help {
 	color: #666;
-	font-size: 18px;
-	margin-left: 3px;
 }
+
+#header_compact #nav_bar a {
+	font-size: 18px;
+	color: #000;
+	line-height: 1.8em;
+}
+
+#header_compact #nav_bar a:hover, #header_compact #nav_bar a:active {
+	color: #f00;
+}
+
 
 div.spacer {
 	clear: both;
@@ -2101,18 +2108,15 @@ div.spacer {
 	font-family: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, helvetica, sans-serif;
 	position: relative;
 	height: 30px;
-	background: -905px 0 no-repeat #000;
-	color: #fff;
-	font-size: $fontsizepx;
 	margin: 0;
 	padding: 0 0 0 60px;
-	height: 30px;
-	color: #fff;
+	background: url(../images/sprites.png?1331674915) 10px -151px no-repeat black;
+	color: #aaa;
 	font-size: 14px;
 }
 
 #nypl_bar div {
-	padding-top: 6px;
+	padding-top: 4px;
 }
 
 #nypl_bar form {
@@ -2134,10 +2138,22 @@ div.spacer {
 	float: left;
 }
 
+#header_compact {
+	background: #fff;
+	height: 40px;
+	border-bottom: 2px solid #000;
+}
+
 #nav_bar {
 	float: right;
 	width: 300px;
 	top: 0;
+}
+
+#header_compact #nav_bar {
+	float: none;
+	width: auto;
+	margin-left: 10px; 
 }
 
 #nav_bar a {
@@ -2147,7 +2163,14 @@ div.spacer {
 	padding-top: 30px;
 }
 
-#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current {
+#header_compact #nav_bar a {
+	display: inline-block;
+	margin: 0 20px 0 0;
+	border-top: 5px solid #fff;
+	padding: 0;	
+}
+
+#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current, #header_compact #nav_bar a:hover, #header_compact #nav_bar a:active, #header_compact #nav_bar a.current {
 	border-top-color: #f00;
 }
 
