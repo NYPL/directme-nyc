@@ -30,7 +30,8 @@ javascripts:
         - public/bootstrap/js/bootstrap-popover.js
 
     # maps:
-    #     - public/js/libs
+    #     - public/js/libs/leaflet/leaflet.js
+    #     - public/js/libs/wax/wax.leaf.min.js
 
 stylesheets:
     results:
@@ -52,6 +53,9 @@ stylesheets:
         - public/css/DV/components/ui.css                                                                                                                                                                                               
         - public/css/DV/components/*.css                                                                                                                                                                                                
         - public/css/DV/themes/plain.css
+
+    # maps:
+    #     - public/js/libs/leaflet/*.css
 
     print:
         - public/css/DV/print.css
