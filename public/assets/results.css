@@ -366,8 +366,28 @@ div.spacer {
 }
 
 #nypl_bar {
-	background: #000;
+	font-family: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, helvetica, sans-serif;
+	position: relative;
 	height: 30px;
+	background: -905px 0 no-repeat #000;
+	color: #fff;
+	font-size: $fontsizepx;
+	margin: 0;
+	padding: 0 0 0 60px;
+	height: 30px;
+	color: #fff;
+	font-size: 14px;
+}
+
+#nypl_bar div {
+	padding-top: 6px;
+}
+
+#nypl_bar form {
+	display: inline;
+}
+
+#nypl_bar  a, a:link, a:visited {
 	color: #fff;
 }
 

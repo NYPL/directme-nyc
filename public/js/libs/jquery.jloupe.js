@@ -49,7 +49,6 @@ jQuery.fn.jloupe = function(o){
 
 	var posx = 0; 
 	var posy = 0;
-	var scrolling = false;
 
 	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
 
@@ -64,7 +63,7 @@ jQuery.fn.jloupe = function(o){
 	})
 	.on({
 		mousemove: function(e){
-			if (locked_mode !== true && scrolling === false) {
+			if (locked_mode !== true) {
 				var o = $(this).offset();
 				var i = $(this).data('zoom');
 
@@ -126,14 +125,16 @@ jQuery.fn.jloupe = function(o){
 
 		click: function(e) {
 			e.preventDefault();
-			locked_mode = true;
 
-			$('.thejloupe').animate({
-				top: $(window).height()/2,
-				left: ($(window).width()/2) - ($('.thejloupe').width()/2)
-				}, 500, function() {
-					$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
-			});
+			if (locked_mode !== true) {
+				locked_mode = true;
+				$('.thejloupe').animate({
+					top: $(window).height()/2,
+					left: ($(window).width()/2) - ($('.thejloupe').width()/2)
+					}, 500, function() {
+						$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
+				});
+			}
 		}
 	});
 	

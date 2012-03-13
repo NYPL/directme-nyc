@@ -7,6 +7,12 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 
 		//setup modal
 		$('.modal').css('left', ($(window).width()/2) - ($(this).width/2))
+		$('#loc_add').on('show', function() {
+			$('.popovers').popover();
+		});
+		$('#loc_add').on('hidden', function () {
+			reInitMag();
+		});
 
 	}
 
@@ -33,13 +39,10 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 	}
 
 	function funModal(e, curr_left, curr_right, large_left, large_right) {
-		$('#loc_add').on('show', function() {
-			$('.popovers').popover();
+		$('#loc_add').modal({
+			'show': true,
+			'keyboard': false
 		});
-		$('#loc_add').on('hide', function () {
-			reInitMag();
-		});
-		$('#loc_add').modal('show');
 	}
 
 	function reInitMag() {
