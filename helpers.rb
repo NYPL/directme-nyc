@@ -67,7 +67,7 @@ module MyHelpers
 	module RandGen
 		extend self
 		def gen_random_id()
-			@rand_id = Base32.encode(Digest::MD5.digest(UUIDTools::UUID.random_create)).downcase!.split('=')[0]
+			@rand_id = Base32::Crockford.encode(Digest::MD5.digest(UUIDTools::UUID.random_create)).downcase!.split('=')[0]
 		end
 	end
 end

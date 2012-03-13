@@ -27,7 +27,7 @@ gem 'slim'
 gem 'sass'
 
 #id-y things
-gem 'base32', :require => 'Base32'
+gem 'base32-crockford', :require => 'base32/crockford'
 gem 'uuidtools'
 
 group :test do
