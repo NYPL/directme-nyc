@@ -19,6 +19,7 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 	function recFunc(e) {
 		$('.thejloupe').remove().promise().done(function() {
 			$('.thejloupeview').remove().promise().done(function () {
+				$('.DV-pageImage').off('mousemove');
 				setupMag('#DV-pageImage-p0');
 				setupMag('#DV-pageImage-p1');
 				setupMag('#DV-pageImage-p2');

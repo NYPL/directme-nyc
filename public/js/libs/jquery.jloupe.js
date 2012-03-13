@@ -107,7 +107,6 @@ jQuery.fn.jloupe = function(o){
 		},
 
 		mouseleave: function(){
-			log("jlj")
 			if (locked_mode !== true) {
 				$(loupe).stop(true, true);
 				if(options.fade) $(loupe).fadeOut(100);
@@ -136,6 +135,9 @@ jQuery.fn.jloupe = function(o){
 				});
 			}
 		}
+	})
+	.parents('.DV-pages').on('scroll', function() {
+		$(document).off('mousemove', '.DV-pageImage', function() {log("fjlsjl")});
 	});
 	
 	return this;
