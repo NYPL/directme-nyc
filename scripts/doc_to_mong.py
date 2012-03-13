@@ -1,9 +1,6 @@
 import pymongo
 import argparse
 import datetime
-import base64
-import hashlib
-import uuid
 
 # ~ mongohq => mongo_conn is os.environ.get("MONGOHQ_URL")
 # ~ mongohq => mongo_dbname is app****
@@ -18,10 +15,6 @@ opts = parser.parse_args()
 
 connection = pymongo.Connection(opts.mongo_conn, int(opts.mongo_port))                                                                                              
 db = connection[opts.mongo_dbname]
-
-def gen_random_id():
-	k = base64.b32encode(hashlib.md5(uuid.uuid1().bytes).digest())
-	return k.lower().rstrip('=')
 
 borough_pages = {
 	'manhattan': 0, 

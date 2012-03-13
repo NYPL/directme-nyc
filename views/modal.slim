@@ -1,13 +1,15 @@
 div#loc_add.modal.hide.fade
 	div.modal-header
 		a.close data-dismiss="modal" ×
-		h3 Modal Heading
+		h3 Type the <em>number</em> and the <em>street name</em> for the person you clicked
 
 	div.modal-body
-    	h4 Text in a modal
-		h4 Popover in a modal
-		| <p>This <span class="btn popovers" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">button</span> should trigger a popover on hover</p>
+		form#frm-modal
+			input#frm-modal-number.frm-text type="text" placeholder="Number"
+			label.frm-help.popovers for="frm-modal-number" data-original-title="Address number" data-content="e.g.: Type '1178' (no quotes) if address is '1178RemsnAv'" ?
+			input#frm-modal-street.frm-text type="text" placeholder="Street name"
+			label.frm-help.popovers for="frm-modal-street" data-original-title="Street name" data-content="e.g.: Type 'RemsnAv' (no quotes) if address is '1178RemsnAv'. Please select a <em>non-abbreviated</em> name if one appears." ?
 
 	div.modal-footer
-              a.btn.btn-primary href="#" Submit for ED Results
+              a.btn.btn-primary href="#" Find ED number for this address
               a.btn href="#" data-dismiss="modal" Cancel

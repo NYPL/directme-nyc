@@ -9,7 +9,7 @@ define(['require', 'jquery'], function(require, $) {
 		$('#loc_add').on('show', function() {
 			var _modal = $('.modal');
 			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');
-			var _modal_top = $(window).height()/2 + 150;
+			var _modal_top = $(window).height()/2 + 130;
 			if ($(window).height() < _modal_top + _modal.height()) {
 				log("djljl")
 				_modal_top = 0;

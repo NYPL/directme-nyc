@@ -37,7 +37,7 @@ class Application < Sinatra::Base
 		status 201
 	end
 
-	get '/locations' do
+	get '/locations.json' do
 		callback = params.delete('callback') # jsonp
 		json = ""
 
@@ -52,7 +52,7 @@ class Application < Sinatra::Base
 
 	end
 
-	get '/locations/:id' do
+	get '/locations/:id.json' do
 		callback = params.delete('callback') # jsonp
 		json = ""
 
@@ -80,7 +80,7 @@ class Application < Sinatra::Base
 		response
 	end
 
-	get '/stories' do
+	get '/stories.json' do
 		callback = params.delete('callback') # jsonp
 		json = ""
 
@@ -94,9 +94,23 @@ class Application < Sinatra::Base
 		response
 	end
 
-	get '/stories/:id' do
+	get '/stories/:id.json' do
 		callback = params.delete('callback') # jsonp
 		json = ""
+
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
+
+	get '/streets:borough.json' do
+		callback = params.delete('callback') # jsonp
+		json = Streets.where(borough: "#{params['borough']}").first().to_json
 
 		if callback
 			content_type :js

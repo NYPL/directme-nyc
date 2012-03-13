@@ -2054,6 +2054,34 @@ p {
 	margin-bottom: 0;
 }
 
+.modal, .popover {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+}
+
+.modal em, .popover em {
+	color: #f00;
+}
+
+.modal .frm-text {
+	padding: 6px;
+	font-size: 18px;
+}
+
+.modal #frm-modal-number {
+	width: 100px;
+}
+
+.modal #frm-modal-street {
+	width: 200px;
+	margin-left: 10px;
+}
+
+.modal .frm-help {
+	color: #666;
+	font-size: 18px;
+	margin-left: 3px;
+}
+
 div.spacer {
 	clear: both;
 	height: 0px;
