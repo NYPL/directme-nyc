@@ -8,6 +8,7 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 		//setup modal
 		$('#loc_add').on('show', function() {
 			$('.modal').css('left',($(window).width()/2) - ($(this).width()/2) + 'px')
+			$('.modal').css('top',($(window).height()/2) + 150 + 'px')
 			$('.popovers').popover();
 		});
 		$('#loc_add').on('hidden', function () {
