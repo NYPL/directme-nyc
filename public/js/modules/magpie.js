@@ -1,6 +1,7 @@
-define(['require', 'jquery'], function(require, $) {
+define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 
 	function _init() {
+		fuzzy.init();
 		require(['libs/jquery.jloupe'], function() { log('require loupe'); });
 		$.subscribe('pages', recFunc)
 		$.subscribe('clickSpot', funModal);
@@ -11,7 +12,6 @@ define(['require', 'jquery'], function(require, $) {
 			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');
 			var _modal_top = $(window).height()/2 + 130;
 			if ($(window).height() < _modal_top + _modal.height()) {
-				log("djljl")
 				_modal_top = 0;
 			}
 			_modal.css('top',(_modal_top + 'px'));

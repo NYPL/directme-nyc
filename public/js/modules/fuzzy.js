@@ -1,8 +1,10 @@
 define(['jquery'], function($) {
 
 	function _init() {
+		var urlpath = window.location.protocol + "//" + window.location.host;
+		log(urlpath)
 		var streets = [];
-		//loadContent();
+		loadContent(urlpath);
 	}
 
 	function matchStreets(input) {
@@ -20,21 +22,29 @@ define(['jquery'], function($) {
 		resp(filtered);
 	}
 
-	function loadContent() {
-		$.get("streets.csv", function (content) {
-			streets = content.split(new RegExp(/\n/))
-				.map(function (element) {
-				//Do whatever tidy up here
-				return $.trim(element);
-			});
-			$( "#streets-field" ).autocomplete({
-				source: callback
-			});
+	function loadContent(site) {
+		//just for testing
+		if (environment.borough === 'testset') {
+			environment.borough = 'brooklyn'
+		}
+		//testing is now complete
+
+		$.getJSON(site + '/streets/' + environment.borough + '.json?callback=?', function(data) {
+			environment.streets = data.streets;
+			$('#state_hidden').val(data.state);
+			$('#fullcity_hidden').val(data.fullcity);
+		});
+	}
+
+	function autoCompleteO() {
+		$( "#frm-modal-street" ).autocomplete({
+			source: callback
 		});
 	}
 
 	/** Return instantiated function */
 	return {
-		init: _init()
+		init: _init,
+		search: autoCompleteO
 	};
 });
