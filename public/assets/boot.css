@@ -1698,11 +1698,8 @@ input[type="submit"].btn.small {
   margin: 0;
   left: 0px;
 }
-.modal .fade {
-  top: 0px;
-}
 .modal.fade.in {
-  top: 0px;
+  top: 65%;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 

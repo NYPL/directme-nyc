@@ -6,8 +6,8 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 		$.subscribe('clickSpot', funModal);
 
 		//setup modal
-		$('.modal').css('left', ($(window).width()/2) - ($(this).width/2))
 		$('#loc_add').on('show', function() {
+			$('.modal').css('left',($(window).width()/2) - ($(this).width()/2) + 'px')
 			$('.popovers').popover();
 		});
 		$('#loc_add').on('hidden', function () {
