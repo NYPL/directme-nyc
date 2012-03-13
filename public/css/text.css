@@ -259,7 +259,6 @@ p {
 }
 
 .modal, .popover {
-	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
 }
 
 .modal em, .popover em {
@@ -277,11 +276,19 @@ p {
 
 .modal #frm-modal-street {
 	width: 200px;
-	margin-left: 10px;
 }
 
 .modal .frm-help {
 	color: #666;
-	font-size: 18px;
-	margin-left: 3px;
 }
+
+#header_compact #nav_bar a {
+	font-size: 18px;
+	color: #000;
+	line-height: 1.8em;
+}
+
+#header_compact #nav_bar a:hover, #header_compact #nav_bar a:active {
+	color: #f00;
+}
+

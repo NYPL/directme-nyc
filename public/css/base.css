@@ -17,18 +17,15 @@ div.spacer {
 	font-family: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, helvetica, sans-serif;
 	position: relative;
 	height: 30px;
-	background: -905px 0 no-repeat #000;
-	color: #fff;
-	font-size: $fontsizepx;
 	margin: 0;
 	padding: 0 0 0 60px;
-	height: 30px;
-	color: #fff;
+	background: url(../images/sprites.png) 10px -151px no-repeat black;
+	color: #aaa;
 	font-size: 14px;
 }
 
 #nypl_bar div {
-	padding-top: 6px;
+	padding-top: 4px;
 }
 
 #nypl_bar form {
@@ -50,10 +47,22 @@ div.spacer {
 	float: left;
 }
 
+#header_compact {
+	background: #fff;
+	height: 40px;
+	border-bottom: 2px solid #000;
+}
+
 #nav_bar {
 	float: right;
 	width: 300px;
 	top: 0;
+}
+
+#header_compact #nav_bar {
+	float: none;
+	width: auto;
+	margin-left: 10px; 
 }
 
 #nav_bar a {
@@ -63,7 +72,14 @@ div.spacer {
 	padding-top: 30px;
 }
 
-#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current {
+#header_compact #nav_bar a {
+	display: inline-block;
+	margin: 0 20px 0 0;
+	border-top: 5px solid #fff;
+	padding: 0;	
+}
+
+#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current, #header_compact #nav_bar a:hover, #header_compact #nav_bar a:active, #header_compact #nav_bar a.current {
 	border-top-color: #f00;
 }
 
