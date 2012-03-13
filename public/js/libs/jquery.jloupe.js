@@ -64,6 +64,8 @@ jQuery.fn.jloupe = function(o){
 	.on({
 		mousemove: function(e){
 			if (locked_mode !== true) {
+				$(loupe).hide();
+				$(loupe).show();
 				var o = $(this).offset();
 				var i = $(this).data('zoom');
 
@@ -136,10 +138,6 @@ jQuery.fn.jloupe = function(o){
 			}
 		}
 	})
-	.parents('.DV-pages').on('scroll', function() {
-		$(document).off('mousemove', '.DV-pageImage', function() {log("fjlsjl")});
-	});
-	
 	return this;
 };
 	
