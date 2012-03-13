@@ -2094,7 +2094,7 @@ div.spacer {
 	display: inline;
 }
 
-#nypl_bar  a, a:link, a:visited {
+#nypl_bar  a, #nypl_bar a:link, #nypl_bar a:visited {
 	color: #fff;
 }
 
