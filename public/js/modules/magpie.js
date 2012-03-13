@@ -1,4 +1,4 @@
-define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
+define(['require', 'jquery'], function(require, $) {
 
 	function _init() {
 		require(['libs/jquery.jloupe'], function() { log('require loupe'); });
@@ -7,8 +7,14 @@ define(['require', 'jquery', 'modules/pubsub'], function(require, $, pubsub) {
 
 		//setup modal
 		$('#loc_add').on('show', function() {
-			$('.modal').css('left',($(window).width()/2) - ($(this).width()/2) + 'px')
-			$('.modal').css('top',($(window).height()/2) + 150 + 'px')
+			var _modal = $('.modal');
+			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');
+			var _modal_top = $(window).height()/2 + 150;
+			if ($(window).height() < _modal_top + _modal.height()) {
+				log("djljl")
+				_modal_top = 0;
+			}
+			_modal.css('top',(_modal_top + 'px'));
 			$('.popovers').popover();
 		});
 		$('#loc_add').on('hidden', function () {
