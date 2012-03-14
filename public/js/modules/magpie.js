@@ -1,9 +1,8 @@
-define(['require', 'jquery', 'modules/fuzzy', 'modules/onSubmit'], function(require, $, fuzzy, onSub) {
+define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 
 	function _init() {
 		//defined module inits
 		fuzzy.init();
-		onSub.init();
 
 
 		require(['libs/jquery.jloupe'], function() { log('require loupe'); });
