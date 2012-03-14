@@ -2,15 +2,13 @@ define(['jquery'], function($) {
 
 	function _init() {
 		var urlpath = window.location.protocol + "//" + window.location.host;
-		log(urlpath)
-		var streets = [];
 		loadContent(urlpath);
 	}
 
 	function matchStreets(input) {
 		var trimmed = input.replace(/\s/,'');
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
-		return streets.filter(function(st) {
+		return environment.streets.filter(function(st) {
 			if (st.match(reg)) {
 				return st;
 			}
@@ -37,7 +35,7 @@ define(['jquery'], function($) {
 	}
 
 	function autoCompleteO() {
-		$( "#frm-modal-street" ).autocomplete({
+		$("#frm-modal-street").autocomplete({
 			source: callback
 		});
 	}
