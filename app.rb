@@ -1,11 +1,5 @@
-#Public: route => "/css/:application.css" deals w/ scss/less to css handlers => for development only; use jammit when ready for production (reason for assets folder)
-
-#Public: route => "/" contains front-page components and DVs for boroughs
-#@deps - array of dependent javascript modules, loaded specific to index
-#slim :index - refers to index view
-
-#Public: for a bigger application, map each route/handler into a separate class, then map each class accordingly in config.ru
-
+#globals
+$API_url = "http://stevemorse.org/census/index.html?="
 # app only methods
 def JsonP(json, params)
 	callback = params.delete('callback') # jsonp
@@ -31,17 +25,11 @@ class Application < Sinatra::Base
 	end
 
 	get '/DV/:borough' do
-		@consts = ['order!libs/underscore', 'order!modules/viewer', 
-					'order!modules/templates', 'libs/jquery-ui-1.8.18.custom.min']
+		@consts = ['order!libs/underscore', 'libs/jquery-ui-1.8.18.custom.min', 'order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/pubsub', 'order!modules/DV_load',
-					'order!modules/magpie', 'order!modules/bootstraps']
+					'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
-	end
-
-	post '/one_step' do
-		@gen_id = gen_random_id()
-		status 201
 	end
 
 	get '/help' do
@@ -52,100 +40,57 @@ class Application < Sinatra::Base
 		slim :credits
 	end
 
-	get '/results/:id' do
-		@results = true
-		slim :results
+	get '/results' do
+		#boo!
+		@deps = ['order!modules/results']
+		loc_obj = Locations.find(params['token'])
+		params_hash = {:year => '1940', :state => loc_obj.state, :fullcity => loc_obj.fullcity, :street => loc_obj.street, :number => loc_obj.number}.to_query
+		API_call = $API_url + params_hash
+		response = Conn.get(API_call)
+		doc = Hpricot(response.body)
+		puts doc
+		if !params['token'].blank? and !params['token'].nil?
+			@results = true
+			slim :results
+
+		else
+			log.info "write error here"
+		end
 	end
 
 	get '/locations.json' do
-		callback = params.delete('callback') # jsonp
-		json = ""
-
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
 
 	end
 
 	post '/locations.json' do
 		status 201
-		json = Locations.create(number: params['number'], street: params['street'], borough: params['borough']).to_json
-		return JsonP(json, params)
+		if !params['street'].blank? and !params['street'].nil?
+			json = Locations.create(name: params['name'], number: params['number'], street: params['street'], borough: params['borough'], fullcity: params['fullcity'], state: params['state']).to_json
+			return JsonP(json, params)
+		else
+			log.info 'write error here'
+		end
 	end
 
 	get '/locations/:id.json' do
-		callback = params.delete('callback') # jsonp
-		json = ""
-
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
+		json = Locations.find(params['id']).to_json
+		return JsonP(json, params)		
 	end
 
 	get '/dvs/:borough.json' do
-		callback = params.delete('callback') # jsonp
 		json = Loaders.where(borough: "#{params['borough']}").first().to_json
-
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
+		return JsonP(json, params)
 	end
 
 	get '/stories.json' do
-		callback = params.delete('callback') # jsonp
-		json = ""
-
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
 	end
 
 	get '/stories/:id.json' do
-		callback = params.delete('callback') # jsonp
-		json = ""
-
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
 	end
 
 	get '/streets/:borough.json' do
-		callback = params.delete('callback') # jsonp
 		json = Streets.where(borough: "#{params['borough']}").first().to_json
-
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
+		return JsonP(json, params)
 	end
 
 	get '/m' do

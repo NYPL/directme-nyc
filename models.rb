@@ -43,6 +43,9 @@ class Locations
 	field :number, :type => String
 	field :street, :type => String
 	field :borough, :type => String
+	field :name, :type => String
+	field :fullcity, :type => String
+	field :state, :type => String
 end
 
 class Annotations

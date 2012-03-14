@@ -34,14 +34,6 @@ class Application < Sinatra::Base
 	#	:entitystore => "memcached://#{cache_var}"
 	#===========================================================
 
-	#Set Faraday adaptor + parse JSON responses
-	#farday 7.6 as of this code
-	Faraday.default_connection = Faraday.new do |builder|
-		builder.use FaradayMiddleware::EncodeJson
-		builder.use FaradayMiddleware::ParseXml, :content_type => /\bxml$/
-		builder.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
-		builder.use Faraday::Adapter::Typhoeus
-	end
 	# =========================================
 	# = Registrations and global Helpers here =
 	# =========================================
@@ -89,15 +81,6 @@ class Application < Sinatra::Base
 		puts "fun_times_had_by_all"
 		if defined?(Mongoid)
 			Mongoid.logger = Logger.new(STDOUT)
-		end
-
-		#faraday default for dev w/logging
-		Faraday.default_connection = Faraday.new do |builder|
-			builder.use FaradayMiddleware::EncodeJson
-			builder.use FaradayMiddleware::ParseXml,  :content_type => /\bxml$/
-			builder.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
-			builder.use Faraday::Adapter::Typhoeus
-			builder.use Faraday::Response::Logger
 		end
 	end
 

@@ -6,7 +6,7 @@ define(['jquery'], function($) {
 
 	function mapLink() {
 		$('.borough').on('click', function(event) {
-			window.location = '/DV/' + $(this).attr('id');
+			window.location.href = '/DV/' + $(this).attr('id');
 		});
 	}
 

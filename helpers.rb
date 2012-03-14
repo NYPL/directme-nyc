@@ -17,11 +17,7 @@ end
 #Public: Methods that tie into Faraday's http restful requests, simplifying the naming convention (at later date => add put), extended into the Faracon Module
 module Methods
 	def get(url)
-		return Faraday.get url
-	end
-
-	def post(url, data)
-		return Faraday.post url, data
+		return Typhoeus::Request.get(url)
 	end
 end
 

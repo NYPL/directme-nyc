@@ -1,15 +1,25 @@
-define(['jquery', 'libs/jquery-ui-1.8.18.custom.min'], function($) {
+define(['jquery'], function($) {
 
 	function _init() {
 		var urlpath = window.location.protocol + "//" + window.location.host;
 		loadContent(urlpath);
+		onSubmitModal(urlpath);
 	}
 
-	function onSubmit() {
-		var number = $('#frm-modal-number').val();
-		var streetName = $('#frm-modal-street').val();
-		$('submitED').on('click', function() {
-			
+	function onSubmitModal(site) {
+		$('#submitED').on('click', function() {
+			var number = $('#frm-modal-number').val() || null;
+			var streetName = $('#frm-modal-street').val() || null;
+			var name = $('#frm-modal-name').val() || null;
+			var borough = environment.borough;
+			var state = $('#state_hidden').val();
+			var fullcity = $('#fullcity_hidden').val();
+
+			if (streetName !== null && state !== null && fullcity !== null && $.inArray(streetName, environment.streets) > -1) {
+				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity}, function(data) {
+					window.location.href = '/results?token=' + data._id;
+				}, "json");
+			}
 		});
 	}
 
