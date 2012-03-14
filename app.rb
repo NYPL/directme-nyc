@@ -43,13 +43,15 @@ class Application < Sinatra::Base
 	get '/results' do
 		#boo!
 		@deps = ['order!modules/results']
-		loc_obj = Locations.find(params['token'])
-		params_hash = {:year => '1940', :state => loc_obj.state, :fullcity => loc_obj.fullcity, :street => loc_obj.street, :number => loc_obj.number}.to_query
-		API_call = $API_url + params_hash
-		response = Conn.get(API_call)
-		doc = Hpricot(response.body)
-		puts doc
 		if !params['token'].blank? and !params['token'].nil?
+			loc_obj = Locations.find(params['token'])
+
+			params_hash = {:year => '1940', :state => loc_obj.state, :fullcity => loc_obj.fullcity, :street => loc_obj.street, :number => loc_obj.number}.to_query
+			API_call = $API_url + params_hash
+			response = Conn.get(API_call)
+			doc = Hpricot(response.body)
+			puts doc
+
 			@results = true
 			slim :results
 
@@ -78,7 +80,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/dvs/:borough.json' do
-		json = Loaders.where(borough: "#{params['borough']}").first().to_json
+		json = Loaders.where(borough: params['borough']).first().to_json
 		return JsonP(json, params)
 	end
 
@@ -89,7 +91,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/streets/:borough.json' do
-		json = Streets.where(borough: "#{params['borough']}").first().to_json
+		json = Streets.where(borough: params['borough']).first().to_json
 		return JsonP(json, params)
 	end
 
