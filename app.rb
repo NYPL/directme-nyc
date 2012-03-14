@@ -5,6 +5,23 @@
 #slim :index - refers to index view
 
 #Public: for a bigger application, map each route/handler into a separate class, then map each class accordingly in config.ru
+
+# app only methods
+def JsonP(json, params)
+	callback = params.delete('callback') # jsonp
+
+	if callback
+		content_type :js
+		response = "#{callback}(#{json})" 
+	else
+		content_type :json
+		response = json
+	end
+
+	response
+end
+
+
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
@@ -56,18 +73,9 @@ class Application < Sinatra::Base
 	end
 
 	post '/locations.json' do
-		callback = params.delete('callback') # jsonp
-		
+		status 201
 		json = Locations.create(number: params['number'], street: params['street'], borough: params['borough']).to_json
-		
-		if callback
-			content_type :js
-			response = "#{callback}(#{json})" 
-		else
-			content_type :json
-			response = json
-		end
-		response
+		return JsonP(json, params)
 	end
 
 	get '/locations/:id.json' do
