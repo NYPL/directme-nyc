@@ -258,7 +258,8 @@ p {
 	margin-bottom: 0;
 }
 
-.modal, .popover {
+.popover {
+	font-size: 16px;
 }
 
 .modal em, .popover em {
@@ -270,19 +271,31 @@ p {
 	font-size: 18px;
 }
 
+.modal-header h3 {
+	font-size: 18px;
+}
+
+.modal .frm-person-name {
+	margin-bottom: 12px;
+}
+
+.modal #frm-modal-name {
+	width: 90%;
+}
+
 .modal #frm-modal-number {
-	width: 100px;
+	width: 30%;
 }
 
 .modal #frm-modal-street {
-	width: 200px;
-	margin-left: 5px;
+	width: 50%;
 }
 
 .modal .frm-help {
 	color: #666;
-	font-size: 18px;
-	padding-left:3px;
+	font-size: 16px;
+	margin-right: 9px;
+	margin-left: 2px;
 }
 
 #header_compact #nav_bar a {
