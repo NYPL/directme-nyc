@@ -14,10 +14,17 @@ class Application < Sinatra::Base
 	end
 
 	get '/DV/:borough' do
-		@consts = ['order!libs/jquery-ui-1.8.18.custom.min', 'order!libs/underscore','order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/pubsub', 'order!modules/DV_load', 'order!modules/magpie', 'order!modules/bootstraps']
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 
+					'order!modules/templates', 'libs/jquery-ui-1.8.18.custom.min']
+		@deps = ['order!modules/pubsub', 'order!modules/DV_load',
+					'order!modules/magpie', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
+	end
+
+	post '/one_step' do
+		@gen_id = gen_random_id()
+		status 201
 	end
 
 	get '/help' do
@@ -31,11 +38,6 @@ class Application < Sinatra::Base
 	get '/results/:id' do
 		@results = true
 		slim :results
-	end
-
-	post '/one_step' do
-		@gen_id = gen_random_id()
-		status 201
 	end
 
 	get '/locations.json' do

@@ -10,7 +10,7 @@ require.config({
 		jquery: 'libs/jquery-1.7.1.min',
 		libs: 'libs',
 		modules: 'modules',
-		bootstrap: 'bootstrap',
+		bootstrap: 'bootstrap'
 	}
 });
 
@@ -18,7 +18,7 @@ require.config({
 //* Checks for deps and/or libs dependent on the handler/route/page call
 
 /** load pre-dom-ready globals */
-require(['modules/async_tk', 'libs/jquery-1.7.1.min'], function(tk, $) { 
+require(['order!modules/async_tk', 'order!libs/jquery-1.7.1.min'], function(tk, $) { 
 		/** The environment object is loaded per `layout.slim` */
 		if (environment.hasOwnProperty('consts') && environment.consts !== null) {
 			/** load index/route/handler specific constant funcs */

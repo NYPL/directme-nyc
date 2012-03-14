@@ -1,7 +1,11 @@
-define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
+define(['require', 'jquery', 'modules/fuzzy', 'modules/onSubmit'], function(require, $, fuzzy, onSub) {
 
 	function _init() {
+		//defined module inits
 		fuzzy.init();
+		onSub.init();
+
+
 		require(['libs/jquery.jloupe'], function() { log('require loupe'); });
 		$.subscribe('pages', recFunc)
 		$.subscribe('clickSpot', funModal);
