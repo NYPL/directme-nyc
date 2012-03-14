@@ -23,6 +23,7 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/onSubmit'], function(requ
 			$('.popovers').popover();
 		});
 		$('#loc_add').on('hidden', function () {
+			$('.frm-text').val('');
 			reInitMag();
 		});
 

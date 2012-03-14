@@ -55,6 +55,21 @@ class Application < Sinatra::Base
 
 	end
 
+	post '/locations.json' do
+		callback = params.delete('callback') # jsonp
+		
+		json = Locations.create(number: params['number'], street: params['street'], borough: params['borough']).to_json
+		
+		if callback
+			content_type :js
+			response = "#{callback}(#{json})" 
+		else
+			content_type :json
+			response = json
+		end
+		response
+	end
+
 	get '/locations/:id.json' do
 		callback = params.delete('callback') # jsonp
 		json = ""

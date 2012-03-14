@@ -5,6 +5,14 @@ define(['jquery', 'libs/jquery-ui-1.8.18.custom.min'], function($) {
 		loadContent(urlpath);
 	}
 
+	function onSubmit() {
+		var number = $('#frm-modal-number').val();
+		var streetName = $('#frm-modal-street').val();
+		$('submitED').on('click', function() {
+			
+		});
+	}
+
 	function matchStreets(input) {
 		var trimmed = input.replace(/\s/,'');
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');

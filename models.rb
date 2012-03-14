@@ -40,7 +40,8 @@ class Locations
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	field :address, :type => String
+	field :number, :type => String
+	field :street, :type => String
 	field :borough, :type => String
 end
 
