@@ -129,7 +129,7 @@ jQuery.fn.jloupe = function(o){
 			if (locked_mode !== true) {
 				locked_mode = true;
 				$('.thejloupe').animate({
-					top: $(window).height()/2,
+					top: $(window).height()/6,
 					left: ($(window).width()/2) - ($('.thejloupe').width()/2)
 					}, 300, function() {
 						$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);

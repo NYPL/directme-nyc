@@ -9,11 +9,10 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 
 		//setup modal
 		$('#loc_add').on('show', function() {
-			log($.fn.autocomplete)
 			fuzzy.search();
 			var _modal = $('.modal');
 			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');
-			var _modal_top = $(window).height()/2 + 130;
+			var _modal_top = $(window).height()/6 + 120;
 			if ($(window).height() < _modal_top + _modal.height()) {
 				_modal_top = 0;
 			}

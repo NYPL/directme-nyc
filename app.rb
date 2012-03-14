@@ -25,8 +25,8 @@ class Application < Sinatra::Base
 	end
 
 	get '/DV/:borough' do
-		@consts = ['order!libs/underscore', 'libs/jquery-ui-1.8.18.custom.min', 'order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/pubsub', 'order!modules/DV_load',
+		@consts = ['order!libs/underscore']
+		@deps = ['order!modules/pubsub', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
 					'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}

@@ -25,7 +25,7 @@ require(['order!modules/async_tk', 'order!libs/jquery-1.7.1.min'], function(tk, 
 			require(environment.consts)
 		}
 		/** load post-dom-ready globals in order */
-		require(['order!domReady', 'order!libs/modernizr-2.0.6', 'order!app', 'order!plugins'], function(domReady, modernizr, app, plugins) { 
+		require(['order!domReady', 'order!app', 'order!plugins'], function(domReady, app, plugins) { 
 			domReady(function() {
 				if (environment.hasOwnProperty('deps') && environment.deps !== null) {
 					app.initialize({depends: environment.deps});
