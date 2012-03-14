@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(['jquery', 'libs/jquery-ui-1.8.18.custom.min'], function($) {
 
 	function _init() {
 		var urlpath = window.location.protocol + "//" + window.location.host;
