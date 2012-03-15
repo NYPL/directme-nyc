@@ -2,13 +2,18 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 
 	function _init() {
 		//defined module inits
-		fuzzy.init();
-
 		$.subscribe('pages', recFunc)
 		$.subscribe('clickSpot', funModal);
 
 		//setup modal
 		$('#loc_add').on('show', function() {
+			if (environment.hasOwnProperty('streets')) {
+				log('loaded')
+			}
+			else {
+				fuzzy.init();
+			}
+			
 			fuzzy.search();
 			var _modal = $('.modal');
 			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');

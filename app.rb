@@ -1,5 +1,6 @@
 #globals
-$API_url = "http://stevemorse.org/census/index.html?="
+$APIURL = "http://api.nytimes.com/svc/pages/v2/date"
+$YEAR  = "1940"
 # app only methods
 def JsonP(json, params)
 	callback = params.delete('callback') # jsonp
@@ -20,16 +21,24 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/mappings']
+		@deps = ['order!modules/nytimes']
+
+		t = Time.now.strftime("%m/%d")
+		
+		#NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api=#{APIKEY}"
+
+		Conn.get('')
+
+		TIMES = true
 		slim :main
 	end
 
 	get '/DV/:borough' do
 		@consts = ['order!libs/underscore']
-		@deps = ['order!modules/pubsub', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
-					'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
+		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
+					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
-		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
+		slim :DV_page, locals: {borough: "#{params['borough']}"}
 	end
 
   get '/latest' do
@@ -48,19 +57,23 @@ class Application < Sinatra::Base
 		#boo!
 		@deps = ['order!modules/results']
 		if !params['token'].blank? and !params['token'].nil?
-			loc_obj = Locations.find(params['token'])
+			loc_obj = Locations.where(token: params['token']).first()
 
-			params_hash = {:year => '1940', :state => loc_obj.state, :fullcity => loc_obj.fullcity, :street => loc_obj.street, :number => loc_obj.number}.to_query
-			API_call = $API_url + params_hash
-			response = Conn.get(API_call)
-			doc = Hpricot(response.body)
-			puts doc
+			if !loc_obj.blank? and !loc_obj.nil?
+				@RESULTS = true
+				@TIMES = true
+				slim :results
 
-			@results = true
-			slim :results
+			else
+				log.info "write error here"
+				status 404
+				redirect '/'
+			end
 
 		else
 			log.info "write error here"
+			status 404
+			redirect '/'
 		end
 	end
 
@@ -71,16 +84,15 @@ class Application < Sinatra::Base
 	post '/locations.json' do
 		status 201
 		if !params['street'].blank? and !params['street'].nil?
-			json = Locations.create(name: params['name'], number: params['number'], street: params['street'], borough: params['borough'], fullcity: params['fullcity'], state: params['state']).to_json
+			json = Locations.create(name: params['name'], number: params['number'], street: params['street'], borough: params['borough'], 
+				fullcity: params['fullcity'], state: params['state'], token: gen_random_id()).to_json
 			return JsonP(json, params)
 		else
 			log.info 'write error here'
 		end
 	end
 
-	get '/locations/:id.json' do
-		json = Locations.find(params['id']).to_json
-		return JsonP(json, params)		
+	get '/locations/:id.json' do	
 	end
 
 	get '/dvs/:borough.json' do
@@ -95,8 +107,18 @@ class Application < Sinatra::Base
 	end
 
 	get '/streets/:borough.json' do
-		json = Streets.where(borough: params['borough']).first().to_json
-		return JsonP(json, params)
+		obj = Streets.where(borough: params['borough']).first()
+		hash = {
+			:fullcity => obj.fullcity,
+			:state => obj.state,
+			:streets => obj.streets.keys()
+		}.to_json
+
+		return JsonP(hash, params)
+	end
+
+	get '/streets/:borough/:street.json' do
+		
 	end
 
 	get '/m' do
@@ -107,7 +129,7 @@ class Application < Sinatra::Base
 	########################other handlers###########################
 	not_found do
 		status 404
-		slim :not_found
+		redirect '/'
 	end
 	#################################################################
 

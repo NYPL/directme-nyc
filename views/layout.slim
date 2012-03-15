@@ -19,13 +19,10 @@ html
         meta name="keywords" content=""
         meta name="viewport" content="width=device-width, initial-scale=1"
 
-        - if @results
+        - if @RESULTS
             ==slim :results_css
         - else
             ==slim :home_css
-
-        - if @DV
-            ==slim :DV_css
 
 
         link rel='shortcut icon' href='/favicon.ico'
@@ -36,6 +33,7 @@ html
         script src="/js/libs/modernizr-2.0.6.js"
 
         - if @DV
+            ==slim :DV_css
             script src="/js/libs/jquery-ui-1.8.18.custom.min.js"
             javascript:
                 var environment = {
@@ -50,7 +48,7 @@ html
                 var environment = {
                     page_title: 'NYPL Labs',
                     deps: $.parseJSON('#{{@deps}}'),
-                    consts: $.parseJSON('#{{@consts}}'),
+                    consts: $.parseJSON('#{{@consts}}')
                 };
 
     body
@@ -70,10 +68,4 @@ html
         script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"
         javascript:
             window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})
-
-    javascript:
-        var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]]; //Change UA-XXXXX-X to be your site's ID 
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-        g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
-        s.parentNode.insertBefore(g,s)}(document,"script"));
 

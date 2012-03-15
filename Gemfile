@@ -11,7 +11,6 @@ gem 'thin'
 gem 'bson_ext'
 gem 'mongoid', :git => "git://github.com/mongoid/mongoid.git"
 
-gem 'hpricot'
 gem 'typhoeus'
 gem 'json'
 

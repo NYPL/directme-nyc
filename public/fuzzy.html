@@ -8,9 +8,44 @@
 
 <!--
 -->
+<style type="text/css">
+	ul.ui-autocomplete {
+		background: #eee;
+		list-style-type: none;
+		max-height: 200px;
+		width: 210px;
+		overflow: scroll;
+		margin: 0;
+		padding: 0;
+		-webkit-border-bottom-right-radius: 6px;
+		-webkit-border-bottom-left-radius: 6px;
+		-moz-border-radius-bottomright: 6px;
+		-moz-border-radius-bottomleft: 6px;
+		border-bottom-right-radius: 6px;
+		border-bottom-left-radius: 6px;
+	}
+	ul.ui-autocomplete li.ui-menu-item {
+		width: 330px;
+		margin: 0;
+		padding: 2px 0 2px 4px;
+	} 
+	ul.ui-autocomplete li.ui-menu-item a {
+		display: block;
+		padding: 4px;
+		-webkit-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		border-radius: 4px;
+	} 
+	ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
+		background: #f00;
+		color: #fff;
+	} 
+</style>
 <script src="js/libs/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="js/libs/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
-<link type="text/css" href="css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
 <script type="text/javascript">
 	var streets = [];
 	function matchStreets(input) {
