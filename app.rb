@@ -32,7 +32,11 @@ class Application < Sinatra::Base
 		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
 	end
 
-	get '/help' do
+  get '/latest' do
+    slim :latest
+  end
+
+  get '/help' do
 		slim :help
 	end
 

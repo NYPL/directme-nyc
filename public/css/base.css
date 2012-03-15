@@ -318,6 +318,19 @@ div.spacer {
 	background: url(../images/magnifier.png) 0px 45px no-repeat;
 }
 
+#geobig {
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin-bottom: 12px;
+}
+
+#latest .annotation {
+	float: left;
+	width: 230px;
+	margin: 0 5px 12px 5px;
+}
+
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
 	#mainwrapper {
