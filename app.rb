@@ -1,5 +1,6 @@
 #globals
-$API_url = "http://stevemorse.org/census/index.html?="
+$APIURL = "http://api.nytimes.com/svc/pages/v2/date"
+$YEAR  = "1940"
 # app only methods
 def JsonP(json, params)
 	callback = params.delete('callback') # jsonp
@@ -20,6 +21,15 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!modules/ytube']
+		@deps = ['order!modules/nytimes']
+
+		t = Time.now.strftime("%m/%d")
+		
+		#NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api=#{APIKEY}"
+
+		Conn.get('')
+
+		TIMES = true
 		slim :main
 	end
 
@@ -28,7 +38,7 @@ class Application < Sinatra::Base
 		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
 					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
-		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
+		slim :DV_page, locals: {borough: "#{params['borough']}"}
 	end
 
 	get '/help' do
@@ -46,9 +56,8 @@ class Application < Sinatra::Base
 			loc_obj = Locations.where(token: params['token']).first()
 
 			if !loc_obj.blank? and !loc_obj.nil?
-
-
-				@results = true
+				@RESULTS = true
+				@TIMES = true
 				slim :results
 
 			else
