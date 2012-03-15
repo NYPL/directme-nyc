@@ -88,9 +88,7 @@ class Application < Sinatra::Base
 		end
 	end
 
-	get '/locations/:id.json' do
-		json = Locations.find(params['id']).to_json
-		return JsonP(json, params)		
+	get '/locations/:id.json' do	
 	end
 
 	get '/dvs/:borough.json' do
@@ -105,8 +103,18 @@ class Application < Sinatra::Base
 	end
 
 	get '/streets/:borough.json' do
-		json = Streets.where(borough: params['borough']).first().to_json
-		return JsonP(json, params)
+		obj = Streets.where(borough: params['borough']).first()
+		hash = {
+			:fullcity => obj.fullcity,
+			:state => obj.state,
+			:streets => obj.streets.keys()
+		}.to_json
+
+		return JsonP(hash, params)
+	end
+
+	get '/streets/:borough/:street.json' do
+		
 	end
 
 	get '/m' do
