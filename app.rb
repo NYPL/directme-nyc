@@ -20,14 +20,13 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/mappings']
 		slim :main
 	end
 
 	get '/DV/:borough' do
 		@consts = ['order!libs/underscore']
-		@deps = ['order!modules/pubsub', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
-					'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
+		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
+					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {"borough" => "#{params['borough']}"}
 	end
@@ -44,19 +43,24 @@ class Application < Sinatra::Base
 		#boo!
 		@deps = ['order!modules/results']
 		if !params['token'].blank? and !params['token'].nil?
-			loc_obj = Locations.find(params['token'])
+			loc_obj = Locations.where(token: params['token']).first()
 
-			params_hash = {:year => '1940', :state => loc_obj.state, :fullcity => loc_obj.fullcity, :street => loc_obj.street, :number => loc_obj.number}.to_query
-			API_call = $API_url + params_hash
-			response = Conn.get(API_call)
-			doc = Hpricot(response.body)
-			puts doc
+			if !loc_obj.blank? and !loc_obj.nil?
 
-			@results = true
-			slim :results
+
+				@results = true
+				slim :results
+
+			else
+				log.info "write error here"
+				status 404
+				redirect '/'
+			end
 
 		else
 			log.info "write error here"
+			status 404
+			redirect '/'
 		end
 	end
 
@@ -67,7 +71,8 @@ class Application < Sinatra::Base
 	post '/locations.json' do
 		status 201
 		if !params['street'].blank? and !params['street'].nil?
-			json = Locations.create(name: params['name'], number: params['number'], street: params['street'], borough: params['borough'], fullcity: params['fullcity'], state: params['state']).to_json
+			json = Locations.create(name: params['name'], number: params['number'], street: params['street'], borough: params['borough'], 
+				fullcity: params['fullcity'], state: params['state'], token: gen_random_id()).to_json
 			return JsonP(json, params)
 		else
 			log.info 'write error here'
@@ -103,7 +108,7 @@ class Application < Sinatra::Base
 	########################other handlers###########################
 	not_found do
 		status 404
-		slim :not_found
+		redirect '/'
 	end
 	#################################################################
 

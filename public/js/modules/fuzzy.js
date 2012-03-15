@@ -17,7 +17,7 @@ define(['jquery'], function($) {
 
 			if (streetName !== null && state !== null && fullcity !== null && $.inArray(streetName, environment.streets) > -1) {
 				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity}, function(data) {
-					window.location.href = '/results?token=' + data._id;
+					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}
 		});

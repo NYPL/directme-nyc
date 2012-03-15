@@ -54,18 +54,26 @@ jQuery.fn.jloupe = function(o){
 
 	if(options.locked) var locked_mode = options.locked;
 
-	$(this).each(function(){
-		var h = $(this).parent('a').attr('href');
-		var s = $(this).attr('src');
-		s = (h) ? h : s;
-		var i = $('<img />').attr('src', s);	
-		$(this).data('zoom',i);	
-	})
+	var h = $(this).parent('a').attr('href');
+	var s = $(this).attr('src');
+	s = (h) ? h : s;
+	var i = $('<img />').attr('src', s);	
+	$(this).data('zoom',i);	
+
+	$(this)
 	.on({
 		mousemove: function(e){
 			if (locked_mode !== true) {
 				$(loupe).hide();
 				$(loupe).show();
+
+				if ($(view).css('background-image')) {
+					$(loupe).addClass('active-loupe');	
+				}
+				else {
+					$(loupe).removeClass('active-loupe');
+				}
+
 				var o = $(this).offset();
 				var i = $(this).data('zoom');
 
@@ -128,9 +136,9 @@ jQuery.fn.jloupe = function(o){
 			e.preventDefault();
 			if (locked_mode !== true) {
 				locked_mode = true;
-				$('.thejloupe').animate({
+				$('.active-loupe').animate({
 					top: $(window).height()/6,
-					left: ($(window).width()/2) - ($('.thejloupe').width()/2)
+					left: ($(window).width()/2) - ($('.active-loupe').width()/2)
 					}, 300, function() {
 						$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
 				});

@@ -5,7 +5,7 @@ import datetime
 
 parser = argparse.ArgumentParser(description='Mongo Census INIT')
 parser.add_argument('-c', action='store', dest='mongo_conn', help='Mongo DB Connection', default="")
-parser.add_argument('-p', action='store', dest='mongo_port', help='Mongo DB Port', default="")
+parser.add_argument('-p', action='store', dest='mongo_port', help='Mongo DB Port', default="27017")
 parser.add_argument('-db', action='store', dest='mongo_dbname', help='Mongo DB Name', default="")
 parser.add_argument('-path', action='store', dest='path', help='File path for HTM Street files', default="")
 
@@ -27,10 +27,12 @@ def init_json(file, borough):
 	data = open(file).read()
 	soup = BS(data)
 	options = soup.findAll('option')
-	streets = []
+	streets = {}
 
+	fullcity_id = options[0]['value']
 	for option in options[1:]:
-		streets.append(option.contents[0])
+		values = option['value'].split(',')
+		streets[option.contents[0]] =  values
 
 	if isinstance(borough, str):
 		ED_city = borough.title()
@@ -40,13 +42,13 @@ def init_json(file, borough):
 		borough = _borough
 
 	db.streets.ensure_index("borough")
-
 	init_json = {
 		"created_at": datetime.datetime.utcnow().isoformat(),
 		"borough": borough,
 		"streets": streets,
 		"fullcity": ED_city,
-		"state": "NY"
+		"state": "NY",
+		"fullcity_id": fullcity_id
 	}
 
 	db.streets.save(init_json)
