@@ -1,6 +1,3 @@
-#globals
-$APIURL = "http://api.nytimes.com/svc/pages/v2/date"
-$YEAR  = "1940"
 # app only methods
 def JsonP(json, params)
 	callback = params.delete('callback') # jsonp
@@ -22,12 +19,6 @@ class Application < Sinatra::Base
 	get '/' do
 		@consts = ['order!modules/ytube']
 		@deps = ['order!modules/nytimes']
-
-		t = Time.now.strftime("%m/%d")
-		
-		#NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api=#{APIKEY}"
-
-		puts session
 
 		slim :main
 	end
@@ -54,7 +45,7 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		#boo!
-		@deps = ['order!modules/results']
+		@deps = ['order!modules/results', 'order!modules/nytimes']
 		if !params['token'].blank? and !params['token'].nil?
 			loc_obj = Locations.where(token: params['token']).first()
 
@@ -74,6 +65,8 @@ class Application < Sinatra::Base
 			redirect '/'
 		end
 	end
+
+#---------------API-CALLs-------------------------------------------------------
 
 	get '/locations.json' do
 
@@ -123,9 +116,11 @@ class Application < Sinatra::Base
 		return JsonP(hash, params)
 	end
 
-	get '/streets/:borough/:street.json' do
-		
+	get '/headlines.json' do
+		json = Headlines.all().to_json
+		return JsonP(json, params)
 	end
+#---------------API-CALLs-------------------------------------------------------
 
 	get '/m' do
 

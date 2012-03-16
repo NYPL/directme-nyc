@@ -14,12 +14,6 @@ module Sinatra
 	end
 end
 
-#Public: Methods that tie into Faraday's http restful requests, simplifying the naming convention (at later date => add put), extended into the Faracon Module
-module Methods
-	def get(url)
-		return Typhoeus::Request.get(url)
-	end
-end
 
 #Public: The Helpers that are loaded by the Sinatra Loader above
 #All modules are executed by calling their set methods
@@ -28,8 +22,6 @@ end
 #
 #log.info "information returns nil"
 #log.warning "bad move zeeshan"
-
-#Conn.get("https://api.twitter.com/1/statuses...")
 
 #error_json(404, 'bad news bears').to_json
 module MyHelpers
@@ -41,13 +33,6 @@ module MyHelpers
 			@log = Logger.new(STDOUT)
 			@log.level = Logger::DEBUG
 			return @log
-		end
-	end
-
-	module Faraconn
-		extend self
-		module Conn
-			extend Methods
 		end
 	end
 

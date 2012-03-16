@@ -65,3 +65,14 @@ class Stories
 	#add connection image/id
 end
 
+class Headlines
+	include Mongoid::Document
+	include Mongoid::Timestamps
+
+	field :hdl, :type => String
+	field :lead, :type => String
+	field :ny_url, :type => String
+	field :pq_id, :type => String
+end
+
+
