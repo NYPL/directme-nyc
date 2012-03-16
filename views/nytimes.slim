@@ -1,8 +1,9 @@
 /! nytimes
 div#nytimes
 	div#ticker
-		| <div class="title">News for 4/2/<span class="hl">1940</span></div>
-		| <p class="content"><a href="#">Stone Age Cave Paintings Found in France</a> ... <a href="#">Leon Trotsky Assassinated</a> ... <a href="#">RKO release Walt Disney’s second full-length ani mated film, Pinocchio ... Martin Kam</a></p>
+		div.title News for #{@monthday}/<span class="hl">#{@year}</span>
+		div.content 
+			div#marquee ... No headlines for this day ... No headlines for this day ... No headlines for this day ... No headlines for this day ... No headlines for this day ...
 		div.spacer
 	| <div class="footer">Headlines via <a href="http://www.nytimes.com" class="logo">The New York Times</a></div>
 /! --nytimes--

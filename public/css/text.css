@@ -112,6 +112,10 @@ p {
 	overflow: hidden;
 }
 
+#nytimes .content a:hover {
+	color: #f00;
+}
+
 #searchterms {
 	font-size: 24px;
 }

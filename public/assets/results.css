@@ -204,6 +204,10 @@ p {
 	overflow: hidden;
 }
 
+#nytimes .content a:hover {
+	color: #f00;
+}
+
 #searchterms {
 	font-size: 24px;
 }
@@ -556,7 +560,7 @@ div.spacer {
 
 #ticker .title {
 	float: left;
-	width: 120px;
+	width: 130px;
 	margin-left: 5px;
 }
 
@@ -564,6 +568,7 @@ div.spacer {
 	float: left;
 	width: 810px;
 	height: 17px;
+	line-height: 1.2;
 	overflow: hidden;
 }
 

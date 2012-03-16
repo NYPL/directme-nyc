@@ -18,7 +18,9 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/nytimes']
+		@deps = ['order!libs/jquery.marquee','order!modules/nytimes']
+		@monthday = Time.now.strftime("%m/%d")
+		@year = (Time.new.year - 72)
 
 		slim :main
 	end
