@@ -747,24 +747,28 @@ div.spacer {
 }
 
 ul.ui-autocomplete {
+	position: absolute;
 	background: #eee;
 	list-style-type: none;
-	max-height: 200px;
-	width: 210px;
 	overflow: scroll;
+	width: 210px;
+	height: 210px;
 	margin: 0;
 	padding: 0;
+	-webkit-border-top-right-radius: 6px;
 	-webkit-border-bottom-right-radius: 6px;
 	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
 	-moz-border-radius-bottomright: 6px;
 	-moz-border-radius-bottomleft: 6px;
+	border-top-right-radius: 6px;
 	border-bottom-right-radius: 6px;
 	border-bottom-left-radius: 6px;
 }
 ul.ui-autocomplete li.ui-menu-item {
-	width: 330px;
+	width: 200px;
 	margin: 0;
-	padding: 2px 0 2px 4px;
+	padding: 4px 0 4px 4px;
 } 
 ul.ui-autocomplete li.ui-menu-item a {
 	display: block;

@@ -29,9 +29,18 @@ define(['jquery'], function($) {
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
 		return environment.streets.filter(function(st) {
 			if (st.match(reg)) {
-				return st;
+				return capitalize(st);
 			}
 		});
+	}
+	
+	function capitalize(str) {
+		var aa = str.split(" ");
+		var i, l=aa.length;
+		for (i=0;i<l;++i) {
+			aa[i].replace(/^\w/, function($0) { return $0.toUpperCase(); })
+		}
+		return aa.join(" ");
 	}
 
 	function callback(req, resp) {
