@@ -28,7 +28,7 @@ class Application < Sinatra::Base
 		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/DV_load',
 					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
-		slim :DV_page, locals: {borough: "#{params['borough']}"}
+		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
 	get '/help' do
@@ -43,7 +43,7 @@ class Application < Sinatra::Base
 		#boo!
 		@deps = ['order!modules/nytimes', 'order!modules/results']
 		if !params['token'].blank? and !params['token'].nil?
-			loc_obj = Locations.where(token: params['token']).first()
+			loc_obj = Locations.where(:token => params['token']).first()
 
 			if !loc_obj.blank? and !loc_obj.nil?
 				@RESULTS = true
@@ -72,26 +72,28 @@ class Application < Sinatra::Base
 		status 201
 		if !params['street'].blank? and !params['street'].nil?
 
-			#ED_streets = Streets.where("streets.#{params['street']}".to_sym.exists => true)
-			#	.find("streets.#{params['street']}").to_json
-			puts "fjlsjfls"
-			#puts ED_streets
-			puts "aa"
+			hash = {}
+			params.each { |param, value|
+				if param != 'callback'
+					hash[param] = value
+				end
+			}
 
-			json = Locations.create(name: params['name'], number: params['number'], 
-					street: params['street'], borough: params['borough'], fullcity: params['fullcity'], 
-					state: params['state'], token: gen_random_id()).to_json
+			hash['token'] = gen_random_id()
+			hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
+			json = Locations.create(hash).to_json
 			return JsonP(json, params)
 		else
 			log.info 'write error here'
 		end
 	end
 
-	get '/locations/:id.json' do	
+	get '/locations/:token.json' do	
+		#ED_streets = Streets.where(:borough => params['borough']).only("streets.#{params['street']}").to_json
 	end
 
 	get '/dvs/:borough.json' do
-		json = Loaders.where(borough: params['borough']).first().to_json
+		json = Loaders.where(:borough => params['borough']).first().to_json
 		return JsonP(json, params)
 	end
 
@@ -102,7 +104,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/streets/:borough.json' do
-		obj = Streets.where(borough: params['borough']).first()
+		obj = Streets.where(:borough => params['borough']).first()
 		hash = {
 			:fullcity => obj.fullcity,
 			:state => obj.state,
@@ -116,7 +118,7 @@ class Application < Sinatra::Base
 		json = Headlines.all().to_json
 		return JsonP(json, params)
 	end
-#---------------API-CALLs-------------------------------------------------------
+#---------------MOBILE&NOT-FOUND-------------------------------------------------------
 
 	get '/m' do
 
