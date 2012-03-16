@@ -18,7 +18,7 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!modules/ytube']
-		@deps = ['order!libs/jquery.marquee','order!modules/nytimes']
+		@deps = ['order!libs/jquery.marquee','order!modules/nytimes', 'order!modules/front']
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
 
@@ -26,8 +26,8 @@ class Application < Sinatra::Base
 	end
 
 	get '/DV/:borough' do
-		@consts = ['order!libs/underscore']
-		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load',
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/DV_load',
 					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, locals: {borough: "#{params['borough']}"}
@@ -47,7 +47,7 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		#boo!
-		@deps = ['order!modules/results', 'order!modules/nytimes']
+		@deps = ['order!modules/nytimes', 'order!modules/results']
 		if !params['token'].blank? and !params['token'].nil?
 			loc_obj = Locations.where(token: params['token']).first()
 

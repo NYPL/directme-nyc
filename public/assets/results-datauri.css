@@ -123,7 +123,7 @@ p {
 }
 
 #header h1 {
-	font-size: 36px;
+	font-size: 32px;
 }
 
 #main h1 {
@@ -462,7 +462,7 @@ div.spacer {
 }
 
 #header h1 {
-	width: 300px;
+	width: 375px;
 	float: left;
 }
 
@@ -751,6 +751,19 @@ div.spacer {
 	margin: 0 5px 12px 5px;
 }
 
+#geobig {
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 4px;
+	margin-bottom: 12px;
+}
+
+#latest .annotation {
+	float: left;
+	width: 230px;
+	margin: 0 5px 12px 5px;
+}
+
 ul.ui-autocomplete {
 	position: absolute;
 	background: #eee;
@@ -811,7 +824,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#header {
-		height: 100px;
+		height: 145px;
 	}
 
 	#header h1, #nav_bar, #blurb {
@@ -821,6 +834,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 	#header {
 		text-align: center;
+	}
+
+	#header_compact {
+		border: 0;
 	}
 
 	#nav_bar a:first-child {

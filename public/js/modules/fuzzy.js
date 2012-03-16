@@ -37,14 +37,17 @@ define(['jquery'], function($) {
 	function capitalize(str) {
 		var aa = str.split(" ");
 		var i, l=aa.length;
-		for (i=0;i<l;++i) {
-			aa[i].replace(/^\w/, function($0) { return $0.toUpperCase(); })
+		for (i=0; i<l; ++i) {
+			aa[i] = aa[i].replace(/^\w/, function($0) { return $0.toUpperCase(); })
 		}
 		return aa.join(" ");
 	}
 
 	function callback(req, resp) {
 		var filtered = matchStreets(req.term);
+		filtered = _.map(filtered, function(i) {
+			return capitalize(i);
+		})
 		resp(filtered);
 	}
 

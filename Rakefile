@@ -8,7 +8,6 @@ end
 
 #globals
 $APIURL = ENV['NYURL']
-$YEAR  = "1940"
 $APIKEY = ENV['NYKEY']
 
 desc "Run all tests"
@@ -44,6 +43,7 @@ namespace :db do
 	task :times_cron do
 		Headlines.collection.remove()
 		t = Time.now.strftime("%m/%d")
+		$YEAR = Integer(Time.now.strftime("%Y")) - 72
 		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
 
 		request = Typhoeus::Request.new(NY_api, :method => :get)
