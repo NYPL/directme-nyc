@@ -71,7 +71,7 @@ define(['jquery'], function($) {
 		});
 
 		$('.ui-autocomplete').on('click', function() { 
-			var streetName = capitalize($('#frm-modal-street').val()) || null;
+			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
 			}
@@ -81,7 +81,7 @@ define(['jquery'], function($) {
 		});
 
 		$('#frm-modal-street').on('keyup', function() {
-			var streetName = capitalize($('#frm-modal-street').val()) || null;
+			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
 			}
