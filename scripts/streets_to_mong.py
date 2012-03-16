@@ -32,7 +32,7 @@ def init_json(file, borough):
 	fullcity_id = options[0]['value']
 	for option in options[1:]:
 		values = option['value'].split(',')
-		streets[option.contents[0]] =  values
+		streets[option.contents[0].lower()] =  values
 
 	if isinstance(borough, str):
 		ED_city = borough.title()
