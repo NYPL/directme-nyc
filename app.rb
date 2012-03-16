@@ -19,6 +19,8 @@ class Application < Sinatra::Base
 	get '/' do
 		@consts = ['order!modules/ytube']
 		@deps = ['order!modules/nytimes', 'order!modules/front']
+		@monthday = Time.now.strftime("%m/%d")
+		@year = (Time.new.year - 72)
 
 		slim :main
 	end
@@ -42,6 +44,9 @@ class Application < Sinatra::Base
 	get '/results' do
 		#boo!
 		@deps = ['order!modules/nytimes', 'order!modules/results']
+		@monthday = Time.now.strftime("%m/%d")
+		@year = (Time.new.year - 72)
+
 		if !params['token'].blank? and !params['token'].nil?
 			loc_obj = Locations.where(:token => params['token']).first()
 
