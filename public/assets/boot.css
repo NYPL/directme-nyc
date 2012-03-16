@@ -1827,7 +1827,7 @@ p {
 }
 
 #header h1 {
-	font-size: 36px;
+	font-size: 32px;
 }
 
 #nav_bar a {
@@ -2150,7 +2150,7 @@ div.spacer {
 }
 
 #header h1 {
-	width: 300px;
+	width: 375px;
 	float: left;
 }
 
@@ -2498,7 +2498,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#header {
-		height: 100px;
+		height: 145px;
 	}
 
 	#header h1, #nav_bar, #blurb {
