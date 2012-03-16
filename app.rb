@@ -27,9 +27,8 @@ class Application < Sinatra::Base
 		
 		#NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api=#{APIKEY}"
 
-		Conn.get('')
+		puts session
 
-		TIMES = true
 		slim :main
 	end
 
@@ -61,7 +60,6 @@ class Application < Sinatra::Base
 
 			if !loc_obj.blank? and !loc_obj.nil?
 				@RESULTS = true
-				@TIMES = true
 				slim :results
 
 			else
@@ -84,8 +82,16 @@ class Application < Sinatra::Base
 	post '/locations.json' do
 		status 201
 		if !params['street'].blank? and !params['street'].nil?
-			json = Locations.create(name: params['name'], number: params['number'], street: params['street'], borough: params['borough'], 
-				fullcity: params['fullcity'], state: params['state'], token: gen_random_id()).to_json
+
+			#ED_streets = Streets.where("streets.#{params['street']}".to_sym.exists => true)
+			#	.find("streets.#{params['street']}").to_json
+			puts "fjlsjfls"
+			#puts ED_streets
+			puts "aa"
+
+			json = Locations.create(name: params['name'], number: params['number'], 
+					street: params['street'], borough: params['borough'], fullcity: params['fullcity'], 
+					state: params['state'], token: gen_random_id()).to_json
 			return JsonP(json, params)
 		else
 			log.info 'write error here'

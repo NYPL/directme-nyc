@@ -13,9 +13,10 @@ define(['jquery'], function($) {
 			var borough = environment.borough;
 			var state = $('#state_hidden').val();
 			var fullcity = $('#fullcity_hidden').val();
-			var streetName = $('#frm-modal-street').val() || null;
+			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
+			var checkDisabled = $(this).hasClass('disabled');
 
-			if (streetName !== null && state !== null && fullcity !== null && $.inArray(streetName, environment.streets) > -1) {
+			if (streetName !== null && checkDisabled !== true) {
 				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
@@ -58,8 +59,8 @@ define(['jquery'], function($) {
 		});
 
 		$('.ui-autocomplete').on('click', function() { 
-			var streetName = $('#frm-modal-street').val() || null;
-			if ($.inArray(streetName, environment.streets) > -1) {
+			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
+			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
 			}
 			else {
@@ -68,8 +69,8 @@ define(['jquery'], function($) {
 		});
 
 		$('#frm-modal-street').on('keyup', function() {
-			var streetName = $('#frm-modal-street').val() || null;
-			if ($.inArray(streetName, environment.streets) > -1) {
+			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
+			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
 			}
 			else {

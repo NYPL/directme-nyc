@@ -70,7 +70,9 @@ class Application < Sinatra::Base
 
 	#cookie settings
 	enable :sessions
-	#set :session_secret, "OH"
+	#check for session cookie before handlers
+	set :session_secret, ENV['SESSION_KEY']
+	set :sessions, :domain => 'localhost:8888'
 
 	#slim settings
 	set :slim, :pretty => true

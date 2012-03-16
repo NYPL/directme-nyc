@@ -13,13 +13,14 @@ class Loaders
 	field :borough, :type => String
 
 	embeds_one :resources
-	has_many :annotations
+	has_many :stories
 end
 
 class Resource
 	include Mongoid::Document
 	cache
 	embedded_in :loaders
+
 	field :page, :type => Hash
 end
 
@@ -33,6 +34,7 @@ class Streets
 	field :state, :type => String
 	field :borough, :type => String
 	field :created_at, :type => String
+	field :streets, :type => Hash
 
 end
 
@@ -51,10 +53,15 @@ class Locations
 	field :state, :type => String
 end
 
-class Annotations
+class Stories
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
 	belongs_to :loaders
+
+	field :result_token, :type => String
+	field :story, :type => String
+	field :connection, :type => String
+	#add connection image/id
 end
 

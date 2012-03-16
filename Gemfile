@@ -15,7 +15,6 @@ gem 'typhoeus'
 gem 'json'
 
 gem 'sinatra', :require => 'sinatra/base'                
-gem 'sinatra-authentication'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 
 #rack gems here	
