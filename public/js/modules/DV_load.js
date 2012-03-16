@@ -1,7 +1,8 @@
-define(['jquery'], function($) {
+define(['jquery', 'modules/current_header'], function($, header) {
 
 	function _init() {
 		loader(environment.borough);
+		header.init('#nav_bar a');
 	}
 
 	function loader(borough) {

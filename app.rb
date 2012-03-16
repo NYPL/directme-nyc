@@ -18,7 +18,7 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/nytimes']
+		@deps = ['order!modules/nytimes', 'order!modules/front']
 
 		slim :main
 	end
@@ -41,7 +41,7 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		#boo!
-		@deps = ['order!modules/results', 'order!modules/nytimes']
+		@deps = ['order!modules/nytimes', 'order!modules/results']
 		if !params['token'].blank? and !params['token'].nil?
 			loc_obj = Locations.where(token: params['token']).first()
 

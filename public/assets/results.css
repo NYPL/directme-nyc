@@ -806,6 +806,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		text-align: center;
 	}
 
+	#header_compact {
+		border: 0;
+	}
+
 	#nav_bar a:first-child {
 		margin: 0;
 	}
