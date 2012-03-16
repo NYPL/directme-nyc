@@ -1,6 +1,15 @@
 require 'bundler'
-Bundler.setup
+Bundler.require
 require 'rake/testtask'
+
+Dir.glob('./*.rb') do |file|
+	require file.gsub(/\.rb/, '')
+end
+
+#globals
+$APIURL = ENV['NYURL']
+$YEAR  = "1940"
+$APIKEY = ENV['NYKEY']
 
 desc "Run all tests"
 Rake::TestTask.new do |t|
@@ -29,6 +38,31 @@ namespace :db do
 		mdb_port = ENV["PORT"] || 27017
 		mdb_db = ENV["DB"] || 'dev_project'
 		sh %{export MONGO_URL=mongodb://localhost:#{mdb_port}/#{mdb_db};heroku mongo:pull --app #{heroku_app}}
+	end
+
+	desc "daily times collection"
+	task :times_cron do
+		Headlines.collection.remove()
+		t = Time.now.strftime("%m/%d")
+		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
+
+		request = Typhoeus::Request.new(NY_api, :method => :get)
+		
+		hydra = Typhoeus::Hydra.new
+		hydra.queue(request)
+		hydra.run
+
+		resp = request.response
+		results = JSON.parse(resp.body)['results']
+		results[0].each { |result| 
+			hash = {
+				:hdl => result['hdl'],
+				:lead => result['lp'],
+				:ny_url => result['url'],
+				:pq_id => result['articleid']
+			}
+			Headlines.create(hash)
+		}
 	end
 
 end
