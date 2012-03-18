@@ -27,7 +27,6 @@ define(['require', 'jquery'], function(requre, $) {
 				);
 			}
 			dataloaded = true;
-			log(headlines);
 			if (headlines.length>0) {
 				startTicker();
 			} else {
@@ -47,8 +46,7 @@ define(['require', 'jquery'], function(requre, $) {
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-		//$.getScript("/js/libs/jqduery.marquee.js")
-		tickerDOM.marquee();
+
 		tickerDOM.marquee('pointer').mouseover(function () {
             $(this).trigger('stop');
         }).mouseout(function () {

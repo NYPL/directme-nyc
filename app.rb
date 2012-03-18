@@ -17,6 +17,7 @@ end
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
+		@scripts = ['/js/libs/jquery.marquee.js']
 		@consts = ['order!modules/ytube']
 		@deps = ['order!modules/nytimes', 'order!modules/front']
 		@monthday = Time.now.strftime("%m/%d")
@@ -26,6 +27,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/DV/:borough' do
+		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
 		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/DV_load',
 					'order!libs/jquery.jloupe', 'order!modules/bootstraps']

@@ -1,10 +1,6 @@
 require 'bundler'
-Bundler.require
+Bundler.setup
 require 'rake/testtask'
-
-Dir.glob('./*.rb') do |file|
-	require file.gsub(/\.rb/, '')
-end
 
 #globals
 $APIURL = ENV['NYURL']
@@ -41,11 +37,15 @@ namespace :db do
 
 	desc "daily times collection"
 	task :times_cron do
+		Bundler.require
+		Dir.glob('./*.rb') do |file|
+			require file.gsub(/\.rb/, '')
+		end
+
 		Headlines.collection.remove()
 		t = Time.now.strftime("%m/%d")
 		$YEAR = Integer(Time.now.strftime("%Y")) - 72
 		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
-
 		request = Typhoeus::Request.new(NY_api, :method => :get)
 		
 		hydra = Typhoeus::Hydra.new
