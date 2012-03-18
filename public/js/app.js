@@ -10,9 +10,16 @@ define(['require', 'jquery'], function(require, $) {
 					require(args.depends, this.onDependsLoaded(args.depends));
 				}
 			}
+			this.setCurrent('#nav_bar a');
+		},
 
-			//call script funcs
-			//this.onScrollNav();
+		setCurrent: function(elem) {
+			$(elem).hover(function() {
+				$(this).addClass('current');
+			}, 
+			function() {
+				$(this).removeClass('current');
+			});		
 		},
 
 		/** on the `init` call for a module, a function should be instantiated */
@@ -23,9 +30,6 @@ define(['require', 'jquery'], function(require, $) {
 			for (var i = 0; i < mods.length; i++) {
 				mods[i].init;
 			}
-		},
-
-		onScrollNav: function() {
 		}
 	};
 });

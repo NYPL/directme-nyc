@@ -1,9 +1,8 @@
-define(['jquery', 'modules/current_header'], function($, header) {
+define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
 	function _init() {
-		header.init('#nav_bar a');
 	}
 
 	function EDcall() {

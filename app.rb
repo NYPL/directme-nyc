@@ -18,7 +18,7 @@ class Application < Sinatra::Base
 	get '/' do
 		@scripts = ['/js/libs/jquery.marquee.js']
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/nytimes', 'order!modules/front']
+		@deps = ['order!modules/nytimes']
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
 
