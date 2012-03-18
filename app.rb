@@ -13,7 +13,6 @@ def JsonP(json, params)
 	response
 end
 
-
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
