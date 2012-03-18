@@ -44,7 +44,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/results' do
-		#boo!
+		@scripts = ['/js/libs/jquery.marquee.js']
 		@deps = ['order!modules/nytimes', 'order!modules/results']
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
