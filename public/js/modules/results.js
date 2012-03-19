@@ -3,12 +3,30 @@ define(['jquery'], function($) {
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
 	function _init() {
+		EDcall(getUrlVar('token'));
 	}
 
-	function EDcall() {
-		$.getJSON(urlpath + '/streets/' + environment.borough + '.json?callback=?', function(data) {
+	function EDcall(token) {
+		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
+			var cross_string = ""
+			for (var i = 0; i < data.cross_streets.length; i++) {
+				cross_string += "<option value='" + data.cross_streets[i] + "'>" + 
+					 data.cross_streets[i] + "</option>";
+			}
+			$('.crossstreets').append(cross_string);
 
+			var results = ""
+			for (i = 0; i < data.eds.length; i++) {
+				results += "<tr><td class='EDnumber'><a href='http://www.archives.gov'>" + 
+					 data.fullcity_id + "-" + data.eds[i] + "</a>";
+			}
+			$('#EDlist').append(results);
 		});
+	}
+
+	function getUrlVar(key){
+		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
+		return result && unescape(result[1]) || ""; 
 	}
 
 

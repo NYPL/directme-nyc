@@ -14,11 +14,19 @@ define(['require', 'jquery'], function(require, $) {
 		},
 
 		setCurrent: function(elem) {
+			$(elem).each(function () {
+				if ($(this).attr('href') === location.pathname) {
+					$(this).addClass('current');
+				}
+			});
+
 			$(elem).hover(function() {
 				$(this).addClass('current');
 			}, 
 			function() {
-				$(this).removeClass('current');
+				if ($(this).attr('href') !== location.pathname) {
+					$(this).removeClass('current');
+				}
 			});		
 		},
 

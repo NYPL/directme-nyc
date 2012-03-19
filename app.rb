@@ -19,6 +19,7 @@ class Application < Sinatra::Base
 		@scripts = ['/js/libs/jquery.marquee.js']
 		@consts = ['order!modules/ytube']
 		@deps = ['order!modules/nytimes']
+
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
 
@@ -27,8 +28,9 @@ class Application < Sinatra::Base
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!modules/DV_load',
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates', 
+					'order!modules/DV_load']
+		@deps = ['order!modules/pubsub', 'order!modules/magpie',
 					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
@@ -44,25 +46,39 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js']
-		@deps = ['order!modules/nytimes', 'order!modules/results']
-		@monthday = Time.now.strftime("%m/%d")
-		@year = (Time.new.year - 72)
+		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
-			loc_obj = Locations.where(:token => params['token']).first()
 
-			if !loc_obj.blank? and !loc_obj.nil?
+			obj = Locations.where(:token => params['token']).first()
+
+			if !obj.blank? and !obj.nil?
+				header_string = ""
+				street_string = [obj.name, obj.number, obj.street.split.map {|w| w.capitalize}.join(' '),
+									obj.borough.capitalize, obj.state.upcase]
+
+				street_string.each_with_index { |val, i|
+					if val != nil
+						if i == 0 or i == 3
+							val += ", "
+						end
+						header_string += " #{val}"
+					end
+				}
+
+				@monthday = Time.now.strftime("%m/%d")
+				@year = (Time.new.year - 72)
 				@RESULTS = true
-				slim :results
+				slim :results, :locals => {:header_string => "#{header_string}"}
 
 			else
-				log.info "write error here"
+				log.info "No Valid Result Token"
 				status 404
 				redirect '/'
 			end
 
 		else
-			log.info "write error here"
+			log.info "No Result Token"
 			status 404
 			redirect '/'
 		end
@@ -80,13 +96,17 @@ class Application < Sinatra::Base
 
 			hash = {}
 			params.each { |param, value|
-				if param != 'callback'
+				if param != 'callback' and value != 'null'
 					hash[param] = value
 				end
 			}
 
 			hash['token'] = gen_random_id()
-			hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
+			if request.host == 'localhost'
+				hash['url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, hash['token']]
+			else
+				hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
+			end
 			json = Locations.create(hash).to_json
 			return JsonP(json, params)
 		else
@@ -94,8 +114,18 @@ class Application < Sinatra::Base
 		end
 	end
 
-	get '/locations/:token.json' do	
-		#ED_streets = Streets.where(:borough => params['borough']).only("streets.#{params['street']}").to_json
+	get '/locations/:token.json' do
+		obj = Locations.where(:token => params['token']).first()
+		ed_obj = Streets.where(:borough => obj.borough).only("streets.#{obj.street}", 
+								"fullcity_id").first()
+
+		hash = {
+			:cross_streets => ed_obj.streets[obj.street]['cross'],
+			:eds => ed_obj.streets[obj.street]['eds'],
+			:fullcity_id => ed_obj.fullcity_id
+		}.to_json
+
+		return JsonP(hash, params)
 	end
 
 	get '/dvs/:borough.json' do

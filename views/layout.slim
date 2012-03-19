@@ -21,7 +21,11 @@ html
 
         - if @RESULTS
             ==slim :results_css
-        - else
+
+        - if @DV
+            ==slim :DV_css
+
+        - if not @DV and not @RESULTS
             ==slim :home_css
 
 
@@ -32,12 +36,7 @@ html
         script data-main="/js/main.js" src="/js/libs/require-jquery.js"
         script src="/js/libs/modernizr-2.0.6.js"
 
-        - if @scripts
-            - for script in @scripts do
-                script src=script
-
         - if @DV
-            ==slim :DV_css
             javascript:
                 var environment = {
                     page_title: 'Viewing #{borough}',
@@ -66,6 +65,10 @@ html
 
         - if not @DV
             ==slim :footer
+
+    - if @scripts
+        - for script in @scripts do
+            script src=script
 
     /[if lt IE 7]
         script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"
