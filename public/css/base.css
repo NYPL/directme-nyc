@@ -329,7 +329,8 @@ div.spacer {
 #latest .annotation {
 	float: left;
 	width: 230px;
-	margin: 0 5px 12px 5px;
+	height: 80px;
+	margin: 0 5px 6px 5px;
 }
 
 ul.ui-autocomplete {
