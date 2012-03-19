@@ -120,55 +120,14 @@ p {
 	font-size: 24px;
 }
 
-.EDcontent, .crosscontent {
-	margin-bottom: 12px;
-}
-
-.onesteplogo {
-	display: inline-block;
-	background: url(../images/sprites.png) 0 0 no-repeat;
-	width: 18px;
-	height: 18px;
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-#EDlist {
-	width: 100%;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-#EDlist td {
-	padding: 6px 0;
-}
-
-#EDlist td.EDnumber a {
-	font-size: 18px;
+#EDlist a {
+	font-size: 14px;
 	color: #f00;
 }
 
-#EDlist td.NARAlink a {
-	display: inline-block;
-	padding: 4px;
-	/* BACKGROUND GRADIENT */
-	background: rgb(255,255,255);
-	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	background: linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0 );
-	/* BORDER RADIUS */
-	border: 1px solid #ccc;
-	-webkit-border-radius:4px;
-	-moz-border-radius:4px;
-	-o-border-radius:4px;
-	-ms-border-radius:4px;
-	border-radius:4px;
-	-ms-border-radius:4px;
+#EDlist a:hover {
+	color: #fff;
+	background-color: #f00;
 }
 
 .annotation {

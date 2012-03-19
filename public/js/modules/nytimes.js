@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(['require', 'jquery'], function(requre, $) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 	var tickerDOM = $("#marquee");
@@ -15,20 +15,18 @@ define(['jquery'], function($) {
 
 	function getHeadlines() {
 		$.getJSON(urlpath + '/headlines.json?callback=?', function(data) {
-			//do stuff here with data, returns hdl(headline)/lead(description)/ny_url(times url)/pq_id(proquest article id... ip true/false to come)
 			var i, l=data.length;
 			for (i=0;i<l;++i) {
 				headlines.push(
-						{
-							'pq_id': data[i].pq_id,
-							'hdl': data[i].hdl,
-							//'lead': data[i].lead,
-							'nyt_url': data[i].ny_url,
-						}
+					{
+						'pq_id': data[i].pq_id,
+						'hdl': data[i].hdl,
+						//'lead': data[i].lead,
+						'nyt_url': data[i].ny_url,
+					}
 				);
 			}
 			dataloaded = true;
-			log(headlines);
 			if (headlines.length>0) {
 				startTicker();
 			} else {
@@ -48,7 +46,6 @@ define(['jquery'], function($) {
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-		tickerDOM.marquee();
 		tickerDOM.marquee('pointer').mouseover(function () {
             $(this).trigger('stop');
         }).mouseout(function () {

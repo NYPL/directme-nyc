@@ -8,7 +8,7 @@ require 'bundler/setup'
 
 Bundler.require
 
-%w(base64 digest/md5 timeout date logger yaml optparse).each do |requirement|
+%w(base64 digest/md5 timeout date logger yaml optparse time).each do |requirement|
 	require requirement
 end
 

@@ -1,7 +1,7 @@
 div#mainwrapper
 	div#main
 
-		h1#searchterms 1172 Teller Ave, Bronx, NY
+		h1#searchterms #{header_string}
 			
 		/! geo
 		div#geo
@@ -16,38 +16,17 @@ div#mainwrapper
 		div#results
 			div.crosscontent
 				h3 More than one ED
-				p There is more than one possible ED for this address. For best results finding a census record narrow your search by selecting a cross street:
-				select name="crossstreet"
-					option Select cross street
-					option 1 St
-					option 2 St
-					option 3 St
+				p There is more than one possible ED for this address. For best results finding a census record narrow your search by selecting a cross street or back street:
+				select.crossstreets name="crossstreet"
+					option Select cross/back street
+
 
 			div.EDcontent
 				h3 Find Census Record for ED
 				p Click to find the National Archive Census Record for an ED
-				| <p>Results powered by: <a href="http://stephenmorse.com/census/" class="onesteplogo">1-Step</a></p>
-				table#EDlist
-					tr
-						td.EDnumber 
-							a href="http://www.archives.gov" 3-170
-						td.NARAlink
-							a href="http://www.archives.gov" Find in the National Archives
-					tr
-						td.EDnumber 
-							a href="http://www.archives.gov" 3-169
-						td.NARAlink
-							a href="http://www.archives.gov" Find in the National Archives
-					tr
-						td.EDnumber 
-							a href="http://www.archives.gov" 3-168
-						td.NARAlink
-							a href="http://www.archives.gov" Find in the National Archives
-					tr
-						td.EDnumber 
-							a href="http://www.archives.gov" 3-167
-						td.NARAlink
-							a href="http://www.archives.gov" Find in the National Archives
+				p Results powered by: <a href="http://stephenmorse.com/census/" class="onesteplogo">1-Step</a>
+				div#EDlist
+
 		/! --results--
 
 		/! annotations
@@ -56,14 +35,6 @@ div#mainwrapper
 				h3 Stories about this address
 				| <p>Patron-generated stories of this area.<br /><a href="#">Legal info</a></p>
 
-				div.annotation
-					h4.title This was my grandma’s house in 1940
-					| <p class="content">It’s amazing how much has changed since then!</p>
-					| <p class="author">Posted by <strong>Bob</strong> 2 hours ago</p>
-				div.annotation
-					h4.title Love the maps
-					| <p class="content">How cool is it to have the map of 1940!</p>
-					| <p class="author">Posted by <strong>Mary</strong> 5 hours ago</p>
 
 			form#frm-annotate
 				textarea#frm-content placeholder="Share your story..."

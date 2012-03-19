@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 1fdff58d3b123f5d638572115eabc5474b72e1ca
+  revision: 5d877074931cabb2bf4e122f90c5904eaee35f1c
   specs:
     mongoid (3.0.0)
       activemodel (~> 3.1)
@@ -21,7 +21,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.7)
-    base32-crockford (0.1.0)
+    base32 (0.2.0)
     bson (1.6.1)
     bson_ext (1.6.1)
       bson (~> 1.6.1)
@@ -33,8 +33,7 @@ GEM
     fl-rocco (1.0.0)
       mustache
       redcarpet (~> 1.17)
-    foreman (0.40.0)
-      term-ansicolor (~> 1.0.7)
+    foreman (0.41.0)
       thor (>= 0.13.6)
     heroku (2.21.3)
       launchy (>= 0.3.2)
@@ -45,7 +44,7 @@ GEM
     jammit (0.6.5)
       yui-compressor (>= 0.9.3)
     json (1.6.5)
-    launchy (2.0.5)
+    launchy (2.1.0)
       addressable (~> 2.2.6)
     mime-types (1.17.2)
     mongo (1.6.1)
@@ -78,7 +77,6 @@ GEM
       temple (~> 0.4.0)
       tilt (~> 1.3.2)
     temple (0.4.0)
-    term-ansicolor (1.0.7)
     thin (1.3.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -99,7 +97,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  base32-crockford
+  base32
   bson_ext
   dalli
   fl-rocco

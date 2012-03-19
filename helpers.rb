@@ -36,6 +36,15 @@ module MyHelpers
 		end
 	end
 
+	module Timestamp
+		extend self
+		attr_reader :timestamp
+		def timestamp
+			@time = Time.now.utc.iso8601
+			return @time
+		end
+	end
+
 	module ErrorJson
 		extend self
 		attr_reader :error_json
@@ -48,7 +57,7 @@ module MyHelpers
 	module RandGen
 		extend self
 		def gen_random_id()
-			@rand_id = Base64.encode64(Digest::MD5.digest(UUIDTools::UUID.random_create)).downcase!.split('=')[0]
+			@rand_id = Base32.encode(Digest::MD5.digest(UUIDTools::UUID.random_create)).downcase!.split('=')[0]
 		end
 	end
 end

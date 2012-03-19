@@ -34,7 +34,7 @@ class Streets
 	field :state, :type => String
 	field :borough, :type => String
 	field :created_at, :type => String
-	field :streets, :type => Hash
+	field :streets, :type => Array
 
 end
 
@@ -68,6 +68,8 @@ end
 class Headlines
 	include Mongoid::Document
 	include Mongoid::Timestamps
+
+	cache
 
 	field :hdl, :type => String
 	field :lead, :type => String
