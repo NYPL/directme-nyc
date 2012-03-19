@@ -1,7 +1,7 @@
 class Loaders
 	include Mongoid::Document
 	cache
-	index :borough
+	index :borough, unique: true
 
 	field :canonical_url, :type => String
 	field :created_at, :type => String
@@ -28,7 +28,7 @@ class Streets
 	include Mongoid::Document
 
 	cache
-	index :borough
+	index :borough, unique: true
 
 	field :fullcity, :type => String
 	field :state, :type => String
@@ -42,7 +42,7 @@ class Locations
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	index :token
+	index :token, unique: true
 
 	field :token, :type => String
 	field :number, :type => String

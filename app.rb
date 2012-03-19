@@ -13,6 +13,15 @@ def JsonP(json, params)
 	response
 end
 
+#read flat json file for parsing
+$JSON = {}
+Dir.glob('public/*.json') do |file|
+	json = File.read(file)
+	name = file.gsub(/public\//, '').split('.json')[0]
+	$JSON["#{name}"] = JSON.parse(json)
+end
+
+
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
@@ -111,7 +120,7 @@ class Application < Sinatra::Base
 			else
 				hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
 			end
-			json = Locations.create(hash).to_json
+			json = Locations.safely.create(hash).to_json
 			return JsonP(json, params)
 		else
 			log.info 'write error here'
@@ -120,13 +129,16 @@ class Application < Sinatra::Base
 
 	get '/locations/:token.json' do
 		obj = Locations.where(:token => params['token']).first()
-		ed_obj = Streets.where(:borough => obj.borough).only("streets.#{obj.street}", 
-								"fullcity_id").first()
+		ed_hash = $JSON[obj.borough]
+
+		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
+		values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
 
 		hash = {
-			:cross_streets => ed_obj.streets[obj.street]['cross'],
-			:eds => ed_obj.streets[obj.street]['eds'],
-			:fullcity_id => ed_obj.fullcity_id
+			:cross_streets => crosses,
+			:cross_vals => values,
+			:eds => ed_hash['streets'][obj.street].fetch('eds'),
+			:fullcity_id => ed_hash['fullcity_id']
 		}.to_json
 
 		return JsonP(hash, params)
@@ -144,11 +156,10 @@ class Application < Sinatra::Base
 	end
 
 	get '/streets/:borough.json' do
-		obj = Streets.where(:borough => params['borough']).first()
 		hash = {
-			:fullcity => obj.fullcity,
-			:state => obj.state,
-			:streets => obj.streets.keys()
+			:fullcity => $JSON[params['borough']]['fullcity'],
+			:state => $JSON[params['borough']]['state'],
+			:streets => $JSON[params['borough']]['streets'].keys()
 		}.to_json
 
 		return JsonP(hash, params)

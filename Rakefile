@@ -35,9 +35,15 @@ namespace :db do
 		sh %{export MONGO_URL=mongodb://localhost:#{mdb_port}/#{mdb_db};heroku mongo:pull --app #{heroku_app}}
 	end
 
-	desc "cap it streets"
-	task :cap do
-		#sh %{db.runCommand({"convertToCapped": "streets", size: 11534336, max:5});}
+	desc "caps/ensures"
+	task :mongs do
+		if ENV['RACK_ENV'] == 'production'
+			user = ENV['USER']
+			password = ENV['PWD']
+			sh %{mongo staff.mongohq.com:10051/app3264842 -u #{user} -p#{password} scripts/mongs.js}
+		else
+			sh %{mongo dev_project scripts/mongs.js}
+		end
 	end
 
 	desc "daily times collection"
