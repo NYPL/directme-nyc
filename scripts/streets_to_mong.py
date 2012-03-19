@@ -1,18 +1,13 @@
 from BeautifulSoup import BeautifulSoup as BS
-import pymongo
+import json
 import argparse
 import datetime
 
 parser = argparse.ArgumentParser(description='Mongo Census INIT')
-parser.add_argument('-c', action='store', dest='mongo_conn', help='Mongo DB Connection', default="")
-parser.add_argument('-p', action='store', dest='mongo_port', help='Mongo DB Port', default="27017")
-parser.add_argument('-db', action='store', dest='mongo_dbname', help='Mongo DB Name', default="")
 parser.add_argument('-path', action='store', dest='path', help='File path for HTM Street files', default="")
 
 opts = parser.parse_args()
 
-connection = pymongo.Connection(opts.mongo_conn, int(opts.mongo_port))                                                                                              
-db = connection[opts.mongo_dbname]
 
 b_dict = {
 	'%s/bkny.htm' % opts.path: 'brooklyn',
@@ -23,7 +18,7 @@ b_dict = {
 }
 
 def cross_streets(soup, values):
-	vals = [option.contents[0] for option in soup.findAll('option') if 
+	vals = [{option.contents[0]: option.get('value')} for option in soup.findAll('option') if 
 		filter(set(values).__contains__, option.get('value').split(','))]
 	return vals
 
@@ -48,7 +43,6 @@ def init_json(file, borough):
 		ED_city = borough[_borough].title()
 		borough = _borough
 
-	db.streets.ensure_index("borough")
 	init_json = {
 		"created_at": datetime.datetime.utcnow().isoformat(),
 		"borough": borough,
@@ -58,9 +52,12 @@ def init_json(file, borough):
 		"fullcity_id": fullcity_id
 	}
 
-	db.streets.save(init_json)
+	streets =  json.dumps(init_json)
+
+	f = open('../public/%s.json' % borough,'w')
+	print >> f, streets
+
 
 if __name__ == "__main__":
-	db.streets.remove()
 	for k, v in b_dict.iteritems():
 		init_json(k, v)

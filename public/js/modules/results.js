@@ -10,7 +10,7 @@ define(['jquery'], function($) {
 		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
 			var cross_string = ""
 			for (var i = 0; i < data.cross_streets.length; i++) {
-				cross_string += "<option value='" + data.cross_streets[i] + "'>" + 
+				cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
 					 data.cross_streets[i] + "</option>";
 			}
 			$('.crossstreets').append(cross_string);
