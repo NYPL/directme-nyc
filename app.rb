@@ -87,7 +87,7 @@ class Application < Sinatra::Base
 #---------------API-CALLs-------------------------------------------------------
 
 	get '/locations.json' do
-
+		#timestamp ranges here
 	end
 
 	post '/locations.json' do

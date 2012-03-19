@@ -44,7 +44,7 @@ GEM
     jammit (0.6.5)
       yui-compressor (>= 0.9.3)
     json (1.6.5)
-    launchy (2.0.5)
+    launchy (2.1.0)
       addressable (~> 2.2.6)
     mime-types (1.17.2)
     mongo (1.6.1)

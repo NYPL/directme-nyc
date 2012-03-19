@@ -36,6 +36,15 @@ module MyHelpers
 		end
 	end
 
+	module Timestamp
+		extend self
+		attr_reader :timestamp
+		def timestamp
+			@time = Time.now.utc.iso8601
+			return @time
+		end
+	end
+
 	module ErrorJson
 		extend self
 		attr_reader :error_json

@@ -35,6 +35,11 @@ namespace :db do
 		sh %{export MONGO_URL=mongodb://localhost:#{mdb_port}/#{mdb_db};heroku mongo:pull --app #{heroku_app}}
 	end
 
+	desc "cap it streets"
+	task :cap do
+		#sh %{db.runCommand({"convertToCapped": "streets", size: 11534336, max:5});}
+	end
+
 	desc "daily times collection"
 	task :times_cron do
 		Bundler.require

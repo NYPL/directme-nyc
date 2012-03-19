@@ -69,6 +69,8 @@ class Headlines
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
+	cache
+
 	field :hdl, :type => String
 	field :lead, :type => String
 	field :ny_url, :type => String
