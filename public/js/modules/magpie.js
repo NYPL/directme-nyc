@@ -6,6 +6,8 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 		$.subscribe('clickSpot', funModal);
 
 		//setup modal
+
+		resetForm();
 		$('#loc_add').on('show', function() {
 			if (environment.hasOwnProperty('streets')) {
 				log('loaded')
@@ -29,6 +31,12 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 			reInitMag();
 		});
 
+	}
+
+	function resetForm() {
+		$('#frm-modal input').each(function() {
+			$(this).val('');
+		});
 	}
 
 	function recFunc(e) {
