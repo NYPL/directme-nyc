@@ -35,8 +35,8 @@ stylesheets:
         - public/css/reset.css
         - public/css/text.css
         - public/css/base.css
-        - public/css/results.css
         - public/js/libs/wax/ext/leaflet.css
+        - public/css/results.css
 
     boot:
         - public/css/bootstrap_ext.css
