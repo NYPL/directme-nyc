@@ -20,7 +20,7 @@ define(['jquery'], function($) {
 			var cutout = {x: positions[0], y: positions[1], href: bg_img};
 
 			if (streetName !== null && checkDisabled !== true) {
-				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: img_positions}, function(data) {
+				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}

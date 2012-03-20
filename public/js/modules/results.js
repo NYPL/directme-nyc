@@ -1,10 +1,9 @@
 define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
-
+	
 	function _init() {
 		EDcall(getUrlVar('token'));
-
 	}
 
 	function EDcall(token, arr, city_id) {
@@ -16,7 +15,7 @@ define(['jquery'], function($) {
 			}
 			$('.crossstreets').append(cross_string);
 
-			var results = ""
+			var results = "";
 			for (i = 0; i < data.eds.length; i++) {
 				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
 					 data.fullcity_id + "-" + data.eds[i] + "</a>";
@@ -24,6 +23,8 @@ define(['jquery'], function($) {
 			$('#EDlist').append(results);
 
 			CSResolve(data.eds, data.fullcity_id, results, cross_string);
+			showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.nyc1940.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>More maps in the Lionel Pincus & Princess Firyal Map Division</a>");
+			showMap(data.coordinates.lat,data.coordinates.lng,'gmap','http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp');
 		});
 	}
 
@@ -113,25 +114,31 @@ define(['jquery'], function($) {
 
 	}
 
-	function showMaps() {
-		var lat = 40.721;
-		var lon = -73.979;
-		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.1940topo.jsonp',
+	function showMap(lat, lon, divid, tileset, attribution) {
+		if (attribution==undefined) attribution = '';
+		//var lat = 40.721;
+		//var lon = -73.979;
+		wax.tilejson(tileset,
 			function(tilejson) {
-				var map = new L.Map('nyplmap', {zoomControl: false, trackResize: false}).addLayer(
+				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
 					new wax.leaf.connector(tilejson))
-					.setView(new L.LatLng(lat, lon), 14);
-				map.attributionControl.addAttribution("Map &copy; USGS");
-				var CensusIcon = L.Icon.extend({
-					iconUrl: 'images/marker.png',
-					shadowUrl: 'images/marker-shadow.png',
-					iconSize: new L.Point(43, 35),
-					shadowSize: new L.Point(43, 35),
-					iconAnchor: new L.Point(11, 35),
-					popupAnchor: new L.Point(-3, -76)
-				});
-				var markerIcon = new CensusIcon();
-				var centerMarker = new L.Marker(new L.LatLng(lat, lon), {icon: markerIcon});
+					.setView(new L.LatLng(lat, lon), 15);
+				var centerMarker;
+				if (attribution!='') {
+					map.attributionControl.addAttribution(attribution);
+					var CensusIcon = L.Icon.extend({
+						iconUrl: 'images/marker.png',
+						shadowUrl: 'images/marker-shadow.png',
+						iconSize: new L.Point(43, 35),
+						shadowSize: new L.Point(43, 35),
+						iconAnchor: new L.Point(11, 35),
+						popupAnchor: new L.Point(-3, -76)
+					});
+					var markerIcon = new CensusIcon();
+					centerMarker = new L.Marker(new L.LatLng(lat, lon), {icon: markerIcon});
+				} else {
+					centerMarker = new L.Marker(new L.LatLng(lat, lon));
+				}
 				map.addLayer(centerMarker);
 
 				// disable interaction
@@ -142,7 +149,7 @@ define(['jquery'], function($) {
 			}
 		);
 	}
-
+	
 	function getUrlVar(key){
 		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
 		return result && unescape(result[1]) || ""; 
