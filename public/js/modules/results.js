@@ -25,8 +25,6 @@ define(['jquery'], function($) {
 			CSResolve(data.eds, data.fullcity_id, results, cross_string);
 			showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.nyc1940.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>More maps in the Lionel Pincus & Princess Firyal Map Division</a>");
 			showMap(data.coordinates.lat,data.coordinates.lng,'gmap','http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp');
-
-			log(data.cutout)
 			showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href);
 		});
 	}
@@ -123,13 +121,11 @@ define(['jquery'], function($) {
 
 	function showMap(lat, lon, divid, tileset, attribution) {
 		if (attribution==undefined) attribution = '';
-		//var lat = 40.721;
-		//var lon = -73.979;
 		wax.tilejson(tileset,
 			function(tilejson) {
 				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
 					new wax.leaf.connector(tilejson))
-					.setView(new L.LatLng(lat, lon), 15);
+					.setView(new L.LatLng(lat, lon), 16);
 				var centerMarker;
 				if (attribution!='') {
 					map.attributionControl.addAttribution(attribution);

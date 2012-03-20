@@ -13,6 +13,8 @@ def JsonP(json, params)
 	response
 end
 
+#globals
+#-------------------------------------
 #read flat json file for parsing
 $JSON = {}
 Dir.glob('public/*.json') do |file|
@@ -21,6 +23,8 @@ Dir.glob('public/*.json') do |file|
 	$JSON["#{name}"] = JSON.parse(json)
 end
 
+$LIMIT = 10
+#------------------------------------
 
 class Application < Sinatra::Base
 	#########################main handlers###########################
@@ -88,7 +92,17 @@ class Application < Sinatra::Base
 #---------------API-CALLs-------------------------------------------------------
 
 	get '/locations.json' do
-		#timestamp ranges here
+		if params['limit']
+			limit = params['limit']
+		else
+			limit = $LIMIT
+		end
+
+		if params['timestamp']
+
+		else
+			Locations.all().limit(limit).to_json
+		end
 	end
 
 	post '/locations.json' do
@@ -110,7 +124,7 @@ class Application < Sinatra::Base
 			end
 
 			hash['address'] = [hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['main_string'] = [hash['name'], hash['number'], hash['street'], hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+			hash['main_string'] = [hash['name'], hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
 			hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
 			json = Locations.safely.create(hash).to_json
