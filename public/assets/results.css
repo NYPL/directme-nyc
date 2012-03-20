@@ -906,6 +906,14 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	padding: 0 4px;
 }
 
+#cutout .page {
+	height: 108px;
+	margin-bottom: 8px;
+	-moz-box-shadow:    inset 0 0 20px #000000;
+	-webkit-box-shadow: inset 0 0 20px #000000;
+	box-shadow:         inset 0 0 20px #000000;
+}
+
 #nytimes {
 	clear: none;
 	float: right;
