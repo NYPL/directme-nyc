@@ -55,6 +55,44 @@
 	width: 220px;
 }
 
+.crosscheck a {
+	font-weight: bold;
+}
+
+.crosscheck a {
+	color: red;
+	font-size: 14px;
+}
+
+.EDcontent, .crosscontent {
+	margin-bottom: 12px;
+}
+
+.onesteplogo {
+	display: inline-block;
+	background: url(../images/sprites.png) 0 0 no-repeat;
+	width: 18px;
+	height: 18px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#EDlist {
+	width: 100%;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#EDlist a {
+	display: block;
+	float: left;
+	width: 64px;
+	text-align: center;
+	padding: 6px 2px;
+	margin: 6px 6px 6px 0;
+}
+
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
 	#geo {

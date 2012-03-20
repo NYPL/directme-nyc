@@ -3,14 +3,8 @@ define(['jquery'], function($) {
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
 	function _init() {
-		Array.prototype.remove = function(from, to) {
-			var rest = this.slice((to || from) + 1 || this.length);
-			this.length = from < 0 ? this.length + from : from;
-			return this.push.apply(this, rest);
-		};
-
 		EDcall(getUrlVar('token'));
-		showMaps();
+		//showMaps();
 
 	}
 
@@ -25,8 +19,8 @@ define(['jquery'], function($) {
 
 			var results = ""
 			for (i = 0; i < data.eds.length; i++) {
-				results += "<tr><td class='EDnumber'><a href='http://www.archives.gov'>" + 
-					 data.fullcity_id + "-" + data.eds[i] + "</a></td></tr>";
+				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
+					 data.fullcity_id + "-" + data.eds[i] + "</a>";
 			}
 			$('#EDlist').append(results);
 
@@ -72,11 +66,11 @@ define(['jquery'], function($) {
 			});
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<tr><td class='EDnumber'><a href='http://www.archives.gov'>" + 
-					city_id + "-" + matched[i] + "</a></td></tr>";
+				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
+					city_id + "-" + matched[i] + "</a>";
 			}
 
-			$('tr', '#EDlist').remove();
+			$('a', '#EDlist').remove();
 			$('#EDlist').append(results);
 
 			$('option', $(this)).remove();
@@ -84,15 +78,9 @@ define(['jquery'], function($) {
 
 			oldText = selectText;
 			curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
-			$('.streetchoices').append("<p class='crosscheck'><a href='#'>x</a>" + selectText + "</p>");
+			$('.streetchoices').append("<p class='crosscheck'><a href='#'>x </a>" + selectText + "</p>");
 			state_results.push(results);
-			state_cross.push(cross_string);
-
-			for (var n = 0; n < state_results.length; n++) {
-				log(state_results[n]);
-				log(state_results.length)
-			}
-			
+			state_cross.push(cross_string);			
 		});
 
 
@@ -103,8 +91,7 @@ define(['jquery'], function($) {
 			results = state_results[idx];
 			cross_string = state_cross[idx];
 
-
-			$('tr', '#EDlist').remove();
+			$('a', '#EDlist').remove();
 			$('#EDlist').append(results);
 
 			$('option', $('select.crossstreets')).remove();
@@ -113,26 +100,16 @@ define(['jquery'], function($) {
 				$('.crossstreets').prepend('<option selected=selected>Select cross/back street</option>');
 			};
 
-			var count = 0;
-			$('.streetchoices p').each(function (i) {
+			$('.streetchoices p').each(function(i) {
 				if (i >= idx) {
-					count++;
+					state_results.pop();
+					state_cross.pop();
 					$(this).remove();
 				}
 			});
-			if (count <= idx) {
-				log("fjlj")
-				state_results.remove(idx, idx - count)
-				state_cross.remove(idx, idx - count)
-			}
-			else {
-				state_results.remove(idx+1, count)
-				state_cross.remove(idx+1, count)
-			}
 
 			curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
 			oldText = $('select.crossstreets option:selected').text();
-			log(state_results);
 		});
 
 	}

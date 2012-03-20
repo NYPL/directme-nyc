@@ -10,6 +10,14 @@ define(['require', 'jquery'], function(require, $) {
 					require(args.depends, this.onDependsLoaded(args.depends));
 				}
 			}
+
+			//resig => array remove
+			Array.prototype.remove = function(from, to) {
+				var rest = this.slice((to || from) + 1 || this.length);
+				this.length = from < 0 ? this.length + from : from;
+				return this.push.apply(this, rest);
+			};
+
 			this.setCurrent('#nav_bar a');
 		},
 
