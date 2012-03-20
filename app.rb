@@ -55,7 +55,8 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!libs/underscore']
+		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet.js', 
+					'order!libs/ext/leaflet.css', 'order!libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
