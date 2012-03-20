@@ -17,7 +17,7 @@ define(['jquery'], function($) {
 			var checkDisabled = $(this).hasClass('disabled');
 			var positions = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ");
 			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
-			var cutout = {x: positions[0], y: positions[1], href: bg_img};
+			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img};
 
 			if (streetName !== null && checkDisabled !== true) {
 				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {

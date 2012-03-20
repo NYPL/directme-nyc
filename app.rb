@@ -128,7 +128,8 @@ class Application < Sinatra::Base
 			:eds => ed_hash['streets'][obj.street].fetch('eds'),
 			:fullcity_id => ed_hash['fullcity_id'],
 			:street => obj.street,
-			:coordinates => obj.coordinates
+			:coordinates => obj.coordinates,
+			:cutout => obj.cutout
 		}.to_json
 
 		return JsonP(hash, params)
