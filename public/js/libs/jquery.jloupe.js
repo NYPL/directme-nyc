@@ -134,7 +134,7 @@ jQuery.fn.jloupe = function(o){
 
 		click: function(e) {
 			e.preventDefault();
-			if (locked_mode !== true) {
+			if (locked_mode !== true && $('.active-loupe').css('top') !== undefined) {
 				locked_mode = true;
 				$('.active-loupe').animate({
 					top: $(window).height()/6,

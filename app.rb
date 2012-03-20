@@ -48,11 +48,11 @@ class Application < Sinatra::Base
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
-  get '/latest' do
-    slim :latest
-  end
+	get '/latest' do
+		slim :latest
+	end
 
-  get '/help' do
+  	get '/help' do
 		slim :help
 	end
 
@@ -98,10 +98,14 @@ class Application < Sinatra::Base
 			limit = $LIMIT
 		end
 
-		if params['timestamp']
+		if params['after_timestamp']
+
+		elsif params['before_timestamp']
 
 		else
-			Locations.all().limit(limit).to_json
+			now = timestamp()
+			puts now
+			puts Locations.where(:created_at.lte => now).limit(limit).to_json
 		end
 	end
 

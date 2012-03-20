@@ -27,7 +27,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 			$('.popovers').popover();
 		});
 		$('#loc_add').on('hidden', function () {
-			$('.frm-text').val('');
+			resetForm();
 			reInitMag();
 		});
 

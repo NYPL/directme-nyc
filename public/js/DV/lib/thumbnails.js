@@ -19,12 +19,14 @@ DV.Thumbnails = function(viewer){
 };
 
 // Render the Thumbnails from scratch.
-DV.Thumbnails.prototype.render = function() {
+DV.Thumbnails.prototype.render = function(defaultZoom) {
+  var defaultZoom = defaultZoom || undefined;
   this.el = this.viewer.$('.DV-thumbnails');
   this.getCurrentIndex();
   this.getZoom();
   this.buildThumbnails(1, this.pageCount);
-  this.setZoom();
+  if (defaultZoom !== undefined) this.setZoom(defaultZoom);
+  else this.setZoom();
   this.viewer.elements.window.unbind('scroll.thumbnails').bind('scroll.thumbnails', this.lazyloadThumbnails);
   var resizeEvent = 'resize.thumbnails-' + this.resizeId;
   DV.jQuery(window).unbind(resizeEvent).bind(resizeEvent, this.lazyloadThumbnails);
@@ -75,6 +77,8 @@ DV.Thumbnails.prototype.setZoom = function(zoom) {
   });
   this.el[0].className = this.el[0].className.replace(/DV-zoom-\d\s*/, '');
   this.el.addClass('DV-zoom-' + this.zoomLevel);
+
+  if (zoom !== undefined || zoom !== null) this.viewer.slider.slider({'value': parseInt(_.indexOf(this.viewer.models.document.ZOOM_RANGES, zoom), 10)});
 };
 
 // The thumbnails (unfortunately) have their own notion of the current zoom

@@ -17,7 +17,8 @@ _.extend(DV.Schema.helpers, {
       options     : this.viewer.options,
       id          : doc.id,
       story_url   : storyURL,
-      title       : doc.title || ''
+      title       : doc.title || '',
+      pdf_mb      : doc.pdf_mb || ''
     });
     var footerHTML = JST.footer({options : this.viewer.options});
     var sidebarLeftHTML = JST.sidebarLeft({options : this.viewer.options, descriptionContainer: JST.descriptionContainer({ description: description})});
@@ -38,7 +39,7 @@ _.extend(DV.Schema.helpers, {
       sidebar_left: sidebarLeftHTML,
       pdf_url: pdfURL,
       print_notes_url: printNotesURL,
-      autoZoom: this.viewer.options.zoom == 'auto'
+      autoZoom: this.viewer.options.zoom == 'auto',
     };
 
     if (this.viewer.options.width && this.viewer.options.height) {

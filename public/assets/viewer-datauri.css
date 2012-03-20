@@ -744,14 +744,13 @@
 .DV-autoZoom .p0,
 .DV-autoZoom .p1,
 .DV-autoZoom .p2 {
-  padding-left: 35px;
+  padding-left: 45px;
 }
 
 /* ================= */
 /* = Page Elements = */
 /* ================= */
 
-.DV-autoZoom .DV-pageNumber,
 .DV-autoZoom .DV-textCurrentPage {
   text-align: center;
   width: 30px;
@@ -787,7 +786,8 @@
   font-size:10px;
   font-weight:bold;
   cursor: pointer;
-  padding-left:8px;
+  padding-left:25px;
+  padding-bottom: 5px;
 }
   .DV-pageNumber:hover {
     text-decoration: underline;
@@ -923,6 +923,10 @@
 
 .DV-activePage{
   z-index:16000 !important;
+}
+
+.DV-linkage {
+  background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQhJREFUeNrsVlEKwyAM1dHbeaMxMG6wnajny2IXR2ptDOtHGVgItdb3fHmxVo+I7sh1cQevyTJonmegW+THFEIAswIBBo7IfX0FApxnTdznBFlXQawl/2QizYpCUY5U3vm6jLVhRYVQ9CJF16YHMmeZgiC8Ezg2y1gZBix7AdOzt3iwlKoYpoFMC4kUPOh2k4b1CPJA4Dq7AtZKuKmCtmRNBKd8jYNgEAyCQfBnBN57oECO9UabN1Ut+GeKvFtHbsP3vREMoi9+5rURrMAtAqsHWLyozweabJQpiPZzNX4v56pdCNNmwj3DJFj1qTIsthRpBJNinOl8YF4w3RRaFeiBc5x/PngLMADORZMdSLOIKwAAAABJRU5ErkJggg==") no-repeat 6px -34px;
 }
 
 .DV-sidebar.DV-hide {
@@ -1083,6 +1087,15 @@
   border-bottom-color: #a0a0a0;
 }
 
+.DV-download {
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 11px;
+  float: right;
+  margin: 8px 15px 0 0;
+  position: relative;
+  width: 100px;
+  text-align: center;
+}
 .DV-description{
   font-family: Arial,Helvetica,sans-serif;
   font-size: 12px;
@@ -1779,13 +1792,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1331658353);
+  background: url(../images/DV/browsers/safari.gif?1331748516);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1331658353);
+  background: url(../images/DV/browsers/chrome.gif?1331748516);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1331658353);
+  background: url(../images/DV/browsers/firefox.gif?1331748516);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;
@@ -2147,7 +2160,7 @@ span.DV-highlighted{
   display: block;
   width: 16px; height: 16px;
   float: left;
-  padding: 0;
+  padding-bottom: 0;
   margin-left: 10px;
   left: 0; top: 0;
 }

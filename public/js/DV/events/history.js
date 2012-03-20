@@ -33,6 +33,19 @@ _.extend(DV.Schema.events, {
     }
   },
 
+  // #annotation/a[annotationID]
+  handleHashChangeViewAnnotationAnnotation: function(annotation){
+    var annotation  = parseInt(annotation,10);
+    var viewer = this.viewer;
+
+    if(viewer.state === 'ViewAnnotation'){
+      viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[annotation]);
+    }else{
+      viewer.activeAnnotationId = annotation;
+      this.viewer.open('ViewAnnotation');
+    }
+  },
+
   // Default route if all else fails
   handleHashChangeDefault: function(){
     this.viewer.pageSet.cleanUp();
@@ -49,6 +62,6 @@ _.extend(DV.Schema.events, {
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
     this.viewer.open('ViewThumbnails');
-  }
+  },
 
 });

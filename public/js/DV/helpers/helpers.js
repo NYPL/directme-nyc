@@ -429,14 +429,13 @@ DV.Schema.helpers = {
       } else {
         zoom = this.viewer.options.zoom;
       }
-      log("zoom: " + zoom)
       // Setup ranges for auto-width zooming
       var ranges = [];
       if (zoom <= 768) {
         var zoom2 = ((800 - zoom) / 2) + 800;
         ranges = [zoom, zoom2, 1200]
       } 
-      else if (768 < zoom && zoom < 1500) {
+      else if (768 < zoom && zoom < 1200) {
         var zoom2 = ((1200 - zoom) / 3) + 800;
         ranges = [800, zoom2, 1200]
       }
@@ -453,7 +452,7 @@ DV.Schema.helpers = {
       var initialRouteMatch = this.viewer.history.loadURL(true);
       if(!initialRouteMatch) {
         var opts = this.viewer.options;
-        this.viewer.open('ViewDocument');
+        this.viewer.open('ViewThumbnails');
         if (opts.note) {
           this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
         } else if (opts.page) {
