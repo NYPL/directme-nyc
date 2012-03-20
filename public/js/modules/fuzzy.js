@@ -32,7 +32,7 @@ define(['jquery'], function($) {
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
 		return environment.streets.filter(function(st) {
 			if (st.match(reg)) {
-				return st;
+				return capitalize(st);
 			}
 		});
 	}

@@ -46,7 +46,6 @@ define(['require', 'jquery'], function(requre, $) {
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-
 		tickerDOM.marquee('pointer').mouseover(function () {
             $(this).trigger('stop');
         }).mouseout(function () {
