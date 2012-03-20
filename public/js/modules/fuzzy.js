@@ -15,9 +15,12 @@ define(['jquery'], function($) {
 			var fullcity = $('#fullcity_hidden').val();
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			var checkDisabled = $(this).hasClass('disabled');
+			var positions = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ");
+			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
+			var cutout = {x: positions[0], y: positions[1], href: bg_img};
 
 			if (streetName !== null && checkDisabled !== true) {
-				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity}, function(data) {
+				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: img_positions}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}

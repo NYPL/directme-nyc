@@ -54,6 +54,7 @@ class Locations
 	field :coordinates, :type => Hash
 	field :address, :type => String
 	field :main_string, :type => String
+	field :cutout, :type => Hash
 end
 
 class Stories

@@ -4,7 +4,6 @@ define(['jquery'], function($) {
 
 	function _init() {
 		EDcall(getUrlVar('token'));
-		showMaps();
 
 	}
 
