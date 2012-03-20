@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 5d877074931cabb2bf4e122f90c5904eaee35f1c
+  revision: 5c217290e01a29e1acfb1b37628a8c2f454f659d
   specs:
     mongoid (3.0.0)
       activemodel (~> 3.1)
@@ -35,6 +35,7 @@ GEM
       redcarpet (~> 1.17)
     foreman (0.41.0)
       thor (>= 0.13.6)
+    geocoder (1.1.1)
     heroku (2.21.3)
       launchy (>= 0.3.2)
       netrc (~> 0.7.1)
@@ -87,8 +88,10 @@ GEM
       mime-types
     tzinfo (0.3.32)
     uuidtools (2.1.2)
-    webmock (1.8.3)
+    webmock (1.8.4)
       addressable (>= 2.2.7)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
       crack (>= 0.1.7)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
@@ -102,6 +105,7 @@ DEPENDENCIES
   dalli
   fl-rocco
   foreman
+  geocoder
   heroku
   jammit
   json
