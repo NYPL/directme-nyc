@@ -333,6 +333,14 @@ div.spacer {
 	margin: 0 5px 6px 5px;
 }
 
+#latest .more {
+	width: 230px;
+	margin: 0 auto;
+	background: white;
+	padding: 16px 0 20px 0;
+	border: 1px solid #CCC;
+}
+
 ul.ui-autocomplete {
 	position: absolute;
 	background: #eee;
@@ -370,7 +378,7 @@ ul.ui-autocomplete li.ui-menu-item a {
 ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	background: #f00;
 	color: #fff;
-} 
+}
 
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {

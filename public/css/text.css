@@ -201,6 +201,15 @@ p {
 	background-position: 0 -53px;
 }
 
+#latest .more {
+	text-align: center;
+	font-size: 18px;
+}
+
+#latest .more a:hover {
+	color: #f00;
+}
+
 /* TEMPLATE PAGES */
 
 #templateheader {

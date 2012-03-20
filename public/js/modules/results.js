@@ -129,7 +129,7 @@ define(['jquery'], function($) {
 			function(tilejson) {
 				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
 					new wax.leaf.connector(tilejson))
-					.setView(new L.LatLng(lat, lon), 15);
+					.setView(new L.LatLng(lat, lon), 16);
 				var centerMarker;
 				if (attribution!='') {
 					map.attributionControl.addAttribution(attribution);
