@@ -152,8 +152,4 @@
 
         return $(newMarquee);
     };
-<<<<<<< HEAD
 }(jQuery));
-=======
-}(jQuery));
->>>>>>> master
