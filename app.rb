@@ -55,6 +55,7 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js']
+		@consts = ['order!libs/underscore']
 		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
@@ -68,7 +69,7 @@ class Application < Sinatra::Base
 
 				street_string.each_with_index { |val, i|
 					if val != nil
-						if i == 0 or i == 3
+						if i == 0 or i == 2 or i == 3
 							val += ", "
 						end
 						header_string += " #{val}"
@@ -129,12 +130,13 @@ class Application < Sinatra::Base
 
 		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
 		values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
-
+		puts crosses
 		hash = {
 			:cross_streets => crosses,
 			:cross_vals => values,
 			:eds => ed_hash['streets'][obj.street].fetch('eds'),
-			:fullcity_id => ed_hash['fullcity_id']
+			:fullcity_id => ed_hash['fullcity_id'],
+			:street => obj.street
 		}.to_json
 
 		return JsonP(hash, params)
