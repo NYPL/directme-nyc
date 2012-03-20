@@ -40,6 +40,7 @@ stylesheets:
         - public/css/text.css
         - public/css/base.css
         - public/css/results.css
+        - public/js/libs/wax/ext/leaflet.css
 
     boot:
         - public/css/bootstrap_ext.css
@@ -54,9 +55,6 @@ stylesheets:
         - public/css/DV/components/ui.css                                                                                                                                                                                               
         - public/css/DV/components/*.css                                                                                                                                                                                                
         - public/css/DV/themes/plain.css
-
-    # maps:
-    #     - public/js/libs/leaflet/*.css
 
     print:
         - public/css/DV/print.css
