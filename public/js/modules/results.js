@@ -123,17 +123,22 @@ define(['jquery'], function($) {
 				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
 					new wax.leaf.connector(tilejson))
 					.setView(new L.LatLng(lat, lon), 15);
-				map.attributionControl.addAttribution(attribution);
-				var CensusIcon = L.Icon.extend({
-					iconUrl: 'images/marker.png',
-					shadowUrl: 'images/marker-shadow.png',
-					iconSize: new L.Point(43, 35),
-					shadowSize: new L.Point(43, 35),
-					iconAnchor: new L.Point(11, 35),
-					popupAnchor: new L.Point(-3, -76)
-				});
-				var markerIcon = new CensusIcon();
-				var centerMarker = new L.Marker(new L.LatLng(lat, lon), {icon: markerIcon});
+				var centerMarker;
+				if (attribution!='') {
+					map.attributionControl.addAttribution(attribution);
+					var CensusIcon = L.Icon.extend({
+						iconUrl: 'images/marker.png',
+						shadowUrl: 'images/marker-shadow.png',
+						iconSize: new L.Point(43, 35),
+						shadowSize: new L.Point(43, 35),
+						iconAnchor: new L.Point(11, 35),
+						popupAnchor: new L.Point(-3, -76)
+					});
+					var markerIcon = new CensusIcon();
+					centerMarker = new L.Marker(new L.LatLng(lat, lon), {icon: markerIcon});
+				} else {
+					centerMarker = new L.Marker(new L.LatLng(lat, lon));
+				}
 				map.addLayer(centerMarker);
 
 				// disable interaction
