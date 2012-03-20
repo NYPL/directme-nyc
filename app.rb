@@ -37,10 +37,9 @@ class Application < Sinatra::Base
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates', 
-					'order!modules/DV_load']
-		@deps = ['order!modules/pubsub', 'order!modules/magpie',
-					'order!libs/jquery.jloupe', 'order!modules/bootstraps']
+
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load']
+		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
@@ -59,6 +58,7 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js']
+		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
 		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
@@ -72,7 +72,7 @@ class Application < Sinatra::Base
 
 				street_string.each_with_index { |val, i|
 					if val != nil
-						if i == 0 or i == 3
+						if i == 0 or i == 2 or i == 3
 							val += ", "
 						end
 						header_string += " #{val}"
@@ -133,12 +133,13 @@ class Application < Sinatra::Base
 
 		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
 		values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
-
+		puts crosses
 		hash = {
 			:cross_streets => crosses,
 			:cross_vals => values,
 			:eds => ed_hash['streets'][obj.street].fetch('eds'),
-			:fullcity_id => ed_hash['fullcity_id']
+			:fullcity_id => ed_hash['fullcity_id'],
+			:street => obj.street
 		}.to_json
 
 		return JsonP(hash, params)

@@ -28,10 +28,34 @@
 
 #nyplmap, #gmap {
 	float: left;
+	width: 230px;
+	height: 230px;
 }
 
 #nyplmap {
 	margin-right: 10px;
+}
+
+#geo .overlays {
+	position: absolute;
+	width: 470px;
+	margin-top: 4px;
+}
+
+#geo .overlays .nyploverlay {
+	float: left;
+	width: 230px;
+}
+
+#geo .overlays .gmapoverlay {
+	float: right;
+	width: 230px;
+	text-align: right;
+}
+
+#geo .overlays span {
+	background: rgba(255, 255, 255, 0.9);
+	padding: 0 4px;
 }
 
 #nytimes {
@@ -53,6 +77,15 @@
 
 .crossstreets {
 	width: 220px;
+}
+
+.crosscheck a {
+	font-weight: bold;
+}
+
+.crosscheck a {
+	color: red;
+	font-size: 14px;
 }
 
 .EDcontent, .crosscontent {
@@ -83,29 +116,6 @@
 	padding: 6px 2px;
 	margin: 6px 6px 6px 0;
 }
-
-#EDlist td.NARAlink a {
-	display: inline-block;
-	padding: 4px;
-	/* BACKGROUND GRADIENT */
-	background: rgb(255,255,255);
-	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	background: linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0 );
-	/* BORDER RADIUS */
-	border: 1px solid #ccc;
-	-webkit-border-radius:4px;
-	-moz-border-radius:4px;
-	-o-border-radius:4px;
-	-ms-border-radius:4px;
-	border-radius:4px;
-	-ms-border-radius:4px;
-}
-
 
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {

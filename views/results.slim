@@ -7,20 +7,29 @@ div#mainwrapper
 		div#geo
 			div#cutout
 				div.page
+
 			div#nyplmap
-				img src="/images/nyplmap.png"
 
 			div#gmap
-				img src="/images/gmap.png"
+			
+			div.overlays
+				div.nyploverlay
+					span ca. 1940
+				div.gmapoverlay
+					span 2012
 		/! --geo--
 
 		/! results
 		div#results
+
 			div.crosscontent
 				h3 More than one ED
 				p There is more than one possible ED for this address. For best results finding a census record narrow your search by selecting a cross street or back street:
+
+				div.streetchoices
+
 				select.crossstreets name="crossstreet"
-					option Select cross/back street
+					option selected='selected' Select cross/back street
 
 
 			div.EDcontent

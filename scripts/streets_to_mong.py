@@ -17,9 +17,9 @@ b_dict = {
 	'%s/riny.htm' % opts.path: {'staten' : 'richmond'} 
 }
 
-def cross_streets(soup, values):
+def cross_streets(soup, values, main_street):
 	vals = [{option.contents[0]: option.get('value')} for option in soup.findAll('option') if 
-		filter(set(values).__contains__, option.get('value').split(','))]
+		filter(set(values).__contains__, option.get('value').split(',')) and option.contents[0] is not main_street]
 	return vals
 
 def init_json(file, borough):
@@ -32,7 +32,7 @@ def init_json(file, borough):
 	for option in options[1:]:
 		values = option['value'].split(',')
 		streets[option.contents[0].lower()] = {
-			'cross': cross_streets(soup, values),
+			'cross': cross_streets(soup, values, option.contents[0]),
 			'eds': values
 		}
 
