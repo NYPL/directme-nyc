@@ -62,23 +62,11 @@ class Application < Sinatra::Base
 			obj = Locations.where(:token => params['token']).first()
 
 			if !obj.blank? and !obj.nil?
-				header_string = ""
-				street_string = [obj.name, obj.number, obj.street.split.map {|w| w.capitalize}.join(' '),
-									obj.borough.capitalize, obj.state.upcase]
-
-				street_string.each_with_index { |val, i|
-					if val != nil
-						if i == 0 or i == 2 or i == 3
-							val += ", "
-						end
-						header_string += " #{val}"
-					end
-				}
 
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 				@RESULTS = true
-				slim :results, :locals => {:header_string => "#{header_string}"}
+				slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
 				log.info "No Valid Result Token"
@@ -116,6 +104,11 @@ class Application < Sinatra::Base
 			else
 				hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
 			end
+
+			hash['address'] = [hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
+			hash['main_string'] = [hash['name'], hash['number'], hash['street'], hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+			hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
+
 			json = Locations.safely.create(hash).to_json
 			return JsonP(json, params)
 		else
@@ -129,7 +122,6 @@ class Application < Sinatra::Base
 
 		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
 		values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
-		puts crosses
 		hash = {
 			:cross_streets => crosses,
 			:cross_vals => values,

@@ -27,6 +27,9 @@ gem 'sass'
 gem 'base32'
 gem 'uuidtools'
 
+#geothings
+gem 'geocoder'
+
 group :test do
 	gem 'rack-test', :require => 'rack/test'
 	gem 'webmock'

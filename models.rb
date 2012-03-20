@@ -51,6 +51,9 @@ class Locations
 	field :name, :type => String
 	field :fullcity, :type => String
 	field :state, :type => String
+	field :coordinates, :type => Hash
+	field :address, :type => String
+	field :main_string, :type => String
 end
 
 class Stories

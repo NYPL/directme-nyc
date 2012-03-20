@@ -30,10 +30,6 @@ javascripts:
         - public/bootstrap/js/bootstrap-tooltip.js
         - public/bootstrap/js/bootstrap-popover.js
 
-    # maps:
-    #     - public/js/libs/leaflet/leaflet.js
-    #     - public/js/libs/wax/wax.leaf.min.js
-
 stylesheets:
     results:
         - public/css/reset.css
