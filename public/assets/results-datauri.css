@@ -738,6 +738,10 @@ div.spacer {
 	border: 1px solid #CCC;
 }
 
+#bigmap {
+	height: 400px;
+}
+
 ul.ui-autocomplete {
 	position: absolute;
 	background: #eee;

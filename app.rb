@@ -49,6 +49,7 @@ class Application < Sinatra::Base
 
 	get '/latest' do
 		@deps = ['order!modules/latest']
+    @consts = ['order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
 		slim :latest
 	end
 
