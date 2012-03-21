@@ -56,7 +56,7 @@ div.spacer {
 
 #nav_bar {
 	float: right;
-	width: 300px;
+	width: 350px;
 	top: 0;
 }
 
@@ -347,6 +347,10 @@ div.spacer {
 	border: 1px solid #CCC;
 }
 
+#bigmap {
+	height: 300px;
+}
+
 ul.ui-autocomplete {
 	position: absolute;
 	background: #eee;
@@ -401,13 +405,13 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 }
 
-@media screen and (min-width: 0px) and (max-width: 620px) {
+@media screen and (min-width: 0px) and (max-width: 740px) {
 	#mainwrapper {
 		width: 480px;
 	}
 
 	#header {
-		height: 145px;
+		height: 96px;
 	}
 
 	#header h1, #nav_bar, #blurb {
