@@ -8,7 +8,7 @@ define(['jquery'], function($) {
 
 	function latestLocations() {
 
-		$.getJSON(urlpath + '/locations.json?limit=2&callback=?', function(data) {
+		$.getJSON(urlpath + '/locations.json?limit=30&callback=?', function(data) {
 			log(data);
 			if (data !== undefined) {
 				if ('locations' in data) {
