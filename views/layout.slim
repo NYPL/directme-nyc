@@ -20,13 +20,16 @@ html
         meta name="viewport" content="width=device-width, initial-scale=1"
 
         - if @RESULTS
-            ==slim :results_css
+            ==slim :css_results
 
-        - if @DV
-            ==slim :DV_css
+        - elsif @DV
+            ==slim :css_DV
 
-        - if not @DV and not @RESULTS
-            ==slim :home_css
+        - elsif @LATEST
+            ==slim :css_latest
+
+        - else
+            ==slim :css_main
 
 
         link rel='shortcut icon' href='/favicon.ico'

@@ -2010,6 +2010,14 @@ p {
 	color: #f00;
 }
 
+#bigmap .leaflet-popup-content {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+}
+
+#bigmap .leaflet-popup-content a {
+	color: #f00;
+}
+
 /* TEMPLATE PAGES */
 
 #templateheader {
@@ -2151,7 +2159,7 @@ div.spacer {
 
 #nav_bar {
 	float: right;
-	width: 300px;
+	width: 350px;
 	top: 0;
 }
 
@@ -2443,7 +2451,7 @@ div.spacer {
 }
 
 #bigmap {
-	height: 400px;
+	height: 300px;
 }
 
 ul.ui-autocomplete {
@@ -2500,13 +2508,13 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 }
 
-@media screen and (min-width: 0px) and (max-width: 620px) {
+@media screen and (min-width: 0px) and (max-width: 740px) {
 	#mainwrapper {
 		width: 480px;
 	}
 
 	#header {
-		height: 145px;
+		height: 96px;
 	}
 
 	#header h1, #nav_bar, #blurb {

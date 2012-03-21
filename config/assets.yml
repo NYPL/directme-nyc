@@ -38,6 +38,12 @@ stylesheets:
         - public/css/results.css
         - public/js/libs/wax/ext/leaflet.css
 
+    latest:
+        - public/css/reset.css
+        - public/css/text.css
+        - public/css/base.css
+        - public/js/libs/wax/ext/leaflet.css
+
     boot:
         - public/css/bootstrap_ext.css
         - public/css/reset.css

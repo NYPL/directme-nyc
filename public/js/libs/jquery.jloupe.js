@@ -64,6 +64,7 @@ jQuery.fn.jloupe = function(o){
 	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
 
 	if(options.locked) var locked_mode = options.locked;
+	var drag_mode = false;
 
 	var h = $(this).parent('a').attr('href');
 	var s = $(this).attr('src');
@@ -74,7 +75,7 @@ jQuery.fn.jloupe = function(o){
 	$(this)
 	.on({
 		mousemove: function(e){
-			if (locked_mode !== true) {
+			if (locked_mode !== true && drag_mode !== true) {
 				$(loupe).hide();
 				$(loupe).show();
 
@@ -142,6 +143,11 @@ jQuery.fn.jloupe = function(o){
 				else $(loupe).show();
 			}
 		},
+
+		mousedown: function(e) {
+			e.preventDefault();
+		},
+
 
 		click: function(e) {
 			e.preventDefault();

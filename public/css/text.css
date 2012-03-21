@@ -214,6 +214,14 @@ p {
 	color: #f00;
 }
 
+#bigmap .leaflet-popup-content {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+}
+
+#bigmap .leaflet-popup-content a {
+	color: #f00;
+}
+
 /* TEMPLATE PAGES */
 
 #templateheader {
