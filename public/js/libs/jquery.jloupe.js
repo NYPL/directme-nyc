@@ -46,6 +46,17 @@ jQuery.fn.jloupe = function(o){
 		.css('marginLeft', options.margin +'px')
 		.css('marginTop', options.margin +'px')
 		.appendTo(loupe);
+	
+	var help = $('<div>Line up arrow with name. Click to freeze frame.').addClass('thejloupehelp')
+		.css('width',options.width-options.margin*2 +'px')
+		.css('paddingTop','4px')
+		.css('height','20px')
+		.css('textAlign','center')
+		.css('backgroundColor','#000')
+		.css('color','#fff')
+		.css('position','absolute')
+		.css('bottom', '0')
+		.appendTo(view);
 
 	var posx = 0; 
 	var posy = 0;

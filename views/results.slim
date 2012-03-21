@@ -23,7 +23,7 @@ div#mainwrapper
 		/! results
 		div#results
 
-			div.crosscontent
+			div.crosscontent.EDmore1
 				h3 More than one ED
 				p There is more than one possible ED for this address. For best results finding a census record narrow your search by selecting a cross street or back street:
 
@@ -33,9 +33,15 @@ div#mainwrapper
 					option selected='selected' Select cross/back street
 
 
-			div.EDcontent
+			div.EDcontent.EDonly1
 				h3 Find Census Record for ED
 				p Click to find the National Archive Census Record for an ED
+			
+			div.EDnone
+				h3 No Enumeration Districts found for this address
+				p Please try again with another Address.
+			
+			div
 				p Results powered by: <a href="http://stephenmorse.com/census/" class="onesteplogo">1-Step</a>
 				div#EDlist
 

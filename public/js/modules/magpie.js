@@ -59,7 +59,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 			cursorOffsetY:-128,
 			borderColor:'#333',
 			locked: false
-		})
+		});
 	}
 
 	function funModal(e, curr_left, curr_right, large_left, large_right) {
