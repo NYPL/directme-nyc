@@ -58,7 +58,9 @@ DV.Schema.states = {
     this.dragReporter.setBinding();
     this.elements.window.mouseleave(DV.jQuery.proxy(this.dragReporter.stop, this.dragReporter));
     this.acceptInput.allow();
-
+    if (DV.jQuery('.DV-page').width() > DV.jQuery(window).width()) {
+        _.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
+    }
     this.helpers.toggleContent('viewDocument');
 
     this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));

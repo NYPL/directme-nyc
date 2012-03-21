@@ -49,6 +49,8 @@ class Application < Sinatra::Base
 
 	get '/latest' do
 		@deps = ['order!modules/latest']
+
+		@LATEST = true
 		slim :latest
 	end
 
