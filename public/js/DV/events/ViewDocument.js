@@ -12,11 +12,5 @@ DV.Schema.events.ViewDocument = {
 
     // this.viewer.history.save('document/p'+(previousPage+1));
   },
-
-  search: function(e){
-    e.preventDefault();
-    this.helpers.getSearchResponse(this.elements.searchInput.val());
-    return false;
-  }
   
 }

@@ -72,7 +72,7 @@ DV.Schema.states = {
     this.helpers.reset();
     this.helpers.toggleContent('viewThumbnails');
     this.thumbnails = new DV.Thumbnails(this);
-    this.thumbnails.render(this.models.document.ZOOM_RANGES[this.models.document.ZOOM_RANGES.length-1]);
+    this.thumbnails.render();
     return true;
   }
 

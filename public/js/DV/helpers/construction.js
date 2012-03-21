@@ -252,7 +252,6 @@ _.extend(DV.Schema.helpers, {
   // Reset the view state to a baseline, when transitioning between views.
   reset : function() {
     this.resetNavigationState();
-    this.cleanUpSearch();
     this.viewer.pageSet.cleanUp();
     this.removeObserver('drawPages');
     this.viewer.dragReporter.unBind();

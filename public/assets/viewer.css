@@ -83,7 +83,7 @@
 .DV-well .DV-navControls{
   background-color: #fff;
   background-repeat: repeat-x;
-  background-image: url(../images/DV/embed/shadow-white.gif?1331748516);
+  background-image: url(../images/DV/embed/shadow-white.gif?1329940696);
 }
 
 .DV-pages{
@@ -126,7 +126,7 @@
   font-style:oblique;
   padding-left:24px;
   margin: 10px auto;
-  background:url(../images/DV/embed/spinner.gif?1331748516) no-repeat left 8px;
+  background:url(../images/DV/embed/spinner.gif?1329940696) no-repeat left 8px;
 }
 
 .DV-loadingDocument strong{
@@ -266,7 +266,7 @@
   }
   .DV-activeAnnotation .DV-annotationClose{
     display:block;
-    background: transparent url(../images/DV/embed/close_tab.png?1331748516) no-repeat 6px 7px;
+    background: transparent url(../images/DV/embed/close_tab.png?1329940696) no-repeat 6px 7px;
   }
 
   .DV-activeAnnotation.DV-annotation{
@@ -448,7 +448,7 @@
   }
   /* ---------------------------------------------------- tabs */
   .DV-annotationTab{
-    background: url(../images/DV/embed/tabs.png?1331748516) no-repeat 0 0;
+    background: url(../images/DV/embed/tabs.png?1329940696) no-repeat 0 0;
     height:26px;
     position:absolute;
     left: -35px;
@@ -468,7 +468,7 @@
   .DV-annotationTab .DV-annotationDraftDot {
     width: 11px;
     height: 11px;
-    background: transparent url(../images/DV/embed/draft_dot.png?1331748516) no-repeat 0 0;
+    background: transparent url(../images/DV/embed/draft_dot.png?1329940696) no-repeat 0 0;
     margin: 0 0 0 -3px;
   }
     .DV-activeAnnotation .DV-annotationTab .DV-annotationDraftDot {
@@ -523,7 +523,7 @@
 
 .DV-resultPrevious,
 .DV-annotationPrevious {
-  background: url(../images/DV/embed/leftArrow.png?1331748516) no-repeat left 1px;
+  background: url(../images/DV/embed/leftArrow.png?1329940696) no-repeat left 1px;
 }
 
 .DV-annotationPrevious{
@@ -545,7 +545,7 @@
 
 .DV-resultNext,
 .DV-annotationNext {
-  background:transparent url(../images/DV/embed/rightArrow.png?1331748516) no-repeat right 1px;
+  background:transparent url(../images/DV/embed/rightArrow.png?1329940696) no-repeat right 1px;
 }
 
 .DV-annotationNext{
@@ -786,8 +786,9 @@
   font-size:10px;
   font-weight:bold;
   cursor: pointer;
-  padding-left:25px;
+  padding-top:15px;
   padding-bottom: 5px;
+  padding-left: 5px;
 }
   .DV-pageNumber:hover {
     text-decoration: underline;
@@ -926,7 +927,7 @@
 }
 
 .DV-linkage {
-  background: url(../images/DV/embed/link.png?1331748516) no-repeat 6px -34px;
+  background: url(../images/DV/embed/link.png?1329940696) no-repeat 12px -34px;
 }
 
 .DV-sidebar.DV-hide {
@@ -946,7 +947,7 @@
   text-shadow: 0px 1px 0px #ddd;
   color: #333;
   overflow: hidden;
-  background: url(../images/DV/embed/headerbg.png?1331748516);
+  background: url(../images/DV/embed/headerbg.png?1329940696);
   box-shadow: 0 0 25px rgba(0,0,0,.05); -webkit-box-shadow: 0 0 25px rgba(0,0,0,.05); -moz-box-shadow: 0 0 25px rgba(0,0,0,.05);
 }
   .DV-footer.DV-hide {
@@ -975,7 +976,7 @@
     position: absolute;
     left: 5px; top: 5px;
     width: 22px; height: 22px;
-    background: url(../images/DV/embed/fullscreen.png?1331748516) no-repeat 0 0;
+    background: url(../images/DV/embed/fullscreen.png?1329940696) no-repeat 0 0;
   }
     .DV-header .DV-fullscreen {
       left: 6px; top: 6px;
@@ -1058,7 +1059,7 @@
 .DV-views div span{
   display: block;
   padding: 9px 14px 8px;
-  background: #bfbfbf url(../images/DV/embed/tabbg.png?1331748516);
+  background: #bfbfbf url(../images/DV/embed/tabbg.png?1329940696);
   border: 1px solid #777; border-top-color: #888;
   font: 10px Arial, Helvetica, sans-serif;
   text-decoration: none;
@@ -1150,7 +1151,7 @@
 
 .DV-previous, .DV-next {
   border: 1px solid #bbb; border-top-color: #ccc; border-bottom-color: #999;
-  background-image:url(../images/DV/embed/controlsArrows.png?1331748516);
+  background-image:url(../images/DV/embed/controlsArrows.png?1329940696);
   background-repeat: no-repeat;
   width:32px; height:22px;
   position:absolute;
@@ -1294,7 +1295,7 @@
 .DV-hasChildren .DV-annotationMarker{
   margin:0 0 4px;
   padding:0 0 0 8px;
-  background: transparent url(../images/DV/embed/bullet4x4.gif?1331748516) no-repeat 0 4px;
+  background: transparent url(../images/DV/embed/bullet4x4.gif?1329940696) no-repeat 0 4px;
   font-family:Arial,Helvetica,sans-serif;
   font-size:11px;
   font-weight:normal;
@@ -1342,7 +1343,7 @@
 }
 
 .DV-descriptionToggle, .DV-navigation div.DV-first span.DV-expander {
-  background: url(../images/DV/embed/expanders.png?1331748516) no-repeat 0 5px;
+  background: url(../images/DV/embed/expanders.png?1329940696) no-repeat 0 5px;
 }
 
 .DV-navigation div.DV-first span.DV-expander{
@@ -1466,7 +1467,7 @@
   width:210px;
   font-size: 11px;
   line-height: 14px;
-  background: #FFF url(../images/DV/embed/search_icon.png?1331748516) no-repeat 5px 5px;
+  background: #FFF url(../images/DV/embed/search_icon.png?1329940696) no-repeat 5px 5px;
   outline: none;
 }
 
@@ -1495,7 +1496,7 @@
   position: absolute;
   right: 12px;
   top: 8px;
-  background: transparent url(../images/DV/embed/close.png?1331748516) no-repeat 0 0;
+  background: transparent url(../images/DV/embed/close.png?1329940696) no-repeat 0 0;
   width: 11px;
   height: 11px;
   cursor: pointer;
@@ -1519,7 +1520,7 @@
   position: absolute;
   top: 0px; left: 0px; right: 282px;
   height: 50px;
-  background: url(../images/DV/embed/shadow.png?1331748516) repeat-x 0 bottom;
+  background: url(../images/DV/embed/shadow.png?1329940696) repeat-x 0 bottom;
   font-family: Arial,Helvetica,sans-serif;
   display: none;
 }
@@ -1549,7 +1550,7 @@
 }
 
 .DV-highlightedMatch{
-  background: #f1e90f url(../images/DV/embed/highlight.gif?1331748516) repeat-x 0 bottom;
+  background: #f1e90f url(../images/DV/embed/highlight.gif?1329940696) repeat-x 0 bottom;
   padding: 3px 3px 2px;
   -moz-border-radius: 3px;
   background-color:#fff;
@@ -1728,15 +1729,15 @@ span.DV-highlighted{
 }
 
 .DV-zoomBox{
-  background: url(../images/DV/embed/bar.png?1331748516) repeat-x 0 88%;
+  background: url(../images/DV/embed/bar.png?1329940696) repeat-x 0 88%;
   height:20px;
-  width:45px;
+  width:43px;
   float: left;
   position:relative;
   cursor: pointer;
 }
   .DV-narrowControls .DV-zoomBox {
-    background: url(../images/DV/embed/bar_small.png?1331748516) repeat-x 0 88%;
+    background: url(../images/DV/embed/bar_small.png?1329940696) repeat-x 0 88%;
     width:25px;
   }
 
@@ -1748,7 +1749,7 @@ span.DV-highlighted{
   top:0;
   margin-top:5px;
   margin-left:-5px;
-  background: transparent url(../images/DV/embed/slider.png?1331748516) no-repeat 0 0;
+  background: transparent url(../images/DV/embed/slider.png?1329940696) no-repeat 0 0;
   outline: none;
 }
 
@@ -1792,13 +1793,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1331748516);
+  background: url(../images/DV/browsers/safari.gif?1329940696);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1331748516);
+  background: url(../images/DV/browsers/chrome.gif?1329940696);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1331748516);
+  background: url(../images/DV/browsers/firefox.gif?1329940696);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;
@@ -2009,6 +2010,7 @@ span.DV-highlighted{
       display: block;
       height: 14px;
       z-index: 0;
+      padding: 0;
     }
       .DV-thumbnails .DV-thumbnail .DV-pageNumber .DV-pageNumberText {
         -moz-border-radius: 8px;
@@ -2075,33 +2077,21 @@ span.DV-highlighted{
         border-color: #09f;
       }
     .DV-thumbnails.DV-zoom-0 .DV-thumbnail {
-      width: 66px; height: 103px;
-    }
-      .DV-thumbnails.DV-zoom-0 .DV-thumbnail-image {
-        width: 60px; height: 75px;
-      }
-    .DV-thumbnails.DV-zoom-1 .DV-thumbnail {
-      width: 96px; height: 138px;
-    }
-      .DV-thumbnails.DV-zoom-1 .DV-thumbnail-image {
-        width: 90px; height: 112px;
-      }
-    .DV-thumbnails.DV-zoom-2 .DV-thumbnail {
       width: 126px; height: 178px;
     }
-      .DV-thumbnails.DV-zoom-2 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-0 .DV-thumbnail-image {
         width: 120px; height: 150px;
       }
-    .DV-thumbnails.DV-zoom-3 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-1 .DV-thumbnail {
       width: 156px; height: 216px;
     }
-      .DV-thumbnails.DV-zoom-3 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-1 .DV-thumbnail-image {
         width: 150px; height: 188px;
       }
-    .DV-thumbnails.DV-zoom-4 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-2 .DV-thumbnail {
       width: 186px; height: 253px;
     }
-      .DV-thumbnails.DV-zoom-4 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-2 .DV-thumbnail-image {
         width: 180px; height: 225px;
       }
 
@@ -2124,7 +2114,7 @@ span.DV-highlighted{
   .DV-controls {
     margin-top: 0;
     border: 0;
-    background: url(../images/DV/embed/headerbg.png?1331748516);
+    background: url(../images/DV/embed/headerbg.png?1329940696);
     text-shadow: 0px 1px 0px #ddd;
     color: #000;
   }
@@ -2139,7 +2129,7 @@ span.DV-highlighted{
 }
 
 .DV-pages, .DV-paper {
-  background: #f5f6f7 url(../images/DV/embed/pagesbg.jpg?1331748516);
+  background: #f5f6f7 url(../images/DV/embed/pagesbg.jpg?1329940696);
 }
   .DV-paper {
     padding-top: 1px; /* needed to uncollapse the margin */
@@ -2212,13 +2202,13 @@ span.DV-highlighted{
   .DV-logo a {
     display: block;
     width: 105px; height: 19px;
-    background: url(../images/DV/embed/dc_inline_logo.png?1331748516);
+    background: url(../images/DV/embed/dc_inline_logo.png?1329940696);
   }
 
 .DV-footerLogoLink {
   display: block;
   width: 33px; height: 24px;
-  background: url(../images/DV/embed/dc_mini_logo.png?1331748516) no-repeat center center;
+  background: url(../images/DV/embed/dc_mini_logo.png?1329940696) no-repeat center center;
   position: absolute;
   right: 5px; top: 5px;
 }

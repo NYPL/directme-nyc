@@ -6,6 +6,7 @@ div.spacer {
 /* MAIN STRUCTURE */
 
 #wrapper {
+	overflow-y:auto;
 }
 
 #mainwrapper {

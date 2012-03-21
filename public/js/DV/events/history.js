@@ -6,6 +6,7 @@ _.extend(DV.Schema.events, {
     if(this.viewer.state === 'ViewDocument'){
       this.viewer.pageSet.cleanUp();
       this.helpers.jump(pageIndex);
+
     }else{
       this.models.document.setPageIndex(pageIndex);
       this.viewer.open('ViewDocument');

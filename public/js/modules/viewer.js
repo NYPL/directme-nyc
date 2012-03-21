@@ -1162,11 +1162,9 @@ DV.Thumbnails = function(viewer){
   this.viewer          = viewer;
   this.resizeId        = _.uniqueId();
   this.sizes           = {
-    "0": {w: 60, h: 75},
-    "1": {w: 90, h: 112},
-    "2": {w: 120, h: 150},
-    "3": {w: 150, h: 188},
-    "4": {w: 180, h: 225}
+    "0": {w: 120, h: 150},
+    "1": {w: 150, h: 188},
+    "2": {w: 180, h: 225}
   };
   _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
@@ -1178,8 +1176,7 @@ DV.Thumbnails.prototype.render = function(defaultZoom) {
   this.getCurrentIndex();
   this.getZoom();
   this.buildThumbnails(1, this.pageCount);
-  if (defaultZoom !== undefined) this.setZoom(defaultZoom);
-  else this.setZoom();
+  this.setZoom();
   this.viewer.elements.window.unbind('scroll.thumbnails').bind('scroll.thumbnails', this.lazyloadThumbnails);
   var resizeEvent = 'resize.thumbnails-' + this.resizeId;
   DV.jQuery(window).unbind(resizeEvent).bind(resizeEvent, this.lazyloadThumbnails);
@@ -1230,8 +1227,6 @@ DV.Thumbnails.prototype.setZoom = function(zoom) {
   });
   this.el[0].className = this.el[0].className.replace(/DV-zoom-\d\s*/, '');
   this.el.addClass('DV-zoom-' + this.zoomLevel);
-
-  if (zoom !== undefined || zoom !== null) this.viewer.slider.slider({'value': parseInt(_.indexOf(this.viewer.models.document.ZOOM_RANGES, zoom), 10)});
 };
 
 // The thumbnails (unfortunately) have their own notion of the current zoom
@@ -1393,7 +1388,6 @@ DV.Schema.elements =
   { name: 'annotations',        query: 'div.DV-allAnnotations'},
   { name: 'navigation',         query: 'div.DV-navigation' },
   { name: 'chaptersContainer',  query: 'div.DV-chaptersContainer' },
-  { name: 'searchInput',        query: 'input.DV-searchInput' },
   { name: 'coverPages',         query: 'div.DV-cover' },
   { name: 'fullscreen',         query: 'div.DV-fullscreen' },
   { name: 'mag',                query: 'div.DV-mag' }
@@ -2029,14 +2023,8 @@ DV.Schema.events.ViewAnnotation = {
 
     viewer.pageSet.showAnnotation(previousAnnotation);
     this.helpers.setAnnotationPosition(previousAnnotation.position);
-
-
-  },
-  search: function(e){
-    e.preventDefault();
-
-    return false;
   }
+  
 };
 DV.Schema.events.ViewDocument = {
   next: function(){
@@ -2052,12 +2040,6 @@ DV.Schema.events.ViewDocument = {
 
     // this.viewer.history.save('document/p'+(previousPage+1));
   },
-
-  search: function(e){
-    e.preventDefault();
-    this.helpers.getSearchResponse(this.elements.searchInput.val());
-    return false;
-  }
   
 }
 DV.Schema.events.ViewThumbnails = {
@@ -2065,15 +2047,12 @@ DV.Schema.events.ViewThumbnails = {
     var nextPage = this.models.document.nextPage();
     this.helpers.jump(nextPage);
   },
+  
   previous: function(e){
     var previousPage = this.models.document.previousPage();
     this.helpers.jump(previousPage);
-  },
-  search: function(e){
-    e.preventDefault();
-    
-    return false;
   }
+
 };
 _.extend(DV.Schema.events, {
 
@@ -2083,6 +2062,7 @@ _.extend(DV.Schema.events, {
     if(this.viewer.state === 'ViewDocument'){
       this.viewer.pageSet.cleanUp();
       this.helpers.jump(pageIndex);
+
     }else{
       this.models.document.setPageIndex(pageIndex);
       this.viewer.open('ViewDocument');
@@ -2159,16 +2139,10 @@ _.extend(DV.Schema.events, {
       var annotation  = this.models.annotations.getAnnotation(aid);
       var pageNumber  = parseInt(annotation.index,10)+1;
 
-      if(this.viewer.state === 'ViewText'){
-        this.loadText(annotation.index);
-
-        // this.viewer.history.save('text/p'+pageNumber);
-      }else{
-        if (this.viewer.state === 'ViewThumbnails') {
-          this.viewer.open('ViewDocument');
-        }
-        this.viewer.pageSet.showAnnotation(annotation);
+      if (this.viewer.state === 'ViewThumbnails') {
+        this.viewer.open('ViewDocument');
       }
+      this.viewer.pageSet.showAnnotation(annotation);
 
     } else if (chapterEl.length) {
       // its a header, take it to the page
@@ -2177,11 +2151,8 @@ _.extend(DV.Schema.events, {
       var chapterIndex  = parseInt(this.models.chapters.getChapterPosition(cid),10);
       var pageNumber    = parseInt(chapterIndex,10)+1;
 
-      if(this.viewer.state === 'ViewText'){
-        this.loadText(chapterIndex);
         // this.viewer.history.save('text/p'+pageNumber);
-      }else if(this.viewer.state === 'ViewDocument' ||
-               this.viewer.state === 'ViewThumbnails'){
+      if (this.viewer.state === 'ViewDocument' || this.viewer.state === 'ViewThumbnails'){
         this.helpers.jump(chapterIndex);
         // this.viewer.history.save('document/p'+pageNumber);
         if (this.viewer.state === 'ViewThumbnails') {
@@ -2997,7 +2968,6 @@ _.extend(DV.Schema.helpers, {
   // Reset the view state to a baseline, when transitioning between views.
   reset : function() {
     this.resetNavigationState();
-    this.cleanUpSearch();
     this.viewer.pageSet.cleanUp();
     this.removeObserver('drawPages');
     this.viewer.dragReporter.unBind();
@@ -3073,38 +3043,6 @@ _.extend(DV.Schema.helpers, {
   }
 });
 
-_.extend(DV.Schema.helpers, {
-	getSearchResponse: function(query){
-			var handleResponse = DV.jQuery.proxy(function(response){
-			this.viewer.searchResponse = response;
-			var hasResults = (response.results.length > 0) ? true : false;
-
-			var text = hasResults ? 'of '+response.results.length + ' ' : ' ';
-			if (hasResults) {
-
-			}
-		}, this);
-
-		var failResponse = function() {
-		};
-
-		var searchURI = this.viewer.schema.document.resources.search.replace('{query}', encodeURIComponent(query));
-		log(searchURI);
-		if (this.viewer.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
-		//DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
-	},
-
-	clearSearch: function(e) {
-		this.elements.searchInput.val('').keyup().focus();
-	},
-
-	cleanUpSearch: function(){
-		var viewer            = this.viewer;
-		viewer.searchResponse = null;
-		viewer.toHighLight    = null;
-		if (this.elements) this.elements.searchInput.keyup().blur();
-	}
-});
 DV.Schema.states = {
 
   InitialLoad: function(){
@@ -3179,7 +3117,7 @@ DV.Schema.states = {
     this.helpers.reset();
     this.helpers.toggleContent('viewThumbnails');
     this.thumbnails = new DV.Thumbnails(this);
-    this.thumbnails.render(this.models.document.ZOOM_RANGES[this.models.document.ZOOM_RANGES.length-1]);
+    this.thumbnails.render();
     return true;
   }
 

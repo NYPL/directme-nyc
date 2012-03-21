@@ -9,7 +9,7 @@ define(['jquery'], function($) {
 		DV.load(docUrl, { 
 			container: '.DV',
 			sidebar: false,
-			zoom: 1200
+			search: false
 		});
 	}
 
