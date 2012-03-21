@@ -3,7 +3,7 @@
 define(['jquery'], function($) {
 
 	(function() {
-		var vids = ['cImIlPSuyR8']
+		var vids = ['cImIlPSuyR8', 'OwZk6rASC8k', 'dXY1pHEf5hU', 'xEIO4mWgS2E'];
 		$('<iframe />', {
     		name: 'ytplayer',
     		id: 'ytplayer',
