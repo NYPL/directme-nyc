@@ -9,6 +9,10 @@
 	margin-bottom: 12px;
 }
 
+#results {
+	min-height: 360px;
+}
+
 #annotations #frm-annotate {
 	margin-bottom: 12px;
 }
@@ -114,7 +118,6 @@
 	width: 100%;
 	margin-left: 5px;
 	margin-right: 5px;
-	min-height: 120px;
 }
 
 #EDlist a {

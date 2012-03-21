@@ -4,6 +4,9 @@ define(['jquery'], function($) {
 	
 	function _init() {
 		EDcall(getUrlVar('token'));
+		$("#results .EDmore1").hide();
+		$("#results .EDonly1").hide();
+		$("#results .EDnone").hide();
 	}
 
 	function EDcall(token, arr, city_id) {
@@ -39,6 +42,14 @@ define(['jquery'], function($) {
 
 				if ('cutout' in data) {
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href);
+				}
+				
+				if (data.eds.length > 1) {
+					$("#results .EDmore1").show();
+				} else if (data.eds.length == 1) {
+					$("#results .EDonly1").show();
+				} else {
+					$("#results .EDnone").show();
 				}
 			}
 		});
@@ -77,13 +88,15 @@ define(['jquery'], function($) {
 				}
 				else {
 					if (selectText === $(this).text()) {
-						cross_string += "<option selected=selected value='" + $(this).val() + "'>" + $(this).text() + "</option>";
+						//cross_string += "<option selected=selected value='" + $(this).val() + "'>" + $(this).text() + "</option>";
 					}
 					else {
 						cross_string += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
 					}
 				}
 			});
+			
+			cross_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
 				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
@@ -100,11 +113,19 @@ define(['jquery'], function($) {
 			curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
 			$('.streetchoices').append("<p class='crosscheck'><a href='#'>x </a>" + selectText + "</p>");
 			state_results.push(results);
-			state_cross.push(cross_string);			
+			state_cross.push(cross_string);
+			
+			// remove the SELECT if there is only 1 ED
+			if (matched.length==1) {
+				$('select.crossstreets').hide();
+			}
 		});
 
 
 		$('.streetchoices').on('click', '.crosscheck a', function(e) {
+			// show the cross street select
+			$('select.crossstreets').show();
+			
 			e.preventDefault();
 			idx = $(this).parent().index();
 

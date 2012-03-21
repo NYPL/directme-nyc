@@ -75,6 +75,7 @@ jQuery.fn.jloupe = function(o){
 	.on({
 		mousemove: function(e){
 			if (locked_mode !== true) {
+				$(loupe).hide();
 				$(loupe).show();
 
 				if ($(view).css('background-image')) {
