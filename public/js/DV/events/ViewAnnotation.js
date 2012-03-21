@@ -28,12 +28,6 @@ DV.Schema.events.ViewAnnotation = {
 
     viewer.pageSet.showAnnotation(previousAnnotation);
     this.helpers.setAnnotationPosition(previousAnnotation.position);
-
-
-  },
-  search: function(e){
-    e.preventDefault();
-
-    return false;
   }
+  
 };

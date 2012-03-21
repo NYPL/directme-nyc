@@ -47,7 +47,7 @@ jQuery.fn.jloupe = function(o){
 		.css('marginTop', options.margin +'px')
 		.appendTo(loupe);
 	
-	var help = $('<div><em>Align</em> the arrow with the person\'s last name and <em>click</em> to lock the page.</div>').addClass('thejloupehelp')
+	var help = $('<div>Line up arrow with name. Click to freeze frame.').addClass('thejloupehelp')
 		.css('width',options.width-options.margin*2 +'px')
 		.css('paddingTop','4px')
 		.css('height','20px')
@@ -144,7 +144,7 @@ jQuery.fn.jloupe = function(o){
 
 		click: function(e) {
 			e.preventDefault();
-			if (locked_mode !== true) {
+			if (locked_mode !== true && $('.active-loupe').css('top') !== undefined) {
 				locked_mode = true;
 				$('.active-loupe').animate({
 					top: $(window).height()/6,

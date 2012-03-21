@@ -8,7 +8,8 @@ define(['jquery'], function($) {
 		var docUrl = window.location.protocol + "//" + window.location.host + "/dvs/" + borough + '.json';
 		DV.load(docUrl, { 
 			container: '.DV',
-			sidebar: false
+			sidebar: false,
+			search: false
 		});
 	}
 

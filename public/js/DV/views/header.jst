@@ -19,15 +19,11 @@
     </div>
 
     <div class="DV-collapsibleControls">
-
-      <div class="DV-searchBox DV-clearfix">
-        <form action="#" method="get" class="DV-searchDocument">
-          <div class="DV-searchInputWrap">
-            <div class="DV-searchInput-cancel"></div>
-            <input class="DV-searchInput" type="text" placeholder="Search" />
-          </div>
-        </form>
-      </div>
+      <% if (pdf_mb) {%>
+        <div class="DV-download"><a href="#">Download Directory PDF (<%= pdf_mb %>MB)</a></div>
+      <% } else {%>
+        <div class="DV-download"><a href="#">Download Directory PDF</a></div>
+      <% } %>
       
       <div class="DV-zoomControls">
         <span class="DV-zoomLabel">Zoom</span>

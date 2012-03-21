@@ -45,6 +45,7 @@
       display: block;
       height: 14px;
       z-index: 0;
+      padding: 0;
     }
       .DV-thumbnails .DV-thumbnail .DV-pageNumber .DV-pageNumberText {
         -moz-border-radius: 8px;
@@ -111,32 +112,20 @@
         border-color: #09f;
       }
     .DV-thumbnails.DV-zoom-0 .DV-thumbnail {
-      width: 66px; height: 103px;
-    }
-      .DV-thumbnails.DV-zoom-0 .DV-thumbnail-image {
-        width: 60px; height: 75px;
-      }
-    .DV-thumbnails.DV-zoom-1 .DV-thumbnail {
-      width: 96px; height: 138px;
-    }
-      .DV-thumbnails.DV-zoom-1 .DV-thumbnail-image {
-        width: 90px; height: 112px;
-      }
-    .DV-thumbnails.DV-zoom-2 .DV-thumbnail {
       width: 126px; height: 178px;
     }
-      .DV-thumbnails.DV-zoom-2 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-0 .DV-thumbnail-image {
         width: 120px; height: 150px;
       }
-    .DV-thumbnails.DV-zoom-3 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-1 .DV-thumbnail {
       width: 156px; height: 216px;
     }
-      .DV-thumbnails.DV-zoom-3 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-1 .DV-thumbnail-image {
         width: 150px; height: 188px;
       }
-    .DV-thumbnails.DV-zoom-4 .DV-thumbnail {
+    .DV-thumbnails.DV-zoom-2 .DV-thumbnail {
       width: 186px; height: 253px;
     }
-      .DV-thumbnails.DV-zoom-4 .DV-thumbnail-image {
+      .DV-thumbnails.DV-zoom-2 .DV-thumbnail-image {
         width: 180px; height: 225px;
       }

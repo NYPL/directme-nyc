@@ -6,7 +6,6 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 		$.subscribe('clickSpot', funModal);
 
 		//setup modal
-
 		resetForm();
 		$('#loc_add').on('show', function() {
 			if (environment.hasOwnProperty('streets')) {
@@ -17,6 +16,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 			}
 			
 			fuzzy.search();
+
 			var _modal = $('.modal');
 			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');
 			var _modal_top = $(window).height()/6 + 120;
@@ -27,7 +27,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 			$('.popovers').popover();
 		});
 		$('#loc_add').on('hidden', function () {
-			$('.frm-text').val('');
+			resetForm();
 			reInitMag();
 		});
 

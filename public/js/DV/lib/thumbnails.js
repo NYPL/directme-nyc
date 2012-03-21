@@ -9,17 +9,16 @@ DV.Thumbnails = function(viewer){
   this.viewer          = viewer;
   this.resizeId        = _.uniqueId();
   this.sizes           = {
-    "0": {w: 60, h: 75},
-    "1": {w: 90, h: 112},
-    "2": {w: 120, h: 150},
-    "3": {w: 150, h: 188},
-    "4": {w: 180, h: 225}
+    "0": {w: 120, h: 150},
+    "1": {w: 150, h: 188},
+    "2": {w: 180, h: 225}
   };
   _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
 
 // Render the Thumbnails from scratch.
-DV.Thumbnails.prototype.render = function() {
+DV.Thumbnails.prototype.render = function(defaultZoom) {
+  var defaultZoom = defaultZoom || undefined;
   this.el = this.viewer.$('.DV-thumbnails');
   this.getCurrentIndex();
   this.getZoom();

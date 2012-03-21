@@ -14,16 +14,10 @@ _.extend(DV.Schema.events, {
       var annotation  = this.models.annotations.getAnnotation(aid);
       var pageNumber  = parseInt(annotation.index,10)+1;
 
-      if(this.viewer.state === 'ViewText'){
-        this.loadText(annotation.index);
-
-        // this.viewer.history.save('text/p'+pageNumber);
-      }else{
-        if (this.viewer.state === 'ViewThumbnails') {
-          this.viewer.open('ViewDocument');
-        }
-        this.viewer.pageSet.showAnnotation(annotation);
+      if (this.viewer.state === 'ViewThumbnails') {
+        this.viewer.open('ViewDocument');
       }
+      this.viewer.pageSet.showAnnotation(annotation);
 
     } else if (chapterEl.length) {
       // its a header, take it to the page
@@ -32,11 +26,8 @@ _.extend(DV.Schema.events, {
       var chapterIndex  = parseInt(this.models.chapters.getChapterPosition(cid),10);
       var pageNumber    = parseInt(chapterIndex,10)+1;
 
-      if(this.viewer.state === 'ViewText'){
-        this.loadText(chapterIndex);
         // this.viewer.history.save('text/p'+pageNumber);
-      }else if(this.viewer.state === 'ViewDocument' ||
-               this.viewer.state === 'ViewThumbnails'){
+      if (this.viewer.state === 'ViewDocument' || this.viewer.state === 'ViewThumbnails'){
         this.helpers.jump(chapterIndex);
         // this.viewer.history.save('document/p'+pageNumber);
         if (this.viewer.state === 'ViewThumbnails') {

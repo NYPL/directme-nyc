@@ -21,14 +21,13 @@
 .DV-autoZoom .p0,
 .DV-autoZoom .p1,
 .DV-autoZoom .p2 {
-  padding-left: 35px;
+  padding-left: 45px;
 }
 
 /* ================= */
 /* = Page Elements = */
 /* ================= */
 
-.DV-autoZoom .DV-pageNumber,
 .DV-autoZoom .DV-textCurrentPage {
   text-align: center;
   width: 30px;

@@ -8,31 +8,44 @@ define(['jquery'], function($) {
 
 	function EDcall(token, arr, city_id) {
 		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
-			var cross_string = ""
-			for (var i = 0; i < data.cross_streets.length; i++) {
-				cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
-					 data.cross_streets[i] + "</option>";
-			}
-			$('.crossstreets').append(cross_string);
 
-			var results = "";
-			for (i = 0; i < data.eds.length; i++) {
-				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
-					 data.fullcity_id + "-" + data.eds[i] + "</a>";
-			}
-			$('#EDlist').append(results);
+			if (data !== undefined) {
 
-			CSResolve(data.eds, data.fullcity_id, results, cross_string);
-			showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.NYC1940.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>More maps in the Lionel Pincus & Princess Firyal Map Division</a>");
-			showMap(data.coordinates.lat,data.coordinates.lng,'gmap','http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp');
-			
-			data.cutout = {x:150,y:300,href:"http://1940census.nypl.org.s3.amazonaws.com/testset/p1--large.jpg"};
-			showCutout(data.cutout.x,data.cutout.y,data.cutout.href);
+				var cross_string = ""
+				if ('cross_streets' in data && 'cross_vals') {
+					var cross_string = ""
+					for (var i = 0; i < data.cross_streets.length; i++) {
+						cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
+							 data.cross_streets[i] + "</option>";
+					}
+					$('.crossstreets').append(cross_string);
+				}
+
+				var results = "";
+				if ('eds' in data && 'fullcity_id' in data) {
+					for (i = 0; i < data.eds.length; i++) {
+						results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
+							 data.fullcity_id + "-" + data.eds[i] + "</a>";
+					}
+					$('#EDlist').append(results);
+
+					CSResolve(data.eds, data.fullcity_id, results, cross_string);
+				}
+
+				if ('coordinates' in data) {
+					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.NYC1940.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>More maps in the Lionel Pincus & Princess Firyal Map Division</a>");
+					showMap(data.coordinates.lat,data.coordinates.lng,'gmap','http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp');
+				}
+
+				if ('cutout' in data) {
+					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href);
+				}
+			}
 		});
 	}
 	
 	function showCutout(x,y,href) {
-		$("#cutout .page").css('background', 'url(' + href + ') -' + x + 'px -' + y + 'px');
+		$("#cutout .page").css('background', 'url(' + href + ') ' + x + 'px ' + y + 'px');
 	}
 
 	function CSResolve(arr, city_id, _results, _crosses) {
@@ -123,8 +136,6 @@ define(['jquery'], function($) {
 
 	function showMap(lat, lon, divid, tileset, attribution) {
 		if (attribution==undefined) attribution = '';
-		//var lat = 40.721;
-		//var lon = -73.979;
 		wax.tilejson(tileset,
 			function(tilejson) {
 				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(

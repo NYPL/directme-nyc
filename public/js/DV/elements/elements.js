@@ -19,7 +19,6 @@ DV.Schema.elements =
   { name: 'annotations',        query: 'div.DV-allAnnotations'},
   { name: 'navigation',         query: 'div.DV-navigation' },
   { name: 'chaptersContainer',  query: 'div.DV-chaptersContainer' },
-  { name: 'searchInput',        query: 'input.DV-searchInput' },
   { name: 'coverPages',         query: 'div.DV-cover' },
   { name: 'fullscreen',         query: 'div.DV-fullscreen' },
   { name: 'mag',                query: 'div.DV-mag' }

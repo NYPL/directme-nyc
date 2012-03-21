@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 5c217290e01a29e1acfb1b37628a8c2f454f659d
+  revision: a01e166415fb80996bccb8dac5def183b073d7fe
   specs:
     mongoid (3.0.0)
       activemodel (~> 3.1)
@@ -47,7 +47,7 @@ GEM
     json (1.6.5)
     launchy (2.1.0)
       addressable (~> 2.2.6)
-    mime-types (1.17.2)
+    mime-types (1.18)
     mongo (1.6.1)
       bson (~> 1.6.1)
     multi_json (1.1.0)
@@ -90,8 +90,6 @@ GEM
     uuidtools (2.1.2)
     webmock (1.8.4)
       addressable (>= 2.2.7)
-      addressable (>= 2.2.7)
-      crack (>= 0.1.7)
       crack (>= 0.1.7)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)

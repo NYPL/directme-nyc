@@ -26,6 +26,7 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
 
   this.document               = DV.jQuery.extend(true, {}, json);
   // Everything after this line is for back-compatibility.
+  this.data.pdf_mb            = json.pdf_mb;
   this.data.title             = json.title;
   this.data.totalPages        = json.pages;
   this.data.totalAnnotations  = json.annotations.length;

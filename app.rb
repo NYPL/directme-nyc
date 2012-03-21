@@ -13,6 +13,8 @@ def JsonP(json, params)
 	response
 end
 
+#globals
+#-------------------------------------
 #read flat json file for parsing
 $JSON = {}
 Dir.glob('public/*.json') do |file|
@@ -21,6 +23,8 @@ Dir.glob('public/*.json') do |file|
 	$JSON["#{name}"] = JSON.parse(json)
 end
 
+$LIMIT = 10
+#------------------------------------
 
 class Application < Sinatra::Base
 	#########################main handlers###########################
@@ -44,11 +48,11 @@ class Application < Sinatra::Base
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
-  get '/latest' do
-    slim :latest
-  end
+	get '/latest' do
+		slim :latest
+	end
 
-  get '/help' do
+  	get '/help' do
 		slim :help
 	end
 
@@ -88,7 +92,35 @@ class Application < Sinatra::Base
 #---------------API-CALLs-------------------------------------------------------
 
 	get '/locations.json' do
-		#timestamp ranges here
+		if params['limit']
+			limit = params['limit']
+		else
+			limit = $LIMIT
+		end
+
+		if params.has_key?("after_timestamp")
+			objs = Locations.where(:created_at.gt => params['after_timestamp']).asc(:created_at).limit(limit)
+		elsif params.has_key?("before_timestamp")
+			objs = Locations.where(:created_at.lt => params['before_timestamp']).desc(:created_at).limit(limit)
+		else
+			now = timestamp()
+			objs = Locations.where(:created_at.lt => now).limit(limit).desc(:created_at)
+		end
+
+		first_result = objs.first().created_at
+		last_result = objs.last().created_at
+
+		url = request.url.split('?')[0]
+		before_url = {:limit => limit, :before_timestamp => first_result}.to_query
+		after_url = {:limit => limit, :after_timestamp => last_result}.to_query
+
+		hash = {
+			:locations => objs,
+			:before_timestamp => "%s?%s" % [url, before_url],
+			:after_timestamp => "%s?%s" % [url, after_url]
+		}
+
+		return JsonP(hash.to_json, params)
 	end
 
 	post '/locations.json' do
@@ -110,7 +142,7 @@ class Application < Sinatra::Base
 			end
 
 			hash['address'] = [hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['main_string'] = [hash['name'], hash['number'], hash['street'], hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+			hash['main_string'] = [hash['name'], hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
 			hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
 			json = Locations.safely.create(hash).to_json
@@ -132,7 +164,8 @@ class Application < Sinatra::Base
 			:eds => ed_hash['streets'][obj.street].fetch('eds'),
 			:fullcity_id => ed_hash['fullcity_id'],
 			:street => obj.street,
-			:coordinates => obj.coordinates
+			:coordinates => obj.coordinates,
+			:cutout => obj.cutout
 		}.to_json
 
 		return JsonP(hash, params)
