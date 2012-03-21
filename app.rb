@@ -98,15 +98,29 @@ class Application < Sinatra::Base
 			limit = $LIMIT
 		end
 
-		if params['after_timestamp']
-
-		elsif params['before_timestamp']
-
+		if params.has_key?("after_timestamp")
+			objs = Locations.where(:created_at.gt => params['after_timestamp']).asc(:created_at).limit(limit)
+		elsif params.has_key?("before_timestamp")
+			objs = Locations.where(:created_at.lt => params['before_timestamp']).desc(:created_at).limit(limit)
 		else
 			now = timestamp()
-			puts now
-			puts Locations.where(:created_at.lte => now).limit(limit).to_json
+			objs = Locations.where(:created_at.lt => now).limit(limit).desc(:created_at)
 		end
+
+		first_result = objs.first().created_at
+		last_result = objs.last().created_at
+
+		url = request.url.split('?')[0]
+		before_url = {:limit => limit, :before_timestamp => first_result}.to_query
+		after_url = {:limit => limit, :after_timestamp => last_result}.to_query
+
+		hash = {
+			:locations => objs,
+			:before_timestamp => "%s?%s" % [url, before_url],
+			:after_timestamp => "%s?%s" % [url, after_url]
+		}
+
+		return JsonP(hash.to_json, params)
 	end
 
 	post '/locations.json' do
