@@ -3078,7 +3078,6 @@ DV.Schema.states = {
     this.dragReporter = new DV.DragReporter(this, '.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationContent' });
     this.helpers.startCheckTimer();
     this.helpers.handleInitialState();
-    //_.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
   },
 
   ViewAnnotation: function(){
@@ -3099,13 +3098,17 @@ DV.Schema.states = {
 
   ViewDocument: function(){
     this.helpers.reset();
+
+    for (var i = 0; i < this.models.document.ZOOM_RANGES.length; i++) {
+        if (DV.jQuery(window).width() <= this.models.document.ZOOM_RANGES[i]) {
+            _.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
+        }
+    }
+
     this.helpers.addObserver('drawPages');
     this.dragReporter.setBinding();
     this.elements.window.mouseleave(DV.jQuery.proxy(this.dragReporter.stop, this.dragReporter));
     this.acceptInput.allow();
-    if (DV.jQuery('.DV-page').width() > DV.jQuery(window).width()) {
-        _.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
-    }
     this.helpers.toggleContent('viewDocument');
 
     this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));

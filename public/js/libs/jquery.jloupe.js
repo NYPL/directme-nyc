@@ -72,6 +72,13 @@ jQuery.fn.jloupe = function(o){
 	var i = $('<img />').attr('src', s);	
 	$(this).data('zoom',i);	
 
+
+	$(document).on('mouseup', function() {
+		clearTimeout(this.downTimer);
+		$(document).off('mousemove')
+		drag_mode = false;
+	});
+
 	$(this)
 	.on({
 		mousemove: function(e){
@@ -131,7 +138,7 @@ jQuery.fn.jloupe = function(o){
 		mouseleave: function(){
 			if (locked_mode !== true) {
 				$(loupe).stop(true, true);
-				if(options.fade) $(loupe).fadeOut(100);
+				if(options.fade) $(loupe).fadeOut(75);
 				else $(loupe).hide();
 			}
 		},
@@ -146,12 +153,21 @@ jQuery.fn.jloupe = function(o){
 
 		mousedown: function(e) {
 			e.preventDefault();
+			cancelClick = false;
+			downTimer = setTimeout(function() {
+				$(document).on('mousemove', function() {
+				    drag_mode = true;
+				    $(loupe).stop(true, true);
+				    if(options.fade) $(loupe).fadeOut(10);
+				    else $(loupe).hide();
+				    cancelClick = true
+				});
+			}, 50);
 		},
-
 
 		click: function(e) {
 			e.preventDefault();
-			if (locked_mode !== true && $('.active-loupe').css('top') !== undefined) {
+			if (locked_mode !== true && cancelClick !== true & $('.active-loupe').css('top') !== undefined) {
 				locked_mode = true;
 				$('.active-loupe').animate({
 					top: $(window).height()/6,
