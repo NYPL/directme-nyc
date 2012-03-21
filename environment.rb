@@ -39,6 +39,7 @@ class Application < Sinatra::Base
 	# =========================================
 	register Sinatra::Flash
 	register Sinatra::Loader
+	register SinatraMore::MarkupPlugin
 	configure do
 		load_helpers MyHelpers
 	end

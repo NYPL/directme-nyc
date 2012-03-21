@@ -16,6 +16,7 @@ gem 'json'
 
 gem 'sinatra', :require => 'sinatra/base'                
 gem 'sinatra-flash', :require => 'sinatra/flash'
+gem 'sinatra_more', :require => 'sinatra_more/markup_plugin'
 
 #rack gems here	
 gem 'rack-cache', :require => 'rack/cache'  

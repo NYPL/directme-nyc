@@ -41,7 +41,6 @@ class Application < Sinatra::Base
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-
 		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load']
 		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
@@ -49,6 +48,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/latest' do
+		@deps = ['order!modules/latest']
 		slim :latest
 	end
 
@@ -99,12 +99,12 @@ class Application < Sinatra::Base
 		end
 
 		if params.has_key?("after_timestamp")
-			objs = Locations.where(:created_at.gt => params['after_timestamp']).asc(:created_at).limit(limit)
+			objs = Locations.where(:created_at.gt => Time.parse(params['after_timestamp']).getutc).order_by(:created_at, :asc).limit(limit)
 		elsif params.has_key?("before_timestamp")
-			objs = Locations.where(:created_at.lt => params['before_timestamp']).desc(:created_at).limit(limit)
+			objs = Locations.where(:created_at.lt => Time.parse(params['before_timestamp']).getutc).order_by(:created_at, :desc).limit(limit)
 		else
-			now = timestamp()
-			objs = Locations.where(:created_at.lt => now).limit(limit).desc(:created_at)
+			now = Time.parse(timestamp()).getutc
+			objs = Locations.where(:created_at.lt => now).order_by(:created_at, :desc).limit(limit)
 		end
 
 		first_result = objs.first().created_at
@@ -114,13 +114,19 @@ class Application < Sinatra::Base
 		before_url = {:limit => limit, :before_timestamp => first_result}.to_query
 		after_url = {:limit => limit, :after_timestamp => last_result}.to_query
 
-		hash = {
-			:locations => objs,
-			:before_timestamp => "%s?%s" % [url, before_url],
-			:after_timestamp => "%s?%s" % [url, after_url]
+		changed_objs = []
+		objs.each { |obj|
+			obj['time_ago'] = relative_time_ago(obj.created_at)
+			changed_objs.push(obj)
 		}
 
-		return JsonP(hash.to_json, params)
+		hash = {
+			:locations => changed_objs,
+			:before_timestamp => "%s?%s" % [url, before_url],
+			:after_timestamp => "%s?%s" % [url, after_url] 
+		}.to_json
+
+		return JsonP(hash, params)
 	end
 
 	post '/locations.json' do
