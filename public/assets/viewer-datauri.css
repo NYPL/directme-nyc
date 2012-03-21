@@ -788,7 +788,6 @@
   cursor: pointer;
   padding-top:15px;
   padding-bottom: 5px;
-  padding-left: 5px;
 }
   .DV-pageNumber:hover {
     text-decoration: underline;
@@ -927,7 +926,7 @@
 }
 
 .DV-linkage {
-  background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQhJREFUeNrsVlEKwyAM1dHbeaMxMG6wnajny2IXR2ptDOtHGVgItdb3fHmxVo+I7sh1cQevyTJonmegW+THFEIAswIBBo7IfX0FApxnTdznBFlXQawl/2QizYpCUY5U3vm6jLVhRYVQ9CJF16YHMmeZgiC8Ezg2y1gZBix7AdOzt3iwlKoYpoFMC4kUPOh2k4b1CPJA4Dq7AtZKuKmCtmRNBKd8jYNgEAyCQfBnBN57oECO9UabN1Ut+GeKvFtHbsP3vREMoi9+5rURrMAtAqsHWLyozweabJQpiPZzNX4v56pdCNNmwj3DJFj1qTIsthRpBJNinOl8YF4w3RRaFeiBc5x/PngLMADORZMdSLOIKwAAAABJRU5ErkJggg==") no-repeat 12px -34px;
+  background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAYAAAAYX/pXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQhJREFUeNrsVlEKwyAM1dHbeaMxMG6wnajny2IXR2ptDOtHGVgItdb3fHmxVo+I7sh1cQevyTJonmegW+THFEIAswIBBo7IfX0FApxnTdznBFlXQawl/2QizYpCUY5U3vm6jLVhRYVQ9CJF16YHMmeZgiC8Ezg2y1gZBix7AdOzt3iwlKoYpoFMC4kUPOh2k4b1CPJA4Dq7AtZKuKmCtmRNBKd8jYNgEAyCQfBnBN57oECO9UabN1Ut+GeKvFtHbsP3vREMoi9+5rURrMAtAqsHWLyozweabJQpiPZzNX4v56pdCNNmwj3DJFj1qTIsthRpBJNinOl8YF4w3RRaFeiBc5x/PngLMADORZMdSLOIKwAAAABJRU5ErkJggg==") no-repeat 0px -34px;
 }
 
 .DV-sidebar.DV-hide {
@@ -1793,13 +1792,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1329940696);
+  background: url(../images/DV/browsers/safari.gif?1331748516);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1329940696);
+  background: url(../images/DV/browsers/chrome.gif?1331748516);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1329940696);
+  background: url(../images/DV/browsers/firefox.gif?1331748516);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;

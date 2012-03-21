@@ -28,7 +28,6 @@
   cursor: pointer;
   padding-top:15px;
   padding-bottom: 5px;
-  padding-left: 5px;
 }
   .DV-pageNumber:hover {
     text-decoration: underline;
@@ -167,5 +166,5 @@
 }
 
 .DV-linkage {
-  background: url(../../../images/DV/embed/link.png) no-repeat 12px -34px;
+  background: url(../../../images/DV/embed/link.png) no-repeat 0px -34px;
 }

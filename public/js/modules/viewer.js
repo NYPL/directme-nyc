@@ -1230,7 +1230,7 @@ DV.Thumbnails.prototype.setZoom = function(zoom) {
 };
 
 // The thumbnails (unfortunately) have their own notion of the current zoom
-// level -- specified from 0 - 4.
+// level -- specified from 0 - 2.
 DV.Thumbnails.prototype.getZoom = function(zoom) {
   if (zoom != null) {
     return this.zoomLevel = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoom);
@@ -3078,7 +3078,7 @@ DV.Schema.states = {
     this.dragReporter = new DV.DragReporter(this, '.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationContent' });
     this.helpers.startCheckTimer();
     this.helpers.handleInitialState();
-    _.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
+    //_.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
   },
 
   ViewAnnotation: function(){
