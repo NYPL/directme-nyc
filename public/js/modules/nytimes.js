@@ -1,4 +1,4 @@
-define(['require', 'jquery'], function(requre, $) {
+define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 	var tickerDOM = $("#marquee");
@@ -48,6 +48,8 @@ define(['require', 'jquery'], function(requre, $) {
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
 		log(tickercontent);
+		log(tickerDOM);
+		tickerDOM.marquee()
 		tickerDOM.marquee('pointer').mouseover(function () {
             $(this).trigger('stop');
         }).mouseout(function () {
