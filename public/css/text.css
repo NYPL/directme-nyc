@@ -20,6 +20,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, p, ul {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 6px;

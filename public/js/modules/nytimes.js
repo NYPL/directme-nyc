@@ -1,7 +1,7 @@
-define(['require', 'jquery'], function(requre, $) {
+define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
-	var tickerDOM = $("#marquee");
+	var tickerDOM = $("marquee");
 	var headlines = [];
 	var currenthl = 0;
 	var currentchar = 0;
@@ -22,7 +22,7 @@ define(['require', 'jquery'], function(requre, $) {
 						'pq_id': data[i].pq_id,
 						'hdl': data[i].hdl,
 						//'lead': data[i].lead,
-						'nyt_url': data[i].ny_url,
+						'nyt_url': data[i].ny_url
 					}
 				);
 			}
@@ -60,6 +60,6 @@ define(['require', 'jquery'], function(requre, $) {
 
 	/** Return instantiated function */
 	return {
-		init: _init(),
+		init: _init()
 	};
 });

@@ -2,6 +2,11 @@ div.spacer {
 	clear: both;
 	height: 0px;
 }
+/* IE7 FLOAT CLEAR FIX */
+div.spacer { display: inline-block; }
+div.spacer:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+* html div.spacer { height: 1%; }
+div.spacer{ display: block; }
 
 /* MAIN STRUCTURE */
 
@@ -41,6 +46,7 @@ div.spacer {
 	background: #fff;
 	height: 70px;
 	border-bottom: 2px solid #000;
+	overflow: hidden;
 }
 
 #header h1 {
@@ -56,7 +62,8 @@ div.spacer {
 
 #nav_bar {
 	float: right;
-	width: 350px;
+	display: inline-block;
+	width: 395px;
 	top: 0;
 }
 
@@ -142,13 +149,13 @@ div.spacer {
 
 #ticker .title {
 	float: left;
-	width: 130px;
+	width: 140px;
 	margin-left: 5px;
 }
 
 #ticker .content {
 	float: left;
-	width: 810px;
+	width: 800px;
 	height: 17px;
 	line-height: 1.2;
 	overflow: hidden;
@@ -158,12 +165,14 @@ div.spacer {
 	width: 230px;
 	margin: 12px auto 0 auto;
 	text-align: center;
+	padding-top: 40px;
 }
 
 /* DROP SHADOWS [http://nicolasgallagher.com/css-drop-shadows-without-images/demo/] */
 
 #ticker {
-	position:relative;
+	position:absolute;
+	display: inline;
 	padding:5px; 
 	background:#fff;
 	z-index: 1;
@@ -240,6 +249,7 @@ div.spacer {
 	border: 1px solid #ccc;
 	padding: 4px;
 	margin-left: 480px;
+	margin-right: 240px;
 }
 
 #video .embed {
@@ -403,6 +413,11 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#ticker:before {
 		border-radius:200px / 10px;
 	}
+	
+	#video {
+		margin-right: 0;
+	}
+
 }
 
 @media screen and (min-width: 0px) and (max-width: 740px) {

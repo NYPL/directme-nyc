@@ -1816,6 +1816,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, p, ul {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 6px;
@@ -1858,7 +1859,7 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331748516) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -1901,7 +1902,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331748516) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -1982,7 +1983,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331748516) no-repeat;
+	background: url(../images/sprites.png?1331738064) no-repeat;
 }
 
 #frm-annotate a#fb-submit span:after {
@@ -2109,6 +2110,11 @@ div.spacer {
 	clear: both;
 	height: 0px;
 }
+/* IE7 FLOAT CLEAR FIX */
+div.spacer { display: inline-block; }
+div.spacer:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+* html div.spacer { height: 1%; }
+div.spacer{ display: block; }
 
 /* MAIN STRUCTURE */
 
@@ -2127,7 +2133,7 @@ div.spacer {
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png?1331748516) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -2148,6 +2154,7 @@ div.spacer {
 	background: #fff;
 	height: 70px;
 	border-bottom: 2px solid #000;
+	overflow: hidden;
 }
 
 #header h1 {
@@ -2163,7 +2170,8 @@ div.spacer {
 
 #nav_bar {
 	float: right;
-	width: 350px;
+	display: inline-block;
+	width: 395px;
 	top: 0;
 }
 
@@ -2193,7 +2201,7 @@ div.spacer {
 
 #main {
 	position: relative;
-	background: url(../images/background.png?1331748516);
+	background: url(../images/background.png?1331658353);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -2249,13 +2257,13 @@ div.spacer {
 
 #ticker .title {
 	float: left;
-	width: 130px;
+	width: 140px;
 	margin-left: 5px;
 }
 
 #ticker .content {
 	float: left;
-	width: 810px;
+	width: 800px;
 	height: 17px;
 	line-height: 1.2;
 	overflow: hidden;
@@ -2265,12 +2273,14 @@ div.spacer {
 	width: 230px;
 	margin: 12px auto 0 auto;
 	text-align: center;
+	padding-top: 40px;
 }
 
 /* DROP SHADOWS [http://nicolasgallagher.com/css-drop-shadows-without-images/demo/] */
 
 #ticker {
-	position:relative;
+	position:absolute;
+	display: inline;
 	padding:5px; 
 	background:#fff;
 	z-index: 1;
@@ -2347,6 +2357,7 @@ div.spacer {
 	border: 1px solid #ccc;
 	padding: 4px;
 	margin-left: 480px;
+	margin-right: 240px;
 }
 
 #video .embed {
@@ -2429,7 +2440,7 @@ div.spacer {
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png?1331748516) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
 }
 
 #geobig {
@@ -2510,6 +2521,11 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#ticker:before {
 		border-radius:200px / 10px;
 	}
+	
+	#video {
+		margin-right: 0;
+	}
+
 }
 
 @media screen and (min-width: 0px) and (max-width: 740px) {

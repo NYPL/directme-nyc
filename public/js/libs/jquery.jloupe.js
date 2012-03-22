@@ -70,6 +70,10 @@ jQuery.fn.jloupe = function(o){
 	var s = $(this).attr('src');
 	s = (h) ? h : s;
 	var i = $('<img />').attr('src', s);	
+	
+	var lastdown = 0;
+	var isdown = false;
+	
 	$(this).data('zoom',i);	
 
 
@@ -82,6 +86,14 @@ jQuery.fn.jloupe = function(o){
 	$(this)
 	.on({
 		mousemove: function(e){
+			if (isdown) {
+				// user is dragging
+			    drag_mode = true;
+			    $(loupe).stop(true, true);
+			    if(options.fade) $(loupe).fadeOut(10);
+			    else $(loupe).hide();
+			    cancelClick = true
+			}
 			if (locked_mode !== true && drag_mode !== true) {
 				$(loupe).hide();
 				$(loupe).show();
@@ -154,15 +166,17 @@ jQuery.fn.jloupe = function(o){
 		mousedown: function(e) {
 			e.preventDefault();
 			cancelClick = false;
-			downTimer = setTimeout(function() {
-				$(document).on('mousemove', function() {
-				    drag_mode = true;
-				    $(loupe).stop(true, true);
-				    if(options.fade) $(loupe).fadeOut(10);
-				    else $(loupe).hide();
-				    cancelClick = true
-				});
-			}, 50);
+			lastdown = new Date().getTime();
+			isdown = true;
+		},
+		
+		mouseup: function(e) {
+			isdown = false;
+			var t = new Date().getTime();
+			if (t - lastdown < 100) {
+				// user was NOT dragging
+			    drag_mode = false;
+			}
 		},
 
 		click: function(e) {

@@ -8,7 +8,7 @@ define(['jquery'], function($) {
     		name: 'ytplayer',
     		id: 'ytplayer',
     		src: 'http://www.youtube.com/embed/' + vids[Math.floor(Math.random() * vids.length)] + '?wmode=opaque',
-    		frameborder: '0',
+    		frameborder: '0'
 		}).appendTo('.embed');
 	})();
 	
