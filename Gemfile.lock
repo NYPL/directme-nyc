@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/mongoid/mongoid.git
-  revision: a371291ff9fe53cafe7445907fb608a76b85163b
-  specs:
-    mongoid (3.0.0)
-      activemodel (~> 3.1)
-      mongo (~> 1.3)
-      tzinfo (~> 0.3.22)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -50,6 +41,10 @@ GEM
     mime-types (1.18)
     mongo (1.6.1)
       bson (~> 1.6.1)
+    mongoid (2.4.7)
+      activemodel (~> 3.1)
+      mongo (~> 1.3)
+      tzinfo (~> 0.3.22)
     multi_json (1.1.0)
     mustache (0.99.4)
     netrc (0.7.1)
@@ -113,7 +108,7 @@ DEPENDENCIES
   heroku
   jammit
   json
-  mongoid!
+  mongoid
   rack
   rack-cache
   rack-test

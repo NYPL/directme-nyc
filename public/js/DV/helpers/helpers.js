@@ -71,6 +71,7 @@ DV.Schema.helpers = {
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
+      
 
       // Thumbnails
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
