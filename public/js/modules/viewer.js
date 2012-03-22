@@ -2039,9 +2039,9 @@ DV.Schema.events.ViewDocument = {
     this.helpers.jump(previousPage);
 
     // this.viewer.history.save('document/p'+(previousPage+1));
-  },
+  }
   
-}
+};
 DV.Schema.events.ViewThumbnails = {
   next: function(){
     var nextPage = this.models.document.nextPage();
@@ -2119,7 +2119,7 @@ _.extend(DV.Schema.events, {
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
     this.viewer.open('ViewThumbnails');
-  },
+  }
 
 });
 
