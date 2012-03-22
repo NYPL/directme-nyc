@@ -552,7 +552,7 @@ div.spacer{ display: block; }
 
 #ticker .title {
 	float: left;
-	width: 130px;
+	width: 140px;
 	margin-left: 5px;
 }
 
@@ -575,7 +575,7 @@ div.spacer{ display: block; }
 
 #ticker {
 	position:absolute;
-	display: inline-block;
+	display: inline;
 	padding:5px; 
 	background:#fff;
 	z-index: 1;

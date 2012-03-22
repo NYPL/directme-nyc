@@ -27,7 +27,6 @@ define(['jquery'], function($) {
 				);
 			}
 			dataloaded = true;
-			log(headlines);
 			if (headlines.length>0) {
 				startTicker();
 			} else {
@@ -47,8 +46,6 @@ define(['jquery'], function($) {
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-		log(tickercontent);
-		log(tickerDOM);
 		tickerDOM.marquee('pointer').mouseover(function () {
             $(this).trigger('stop');
         }).mouseout(function () {
