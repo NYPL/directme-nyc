@@ -61,7 +61,8 @@ div.spacer{ display: block; }
 
 #nav_bar {
 	float: right;
-	width: 350px;
+	display: inline-block;
+	width: 395px;
 	top: 0;
 }
 
@@ -170,6 +171,7 @@ div.spacer{ display: block; }
 
 #ticker {
 	position:absolute;
+	display: inline-block;
 	padding:5px; 
 	background:#fff;
 	z-index: 1;
@@ -246,6 +248,7 @@ div.spacer{ display: block; }
 	border: 1px solid #ccc;
 	padding: 4px;
 	margin-left: 480px;
+	margin-right: 240px;
 }
 
 #video .embed {
@@ -408,6 +411,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 	#ticker:before {
 		border-radius:200px / 10px;
+	}
+	
+	#video {
+		margin-right: 0;
 	}
 
 }
