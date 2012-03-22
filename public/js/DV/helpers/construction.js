@@ -39,7 +39,7 @@ _.extend(DV.Schema.helpers, {
       sidebar_left: sidebarLeftHTML,
       pdf_url: pdfURL,
       print_notes_url: printNotesURL,
-      autoZoom: this.viewer.options.zoom == 'auto',
+      autoZoom: this.viewer.options.zoom == 'auto'
     };
 
     if (this.viewer.options.width && this.viewer.options.height) {
