@@ -60,6 +60,6 @@ define(['require', 'jquery'], function(requre, $) {
 
 	/** Return instantiated function */
 	return {
-		init: _init(),
+		init: _init()
 	};
 });
