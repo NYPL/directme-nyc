@@ -49,13 +49,11 @@ define(['jquery'], function($) {
 		tickerDOM.append(tickercontent);
 		log(tickercontent);
 		log(tickerDOM);
-		/*
 		tickerDOM.marquee('pointer').mouseover(function () {
             $(this).trigger('stop');
         }).mouseout(function () {
             $(this).trigger('start');
         });
-        */
 	}
 
 	function showError() {
