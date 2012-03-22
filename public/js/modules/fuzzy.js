@@ -15,6 +15,10 @@ define(['jquery'], function($) {
 			var fullcity = $('#fullcity_hidden').val();
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			var checkDisabled = $(this).hasClass('disabled');
+			log("1: " + $('.active-loupe'));
+			log("2: " + $('.active-loupe').find('.thejloupeview'));
+			log("3: " + $('.active-loupe').find('.thejloupeview').css('backgroundPosition'));
+			log("4: " + $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" "));
 			var positions = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ");
 			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
 			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
@@ -30,8 +34,6 @@ define(['jquery'], function($) {
 	function matchStreets(input) {
 		var trimmed = input.replace(/\s/,'');
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
-		log(environment);
-		log(environment.streets);
 		return environment.streets.filter(function(st) {
 			if (st.match(reg)) {
 				return capitalize(st);
