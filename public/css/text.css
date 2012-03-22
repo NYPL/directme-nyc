@@ -214,11 +214,15 @@ p {
 	color: #f00;
 }
 
-#bigmap .leaflet-popup-content {
+.leaflet-container a, .leaflet-popup .leaflet-popup-content, #main .leaflet-container .leaflet-control-attribution {
 	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
 }
 
-#bigmap .leaflet-popup-content a {
+.leaflet-container .leaflet-control-attribution a {
+	color: #666;
+}
+
+.leaflet-popup .leaflet-popup-content a, .leaflet-control-attribution a:hover {
 	color: #f00;
 }
 

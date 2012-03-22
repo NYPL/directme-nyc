@@ -134,16 +134,16 @@ define(['jquery'], function($) {
 		});
 
 	}
-	
+	//-74.4234,40.3984,-73.5212,41.0053
 	function showLocations(loc) {
-		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.NYC1940.jsonp',
+		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11.jsonp',
 			function(tilejson) {
 				// limit bounds of map
-				var NE = new L.LatLng(40.9244,-73.6887),
-			    SW = new L.LatLng(40.4809,-74.2696),
+				var NE = new L.LatLng(41.0053,-74.4234),
+			    SW = new L.LatLng(40.3984,-73.5212),
 			    bounds = new L.LatLngBounds(SW, NE);
 
-				var map = new L.Map('bigmap', {zoomControl: false, trackResize: false}).addLayer(
+				var map = new L.Map('bigmap', {zoomControl: false, trackResize: false, maxBounds:bounds}).addLayer(
 					new wax.leaf.connector(tilejson));
 				
 				var CensusIcon = L.Icon.extend({
@@ -157,6 +157,8 @@ define(['jquery'], function($) {
 				
 				var markerIcon = new CensusIcon();
 				
+				log(wax.mm);
+				
 				// add markers
 				for (var i=0;i<loc.length;++i) {
 					var it = loc[i];
@@ -169,7 +171,7 @@ define(['jquery'], function($) {
 				map.setView(new L.LatLng(40.6537555, -73.9867), 11);
 				//map.setView(new L.LatLng(loc[loc.length-1].coordinates.lat, loc[loc.length-1].coordinates.lng), 11);
 				
-				map.attributionControl.addAttribution("<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>More maps in the Lionel Pincus & Princess Firyal Map Division</a>");
+				map.attributionControl.addAttribution("<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>");
 				
 				// disable zooming interaction
 				//map.dragging.disable();

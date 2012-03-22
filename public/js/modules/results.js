@@ -36,7 +36,7 @@ define(['jquery'], function($) {
 				}
 
 				if ('coordinates' in data) {
-					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.NYC1940.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>More maps in the Lionel Pincus & Princess Firyal Map Division</a>");
+					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-16.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>");
 					showMap(data.coordinates.lat,data.coordinates.lng,'gmap','http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp');
 				}
 
