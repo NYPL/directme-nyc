@@ -1,6 +1,5 @@
 defaults: &defaults  
     identity_map_enabled: true
-    use_activesupport_time_zone: false
     use_utc: true
 
 development:  

@@ -1,3 +1,16 @@
+#globals
+#-------------------------------------
+#read flat json file for parsing
+$JSON = {}
+Dir.glob('public/*.json') do |file|
+	json = File.read(file)
+	name = file.gsub(/public\//, '').split('.json')[0]
+	$JSON["#{name}"] = JSON.parse(json)
+end
+
+$LIMIT = 10
+#------------------------------------
+
 # app only methods
 def JsonP(json, params)
 	callback = params.delete('callback') # jsonp
@@ -13,18 +26,38 @@ def JsonP(json, params)
 	response
 end
 
-#globals
-#-------------------------------------
-#read flat json file for parsing
-$JSON = {}
-Dir.glob('public/*.json') do |file|
-	json = File.read(file)
-	name = file.gsub(/public\//, '').split('.json')[0]
-	$JSON["#{name}"] = JSON.parse(json)
-end
+def paging_time(model, request, params)
+	if params['limit']
+		limit = params['limit']
+	else
+		limit = $LIMIT
+	end
 
-$LIMIT = 10
-#------------------------------------
+	if params.has_key?("after_timestamp")
+		objs = model.where(:created_at.gt => Time.parse(params['after_timestamp']).getutc).order_by(:created_at, :asc).limit(limit)
+	elsif params.has_key?("before_timestamp")
+		objs = model.where(:created_at.lt => Time.parse(params['before_timestamp']).getutc).order_by(:created_at, :desc).limit(limit)
+	else
+		now = Time.parse(timestamp()).getutc
+		objs = model.where(:created_at.lt => now).order_by(:created_at, :desc).limit(limit)
+	end
+
+	first_result = objs.first().created_at
+	last_result = objs.last().created_at
+
+	url = request.url.split('?')[0]
+	before_url = {:limit => limit, :before_timestamp => last_result}.to_query
+	after_url = {:limit => limit, :after_timestamp => first_result}.to_query
+
+	changed_objs = time_ago(objs)
+
+	return {
+		:objs => changed_objs, 
+		:url => url, 
+		:before_url => before_url, 
+		:after_url => after_url
+	}
+end
 
 class Application < Sinatra::Base
 	#########################main handlers###########################
@@ -95,38 +128,12 @@ class Application < Sinatra::Base
 #---------------API-CALLs-------------------------------------------------------
 
 	get '/locations.json' do
-		if params['limit']
-			limit = params['limit']
-		else
-			limit = $LIMIT
-		end
-
-		if params.has_key?("after_timestamp")
-			objs = Locations.where(:created_at.gt => Time.parse(params['after_timestamp']).getutc).order_by(:created_at, :asc).limit(limit)
-		elsif params.has_key?("before_timestamp")
-			objs = Locations.where(:created_at.lt => Time.parse(params['before_timestamp']).getutc).order_by(:created_at, :desc).limit(limit)
-		else
-			now = Time.parse(timestamp()).getutc
-			objs = Locations.where(:created_at.lt => now).order_by(:created_at, :desc).limit(limit)
-		end
-
-		first_result = objs.first().created_at
-		last_result = objs.last().created_at
-
-		url = request.url.split('?')[0]
-		before_url = {:limit => limit, :before_timestamp => first_result}.to_query
-		after_url = {:limit => limit, :after_timestamp => last_result}.to_query
-
-		changed_objs = []
-		objs.each { |obj|
-			obj['time_ago'] = relative_time_ago(obj.created_at)
-			changed_objs.push(obj)
-		}
+		ret_hash = paging_time(Locations, request, params)
 
 		hash = {
-			:locations => changed_objs,
-			:before_timestamp => "%s?%s" % [url, before_url],
-			:after_timestamp => "%s?%s" % [url, after_url] 
+			:locations => ret_hash[:objs],
+			:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+			:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
 		}.to_json
 
 		return JsonP(hash, params)
@@ -163,6 +170,10 @@ class Application < Sinatra::Base
 
 	get '/locations/:token.json' do
 		obj = Locations.where(:token => params['token']).first()
+		_stories = Stories.where(:result_url => obj.url).order_by(:created_at, :desc)
+
+		stories = time_ago(_stories)
+
 		ed_hash = $JSON[obj.borough]
 
 		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
@@ -174,7 +185,8 @@ class Application < Sinatra::Base
 			:fullcity_id => ed_hash['fullcity_id'],
 			:street => obj.street,
 			:coordinates => obj.coordinates,
-			:cutout => obj.cutout
+			:cutout => obj.cutout,
+			:stories => stories
 		}.to_json
 
 		return JsonP(hash, params)
@@ -185,10 +197,34 @@ class Application < Sinatra::Base
 		return JsonP(json, params)
 	end
 
-	get '/stories.json' do
+	post '/stories.json' do
+		status 201
+
+		if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
+			hash = {}
+			params.each { |param, value|
+				if param != 'callback' and param != 'token' and value != 'null'
+					hash[param] = value
+				end
+			}
+
+			if request.host == 'localhost'
+				hash['result_url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, params['token']]
+			else
+				hash['result_url'] = 'http://%s/results?token=%s' % [request.host, params['token']]
+			end
+
+			json = Stories.safely.create(hash).to_json
+			return JsonP(json, params)
+
+		else
+			log.info 'write error here'
+		end
 	end
 
-	get '/stories/:id.json' do
+	get '/stories.json' do
+		ret_hash = paging_time(Stories, request, params)
+
 	end
 
 	get '/streets/:borough.json' do

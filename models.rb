@@ -13,7 +13,6 @@ class Loaders
 	field :borough, :type => String
 
 	embeds_one :resources
-	has_many :stories
 end
 
 class Resource
@@ -41,18 +40,20 @@ class Locations
 	field :address, :type => String
 	field :main_string, :type => String
 	field :cutout, :type => Hash
+	field :url, :type => String
 end
 
 class Stories
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	belongs_to :loaders
+	index :result_url
 
-	field :result_token, :type => String
-	field :story, :type => String
+	field :result_url, :type => String
+	field :content, :type => String
 	field :connection, :type => String
-	#add connection image/id
+	field :location, :type => Hash
+	field :page_idx, :type => String
 end
 
 class Headlines

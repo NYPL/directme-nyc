@@ -9,11 +9,38 @@ define(['jquery'], function($) {
 		$("#results .EDnone").hide();
 	}
 
+	function submitStory(page_idx, ifStories) {
+		$('#fb-submit').on('click', function(e) {
+
+			var content = $('#frm-content').val();
+			var time_dist = 'just now'
+
+			//temp
+			var author = 'Anonymous'
+			//
+
+			var location = {}
+			if (content) {
+				$.post(urlpath + '/stories.json?callback=?', {author: author, content: content, location: location, page: page_idx, token: getUrlVar('token')}, function(data) {
+					if ('content' in data) {
+						$('#frm-content').val('');
+						if (ifStories === true) {
+							appendStory(content, author, time_dist);
+							ifStories = false;
+						}
+						else {
+							prependStory(content, author, time_dist);
+						}
+					}
+				}, "json");
+			}
+		});
+	}
+
 	function EDcall(token, arr, city_id) {
 		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
 
 			if (data !== undefined) {
-
 				var cross_string = ""
 				if ('cross_streets' in data && 'cross_vals') {
 					var cross_string = ""
@@ -43,6 +70,16 @@ define(['jquery'], function($) {
 				if ('cutout' in data) {
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href);
 				}
+
+				if ('stories' in data) {
+					var ifStories = _.isEmpty(data.stories);
+
+					if (ifStories === false) {
+						for (i = 0; i < data.stories.length; i++) {
+							appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
+						}
+					}
+				}
 				
 				if (data.eds.length > 1) {
 					$("#results .EDmore1").show();
@@ -51,6 +88,8 @@ define(['jquery'], function($) {
 				} else {
 					$("#results .EDnone").show();
 				}
+
+				submitStory(data.cutout.page_idx, ifStories);
 			}
 		});
 	}
@@ -192,6 +231,14 @@ define(['jquery'], function($) {
 	function getUrlVar(key){
 		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
 		return result && unescape(result[1]) || ""; 
+	}
+
+	function appendStory(content, author, time_dist) {
+		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").appendTo('#frm-annotate')
+	}
+
+	function prependStory(content, author, time_dist) {
+		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
 	}
 
 

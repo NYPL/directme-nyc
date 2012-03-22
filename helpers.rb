@@ -56,8 +56,23 @@ module MyHelpers
 
 	module RandGen
 		extend self
+		attr_reader :rand_id
 		def gen_random_id()
 			@rand_id = Base32.encode(Digest::MD5.digest(UUIDTools::UUID.random_create)).downcase!.split('=')[0]
+		end
+	end
+
+	module TimeAgo
+		extend self
+		attr_reader :changed_objs
+		def time_ago(objs)
+			@changed_objs = []
+			objs.each { |obj|
+				obj['time_ago'] = relative_time_ago(obj.created_at)
+				@changed_objs.push(obj)
+			}
+
+			return @changed_objs
 		end
 	end
 end
