@@ -11,6 +11,6 @@ DV.Schema.events.ViewDocument = {
     this.helpers.jump(previousPage);
 
     // this.viewer.history.save('document/p'+(previousPage+1));
-  },
+  }
   
 }
