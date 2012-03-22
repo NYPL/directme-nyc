@@ -22,7 +22,7 @@ define(['require', 'jquery'], function(requre, $) {
 						'pq_id': data[i].pq_id,
 						'hdl': data[i].hdl,
 						//'lead': data[i].lead,
-						'nyt_url': data[i].ny_url,
+						'nyt_url': data[i].ny_url
 					}
 				);
 			}
