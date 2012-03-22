@@ -1816,6 +1816,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, p, ul {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 6px;
@@ -2347,12 +2348,14 @@ div.spacer{ display: block; }
 /* END TICKER SHADOWS */
 
 #video {
+	float: right;
 	display: inline-block;
 	width: 230px;
 	background: #fff;
 	border: 1px solid #ccc;
 	padding: 4px;
-	margin-left: 480px;
+	margin-right: 240px;
+	margin-bottom: 12px;
 }
 
 #video .embed {
@@ -2516,6 +2519,11 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#ticker:before {
 		border-radius:200px / 10px;
 	}
+
+	#video {
+		margin-right: 0;
+	}
+
 }
 
 @media screen and (min-width: 0px) and (max-width: 740px) {
@@ -2578,6 +2586,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#ticker .content {
 		width: 470px;
 		margin-top: 6px;
+	}
+
+	#nytimes .footer {
+		padding-top: 55px;
 	}
 
 	#templateheader, #toc, #templatecontent {
