@@ -63,6 +63,6 @@ _.extend(DV.Schema.events, {
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
     this.viewer.open('ViewThumbnails');
-  },
+  }
 
 });
