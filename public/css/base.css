@@ -200,7 +200,7 @@ div.spacer {
 }
 
 #ticker .content:before, #ticker .content:after {
-	content:".";
+	content:"_";
 	position:absolute; 
 	width: 64px;
 	color: #fff;
