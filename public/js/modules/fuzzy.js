@@ -30,6 +30,8 @@ define(['jquery'], function($) {
 	function matchStreets(input) {
 		var trimmed = input.replace(/\s/,'');
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
+		log(environment);
+		log(environment.streets);
 		return environment.streets.filter(function(st) {
 			if (st.match(reg)) {
 				return capitalize(st);
