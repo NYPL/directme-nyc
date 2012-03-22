@@ -240,14 +240,12 @@ div.spacer{ display: block; }
 /* END TICKER SHADOWS */
 
 #video {
-	float: right;
 	display: inline-block;
 	width: 230px;
 	background: #fff;
 	border: 1px solid #ccc;
 	padding: 4px;
-	margin-right: 240px;
-	margin-bottom: 12px;
+	margin-left: 480px;
 }
 
 #video .embed {
@@ -412,10 +410,6 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		border-radius:200px / 10px;
 	}
 
-	#video {
-		margin-right: 0;
-	}
-
 }
 
 @media screen and (min-width: 0px) and (max-width: 740px) {
@@ -478,10 +472,6 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#ticker .content {
 		width: 470px;
 		margin-top: 6px;
-	}
-
-	#nytimes .footer {
-		padding-top: 55px;
 	}
 
 	#templateheader, #toc, #templatecontent {
