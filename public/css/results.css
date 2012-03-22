@@ -76,6 +76,10 @@
 	width: 480px;
 }
 
+#ticker {
+	width: 470px;
+}
+
 #ticker .title {
 	float: none;
 	width: auto;
@@ -160,6 +164,11 @@
 		float: none;
 		width: auto;
 	}
+
+	#ticker {
+		width: auto;
+	}
+
 }
 
 @media screen and (min-width: 0px) and (max-width: 620px) {
