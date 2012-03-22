@@ -49,9 +49,6 @@ DV.Schema.helpers = {
 
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
-      viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
-      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
-
       //make mag not clickable
       viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
 
