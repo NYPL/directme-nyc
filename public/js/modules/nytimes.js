@@ -1,7 +1,7 @@
 define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
-	var tickerDOM = $("#marquee");
+	var tickerDOM = $("marquee");
 	var headlines = [];
 	var currenthl = 0;
 	var currentchar = 0;
