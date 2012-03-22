@@ -58,7 +58,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 		$(magClass).jloupe ({
 			width: 480,
 			height: 108,
-			fade: true,
+			fade: false,
 			cursorOffsetX:parseInt(-480/2),
 			cursorOffsetY:-128,
 			borderColor:'#333',
