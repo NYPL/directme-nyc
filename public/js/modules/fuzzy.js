@@ -5,7 +5,7 @@ define(['jquery'], function($) {
 		loadContent();
 	}
 
-	function onSubmitModal(site) {
+	function onSubmitModal(page_idx) {
 		$('#submitED').on('click', function(e) {
 			e.preventDefault();
 			var number = $('#frm-modal-number').val() || null;
@@ -17,10 +17,10 @@ define(['jquery'], function($) {
 			var checkDisabled = $(this).hasClass('disabled');
 			var positions = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ");
 			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
-			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page: };
+			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
 
 			if (streetName !== null && checkDisabled !== true) {
-				$.post(site + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
+				$.post(urlpath + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}
@@ -68,7 +68,7 @@ define(['jquery'], function($) {
 		});
 	}
 
-	function autoCompleteO() {
+	function autoCompleteO(page_idx) {
 		$("#frm-modal-street").autocomplete({
 			source: callback
 		});
@@ -93,7 +93,7 @@ define(['jquery'], function($) {
 			}			
 		});
 
-		onSubmitModal(urlpath);
+		onSubmitModal(page_idx);
 	}
 
 	/** Return instantiated function */

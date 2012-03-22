@@ -939,7 +939,7 @@ DV.Page.prototype.drawImage = function(imageURL) {
   var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : imageURL;
   this.magImageEl.attr('href', imageLINK);
   // Replace the image completely because of some funky loading bugs we were having
-  this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" class="DV-pageImage" id="DV-pageImage-'+this.pageImageEl.parents('.DV-set').attr('data-id')+'" src="'+imageURL+'" />');
+  this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" data-page="' +this.pageNumber+'" class="DV-pageImage" id="DV-pageImage-'+this.pageImageEl.parents('.DV-set').attr('data-id')+'" src="'+imageURL+'" />');
 
   // Update element reference
   this.setPageImage();
@@ -1350,7 +1350,7 @@ DV.Schema.prototype.loadAnnotation = function(anno) {
   if (anno.id) anno.server_id = anno.id;
   var idx     = anno.page - 1;
   anno.id     = anno.id || _.uniqueId();
-  anno.title  = anno.title || 'Untitled Note';
+  anno.title  = anno.title || '';
   anno.text   = anno.content || '';
   anno.access = anno.access || 'public';
   anno.type   = anno.location && anno.location.image ? 'region' : 'page';
@@ -2218,9 +2218,6 @@ DV.Schema.helpers = {
 
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
-      viewer.$('form.DV-searchDocument').submit(this.events.compile('search'));
-      viewer.$('.DV-searchBox').delegate('.DV-searchInput-cancel', 'click', DV.jQuery.proxy(this.clearSearch, this));
-
       //make mag not clickable
       viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
 
@@ -2243,6 +2240,7 @@ DV.Schema.helpers = {
       collection.delegate('.DV-deleteAnnotation','click', DV.jQuery.proxy(this.deleteAnnotation, this));
       collection.delegate('.DV-pageNumber', 'click', _.bind(this.permalinkPage, this, 'document'));
       collection.delegate('.DV-annotationTitle', 'click', _.bind(this.permalinkAnnotation, this));
+      
 
       // Thumbnails
       viewer.$('.DV-thumbnails').delegate('.DV-thumbnail-page', 'click', function(e) {
