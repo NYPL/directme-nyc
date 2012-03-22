@@ -1,7 +1,11 @@
 define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 
+	//globals
+	var page_idx = 0;
+
 	function _init() {
 		//defined module inits
+
 		$.subscribe('pages', recFunc)
 		$.subscribe('clickSpot', funModal);
 
@@ -15,7 +19,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 				fuzzy.init();
 			}
 			
-			fuzzy.search();
+			fuzzy.search(page_idx);
 
 			var _modal = $('.modal');
 			_modal.css('left',($(window).width()/2) - ($(this).width()/2) + 'px');
@@ -62,7 +66,8 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 		});
 	}
 
-	function funModal(e, curr_left, curr_right, large_left, large_right) {
+	function funModal(e, page) {
+		page_idx = page;
 		$('#loc_add').modal({
 			'show': true,
 			'keyboard': false

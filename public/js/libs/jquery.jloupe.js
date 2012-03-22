@@ -169,11 +169,12 @@ jQuery.fn.jloupe = function(o){
 			e.preventDefault();
 			if (locked_mode !== true && cancelClick !== true & $('.active-loupe').css('top') !== undefined) {
 				locked_mode = true;
+				var page_idx = $(this).attr('data-page');
 				$('.active-loupe').animate({
 					top: $(window).height()/6,
 					left: ($(window).width()/2) - ($('.active-loupe').width()/2)
 					}, 300, function() {
-						$.publish('clickSpot', [posx, posy, parseInt(-zlo + options._offset), parseInt(-zto + (options.height/2))]);
+						$.publish('clickSpot', [page_idx]);
 				});
 			}
 		}
