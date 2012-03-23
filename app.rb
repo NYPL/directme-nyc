@@ -63,8 +63,8 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/front', 'order!modules/nytimes']
+		@consts = ['modules/ytube']
+		@deps = ['modules/front', 'modules/nytimes']
 
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
@@ -74,16 +74,15 @@ class Application < Sinatra::Base
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load']
-		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
+		@consts = ['libs/underscore', 'modules/viewer', 'modules/templates']
+		@deps = ['modules/DV_load', 'modules/pubsub', 'modules/magpie', 'libs/jquery.jloupe', 'modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
 	get '/findings' do
-		@deps = ['order!modules/latest']
-    	@consts = ['order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
-
+		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
+		@deps = ['modules/latest']
 		@LATEST = true
 		slim :latest
 	end
@@ -97,9 +96,9 @@ class Application < Sinatra::Base
 	end
 
 	get '/results' do
-		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
-		@deps = ['order!modules/results', 'order!modules/nytimes']
+		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
+		@consts = ['libs/underscore']
+		@deps = ['modules/results', 'modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
 

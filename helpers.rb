@@ -75,4 +75,14 @@ module MyHelpers
 			return @changed_objs
 		end
 	end
+
+	module RandString
+		extend self
+		attr_reader :rand_string
+		def randstring(length)
+			chars = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
+			@rand_string = chars.sort_by { rand }.join[0...length]
+		end
+	end
 end
+

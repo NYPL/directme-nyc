@@ -1159,6 +1159,7 @@ DV.Thumbnails = function(viewer){
   this.scrollTimer     = null;
   this.imageUrl        = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount       = viewer.schema.document.pages;
+  this.indexes         = viewer.options.idxs || null;
   this.viewer          = viewer;
   this.resizeId        = _.uniqueId();
   this.sizes           = {
@@ -1187,6 +1188,7 @@ DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
   var thumbnailsHTML = JST.thumbnails({
     page      : startPage,
     endPage   : endPage,
+    indexes   : this.indexes,
     zoom      : this.zoomLevel,
     imageUrl  : this.imageUrl
   });

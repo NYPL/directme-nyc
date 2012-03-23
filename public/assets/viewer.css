@@ -2051,7 +2051,8 @@ span.DV-highlighted{
         -moz-border-radius: 8px;
         -webkit-border-radius: 8px;
         border-radius: 8px;
-        padding: 2px 8px;
+        padding: 2px 4px;
+        font-size: 12px;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-pageNumber .DV-pageNumberText {
         background-color: #3875D7;

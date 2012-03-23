@@ -4,7 +4,8 @@
 /** jquery can be an ajax call, manually loaded due to speed up time with `DV` and `jammit` */
 
 require.config({
-	waitSeconds: 12,
+	waitSeconds: 20,
+	urlArgs: "bust=" + (new Date()).getTime(),
 	paths: {
 		require: 'libs/require',
 		jquery: 'libs/jquery-1.7.1.min',
