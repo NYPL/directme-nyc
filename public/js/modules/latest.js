@@ -83,7 +83,7 @@ define(['jquery'], function($) {
 				map.doubleClickZoom.disable();
 			}
 		);
-		setTimeout(another(),5000);
+		setTimeout("another()",5000);
 	}
 	
 	function another() {
