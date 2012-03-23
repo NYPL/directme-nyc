@@ -49,8 +49,11 @@ define(['jquery'], function($) {
 			    bounds = new L.LatLngBounds(SW, NE);
 
 				var map = new L.Map('bigmap', {zoomControl: false, trackResize: false, maxBounds:bounds}).addLayer(
-					new wax.leaf.connector(tilejson));
-				
+						new wax.leaf.connector(tilejson));
+					
+				var map2 = new L.Map('bigmap2', {zoomControl: false, trackResize: false, maxBounds:bounds}).addLayer(
+						new wax.leaf.connector(tilejson));
+					
 				var CensusIcon = L.Icon.extend({
 					iconUrl: 'images/marker.png',
 					shadowUrl: 'images/marker-shadow.png',
