@@ -290,15 +290,15 @@ p {
 }
 
 .modal #frm-modal-name {
-	width: 90%;
+	width: 310px;
 }
 
 .modal #frm-modal-number {
-	width: 30%;
+	width: 80px;
 }
 
 .modal #frm-modal-street {
-	width: 50%;
+	width: 190px;
 }
 
 .modal .frm-help {

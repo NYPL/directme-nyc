@@ -2086,15 +2086,15 @@ p {
 }
 
 .modal #frm-modal-name {
-	width: 90%;
+	width: 310px;
 }
 
 .modal #frm-modal-number {
-	width: 30%;
+	width: 80px;
 }
 
 .modal #frm-modal-street {
-	width: 50%;
+	width: 190px;
 }
 
 .modal .frm-help {
@@ -2555,7 +2555,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#header {
-		height: 96px;
+		height: 88px;
 	}
 
 	#header h1, #nav_bar, #blurb {

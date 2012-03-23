@@ -40,7 +40,7 @@ define(['require', 'jquery'], function(require, $) {
 		},
 
 		moderns: function() {
-			if (Modernizr.input.placeholder){
+			if (!Modernizr.input.placeholder){
 				$.getScript('/js/libs/jquery.placeholder.min.js').done( function(script, textStatus) {
 					(function() {
 						$('input, textarea').placeholder();
