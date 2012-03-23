@@ -41,7 +41,7 @@ define(['jquery'], function($) {
 	}
 
 	function showLocations(loc) {
-		/*wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11.jsonp',
+		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11.jsonp',
 			function(tilejson) {
 				// limit bounds of map
 				var NE = new L.LatLng(41.0053,-74.4234),
@@ -82,7 +82,12 @@ define(['jquery'], function($) {
 				map.scrollWheelZoom.disable();
 				map.doubleClickZoom.disable();
 			}
-		);*/
+		);
+		setTimeout(another(),5000);
+	}
+	
+	function another() {
+		log("hey");
 		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11.jsonp',
 				function(tilejson1) {
 					// limit bounds of map
@@ -125,6 +130,7 @@ define(['jquery'], function($) {
 					map1.doubleClickZoom.disable();
 				}
 			);
+		
 	}
 	
 	function addStories(stories) {
