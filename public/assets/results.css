@@ -92,7 +92,7 @@ address,abbr { font-style:normal }
 /* more varnish stripping as necessary... */
 body {
 	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 strong {
@@ -100,7 +100,7 @@ strong {
 }
 
 a {
-	color: #666;
+	color: #f00;
 }
 
 a.hi, .hl {
@@ -127,6 +127,10 @@ p {
 	font-size: 32px;
 }
 
+#header h1 a {
+	color: #000;
+}
+
 #main h1 {
 	font-size: 24px;
 }
@@ -149,13 +153,17 @@ p {
 	color: #f00;
 }
 
+#blurb li {
+	line-height: 1.4em;
+}
+
 #arrow p {
 	text-transform: uppercase;
 	font-size: 18px;
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331676552) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -185,6 +193,19 @@ p {
 	margin: 0 5px;
 }
 
+#video .caption {
+	color: #666;
+	font-size: 12px;
+}
+
+#stories .story p.author {
+	color: #666;
+}
+
+#stories .story a {
+	color: #f00;
+}
+
 #nytimes .title {
 	font-weight: bold;
 }
@@ -198,11 +219,15 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331676552) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+#nytimes .content a {
+	color: #666;
 }
 
 #nytimes .content a:hover {
@@ -279,7 +304,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331676552) no-repeat;
+	background: url(../images/sprites.png?1331738064) no-repeat;
 }
 
 #frm-annotate a#fb-submit span:after {
@@ -374,15 +399,15 @@ p {
 }
 
 .modal #frm-modal-name {
-	width: 90%;
+	width: 310px;
 }
 
 .modal #frm-modal-number {
-	width: 30%;
+	width: 80px;
 }
 
 .modal #frm-modal-street {
-	width: 50%;
+	width: 190px;
 }
 
 .modal .frm-help {
@@ -429,7 +454,7 @@ div.spacer{ display: block; }
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png?1331676552) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -456,6 +481,7 @@ div.spacer{ display: block; }
 #header h1 {
 	width: 375px;
 	float: left;
+	margin: 12px 0 0 12px;
 }
 
 #header_compact {
@@ -497,7 +523,7 @@ div.spacer{ display: block; }
 
 #main {
 	position: relative;
-	background: url(../images/background.png?1331049270);
+	background: url(../images/background.png?1331658353);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -507,6 +533,11 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	margin: 0 5px 0 5px;
+}
+
+#blurb li {
+	list-style-type: square;
+	margin-bottom: 6px;
 }
 
 #borough_selector {
@@ -532,10 +563,10 @@ div.spacer{ display: block; }
 
 #tip {
 	position: absolute;
-	top: 204px;
-	left: 120px;
+	top: 255px;
+	left: 245px;
 	width: 230px;
-	margin: 0 5px 0 5px;
+	margin: 0;
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	background: #fff;
@@ -647,18 +678,33 @@ div.spacer{ display: block; }
 /* END TICKER SHADOWS */
 
 #video {
-	display: inline-block;
+	position: absolute;
+	top: 255px;
+	left: 480px;
 	width: 230px;
+
 	background: #fff;
 	border: 1px solid #ccc;
 	padding: 4px;
-	margin-left: 480px;
-	margin-right: 240px;
 }
 
 #video .embed {
 	width: 230px;
 	height: 162px;
+}
+
+#stories {
+	width: 230px;
+	float: right;
+	margin-bottom: 12px;
+}
+
+#stories .story {
+	margin-bottom: 12px;
+}
+
+#stories .story p {
+	margin-bottom: 0;
 }
 
 #footer {
@@ -736,7 +782,7 @@ div.spacer{ display: block; }
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png?1331323956) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
 }
 
 #geobig {
@@ -811,7 +857,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#ticker .content {
-		width: 570px;
+		width: 565px;
 	}
 
 	#ticker:before {
@@ -819,7 +865,8 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 	
 	#video {
-		margin-right: 0;
+		top: 475px;
+		left: 240px;
 	}
 
 }
@@ -830,12 +877,16 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#header {
-		height: 96px;
+		height: 88px;
 	}
 
 	#header h1, #nav_bar, #blurb {
 		width: auto;
 		float: none;
+	}
+	
+	#header h1 {
+		margin: 0;
 	}
 
 	#header {
@@ -855,7 +906,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		margin-left: 30px;
 		border-top: none;
 		border-bottom: 5px solid #fff;
-		padding-top: 14px;
+		padding-top: 12px;
 		padding-bottom: 7px;
 	}
 
@@ -874,16 +925,36 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		top: auto;
 		left: auto;
 		width: auto;
-		margin: 0;
+		margin: 0 0 12px 0;
 	}
 
 	#video {
 		display: none;
 	}
+	
+	#stories {
+		float: none;
+		width: 470px;
+		margin: 0 5px 0 5px;
+	}
+	
+	#stories .story {
+		width: 230px;
+		float: left;
+		margin: 0 10px 12px 0;
+	}
+
+	#stories .story.even {
+		margin-right: 0;
+	}
 
 	#ticker .content {
 		width: 470px;
 		margin-top: 6px;
+	}
+	
+	#nytimes .footer {
+		padding-top: 55px;
 	}
 
 	#templateheader, #toc, #templatecontent {
@@ -1016,7 +1087,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 .onesteplogo {
 	display: inline-block;
-	background: url(../images/sprites.png?1331676552) 0 0 no-repeat;
+	background: url(../images/sprites.png?1331738064) 0 0 no-repeat;
 	width: 18px;
 	height: 18px;
 	text-indent: 100%;
@@ -1025,7 +1096,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 }
 
 #EDlist {
-	width: 100%;
+	width: auto;
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -1036,7 +1107,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	width: 64px;
 	text-align: center;
 	padding: 6px 2px;
-	margin: 6px 6px 6px 0;
+	margin: 6px 5px 6px 0;
 }
 
 .EDmore1, .EDonly1, .EDnone {
@@ -1052,11 +1123,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#results {
 		width: 470px;
 		margin-right: 470px;
-	}
-
-	#results .crosscontent, #results .EDcontent {
-		float: left;
-		width: 230px;
+		min-height: 0;
 	}
 
 	#results .crosscontent {
@@ -1072,16 +1139,20 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#nytimes {
 		clear: both;
 		float: none;
-		width: auto;
+		width: 710px;
+	}
+
+	#nytimes .footer {
+		padding-top: 55px;
 	}
 
 	#ticker {
-		width: auto;
+		width: 710px;
 	}
 
 }
 
-@media screen and (min-width: 0px) and (max-width: 620px) {
+@media screen and (min-width: 0px) and (max-width: 740px) {
 	#annotations {
 		float: none;
 		position: relative;
@@ -1097,4 +1168,14 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#annotations .content {
 		margin-right: 10px;
 	}
+	
+	#nytimes {
+		width: 470px;
+	}
+
+	#ticker {
+		width: 470px;
+	}
+
+
 }

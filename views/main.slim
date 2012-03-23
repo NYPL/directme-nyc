@@ -2,8 +2,15 @@ div#mainwrapper
 	div#main
 		/! blurb
 		div#blurb
-			p Find New Yorkers living in any of the five boroughs in the just-released 1940 Census Documents from the National Archive using our Enumeration District Finder. Select a borough to the right to start your search.
-			p You can also read and share stories of people and places you find in our telephone books.
+			h2 New York's road to the 1940 Federal Census begins here!
+			ul
+				li Explore freshly digitized NYC telephone directories from 1940.
+				li Locate the name/address of a historical New Yorker.
+				li Find their Census Enumeration District number (what's that?).
+				li Leave a <a href="/stories">story</a> about what you've found.
+				li Head to the National Archives with the information you need.
+			p Brought to you by the New York Public Library's <a href="http://www.nypl.org/milstein">Milstein Division of United States History, Local History and Genealogy</a> & <a href="http://www.nypl.org/collections/labs">NYPL Labs</a>
+			p Follow this project and connect with Milstein librarians:<br /><a href="https://twitter.com/nyplmilstein">Twitter</a> | <a href="http://www.facebook.com/NYPL.Milstein">Facebook</a> | <a href="http://www.nypl.org/blog/division/milstein">Blog</a>
 		/! --blurb--
 
 		/! borough_selector
@@ -31,9 +38,39 @@ div#mainwrapper
 			a.hi href="#" What is an Enumeration District?
 		/! --tip--
 
+		/! stories
+		div#stories
+			h2 Latest stories
+			div.story
+				p This is a story by someone about something and it should be somewhat short...
+				p.author Posted by <strong>Bob</strong> <a href="#">5 hours ago</a>
+			div.story.even
+				p This is another story by someone else also about one of the results she found but she didn't say anything else...
+				p.author Posted by <strong>Annie</strong> <a href="#">6 hours ago</a>
+			div.story
+				p Yep... another story, this time by a researcher who used the tool in the Genealogy room...
+				p.author Posted by <strong>Dr.Dre PhD</strong> <a href="#">7 hours ago</a>
+			div.story.even
+				p This is the story, of a man named Brady...
+				p.author Posted by <strong>Bunch</strong> <a href="#">8 hours ago</a>
+			div.story
+				p This is a story by someone about something and it should be somewhat short...
+				p.author Posted by <strong>Bob</strong> <a href="#">5 hours ago</a>
+			div.story.even
+				p This is another story by someone else also about one of the results she found but she didn't say anything else...
+				p.author Posted by <strong>Annie</strong> <a href="#">6 hours ago</a>
+			div.story
+				p Yep... another story, this time by a researcher who used the tool in the Genealogy room...
+				p.author Posted by <strong>Dr.Dre PhD</strong> <a href="#">7 hours ago</a>
+			div.story.even
+				p This is the story, of a man named Brady...
+				p.author Posted by <strong>Bunch</strong> <a href="#">8 hours ago</a>
+		/! --stories--
+
 		/! video
 		div#video
 			div.embed
+			| <span class="caption">video caption from YouTube</span>
 		/! --video--
 
 		==slim :nytimes
