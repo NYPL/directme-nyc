@@ -678,12 +678,14 @@ div.spacer{ display: block; }
 /* END TICKER SHADOWS */
 
 #video {
-	display: inline-block;
+	position: absolute;
+	top: 255px;
+	left: 480px;
 	width: 230px;
+
 	background: #fff;
 	border: 1px solid #ccc;
 	padding: 4px;
-	margin-left: 240px;
 }
 
 #video .embed {
@@ -863,7 +865,8 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 	
 	#video {
-		margin-right: 0;
+		top: 475px;
+		left: 240px;
 	}
 
 }
