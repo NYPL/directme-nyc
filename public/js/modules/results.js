@@ -134,9 +134,10 @@ define(['jquery'], function($) {
 			cross_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
-					city_id + "-" + matched[i] + "</a>";
+				results += "<a class='EDcontent' href='http://www.archives.gov'>" + city_id + "-" + matched[i] + "</a>";
 			}
+			
+			log(results);
 
 			$('a', '#EDlist').remove();
 			$('#EDlist').append(results);
@@ -164,13 +165,6 @@ define(['jquery'], function($) {
 			e.preventDefault();
 			idx = $(this).parent().index();
 			
-			log('1: ' + e);
-			log('2: ' + idx);
-			log('3: ' + state_results);
-			log('4: ' + results);
-			log('5: ' + state_cross);
-			log('6: ' + cross_string);
-
 			results = state_results[idx];
 			cross_string = state_cross[idx];
 
