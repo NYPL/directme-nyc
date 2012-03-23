@@ -46,9 +46,9 @@ define(['jquery'], function($) {
 					$("#results .EDnone").show();
 				}
 
-				var cross_string = ""
+				var cross_string = "";
 				if ('cross_streets' in data && 'cross_vals') {
-					var cross_string = ""
+					cross_string = "";
 					for (var i = 0; i < data.cross_streets.length; i++) {
 						cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
 							 data.cross_streets[i] + "</option>";
@@ -100,6 +100,7 @@ define(['jquery'], function($) {
 		var state_results = [_results]; 
 		var state_cross = [_crosses];
 		var idx = 0;
+		var cross_string = "";
 
 		$('.crossstreets').change(function(e) {
 			if (curr_results.length === 1) {
@@ -111,7 +112,6 @@ define(['jquery'], function($) {
 			var selectText = $('select.crossstreets option:selected').text();
 			var matched = _.intersection(selectVal.split(','), arr, curr_results);
 
-			var cross_string = "";
 			var results = "";
 			var new_matched = [];
 
