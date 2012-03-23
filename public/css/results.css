@@ -133,6 +133,10 @@
 	margin: 6px 6px 6px 0;
 }
 
+.EDmore1, .EDonly1, .EDnone {
+	display: none;
+}
+
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
 	#geo {

@@ -1,12 +1,8 @@
 define(['jquery'], function($) {
 
-	var urlpath = window.location.protocol + "//" + window.location.host;
-	
+	var urlpath = window.location.protocol + "//" + window.location.host;	
 	function _init() {
 		EDcall(getUrlVar('token'));
-		$("#results .EDmore1").hide();
-		$("#results .EDonly1").hide();
-		$("#results .EDnone").hide();
 	}
 
 	function submitStory(page_idx, ifStories) {
@@ -21,7 +17,7 @@ define(['jquery'], function($) {
 
 			var location = {}
 			if (content) {
-				$.post(urlpath + '/stories.json?callback=?', {author: author, content: content, location: location, page: page_idx, token: getUrlVar('token')}, function(data) {
+				$.post(urlpath + '/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
 					if ('content' in data) {
 						$('#frm-content').val('');
 						if (ifStories === true) {
@@ -41,6 +37,15 @@ define(['jquery'], function($) {
 		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
 
 			if (data !== undefined) {
+
+				if (data.eds.length > 1) {
+					$("#results .EDmore1").show();
+				} else if (data.eds.length == 1) {
+					$("#results .EDonly1").show();
+				} else {
+					$("#results .EDnone").show();
+				}
+
 				var cross_string = ""
 				if ('cross_streets' in data && 'cross_vals') {
 					var cross_string = ""
@@ -54,7 +59,7 @@ define(['jquery'], function($) {
 				var results = "";
 				if ('eds' in data && 'fullcity_id' in data) {
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
+						results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
@@ -80,15 +85,6 @@ define(['jquery'], function($) {
 						}
 					}
 				}
-				
-				if (data.eds.length > 1) {
-					$("#results .EDmore1").show();
-				} else if (data.eds.length == 1) {
-					$("#results .EDonly1").show();
-				} else {
-					$("#results .EDnone").show();
-				}
-
 				submitStory(data.cutout.page_idx, ifStories);
 			}
 		});

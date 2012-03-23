@@ -82,7 +82,7 @@ class Application < Sinatra::Base
 
 	get '/latest' do
 		@deps = ['order!modules/latest']
-    @consts = ['order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
+    	@consts = ['order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
 
 		@LATEST = true
 		slim :latest
@@ -98,8 +98,8 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
-		@deps = ['order!modules/results', 'order!modules/nytimes']
+		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min', 'order!modules/results']
+		@deps = ['order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
 
@@ -128,13 +128,19 @@ class Application < Sinatra::Base
 #---------------API-CALLs-------------------------------------------------------
 
 	get '/locations.json' do
-		ret_hash = paging_time(Locations, request, params)
+		if Locations.exists?
+			ret_hash = paging_time(Locations, request, params)
 
-		hash = {
-			:locations => ret_hash[:objs],
-			:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-			:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-		}.to_json
+			hash = {
+				:locations => ret_hash[:objs],
+				:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+				:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
+			}.to_json
+
+		else
+			log.info 'no location searches'
+			hash = error_json(404, 'no location searches').to_json
+		end
 
 		return JsonP(hash, params)
 	end
@@ -157,15 +163,24 @@ class Application < Sinatra::Base
 				hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
 			end
 
-			hash['address'] = [hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['main_string'] = [hash['name'], hash['number'], hash['street'].split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+
+			if hash['street'].scan(/\w+/).count() == 1
+				_street = hash['street'] + ' St'
+			else
+				_street = hash['street']
+			end
+
+			hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
+			hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
 			hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
 			json = Locations.safely.create(hash).to_json
-			return JsonP(json, params)
 		else
+
 			log.info 'write error here'
 		end
+
+		return JsonP(json, params)
 	end
 
 	get '/locations/:token.json' do
@@ -223,8 +238,21 @@ class Application < Sinatra::Base
 	end
 
 	get '/stories.json' do
-		ret_hash = paging_time(Stories, request, params)
+		if Stories.exists?
+			ret_hash = paging_time(Stories, request, params)
 
+			hash = {
+				:stories => ret_hash[:objs],
+				:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+				:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
+			}.to_json
+
+		else
+			log.info 'no stories exist'
+			hash = error_json(404, 'no stories created').to_json
+		end
+
+		return JsonP(hash, params)
 	end
 
 	get '/streets/:borough.json' do
@@ -238,7 +266,12 @@ class Application < Sinatra::Base
 	end
 
 	get '/headlines.json' do
-		json = Headlines.all().to_json
+		if Headlines.exists?
+			json = Headlines.all().to_json
+		else
+			log.info 'no Headlines returned'
+		end
+
 		return JsonP(json, params)
 	end
 #---------------MOBILE&NOT-FOUND-------------------------------------------------------

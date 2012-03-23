@@ -91,6 +91,8 @@ GEM
     uuidtools (2.1.2)
     webmock (1.8.4)
       addressable (>= 2.2.7)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
       crack (>= 0.1.7)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)

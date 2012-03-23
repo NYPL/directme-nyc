@@ -66,6 +66,7 @@ class Headlines
 	field :lead, :type => String
 	field :ny_url, :type => String
 	field :pq_id, :type => String
+	field :date, :type => String
 end
 
 

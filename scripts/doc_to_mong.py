@@ -8,7 +8,7 @@ import datetime
 
 parser = argparse.ArgumentParser(description='Mongo Census INIT')
 parser.add_argument('-c', action='store', dest='mongo_conn', help='Mongo DB Connection', default="")
-parser.add_argument('-p', action='store', dest='mongo_port', help='Mongo DB Port', default="")
+parser.add_argument('-p', action='store', dest='mongo_port', help='Mongo DB Port', default="27017")
 parser.add_argument('-db', action='store', dest='mongo_dbname', help='Mongo DB Name', default="")
 
 opts = parser.parse_args()
@@ -17,12 +17,11 @@ connection = pymongo.Connection(opts.mongo_conn, int(opts.mongo_port))
 db = connection[opts.mongo_dbname]
 
 borough_pages = {
-	'manhattan': 0, 
-	'brooklyn': 0, 
-	'queens': 0, 
-	'bronx': 0, 
-	'staten': 0,
-	'testset': 281
+	'manhattan': 1136, 
+	'brooklyn': 716, 
+	'queens': 546, 
+	'bronx': 376, 
+	'staten': 90
 }
 
 def init_json(borough, num_pages):

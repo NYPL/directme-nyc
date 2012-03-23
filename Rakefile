@@ -69,6 +69,7 @@ namespace :db do
 			hash = {
 				:hdl => result['hdl'],
 				:lead => result['lp'],
+				:date => result['dat'],
 				:ny_url => result['url'],
 				:pq_id => result['articleid']
 			}

@@ -21,7 +21,6 @@ define(['jquery'], function($) {
 					{
 						'pq_id': data[i].pq_id,
 						'hdl': data[i].hdl,
-						//'lead': data[i].lead,
 						'nyt_url': data[i].ny_url
 					}
 				);

@@ -3,138 +3,43 @@ define(['jquery'], function($) {
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
 	function _init() {
-		latestLocations();
+		latest();
 	}
 
-	function latestLocations() {
+	function latest() {
+		$.when(latestLocations(), latestStories()).done(function(loc_data, story_data) {
 
-		$.getJSON(urlpath + '/locations.json?limit=30&callback=?', function(data) {
-			log(data);
-			if (data !== undefined) {
-				if ('locations' in data) {
-					showLocations(data.locations);
-				}
-				// remove these fake stories
-				data.stories = [
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'Pitchfork cliche shoreditch hoodie viral sriracha, stumptown tattooed scenester ',
-				                	name: 'Bob',
-				                	time_ago: '1 hour'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'Tattooed ennui dreamcatcher mcsweeneys, high life iphone keytar biodiesel.',
-				                	name: 'Bob',
-				                	time_ago: '1 hour'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'Biodiesel shoreditch jean shorts typewriter, scenester carles whatever.!',
-				                	name: 'Bob',
-				                	time_ago: '1 hour'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '1 hour'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'Craft beer cosby sweater flexitarian gentrify salvia terry richardson, carles fingerstache helvetica ',
-				                	name: 'Bob',
-				                	time_ago: '2 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '2 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '2 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '2 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '3 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '3 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '3 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'Salvia hella sustainable mcsweeneys ethical truffaut, swag pickled wes anderson!',
-				                	name: 'Bob',
-				                	time_ago: '3 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'This was my grandma’s house in 1940',
-				                	name: 'Mary',
-				                	time_ago: '3 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '4 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'Butcher echo park wayfarers street art leggings vinyl viral mlkshk',
-				                	name: 'Bob',
-				                	time_ago: '5 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'How cool is it to have the map of 1940!',
-				                	name: 'JohnDoe',
-				                	time_ago: '5 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'I found my great grandfather who lived in Bushwick',
-				                	name: 'Susan',
-				                	time_ago: '6 hours'
-				                },
-				                {
-				                	url:'http://localhost:5000/results?token=qdhgnjgpkkr4j4do7jr4fxigi4',
-				                	content:'It’s amazing how much has changed since then!',
-				                	name: 'Bob',
-				                	time_ago: '1 day'
-				                }
-				               ];
-				// end remove
-				if ('stories' in data) {
-					addStories(data.stories);
-				}
+			log(loc_data[0]);
+			log(story_data[0]);
+
+			if ('locations' in loc_data[0]) {
+				showLocations(loc_data[0].locations);
+			}
+
+			else {
+				loc = [];
+				showLocations(loc);
+			}
+
+			if ('stories' in story_data[0]) {
+				addStories(story_data[0].stories);
 			}
 
 		});
+	}
+
+	function latestLocations() {
+		return $.getJSON(urlpath + '/locations.json?limit=30&callback=?', function(data) {
+		});
 
 	}
-	//-74.4234,40.3984,-73.5212,41.0053
+
+	function latestStories() {
+		return $.getJSON(urlpath + '/stories.json?limit=200&callback=?', function(data) {
+		});
+
+	}
+
 	function showLocations(loc) {
 		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11.jsonp',
 			function(tilejson) {
@@ -156,8 +61,6 @@ define(['jquery'], function($) {
 				});
 				
 				var markerIcon = new CensusIcon();
-				
-				log(wax.mm);
 				
 				// add markers
 				for (var i=0;i<loc.length;++i) {
@@ -185,7 +88,7 @@ define(['jquery'], function($) {
 	function addStories(stories) {
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
-			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.name+'</strong> <a href="'+story.url+'" class="hl">'+story.time_ago+' ago</a></p></h4>';
+			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+story.result_url+'" class="hl">'+story.time_ago+' ago</a></p></h4>';
 			$("#annotations").append(str);
 		}
 	}
