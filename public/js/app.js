@@ -18,6 +18,7 @@ define(['require', 'jquery'], function(require, $) {
 				return this.push.apply(this, rest);
 			};
 
+			this.moderns();
 			this.setCurrent('#nav_bar a');
 		},
 
@@ -36,6 +37,16 @@ define(['require', 'jquery'], function(require, $) {
 					$(this).removeClass('current');
 				}
 			});		
+		},
+
+		moderns: function() {
+			if (Modernizr.input.placeholder){
+				$.getScript('/js/libs/jquery.placeholder.min.js').done( function(script, textStatus) {
+					(function() {
+						$('input, textarea').placeholder();
+					});
+				});
+			}
 		},
 
 		/** on the `init` call for a module, a function should be instantiated */

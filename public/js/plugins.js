@@ -15,6 +15,27 @@ window.log = function(){
 {console.log();return window.console;}catch(err){return window.console={};}})());
 
 
+/* IE fun all the way */
+
+/* IE7 Setup for Check */
+
+var ie = (function(){
+ 
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+ 
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+ 
+    return v > 4 ? v : undef;
+ 
+}());
+
+
 /* IE7 Array prototypes */
 'use strict';
 
