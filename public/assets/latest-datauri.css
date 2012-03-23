@@ -295,6 +295,7 @@ p {
 #frm-annotate a {
 	position: relative;
 	margin-left: 66px;
+	color: #666;
 }
 
 #frm-annotate a#fb-submit span:after, #frm-annotate a#tw-submit span:after, #frm-annotate a#g-submit span:after {

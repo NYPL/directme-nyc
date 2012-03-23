@@ -163,6 +163,13 @@ define(['jquery'], function($) {
 			
 			e.preventDefault();
 			idx = $(this).parent().index();
+			
+			log('1: ' + e);
+			log('2: ' + idx);
+			log('3: ' + state_results);
+			log('4: ' + results);
+			log('5: ' + state_cross);
+			log('6: ' + cross_string);
 
 			results = state_results[idx];
 			cross_string = state_cross[idx];
