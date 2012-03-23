@@ -64,7 +64,7 @@ class Application < Sinatra::Base
 	get '/' do
 		@scripts = ['/js/libs/jquery.marquee.js']
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/nytimes']
+		@deps = ['order!modules/front', 'order!modules/nytimes']
 
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
@@ -80,7 +80,7 @@ class Application < Sinatra::Base
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
-	get '/latest' do
+	get '/findings' do
 		@deps = ['order!modules/latest']
     	@consts = ['order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
 
@@ -98,8 +98,8 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min', 'order!modules/results']
-		@deps = ['order!modules/nytimes']
+		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
+		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
 
@@ -260,6 +260,14 @@ class Application < Sinatra::Base
 			:fullcity => $JSON[params['borough']]['fullcity'],
 			:state => $JSON[params['borough']]['state'],
 			:streets => $JSON[params['borough']]['streets'].keys()
+		}.to_json
+
+		return JsonP(hash, params)
+	end
+
+	get '/indexes/:borough.json' do
+		hash = {
+			:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs']
 		}.to_json
 
 		return JsonP(hash, params)

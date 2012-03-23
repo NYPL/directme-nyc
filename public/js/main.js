@@ -18,14 +18,14 @@ require.config({
 //* Checks for deps and/or libs dependent on the handler/route/page call
 
 /** load pre-dom-ready globals */
-require(['order!modules/async_tk', 'order!libs/jquery-1.7.1.min'], function(tk, $) { 
+require(['modules/async_tk', 'libs/jquery-1.7.1.min'], function(tk, $) { 
 		/** The environment object is loaded per `layout.slim` */
 		if (environment.hasOwnProperty('consts') && environment.consts !== null) {
 			/** load index/route/handler specific constant funcs */
 			require(environment.consts)
 		}
 		/** load post-dom-ready globals in order */
-		require(['order!domReady', 'order!libs/respond.min', 'order!app', 'order!plugins'], function(domReady, respond, app, plugins) { 
+		require(['domReady', 'libs/respond.min', 'app', 'plugins'], function(domReady, respond, app, plugins) { 
 			domReady(function() {
 				if (environment.hasOwnProperty('deps') && environment.deps !== null) {
 					app.initialize({depends: environment.deps});

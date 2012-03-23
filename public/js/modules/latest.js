@@ -88,7 +88,7 @@ define(['jquery'], function($) {
 	function addStories(stories) {
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
-			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+story.result_url+'" class="hl">'+story.time_ago+' ago</a></p></h4>';
+			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+story.result_url+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			$("#annotations").append(str);
 		}
 	}
