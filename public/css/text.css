@@ -1,6 +1,6 @@
 body {
 	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 strong {
@@ -32,7 +32,7 @@ p {
 }
 
 #header h1 {
-	font-size: 32px;
+	font-size: 24px;
 }
 
 #main h1 {
@@ -91,6 +91,14 @@ p {
 
 #tip a {
 	margin: 0 5px;
+}
+
+#stories .story p.author {
+	color: #666;
+}
+
+#stories .story a {
+	color: #f00;
 }
 
 #nytimes .title {

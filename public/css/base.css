@@ -128,7 +128,7 @@ div.spacer{ display: block; }
 
 #tip {
 	position: absolute;
-	top: 204px;
+	top: 255px;
 	left: 120px;
 	width: 230px;
 	margin: 0 5px 0 5px;
@@ -249,12 +249,25 @@ div.spacer{ display: block; }
 	border: 1px solid #ccc;
 	padding: 4px;
 	margin-left: 480px;
-	margin-right: 240px;
 }
 
 #video .embed {
 	width: 230px;
 	height: 162px;
+}
+
+#stories {
+	width: 230px;
+	float: right;
+	margin-bottom: 12px;
+}
+
+#stories .story {
+	margin-bottom: 12px;
+}
+
+#stories .story p {
+	margin-bottom: 0;
 }
 
 #footer {
@@ -407,7 +420,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#ticker .content {
-		width: 570px;
+		width: 565px;
 	}
 
 	#ticker:before {
@@ -470,16 +483,36 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		top: auto;
 		left: auto;
 		width: auto;
-		margin: 0;
+		margin: 0 0 12px 0;
 	}
 
 	#video {
 		display: none;
 	}
+	
+	#stories {
+		float: none;
+		width: 470px;
+		margin: 0 5px 0 5px;
+	}
+	
+	#stories .story {
+		width: 230px;
+		float: left;
+		margin: 0 10px 12px 0;
+	}
+
+	#stories .story.even {
+		margin-right: 0;
+	}
 
 	#ticker .content {
 		width: 470px;
 		margin-top: 6px;
+	}
+	
+	#nytimes .footer {
+		padding-top: 55px;
 	}
 
 	#templateheader, #toc, #templatecontent {
