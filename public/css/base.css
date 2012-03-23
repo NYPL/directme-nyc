@@ -497,6 +497,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		left: auto;
 		width: auto;
 		margin: 0 0 12px 0;
+		padding: 12px;
 	}
 
 	#video {

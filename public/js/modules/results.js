@@ -46,9 +46,9 @@ define(['jquery'], function($) {
 					$("#results .EDnone").show();
 				}
 
-				var cross_string = ""
+				var cross_string = "";
 				if ('cross_streets' in data && 'cross_vals') {
-					var cross_string = ""
+					cross_string = "";
 					for (var i = 0; i < data.cross_streets.length; i++) {
 						cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
 							 data.cross_streets[i] + "</option>";
@@ -111,9 +111,9 @@ define(['jquery'], function($) {
 			var selectText = $('select.crossstreets option:selected').text();
 			var matched = _.intersection(selectVal.split(','), arr, curr_results);
 
-			var cross_string = "";
 			var results = "";
 			var new_matched = [];
+			var cross_string = "";
 
 			$('select.crossstreets option').each(function() {
 				new_matched = _.intersection(matched, $(this).val().split(','));			
@@ -134,9 +134,10 @@ define(['jquery'], function($) {
 			cross_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<a class='EDcontent' href='http://www.archives.gov'>" + 
-					city_id + "-" + matched[i] + "</a>";
+				results += "<a class='EDcontent' href='http://www.archives.gov'>" + city_id + "-" + matched[i] + "</a>";
 			}
+			
+			log(results);
 
 			$('a', '#EDlist').remove();
 			$('#EDlist').append(results);
@@ -161,9 +162,11 @@ define(['jquery'], function($) {
 			// show the cross street select
 			$('select.crossstreets').show();
 			
+			var cross_string = "";
+
 			e.preventDefault();
 			idx = $(this).parent().index();
-
+			
 			results = state_results[idx];
 			cross_string = state_cross[idx];
 

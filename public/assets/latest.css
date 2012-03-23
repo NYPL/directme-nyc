@@ -185,7 +185,7 @@ p {
 }
 
 #tip .content {
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 1.2em;
 }
 
@@ -295,6 +295,7 @@ p {
 #frm-annotate a {
 	position: relative;
 	margin-left: 66px;
+	color: #666;
 }
 
 #frm-annotate a#fb-submit span:after, #frm-annotate a#tw-submit span:after, #frm-annotate a#g-submit span:after {
@@ -926,6 +927,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		left: auto;
 		width: auto;
 		margin: 0 0 12px 0;
+		padding: 12px;
 	}
 
 	#video {
