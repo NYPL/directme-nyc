@@ -1066,7 +1066,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 }
 
 #EDlist {
-	width: 100%;
+	width: auto;
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -1093,11 +1093,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#results {
 		width: 470px;
 		margin-right: 470px;
-	}
-
-	#results .crosscontent, #results .EDcontent {
-		float: left;
-		width: 230px;
+		min-height: 0;
 	}
 
 	#results .crosscontent {
@@ -1113,16 +1109,20 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#nytimes {
 		clear: both;
 		float: none;
-		width: auto;
+		width: 710px;
+	}
+
+	#nytimes .footer {
+		padding-top: 55px;
 	}
 
 	#ticker {
-		width: auto;
+		width: 710px;
 	}
 
 }
 
-@media screen and (min-width: 0px) and (max-width: 620px) {
+@media screen and (min-width: 0px) and (max-width: 740px) {
 	#annotations {
 		float: none;
 		position: relative;
@@ -1138,4 +1138,14 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#annotations .content {
 		margin-right: 10px;
 	}
+	
+	#nytimes {
+		width: 470px;
+	}
+
+	#ticker {
+		width: 470px;
+	}
+
+
 }
