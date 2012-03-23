@@ -100,7 +100,6 @@ define(['jquery'], function($) {
 		var state_results = [_results]; 
 		var state_cross = [_crosses];
 		var idx = 0;
-		var cross_string = "";
 
 		$('.crossstreets').change(function(e) {
 			if (curr_results.length === 1) {
@@ -114,6 +113,7 @@ define(['jquery'], function($) {
 
 			var results = "";
 			var new_matched = [];
+			var cross_string = "";
 
 			$('select.crossstreets option').each(function() {
 				new_matched = _.intersection(matched, $(this).val().split(','));			
@@ -162,6 +162,8 @@ define(['jquery'], function($) {
 			// show the cross street select
 			$('select.crossstreets').show();
 			
+			var cross_string = "";
+
 			e.preventDefault();
 			idx = $(this).parent().index();
 			
