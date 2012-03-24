@@ -163,7 +163,7 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1332512445) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -219,7 +219,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1332512445) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -305,7 +305,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331738064) no-repeat;
+	background: url(../images/sprites.png?1332512445) no-repeat;
 }
 
 #frm-annotate a#fb-submit span:after {
@@ -455,7 +455,7 @@ div.spacer{ display: block; }
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1332512445) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -524,7 +524,7 @@ div.spacer{ display: block; }
 
 #main {
 	position: relative;
-	background: url(../images/background.png?1331658353);
+	background: url(../images/background.png?1332512445);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -575,7 +575,7 @@ div.spacer{ display: block; }
 
 #nytimes {
 	clear: both;
-	margin-top: 12px;
+	margin-top: 450px;
 }
 
 #ticker .title, #ticker .content {
@@ -783,7 +783,7 @@ div.spacer{ display: block; }
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1332512445) 0px 45px no-repeat;
 }
 
 #geobig {
@@ -797,7 +797,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	height: 80px;
-	margin: 0 5px 6px 5px;
+	margin: 0 5px 30px 5px;
 }
 
 #latest .more {
