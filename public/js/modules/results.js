@@ -59,7 +59,7 @@ define(['jquery'], function($) {
 				var results = "";
 				if ('eds' in data && 'fullcity_id' in data) {
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + 
+						results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
