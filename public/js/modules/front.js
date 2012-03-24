@@ -7,7 +7,7 @@ define(['jquery'], function($) {
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/stories.json?limit=5&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=5&callback=?', function(data) {
 			if ('stories' in data) {
 				addStories(data.stories);
 			}

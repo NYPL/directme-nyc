@@ -10,3 +10,7 @@ puts "Starting in #{Sinatra::Base.environment} mode.."
 map '/' do
   run Application
 end
+
+map '/api' do
+  run Api
+end

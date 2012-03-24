@@ -14,7 +14,7 @@ define(['jquery'], function($) {
 	}
 
 	function getHeadlines() {
-		$.getJSON(urlpath + '/headlines.json?callback=?', function(data) {
+		$.getJSON(urlpath + '/api/headlines.json?callback=?', function(data) {
 			var i, l=data.length;
 			for (i=0;i<l;++i) {
 				headlines.push(

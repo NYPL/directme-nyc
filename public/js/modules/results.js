@@ -17,7 +17,7 @@ define(['jquery'], function($) {
 
 			var location = {}
 			if (content) {
-				$.post(urlpath + '/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
+				$.post(urlpath + '/api/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
 					if ('content' in data) {
 						$('#frm-content').val('');
 						if (ifStories === true) {
@@ -34,7 +34,7 @@ define(['jquery'], function($) {
 	}
 
 	function EDcall(token, arr, city_id) {
-		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
+		$.getJSON(urlpath + '/api/locations/' + token + '.json?callback=?', function(data) {
 
 			if (data !== undefined) {
 

@@ -29,13 +29,13 @@ define(['jquery'], function($) {
 	}
 
 	function latestLocations() {
-		return $.getJSON(urlpath + '/locations.json?limit=30&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/locations.json?limit=30&callback=?', function(data) {
 		});
 
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/stories.json?limit=200&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=200&callback=?', function(data) {
 		});
 
 	}

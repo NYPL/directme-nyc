@@ -69,6 +69,7 @@ class Application < Sinatra::Base
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
 
+		puts session
 		slim :main
 	end
 
@@ -124,8 +125,23 @@ class Application < Sinatra::Base
 		end
 	end
 
+#---------------MOBILE&NOT-FOUND-------------------------------------------------------
+
+	get '/m' do
+
+	end
+	#################################################################
+
+	########################other handlers###########################
+	not_found do
+		status 404
+		redirect '/'
+	end
+	#################################################################
+end
 #---------------API-CALLs-------------------------------------------------------
 
+class Api < Application
 	get '/locations.json' do
 		if Locations.exists?
 			ret_hash = paging_time(Locations, request, params)
@@ -288,18 +304,4 @@ class Application < Sinatra::Base
 
 		return JsonP(json, params)
 	end
-#---------------MOBILE&NOT-FOUND-------------------------------------------------------
-
-	get '/m' do
-
-	end
-	#################################################################
-
-	########################other handlers###########################
-	not_found do
-		status 404
-		redirect '/'
-	end
-	#################################################################
-
 end
