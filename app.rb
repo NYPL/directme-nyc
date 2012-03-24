@@ -268,7 +268,8 @@ class Application < Sinatra::Base
 
 		if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
 			hash = {
-				:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs']
+				:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs'],
+				:sections => $JSON['%s_%s' % ['idx', params['borough']]]['sections']
 			}.to_json
 		else
 			log.info 'no indexes for borough yet'

@@ -1104,7 +1104,7 @@
   position: relative;
   width: 440px;
   text-align: center;
-  margin: 16px 20px 0 15px;
+  margin: 11px 20px 0 15px;
 }
 
 .DV-letters {
@@ -1828,13 +1828,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1332512445);
+  background: url(../images/DV/browsers/safari.gif?1329940696);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1332512445);
+  background: url(../images/DV/browsers/chrome.gif?1329940696);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1332512445);
+  background: url(../images/DV/browsers/firefox.gif?1329940696);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;

@@ -2,7 +2,6 @@ import json
 import argparse
 import datetime
 import csv
-from blist import sorteddict
 
 parser = argparse.ArgumentParser(description='Mongo Census INIT')
 parser.add_argument('-path', action='store', dest='path', help='File path for HTM Street files', default="")
@@ -17,6 +16,7 @@ b_dict = {
 
 def init_json(file, borough):
 	idxs = {}
+	sections = {}
 	data = open(file).read()
 	count = 0;
 	try:
@@ -29,8 +29,11 @@ def init_json(file, borough):
 				idxs[count] = {
 					'idx1': check_row(row[1]),
 					'idx2': check_row(row[2]),
-					'section': check_row(row[3])
 				}
+				section_check = check_row(row[3])
+				if section_check:
+					for letter in row[3].split(','):
+						sections[letter] = count
 			if len(row) < 4:
 				print "bad juju"
 	finally:
@@ -39,7 +42,8 @@ def init_json(file, borough):
 	init_json = {
 		"created_at": datetime.datetime.utcnow().isoformat(),
 		"borough": borough,
-		"idxs": idxs
+		"idxs": idxs,
+		"sections": sections
 	}
 
 	sections = sorted(init_json['idxs'].items())
