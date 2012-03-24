@@ -122,12 +122,7 @@ define(['jquery'], function($) {
 					return true;
 				}
 				else {
-					if (selectText === $(this).text()) {
-						//cross_string += "<option selected=selected value='" + $(this).val() + "'>" + $(this).text() + "</option>";
-					}
-					else {
-						cross_string += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
-					}
+					cross_string += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
 				}
 			});
 			
