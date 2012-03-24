@@ -63,8 +63,8 @@ class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['modules/ytube']
-		@deps = ['modules/front', 'modules/nytimes']
+		@consts = ['order!modules/ytube']
+		@deps = ['order!modules/front', 'order!modules/nytimes']
 
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
@@ -74,15 +74,15 @@ class Application < Sinatra::Base
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-		@consts = ['libs/underscore', 'modules/viewer', 'modules/templates']
-		@deps = ['modules/DV_load', 'modules/pubsub', 'modules/magpie', 'libs/jquery.jloupe', 'modules/bootstraps']
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
 	get '/findings' do
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
-		@deps = ['modules/latest']
+		@deps = ['order!modules/latest']
 		@LATEST = true
 		slim :latest
 	end
@@ -97,8 +97,8 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
-		@consts = ['libs/underscore']
-		@deps = ['modules/results', 'modules/nytimes']
+		@consts = ['order!libs/underscore']
+		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
 
@@ -265,9 +265,15 @@ class Application < Sinatra::Base
 	end
 
 	get '/indexes/:borough.json' do
-		hash = {
-			:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs']
-		}.to_json
+
+		if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
+			hash = {
+				:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs']
+			}.to_json
+		else
+			log.info 'no indexes for borough yet'
+			hash = error_json(404, 'no stories created').to_json
+		end
 
 		return JsonP(hash, params)
 	end
