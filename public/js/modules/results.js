@@ -129,7 +129,7 @@ define(['jquery'], function($) {
 			cross_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + city_id + "-" + matched[i] + "</a>";
+				results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + city_id + "-" + matched[i] + "</a>";
 			}
 			
 			log(results);
