@@ -5,7 +5,7 @@
 
 require.config({
 	waitSeconds: 20,
-	urlArgs: "bust=" + (new Date()).getTime(),
+	//urlArgs: "bust=" + (new Date()).getTime(),
 	paths: {
 		require: 'libs/require',
 		jquery: 'libs/jquery-1.7.1.min',
