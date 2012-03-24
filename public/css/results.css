@@ -74,6 +74,7 @@
 	clear: none;
 	float: right;
 	width: 480px;
+	margin-top: 12px;
 }
 
 #ticker {
@@ -163,7 +164,6 @@
 		clear: both;
 		float: none;
 		width: 710px;
-		margin-top: 12px;
 	}
 
 	#nytimes .footer {
