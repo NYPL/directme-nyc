@@ -161,156 +161,205 @@ end
 
 class Api < Application
 	get '/locations.json' do
-		if Locations.exists?
-			ret_hash = paging_time(Locations, request, params)
+		if sessioncheck(request, session[:session_id])
+			if Locations.exists?
+				ret_hash = paging_time(Locations, request, params)
 
-			hash = {
-				:locations => ret_hash[:objs],
-				:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-				:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-			}.to_json
+				hash = {
+					:locations => ret_hash[:objs],
+					:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+					:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
+				}.to_json
 
+			else
+				log.info 'no location searches'
+				status 404
+				hash = error_json(404, 'no location searches').to_json
+			end
 		else
-			log.info 'no location searches'
-			status 404
-			hash = error_json(404, 'no location searches').to_json
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
 		return JsonP(hash, params)
 	end
 
 	post '/locations.json' do
-		status 201
-		if !params['street'].blank? and !params['street'].nil?
+		if sessioncheck(request, session[:session_id])
+			if !params['street'].blank? and !params['street'].nil?
 
-			hash = {}
-			params.each { |param, value|
-				if param != 'callback' and value != 'null'
-					hash[param] = value
+				hash = {}
+				params.each { |param, value|
+					if param != 'callback' and value != 'null'
+						hash[param] = value
+					end
+				}
+
+				hash['token'] = gen_random_id()
+				if request.host == 'localhost'
+					hash['url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, hash['token']]
+				else
+					hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
 				end
-			}
 
-			hash['token'] = gen_random_id()
-			if request.host == 'localhost'
-				hash['url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, hash['token']]
+
+				if hash['street'].scan(/\w+/).count() == 1
+					_street = hash['street'] + ' St'
+				else
+					_street = hash['street']
+				end
+
+				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
+				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+				hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
+
+				json = Locations.safely.create(hash).to_json
+				status 201
 			else
-				hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
+				log.info 'write error here'
 			end
 
-
-			if hash['street'].scan(/\w+/).count() == 1
-				_street = hash['street'] + ' St'
-			else
-				_street = hash['street']
-			end
-
-			hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
-
-			json = Locations.safely.create(hash).to_json
 		else
-
-			log.info 'write error here'
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
 		end
 
 		return JsonP(json, params)
 	end
 
 	get '/locations/:token.json' do
-		obj = Locations.where(:token => params['token']).first()
-		_stories = Stories.where(:result_url => obj.url).order_by(:created_at, :desc)
+		if sessioncheck(request, session[:session_id])
+			obj = Locations.where(:token => params['token']).first()
+			_stories = Stories.where(:result_url => obj.url).order_by(:created_at, :desc)
 
-		stories = time_ago(_stories)
+			stories = time_ago(_stories)
 
-		ed_hash = $JSON[obj.borough]
+			ed_hash = $JSON[obj.borough]
 
-		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
-		values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
-		hash = {
-			:cross_streets => crosses,
-			:cross_vals => values,
-			:eds => ed_hash['streets'][obj.street].fetch('eds'),
-			:fullcity_id => ed_hash['fullcity_id'],
-			:street => obj.street,
-			:coordinates => obj.coordinates,
-			:cutout => obj.cutout,
-			:stories => stories
-		}.to_json
+			crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
+			values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
+			hash = {
+				:cross_streets => crosses,
+				:cross_vals => values,
+				:eds => ed_hash['streets'][obj.street].fetch('eds'),
+				:fullcity_id => ed_hash['fullcity_id'],
+				:street => obj.street,
+				:coordinates => obj.coordinates,
+				:cutout => obj.cutout,
+				:stories => stories
+			}.to_json
+
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
 
 		return JsonP(hash, params)
 	end
 
 	get '/dvs/:borough.json' do
-		json = Loaders.where(:borough => params['borough']).first().to_json
+		if sessioncheck(request, session[:session_id])
+			json = Loaders.where(:borough => params['borough']).first().to_json
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
+		end
+
 		return JsonP(json, params)
 	end
 
 	post '/stories.json' do
-		status 201
+		if sessioncheck(request, session[:session_id])
+			if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
+				hash = {}
+				params.each { |param, value|
+					if param != 'callback' and param != 'token' and value != 'null'
+						hash[param] = value
+					end
+				}
 
-		if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
-			hash = {}
-			params.each { |param, value|
-				if param != 'callback' and param != 'token' and value != 'null'
-					hash[param] = value
+				if request.host == 'localhost'
+					hash['result_url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, params['token']]
+				else
+					hash['result_url'] = 'http://%s/results?token=%s' % [request.host, params['token']]
 				end
-			}
 
-			if request.host == 'localhost'
-				hash['result_url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, params['token']]
+				json = Stories.safely.create(hash).to_json
+				status 201
 			else
-				hash['result_url'] = 'http://%s/results?token=%s' % [request.host, params['token']]
+				log.info 'write error here'
 			end
 
-			json = Stories.safely.create(hash).to_json
-			return JsonP(json, params)
-
 		else
-			log.info 'write error here'
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
 		end
+
+		return JsonP(json, params)
 	end
 
 	get '/stories.json' do
-		if Stories.exists?
-			ret_hash = paging_time(Stories, request, params)
+		if sessioncheck(request, session[:session_id])
+			if Stories.exists?
+				ret_hash = paging_time(Stories, request, params)
 
-			hash = {
-				:stories => ret_hash[:objs],
-				:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-				:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-			}.to_json
+				hash = {
+					:stories => ret_hash[:objs],
+					:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+					:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
+				}.to_json
 
+			else
+				log.info 'no stories exist'
+				status 404
+				hash = error_json(404, 'no stories created').to_json
+			end
 		else
-			log.info 'no stories exist'
-			status 404
-			hash = error_json(404, 'no stories created').to_json
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
 		return JsonP(hash, params)
 	end
 
 	get '/streets/:borough.json' do
-		hash = {
-			:fullcity => $JSON[params['borough']]['fullcity'],
-			:state => $JSON[params['borough']]['state'],
-			:streets => $JSON[params['borough']]['streets'].keys()
-		}.to_json
+		if sessioncheck(request, session[:session_id])
+			hash = {
+				:fullcity => $JSON[params['borough']]['fullcity'],
+				:state => $JSON[params['borough']]['state'],
+				:streets => $JSON[params['borough']]['streets'].keys()
+			}.to_json
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
 
 		return JsonP(hash, params)
 	end
 
 	get '/indexes/:borough.json' do
-
-		if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
-			hash = {
-				:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs'],
-				:sections => $JSON['%s_%s' % ['idx', params['borough']]]['sections']
-			}.to_json
+		if sessioncheck(request, session[:session_id])
+			if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
+				hash = {
+					:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs'],
+					:sections => $JSON['%s_%s' % ['idx', params['borough']]]['sections']
+				}.to_json
+			else
+				log.info 'no indexes for borough yet'
+				status 404
+				hash = error_json(404, 'no stories created').to_json
+			end
 		else
-			log.info 'no indexes for borough yet'
-			status 404
-			hash = error_json(404, 'no stories created').to_json
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
 		return JsonP(hash, params)
