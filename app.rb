@@ -9,6 +9,7 @@ Dir.glob('public/*.json') do |file|
 end
 
 $LIMIT = 10
+$SESS = nil
 #------------------------------------
 
 # app only methods
@@ -59,6 +60,18 @@ def paging_time(model, request, params)
 	}
 end
 
+def setsession(session)
+	$SESS = session[:session_id]
+end
+
+def sessioncheck(request, _id)
+	if request.xhr? == true && request.ip == '127.0.0.1' && $SESS == _id
+		return true
+	else
+		return false
+	end
+end
+
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
@@ -69,7 +82,7 @@ class Application < Sinatra::Base
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
 
-		puts session
+		setsession(session)
 		slim :main
 	end
 
@@ -78,6 +91,7 @@ class Application < Sinatra::Base
 		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
+		setsession(session)
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
@@ -85,14 +99,17 @@ class Application < Sinatra::Base
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/latest']
 		@LATEST = true
+		setsession(session)
 		slim :latest
 	end
 
   	get '/help' do
+  		setsession(session)
 		slim :help
 	end
 
 	get '/credits' do
+		setsession(session)
 		slim :credits
 	end
 
@@ -110,6 +127,7 @@ class Application < Sinatra::Base
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 				@RESULTS = true
+				setsession(session)
 				slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
@@ -154,6 +172,7 @@ class Api < Application
 
 		else
 			log.info 'no location searches'
+			status 404
 			hash = error_json(404, 'no location searches').to_json
 		end
 
@@ -264,6 +283,7 @@ class Api < Application
 
 		else
 			log.info 'no stories exist'
+			status 404
 			hash = error_json(404, 'no stories created').to_json
 		end
 
@@ -289,6 +309,7 @@ class Api < Application
 			}.to_json
 		else
 			log.info 'no indexes for borough yet'
+			status 404
 			hash = error_json(404, 'no stories created').to_json
 		end
 
@@ -296,10 +317,18 @@ class Api < Application
 	end
 
 	get '/headlines.json' do
-		if Headlines.exists?
-			json = Headlines.all().to_json
+		if sessioncheck(request, session[:session_id])
+			if Headlines.exists?
+				json = Headlines.all().to_json
+			else
+				log.info 'no Headlines returned'
+				status 404
+				json = error_json(404, 'no headlines available').to_json
+			end
 		else
-			log.info 'no Headlines returned'
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
 		end
 
 		return JsonP(json, params)
