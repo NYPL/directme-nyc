@@ -15,8 +15,15 @@ window.log = function(){
 {console.log();return window.console;}catch(err){return window.console={};}})());
 
 
-/* IE7 Setup for Check */
+/* Moderns */
 
+if (Modernizr.input.placeholder){
+    $.getScript('/js/libs/jquery.placeholder.min.js').done( function(script, textStatus) {
+        $('input, textarea').placeholder();
+    });
+}
+
+/* IE7 Setup for Check */
 var ie = (function(){
  
     var undef,
@@ -32,6 +39,8 @@ var ie = (function(){
     return v > 4 ? v : undef;
  
 }());
+
+/* IE and other needy functions */
 
 Array.prototype.remove = function(from, to) {
   var rest = this.slice((to || from) + 1 || this.length);
