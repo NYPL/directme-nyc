@@ -75,6 +75,7 @@ namespace :db do
 				:pq_id => result['articleid']
 			}
 			Headlines.create(hash)
+			log.info('sweet!')
 		}
 	end
 
