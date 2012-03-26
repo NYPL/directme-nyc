@@ -1009,6 +1009,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 }
 
 @media screen and (min-width: 0px) and (max-width: 460px) {
+	#nypl_bar select {
+		display: none;
+	}
+	
 	#mainwrapper {
 		width: 240px;
 	}
