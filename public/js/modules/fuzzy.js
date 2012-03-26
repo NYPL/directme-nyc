@@ -11,8 +11,8 @@ define(['jquery'], function($) {
 			var number = $('#frm-modal-number').val() || null;
 			var name = $('#frm-modal-name').val() || null;
 			var borough = environment.borough;
-			var state = $('#state_hidden').val();
-			var fullcity = $('#fullcity_hidden').val();
+			var state = $('#state_hidden').val() || environment.state;
+			var fullcity = $('#fullcity_hidden').val() || environment.fullcity;
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			var checkDisabled = $(this).hasClass('disabled');
 			var theX = $('.active-loupe').find('.thejloupeview').css('background-position-x');
@@ -61,6 +61,8 @@ define(['jquery'], function($) {
 			environment.streets = data.streets;
 			$('#state_hidden').val(data.state);
 			$('#fullcity_hidden').val(data.fullcity);
+			environment.state = data.state;
+			environment.fullcity = data.fullcity;
 		});
 	}
 
