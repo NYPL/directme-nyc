@@ -175,7 +175,6 @@ class Api < Application
 
 			else
 				log.info 'no location searches'
-				status 404
 				hash = error_json(404, 'no location searches').to_json
 			end
 		else
@@ -326,7 +325,6 @@ class Api < Application
 
 			else
 				log.info 'no stories exist'
-				status 404
 				hash = error_json(404, 'no stories created').to_json
 			end
 		else
@@ -380,7 +378,6 @@ class Api < Application
 				json = Headlines.all().to_json
 			else
 				log.info 'no Headlines returned'
-				status 404
 				json = error_json(404, 'no headlines available').to_json
 			end
 		else

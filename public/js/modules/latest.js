@@ -8,8 +8,7 @@ define(['jquery'], function($) {
 
 	function latest() {
 		$.when(latestLocations(), latestStories()).done(function(loc_data, story_data) {
-
-			if ('locations' in loc_data[0]) {
+			if (loc_data[0].hasOwnProperty('locations')) {
 				showLocations(loc_data[0].locations);
 			}
 
@@ -18,7 +17,7 @@ define(['jquery'], function($) {
 				showLocations(loc);
 			}
 
-			if ('stories' in story_data[0]) {
+			if (story_data[0].hasOwnProperty('stories')) {
 				addStories(story_data[0].stories);
 			}
 

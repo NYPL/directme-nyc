@@ -15,8 +15,6 @@ window.log = function(){
 {console.log();return window.console;}catch(err){return window.console={};}})());
 
 
-/* IE fun all the way */
-
 /* IE7 Setup for Check */
 
 var ie = (function(){
@@ -34,6 +32,12 @@ var ie = (function(){
     return v > 4 ? v : undef;
  
 }());
+
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
 
 
 /* IE7 Array prototypes */
