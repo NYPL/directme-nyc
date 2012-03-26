@@ -16,19 +16,26 @@ define(['jquery'], function($) {
 	function getHeadlines() {
 		$.getJSON(urlpath + '/api/headlines.json?callback=?', function(data) {
 			var i, l=data.length;
-			for (i=0;i<l;++i) {
-				headlines.push(
-					{
-						'pq_id': data[i].pq_id,
-						'hdl': data[i].hdl,
-						'nyt_url': data[i].ny_url
-					}
-				);
+
+			if (l > 0) {
+				for (i=0;i<l;++i) {
+					headlines.push(
+						{
+							'pq_id': data[i].pq_id,
+							'hdl': data[i].hdl,
+							'nyt_url': data[i].ny_url
+						}
+					);
+				}
+				dataloaded = true;
+
+				if (headlines.length>0) {
+					startTicker();
+				} else {
+					showError();
+				}
 			}
-			dataloaded = true;
-			if (headlines.length>0) {
-				startTicker();
-			} else {
+			else {
 				showError();
 			}
 		});

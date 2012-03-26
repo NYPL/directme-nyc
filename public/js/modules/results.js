@@ -196,7 +196,7 @@ define(['jquery'], function($) {
 	}
 
 	function showMap(lat, lon, divid, tileset, attribution, callback) {
-		if (typeof attribution =='undefined') attribution = '';
+		if (typeof attribution === 'undefined') attribution = '';
 		wax.tilejson(tileset,
 			function(tilejson) {
 				log("json", tilejson)

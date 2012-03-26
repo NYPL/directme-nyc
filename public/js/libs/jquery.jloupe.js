@@ -181,7 +181,7 @@ jQuery.fn.jloupe = function(o){
 
 		click: function(e) {
 			e.preventDefault();
-			if (locked_mode !== true && cancelClick !== true & $('.active-loupe').css('top') !== undefined) {
+			if (locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined') {
 				locked_mode = true;
 				var page_idx = $(this).attr('data-page');
 				$('.active-loupe').animate({

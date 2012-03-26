@@ -2,14 +2,11 @@ define(['jquery'], function($) {
 
 	function _init() {
 		$.getJSON(window.location.protocol + "//" + window.location.host + "/api/indexes/" + environment.borough + '.json', function(data) {
-			var idx_data = null;
-			var sect_data = null;
-
-			if ('idxs' in data) {
+			if (data.hasOwnProperty('idxs')) {
 				var idx_data = data.idxs;
 			}
 
-			if ('sections' in data) {
+			if (data.hasOwnProperty('sections')) {
 				var sect_data = data.sections;
 			}
 
@@ -18,8 +15,8 @@ define(['jquery'], function($) {
 	}
 
 	function loader(borough, indexes, sections) {
-		if (indexes==undefined || indexes==null) indexes = '';
-		if (sections==undefined || sections==null) sections = '';
+		if (typeof indexes === 'undefined' || indexes === null) indexes = '';
+		if (typeof sections === 'undefined' || sections === null) sections = '';
 		var docUrl = window.location.protocol + "//" + window.location.host + "/api/dvs/" + borough + '.json';
 		DV.load(docUrl, { 
 			container: '.DV',

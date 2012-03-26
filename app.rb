@@ -363,7 +363,6 @@ class Api < Application
 				}.to_json
 			else
 				log.info 'no indexes for borough yet'
-				status 404
 				hash = error_json(404, 'no stories created').to_json
 			end
 		else

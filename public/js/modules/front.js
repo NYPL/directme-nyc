@@ -8,7 +8,7 @@ define(['jquery'], function($) {
 
 	function latestStories() {
 		return $.getJSON(urlpath + '/api/stories.json?limit=5&callback=?', function(data) {
-			if ('stories' in data) {
+			if (data.hasOwnProperty('stories')) {
 				addStories(data.stories);
 			}
 		});

@@ -57,12 +57,6 @@ define(['jquery'], function($) {
 	}
 
 	function loadContent() {
-		//just for testing
-		if (environment.borough === 'testset') {
-			environment.borough = 'brooklyn'
-		}
-		//testing is now complete
-
 		$.getJSON(urlpath + '/api/streets/' + environment.borough + '.json?callback=?', function(data) {
 			environment.streets = data.streets;
 			$('#state_hidden').val(data.state);
