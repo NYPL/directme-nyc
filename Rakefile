@@ -37,13 +37,7 @@ namespace :db do
 
 	desc "caps/ensures"
 	task :mongs do
-		if ENV['RACK_ENV'] == 'production'
-			user = ENV['USER']
-			password = ENV['PWD']
-			sh %{mongo staff.mongohq.com:10051/app3264842 -u #{user} -p #{password}}
-		else
-			sh %{mongo dev_project scripts/mongs.js}
-		end
+		sh %{mongo dev_project scripts/mongs.js}
 	end
 
 	desc "daily times collection"

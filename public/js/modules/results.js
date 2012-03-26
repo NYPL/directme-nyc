@@ -102,7 +102,8 @@ define(['jquery'], function($) {
 
 	function CSResolve(arr, city_id, _results, _crosses) {
 		var oldText = "";
-		var curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
+		var curr_results = $('#EDlist').text().split(city_id + '-')
+		curr_results.remove(0);
 		var state_results = [_results]; 
 		var state_cross = [_crosses];
 		var idx = 0;
@@ -115,14 +116,15 @@ define(['jquery'], function($) {
 
 			var selectVal = $('select.crossstreets option:selected').val();
 			var selectText = $('select.crossstreets option:selected').text();
-			var matched = _.intersection(selectVal.split(','), arr, curr_results);
+			var matched = getIntersect(selectVal.split(','), arr, curr_results);
 
 			var results = "";
 			var new_matched = [];
 			var cross_string = "";
+			oldText = selectText;
 
 			$('select.crossstreets option').each(function() {
-				new_matched = _.intersection(matched, $(this).val().split(','));			
+				new_matched = getIntersect(matched, $(this).val().split(','));
 
 				if (_.isEmpty(new_matched) || oldText === $(this).text()) {
 					return true;
@@ -132,25 +134,22 @@ define(['jquery'], function($) {
 				}
 			});
 			
-			cross_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
+			fin_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
 				results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + city_id + "-" + matched[i] + "</a>";
 			}
-			
-			log(results);
 
 			$('a', '#EDlist').remove();
 			$('#EDlist').append(results);
 
 			$('option', $(this)).remove();
-			$(this).append(cross_string);
+			$(this).append(fin_string);
 
-			oldText = selectText;
 			curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
 			$('.streetchoices').append("<p class='crosscheck'><a href='#'>x </a>" + selectText + "</p>");
 			state_results.push(results);
-			state_cross.push(cross_string);
+			state_cross.push(fin_string);
 			
 			// remove the SELECT if there is only 1 ED
 			if (matched.length==1) {
@@ -163,19 +162,16 @@ define(['jquery'], function($) {
 			// show the cross street select
 			$('select.crossstreets').show();
 			
-			var cross_string = "";
-
-			e.preventDefault();
 			idx = $(this).parent().index();
 			
-			results = state_results[idx];
-			cross_string = state_cross[idx];
+			var c_results = state_results[idx];
+			var c_cross_string = state_cross[idx];
 
 			$('a', '#EDlist').remove();
-			$('#EDlist').append(results);
+			$('#EDlist').append(c_results);
 
 			$('option', $('select.crossstreets')).remove();
-			$('.crossstreets').append(cross_string);
+			$('.crossstreets').append(c_cross_string);
 			if (idx === 0) {
 				$('.crossstreets').prepend('<option selected=selected>Select cross/back street</option>');
 			};
@@ -243,6 +239,21 @@ define(['jquery'], function($) {
 
 	function prependStory(content, author, time_dist) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
+	}
+
+	function getIntersect(arr1, arr2) {
+	    var r = [], o = {}, l = arr2.length, i, v;
+	    for (i = 0; i < l; i++) {
+	        o[arr2[i]] = true;
+	    }
+	    l = arr1.length;
+	    for (i = 0; i < l; i++) {
+	       	v = arr1[i];
+	        if (v in o) {
+	            r.push(v);
+	        }
+	    }
+	    return r;
 	}
 
 
