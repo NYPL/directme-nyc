@@ -91,6 +91,9 @@ class Application < Sinatra::Base
 	end
 
 	configure :production do
+		if defined?(Mongoid)
+			Mongoid.logger=Logger.new('/dev/null')
+		end
 	end
 end
 

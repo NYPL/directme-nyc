@@ -48,6 +48,7 @@ namespace :db do
 
 	desc "daily times collection"
 	task :times_cron do
+		Mongoid.logger = nil
 		Bundler.require
 		Dir.glob('./*.rb') do |file|
 			require file.gsub(/\.rb/, '')
@@ -57,7 +58,7 @@ namespace :db do
 		t = Time.now.strftime("%m/%d")
 		$YEAR = Integer(Time.now.strftime("%Y")) - 72
 		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
-		request = Typhoeus::Request.new(NY_api, :method => :get)
+		request = Typhoeus::Request.new(NY_api, :method => :get, :timeout => 1000)
 		
 		hydra = Typhoeus::Hydra.new
 		hydra.queue(request)
