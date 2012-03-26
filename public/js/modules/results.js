@@ -116,7 +116,7 @@ define(['jquery'], function($) {
 
 			var selectVal = $('select.crossstreets option:selected').val();
 			var selectText = $('select.crossstreets option:selected').text();
-			var matched = getIntersect(selectVal.split(','), arr, curr_results);
+			var matched = _.intersection(selectVal.split(','), arr, curr_results);
 
 			var results = "";
 			var new_matched = [];
@@ -124,7 +124,7 @@ define(['jquery'], function($) {
 			oldText = selectText;
 
 			$('select.crossstreets option').each(function() {
-				new_matched = getIntersect(matched, $(this).val().split(','));
+				new_matched = _.intersection(matched, $(this).val().split(','));
 
 				if (_.isEmpty(new_matched) || oldText === $(this).text()) {
 					return true;
@@ -146,7 +146,9 @@ define(['jquery'], function($) {
 			$('option', $(this)).remove();
 			$(this).append(fin_string);
 
-			curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
+			curr_results = $('#EDlist').text().split(city_id + '-');
+			curr_results.remove(0);
+
 			$('.streetchoices').append("<p class='crosscheck'><a href='#'>x </a>" + selectText + "</p>");
 			state_results.push(results);
 			state_cross.push(fin_string);
@@ -184,7 +186,8 @@ define(['jquery'], function($) {
 				}
 			});
 
-			curr_results = $('#EDlist').text().split(city_id + '-').splice(1);
+			curr_results = $('#EDlist').text().split(city_id + '-');
+			curr_results.remove(0);
 			oldText = $('select.crossstreets option:selected').text();
 		});
 
@@ -240,22 +243,6 @@ define(['jquery'], function($) {
 	function prependStory(content, author, time_dist) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
 	}
-
-	function getIntersect(arr1, arr2) {
-	    var r = [], o = {}, l = arr2.length, i, v;
-	    for (i = 0; i < l; i++) {
-	        o[arr2[i]] = true;
-	    }
-	    l = arr1.length;
-	    for (i = 0; i < l; i++) {
-	       	v = arr1[i];
-	        if (v in o) {
-	            r.push(v);
-	        }
-	    }
-	    return r;
-	}
-
 
 	/** Return instantiated function */
 	return {
