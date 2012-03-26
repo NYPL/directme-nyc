@@ -53,16 +53,18 @@ DV.Schema.helpers = {
       viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
 
       //browse by section links and context open
-      viewer.$('.DV-sections').delegate('.DV-letters a', 'click', function(e){
-        e.preventDefault();
-        if (viewer.state == 'ViewThumbnails') {
-          viewer.models.document.setPageIndex(viewer.options.sections[$(this).attr('name')] - 1);
-          context.open('ViewDocument');
-        }
-        else {
-          viewer.helpers.jump(viewer.options.sections[$(this).attr('name')] - 1);
-        }
-      });
+      if (viewer.options.sections) {
+        viewer.$('.DV-sections').delegate('.DV-letters a', 'click', function(e){
+          e.preventDefault();
+          if (viewer.state == 'ViewThumbnails') {
+            viewer.models.document.setPageIndex(viewer.options.sections[$(this).attr('name')] - 1);
+            context.open('ViewDocument');
+          }
+          else {
+            viewer.helpers.jump(viewer.options.sections[$(this).attr('name')] - 1);
+          }
+        });
+      }
 
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });

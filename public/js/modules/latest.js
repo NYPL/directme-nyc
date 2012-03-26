@@ -9,9 +9,6 @@ define(['jquery'], function($) {
 	function latest() {
 		$.when(latestLocations(), latestStories()).done(function(loc_data, story_data) {
 
-			log(loc_data[0]);
-			log(story_data[0]);
-
 			if ('locations' in loc_data[0]) {
 				showLocations(loc_data[0].locations);
 			}

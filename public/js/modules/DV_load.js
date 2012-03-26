@@ -16,7 +16,7 @@ define(['jquery'], function($) {
 
 	function loader(borough, indexes, sections) {
 		if (typeof indexes === 'undefined' || indexes === null) indexes = '';
-		if (typeof sections === 'undefined' || sections === null) sections = '';
+		if (typeof sections === 'undefined' || sections === null) sections = false;
 		var docUrl = window.location.protocol + "//" + window.location.host + "/api/dvs/" + borough + '.json';
 		DV.load(docUrl, { 
 			container: '.DV',

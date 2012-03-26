@@ -127,7 +127,6 @@ DV.load = function(documentRep, options) {
   DV.viewers[id]     = viewer;
   // Once we have the JSON representation in-hand, finish loading the viewer.
   var continueLoad = DV.loadJSON = function(json) {
-    log(json);
     var viewer = DV.viewers[json.borough] || DV.viewers[json.id] || DV.viewers[json._id];
     viewer.schema.importCanonicalDocument(json);
     viewer.loadModels();

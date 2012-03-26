@@ -69,7 +69,6 @@ define(['jquery'], function($) {
 				}
 
 				if (data.hasOwnProperty('coordinates') && data.hasOwnProperty('map_urls')) {
-					log(data);
 					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap',
 						data.map_urls[0],
 						"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>", 
@@ -199,7 +198,6 @@ define(['jquery'], function($) {
 		if (typeof attribution === 'undefined') attribution = '';
 		wax.tilejson(tileset,
 			function(tilejson) {
-				log("json", tilejson)
 				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
 					new wax.leaf.connector(tilejson))
 					.setView(new L.LatLng(lat, lon), 16);
