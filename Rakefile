@@ -49,6 +49,7 @@ namespace :db do
 	desc "daily times collection"
 	task :times_cron do
 		Bundler.require
+		Mongoid.logger=Logger.new('/dev/null')
 		Dir.glob('./*.rb') do |file|
 			require file.gsub(/\.rb/, '')
 		end

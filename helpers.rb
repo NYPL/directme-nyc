@@ -31,7 +31,7 @@ module MyHelpers
 		def log
 			@log = Logger.new(STDERR)
 			@log = Logger.new(STDOUT)
-			@log.level = Logger::DEBUG
+			@log.level = Logger::INFO
 			return @log
 		end
 	end
