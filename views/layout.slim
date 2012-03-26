@@ -20,21 +20,26 @@ html
         meta name="viewport" content="width=device-width, initial-scale=1"
 
         - if @RESULTS
-            ==slim :css_results
+            ==slim :'css/css_results'
 
         - elsif @DV
-            ==slim :css_DV
+            ==slim :'css/css_DV'
 
         - elsif @LATEST
-            ==slim :css_latest
+            ==slim :'css/css_latest'
 
         - else
-            ==slim :css_main
+            ==slim :'css/css_main'
 
 
         link rel='shortcut icon' href='/favicon.ico'
         link rel='apple-touch-icon' href='/images/apple-touch-icon.png' 
 
+        script src="http://use.typekit.com/adp0eod.js"
+        javascript:
+            try{Typekit.load();}catch(e){}
+
+        script src="/js/re_browser.js"
         script src="/js/libs/modernizr.js"
         
         /! require.js => special version

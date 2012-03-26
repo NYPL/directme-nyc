@@ -47,9 +47,9 @@ class Stories
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	index :result_url
+	index :result_token
 
-	field :result_url, :type => String
+	field :result_token, :type => String
 	field :content, :type => String
 	field :connection, :type => String
 	field :location, :type => Hash

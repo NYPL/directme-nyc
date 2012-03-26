@@ -144,7 +144,7 @@ class Application < Sinatra::Base
 		end
 	end
 
-#---------------MOBILE&NOT-FOUND-------------------------------------------------------
+#---------------MOBILE&NOT-FOUND&<=IE7-------------------------------------------------------
 
 	get '/m' do
 
@@ -152,6 +152,11 @@ class Application < Sinatra::Base
 	#################################################################
 
 	########################other handlers###########################
+	get '/upgrade' do
+		setsession(session)
+		slim :upgrade, :layout => :'eww/layout'
+	end 
+
 	not_found do
 		status 404
 		redirect '/'
@@ -232,7 +237,7 @@ class Api < Application
 	get '/locations/:token.json' do
 		if sessioncheck(request, session[:session_id])
 			obj = Locations.where(:token => params['token']).first()
-			_stories = Stories.where(:result_url => obj.url).order_by(:created_at, :desc)
+			_stories = Stories.where(:result_token => params['token']).order_by(:created_at, :desc)
 
 			stories = time_ago(_stories)
 
@@ -290,11 +295,7 @@ class Api < Application
 					end
 				}
 
-				if request.host == 'localhost'
-					hash['result_url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, params['token']]
-				else
-					hash['result_url'] = 'http://%s/results?token=%s' % [request.host, params['token']]
-				end
+				hash['result_token'] = params['token']
 
 				json = Stories.safely.create(hash).to_json
 				status 201
