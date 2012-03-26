@@ -2225,7 +2225,7 @@ DV.Schema.helpers = {
 
       //browse by section links and context open
       if (viewer.options.sections) {
-        viewer.$('.DV-sections').delegate('.DV-letters a', 'click', function(e){
+        viewer.$('.DV-azView').delegate('.DV-submenu a', 'click', function(e){
           e.preventDefault();
           if (viewer.state == 'ViewThumbnails') {
             viewer.models.document.setPageIndex(viewer.options.sections[$(this).attr('name')] - 1);
@@ -2747,10 +2747,9 @@ _.extend(DV.Schema.helpers, {
       options     : this.viewer.options,
       id          : doc.id,
       story_url   : storyURL,
-      title       : doc.title || '',
-      pdf_mb      : doc.pdf_mb || ''
+      title       : doc.title || ''
     });
-    var footerHTML = JST.footer({options : this.viewer.options});
+    var footerHTML = JST.footer({options : this.viewer.options, pdf_mb : doc.pdf_mb || ''});
     var sidebarLeftHTML = JST.sidebarLeft({options : this.viewer.options, descriptionContainer: JST.descriptionContainer({ description: description})});
 
     var pdfURL = doc.resources.pdf;

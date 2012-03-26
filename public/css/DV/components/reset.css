@@ -15,7 +15,11 @@
 
 .DV-docViewer a,
 .DV-docViewer a:visited{
-  color:#004276;
+  color:#333;
+}
+
+.DV-docViewer a:hover{
+  color:#f00;
 }
 
 .DV-docViewer{

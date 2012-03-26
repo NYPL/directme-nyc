@@ -7,7 +7,7 @@ strong {
 	font-weight: bold;
 }
 
-a {
+a, a:hover {
 	color: #f00;
 }
 
@@ -75,7 +75,7 @@ p {
 }
 
 #boroughs li {
-	font-family: league-gothic, "League Gothic", Impact, sans-serif;
+	font-family: league-gothic, "League Gothic", "Arial Narrow", sans-serif;
 	line-height: 0.85em;
 }
 
@@ -334,4 +334,31 @@ p {
 
 #header_compact #nav_bar a:hover, #header_compact #nav_bar a:active {
 	color: #f00;
+}
+
+#footer a {
+	color: #666;
+}
+
+#footer a:hover {
+	color: #f00;
+}
+
+@media screen and (min-width: 0px) and (max-width: 740px) {
+	
+	body {
+		font-size: 12px;
+	}
+}
+
+@media screen and (min-width: 0px) and (max-width: 460px) {
+	#header h1 {
+		font-size: 20px;
+	}
+	h1#searchterms {
+		font-size: 18px;
+	}
+	#nav-bar a {
+		font-size: 14px;
+	}
 }

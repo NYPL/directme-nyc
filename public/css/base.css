@@ -104,6 +104,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	margin: 0 5px 0 5px;
+	min-height: 450px;
 }
 
 #blurb li {
@@ -134,7 +135,7 @@ div.spacer{ display: block; }
 
 #tip {
 	position: absolute;
-	top: 255px;
+	top: 275px;
 	left: 245px;
 	width: 230px;
 	margin: 0;
@@ -145,7 +146,6 @@ div.spacer{ display: block; }
 
 #nytimes {
 	clear: both;
-	margin-top: 450px;
 }
 
 #ticker .title, #ticker .content {
@@ -250,7 +250,7 @@ div.spacer{ display: block; }
 
 #video {
 	position: absolute;
-	top: 255px;
+	top: 275px;
 	left: 480px;
 	width: 230px;
 
@@ -366,8 +366,7 @@ div.spacer{ display: block; }
 #latest .annotation {
 	float: left;
 	width: 230px;
-	height: 80px;
-	margin: 0 5px 70px 5px;
+	margin: 0 5px 12px 5px;
 }
 
 #latest .more {
@@ -435,8 +434,12 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		border-radius:200px / 10px;
 	}
 	
+	#tip {
+		top: 230px;
+	}
+	
 	#video {
-		top: 475px;
+		top: 370px;
 		left: 240px;
 	}
 
@@ -488,6 +491,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 	#blurb {
 		margin-bottom: 12px;
+		min-height: 0;
 	}
 
 	#tip {
@@ -546,4 +550,14 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		margin-left: 5px;
 	}
 
+}
+
+@media screen and (min-width: 0px) and (max-width: 460px) {
+	#mainwrapper {
+		width: 240px;
+	}
+	
+	#header {
+		height: 76px;
+	}
 }

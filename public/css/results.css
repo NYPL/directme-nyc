@@ -203,3 +203,53 @@
 
 
 }
+
+@media screen and (min-width: 0px) and (max-width: 460px) {
+	#results {
+		width: 230px;
+		margin-right: 0;
+	}
+
+	#annotations {
+		width: 230px;
+	}
+
+	#annotations .content, #annotations #frm-annotate {
+		float: none;
+	}
+	
+	#geo {
+		float: none;
+		width: 230px;
+	}
+	
+	#nyplmap, #gmap {
+		float: none;
+	}
+	
+	#nyplmap {
+		margin-bottom: 10px;
+	}
+	
+	#geo .overlays {
+		position: relative;
+	}
+
+	#geo .overlays .nyploverlay {
+		position: absolute;
+		top: -470px;
+	}
+
+	#geo .overlays .gmapoverlay {
+		position: absolute;
+		top: -230px;
+	}
+
+	#nytimes {
+		width: 230px;
+	}
+
+	#ticker {
+		width: 230px;
+	}
+}

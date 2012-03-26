@@ -97,7 +97,7 @@ define(['jquery'], function($) {
 	}
 	
 	function showCutout(x,y,href) {
-		$("#cutout .page").css('background', 'url(' + href + ') ' + x + 'px ' + y + 'px');
+		$("#cutout .page").css('background', 'url(' + href + ') ' + (x-20) + 'px ' + y + 'px');
 	}
 
 	function CSResolve(arr, city_id, _results, _crosses) {
@@ -220,7 +220,7 @@ define(['jquery'], function($) {
 				map.addLayer(centerMarker);
 
 				// disable interaction
-				map.dragging.disable();
+				//map.dragging.disable();
 				map.touchZoom.disable();
 				map.scrollWheelZoom.disable();
 				map.doubleClickZoom.disable();

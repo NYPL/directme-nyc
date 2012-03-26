@@ -15,7 +15,11 @@
 
 .DV-docViewer a,
 .DV-docViewer a:visited{
-  color:#004276;
+  color:#333;
+}
+
+.DV-docViewer a:hover{
+  color:#f00;
 }
 
 .DV-docViewer{
@@ -1030,7 +1034,7 @@
 }
   .DV-collapsibleControls {
     height: 37px;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
 
 .DV-views{
@@ -1090,13 +1094,14 @@
 .DV-download {
   font-family: inherit;
   font-size: 11px;
-  float: right;
   margin: 0px 15px 0 0;
-  position: relative;
-  width: 100px;
+  position: absolute;
+  right: 0;
+  top: 8px;
+  width: 150px;
   text-align: center;
 }
-
+/**/
 .DV-sections {
   font-family: inherit;
   font-size: 11px;
@@ -1131,6 +1136,53 @@
 .DV-sections a:hover {
   color: #f00;
 }
+/**/
+
+/* CUSTOM STUFF */
+.DV-boroughsView, .DV-azView {
+	position: relative;
+}
+
+.DV-azView {
+	width: 70px;
+	text-align: center;
+}
+
+.DV-boroughsView:hover .DV-submenu, .DV-azView:hover .DV-submenu {
+	display: block;
+}
+
+div.DV-submenu {
+	display: none;
+	position: absolute;
+	top: 24px;
+	background: #ccc;
+	border-bottom: 2px solid #333;
+}
+
+.DV-boroughsView .DV-submenu {
+	width: 105px;
+}
+
+.DV-azView .DV-submenu {
+	width: 70px;
+}
+
+.DV-submenu a {
+	display: block;
+}
+
+.DV-boroughsView .DV-submenu a {
+	margin: 5px 10px;
+}
+
+.DV-submenu .azLetter {
+	width: 19px;
+	padding: 2px;
+	float: left;
+	text-align: center;
+}
+
 
 .DV-description{
   font-family: Arial,Helvetica,sans-serif;
@@ -1744,9 +1796,9 @@ span.DV-highlighted{
 .DV-zoomControls{
   font-family:Arial,Helvetica,sans-serif;
   font-size:11px;
-  float: right;
   margin: 7px 20px 0 0;
-  position: relative;
+  position: absolute;
+  left: 35px;
 }
   .DV-narrowControls .DV-zoomControls {
     margin-right: 15px;
@@ -1828,13 +1880,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1329940696);
+  background: url(../images/DV/browsers/safari.gif?1331658353);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1329940696);
+  background: url(../images/DV/browsers/chrome.gif?1331658353);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1329940696);
+  background: url(../images/DV/browsers/firefox.gif?1331658353);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;

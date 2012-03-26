@@ -54,7 +54,7 @@ DV.Schema.helpers = {
 
       //browse by section links and context open
       if (viewer.options.sections) {
-        viewer.$('.DV-sections').delegate('.DV-letters a', 'click', function(e){
+        viewer.$('.DV-azView').delegate('.DV-submenu a', 'click', function(e){
           e.preventDefault();
           if (viewer.state == 'ViewThumbnails') {
             viewer.models.document.setPageIndex(viewer.options.sections[$(this).attr('name')] - 1);

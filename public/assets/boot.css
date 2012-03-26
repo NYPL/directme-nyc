@@ -1803,7 +1803,7 @@ strong {
 	font-weight: bold;
 }
 
-a {
+a, a:hover {
 	color: #f00;
 }
 
@@ -1867,11 +1867,11 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331676552) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
 }
 
 #boroughs li {
-	font-family: league-gothic, "League Gothic", Impact, sans-serif;
+	font-family: league-gothic, "League Gothic", "Arial Narrow", sans-serif;
 	line-height: 0.85em;
 }
 
@@ -1923,7 +1923,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331676552) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -2009,7 +2009,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331676552) no-repeat;
+	background: url(../images/sprites.png?1331738064) no-repeat;
 }
 
 #frm-annotate a#fb-submit span:after {
@@ -2132,6 +2132,32 @@ p {
 	color: #f00;
 }
 
+#footer a {
+	color: #666;
+}
+
+#footer a:hover {
+	color: #f00;
+}
+
+@media screen and (min-width: 0px) and (max-width: 740px) {
+	
+	body {
+		font-size: 12px;
+	}
+}
+
+@media screen and (min-width: 0px) and (max-width: 460px) {
+	#header h1 {
+		font-size: 20px;
+	}
+	h1#searchterms {
+		font-size: 18px;
+	}
+	#nav-bar a {
+		font-size: 14px;
+	}
+}
 div.spacer {
 	clear: both;
 	height: 0px;
@@ -2159,7 +2185,7 @@ div.spacer{ display: block; }
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png?1331676552) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -2228,7 +2254,7 @@ div.spacer{ display: block; }
 
 #main {
 	position: relative;
-	background: url(../images/background.png?1331049270);
+	background: url(../images/background.png?1331658353);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -2238,6 +2264,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	margin: 0 5px 0 5px;
+	min-height: 450px;
 }
 
 #blurb li {
@@ -2268,7 +2295,7 @@ div.spacer{ display: block; }
 
 #tip {
 	position: absolute;
-	top: 255px;
+	top: 275px;
 	left: 245px;
 	width: 230px;
 	margin: 0;
@@ -2279,7 +2306,6 @@ div.spacer{ display: block; }
 
 #nytimes {
 	clear: both;
-	margin-top: 450px;
 }
 
 #ticker .title, #ticker .content {
@@ -2384,7 +2410,7 @@ div.spacer{ display: block; }
 
 #video {
 	position: absolute;
-	top: 255px;
+	top: 275px;
 	left: 480px;
 	width: 230px;
 
@@ -2487,7 +2513,7 @@ div.spacer{ display: block; }
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png?1331323956) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
 }
 
 #geobig {
@@ -2500,8 +2526,7 @@ div.spacer{ display: block; }
 #latest .annotation {
 	float: left;
 	width: 230px;
-	height: 80px;
-	margin: 0 5px 70px 5px;
+	margin: 0 5px 12px 5px;
 }
 
 #latest .more {
@@ -2569,8 +2594,12 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		border-radius:200px / 10px;
 	}
 	
+	#tip {
+		top: 230px;
+	}
+	
 	#video {
-		top: 475px;
+		top: 370px;
 		left: 240px;
 	}
 
@@ -2622,6 +2651,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 	#blurb {
 		margin-bottom: 12px;
+		min-height: 0;
 	}
 
 	#tip {
@@ -2680,6 +2710,16 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		margin-left: 5px;
 	}
 
+}
+
+@media screen and (min-width: 0px) and (max-width: 460px) {
+	#mainwrapper {
+		width: 240px;
+	}
+	
+	#header {
+		height: 76px;
+	}
 }
 .embed {
   position: relative;
