@@ -1,6 +1,7 @@
 define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;	
+
 	function _init() {
 		EDcall(getUrlVar('token'));
 	}
@@ -17,8 +18,8 @@ define(['jquery'], function($) {
 
 			var location = {}
 			if (content) {
-				$.post(urlpath + '/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
-					if ('content' in data) {
+				$.post(urlpath + '/api/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
+					if (data.hasOwnProperty('content')) {
 						$('#frm-content').val('');
 						if (ifStories === true) {
 							appendStory(content, author, time_dist);
@@ -34,9 +35,9 @@ define(['jquery'], function($) {
 	}
 
 	function EDcall(token, arr, city_id) {
-		$.getJSON(urlpath + '/locations/' + token + '.json?callback=?', function(data) {
+		$.getJSON(urlpath + '/api/locations/' + token + '.json?callback=?', function(data) {
 
-			if (data !== undefined) {
+			if (typeof data !== 'undefined') {
 
 				if (data.eds.length > 1) {
 					$("#results .EDmore1").show();
@@ -47,7 +48,7 @@ define(['jquery'], function($) {
 				}
 
 				var cross_string = "";
-				if ('cross_streets' in data && 'cross_vals') {
+				if (data.hasOwnProperty('cross_streets') && data.hasOwnProperty('cross_vals')) {
 					cross_string = "";
 					for (var i = 0; i < data.cross_streets.length; i++) {
 						cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
@@ -57,9 +58,9 @@ define(['jquery'], function($) {
 				}
 
 				var results = "";
-				if ('eds' in data && 'fullcity_id' in data) {
+				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id')) {
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + 
+						results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
@@ -67,16 +68,21 @@ define(['jquery'], function($) {
 					CSResolve(data.eds, data.fullcity_id, results, cross_string);
 				}
 
-				if ('coordinates' in data) {
-					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap','http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-16.jsonp',"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>");
-					showMap(data.coordinates.lat,data.coordinates.lng,'gmap','http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp');
+				if (data.hasOwnProperty('coordinates') && data.hasOwnProperty('map_urls')) {
+					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap',
+						data.map_urls[0],
+						"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>", 
+						function() {
+							showMap(data.coordinates.lat,data.coordinates.lng,'gmap',
+								data.map_urls[1]);
+						});
 				}
 
-				if ('cutout' in data) {
+				if (data.hasOwnProperty('cutout')) {
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href);
 				}
 
-				if ('stories' in data) {
+				if (data.hasOwnProperty('stories')) {
 					var ifStories = _.isEmpty(data.stories);
 
 					if (ifStories === false) {
@@ -122,19 +128,14 @@ define(['jquery'], function($) {
 					return true;
 				}
 				else {
-					if (selectText === $(this).text()) {
-						//cross_string += "<option selected=selected value='" + $(this).val() + "'>" + $(this).text() + "</option>";
-					}
-					else {
-						cross_string += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
-					}
+					cross_string += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>";
 				}
 			});
 			
 			cross_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<a class='EDcontent' href='http://www.archives.gov'>" + city_id + "-" + matched[i] + "</a>";
+				results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + city_id + "-" + matched[i] + "</a>";
 			}
 			
 			log(results);
@@ -193,8 +194,8 @@ define(['jquery'], function($) {
 
 	}
 
-	function showMap(lat, lon, divid, tileset, attribution) {
-		if (attribution==undefined) attribution = '';
+	function showMap(lat, lon, divid, tileset, attribution, callback) {
+		if (typeof attribution === 'undefined') attribution = '';
 		wax.tilejson(tileset,
 			function(tilejson) {
 				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
@@ -223,6 +224,10 @@ define(['jquery'], function($) {
 				map.touchZoom.disable();
 				map.scrollWheelZoom.disable();
 				map.doubleClickZoom.disable();
+
+				if (typeof callback !=='undefined') {
+					callback();
+				}
 			}
 		);
 	}

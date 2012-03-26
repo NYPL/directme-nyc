@@ -70,10 +70,10 @@ class Application < Sinatra::Base
 	set :views, 'views'
 
 	#cookie settings
-	enable :sessions
-	#check for session cookie before handlers
-	set :session_secret, ENV['SESSION_KEY']
+	set :session_secret, ENV['SESSION_KEY'] || 'something_secret'
 	set :sessions, :domain => 'localhost:8888'
+
+	enable :sessions
 
 	#slim settings
 	set :slim, :pretty => true
@@ -91,6 +91,9 @@ class Application < Sinatra::Base
 	end
 
 	configure :production do
+		if defined?(Mongoid)
+			Mongoid.logger=Logger.new('/dev/null')
+		end
 	end
 end
 

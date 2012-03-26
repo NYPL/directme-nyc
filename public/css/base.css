@@ -145,7 +145,7 @@ div.spacer{ display: block; }
 
 #nytimes {
 	clear: both;
-	margin-top: 12px;
+	margin-top: 450px;
 }
 
 #ticker .title, #ticker .content {
@@ -367,7 +367,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	height: 80px;
-	margin: 0 5px 6px 5px;
+	margin: 0 5px 70px 5px;
 }
 
 #latest .more {

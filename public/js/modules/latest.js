@@ -9,9 +9,6 @@ define(['jquery'], function($) {
 	function latest() {
 		$.when(latestLocations(), latestStories()).done(function(loc_data, story_data) {
 
-			log(loc_data[0]);
-			log(story_data[0]);
-
 			if ('locations' in loc_data[0]) {
 				showLocations(loc_data[0].locations);
 			}
@@ -29,13 +26,13 @@ define(['jquery'], function($) {
 	}
 
 	function latestLocations() {
-		return $.getJSON(urlpath + '/locations.json?limit=30&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/locations.json?limit=30&callback=?', function(data) {
 		});
 
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/stories.json?limit=200&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=200&callback=?', function(data) {
 		});
 
 	}
@@ -88,7 +85,7 @@ define(['jquery'], function($) {
 	function addStories(stories) {
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
-			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+story.result_url+'" class="hl">'+story.time_ago+' ago</a></p></h4>';
+			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+story.result_url+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			$("#annotations").append(str);
 		}
 	}

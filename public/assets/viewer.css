@@ -1088,14 +1088,50 @@
 }
 
 .DV-download {
-  font-family: Arial,Helvetica,sans-serif;
+  font-family: inherit;
   font-size: 11px;
   float: right;
-  margin: 8px 15px 0 0;
+  margin: 0px 15px 0 0;
   position: relative;
   width: 100px;
   text-align: center;
 }
+
+.DV-sections {
+  font-family: inherit;
+  font-size: 11px;
+  float: left;
+  position: relative;
+  width: 420px;
+  text-align: center;
+  margin: 11px 20px 0 15px;
+}
+
+.DV-letters {
+  position: relative;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.DV-sections span {
+  color: #333;
+  display: inline;
+  float: left;
+  font-family: Arial,Helvetica,sans-serif;
+  padding: 3px 0 0 0;
+  margin: 3px 0 0 6px;
+  position: relative;
+}
+
+.DV-sections a{
+  padding-right: 3px;
+  font-size: 12px;
+}
+
+.DV-sections a:hover {
+  color: #f00;
+}
+
 .DV-description{
   font-family: Arial,Helvetica,sans-serif;
   font-size: 12px;
@@ -2015,7 +2051,8 @@ span.DV-highlighted{
         -moz-border-radius: 8px;
         -webkit-border-radius: 8px;
         border-radius: 8px;
-        padding: 2px 8px;
+        padding: 2px 4px;
+        font-size: 12px;
       }
       .DV-thumbnails .DV-thumbnail.DV-selected .DV-pageNumber .DV-pageNumberText {
         background-color: #3875D7;

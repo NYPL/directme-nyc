@@ -19,6 +19,16 @@
     </div>
 
     <div class="DV-collapsibleControls">
+      <div class="DV-sections">
+        <span>Go To Section</span>
+        <div class="DV-letters">
+          <% var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; %>
+          <% for(var i=0; i<alpha.length; i++) { %>
+            <a name="<%= alpha.charAt(i) %>" href="#"><%= alpha.charAt(i) %></a>
+          <% } %>
+        </div>
+      </div>
+
       <% if (pdf_mb) {%>
         <div class="DV-download"><a href="#">Download Directory PDF (<%= pdf_mb %>MB)</a></div>
       <% } else {%>
@@ -28,10 +38,7 @@
       <div class="DV-zoomControls">
         <span class="DV-zoomLabel">Zoom</span>
         <div class="DV-zoomBox"></div>
-      </div>
-      
+      </div>        
     </div>
-    
   </div>
-
 </div>

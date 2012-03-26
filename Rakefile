@@ -49,15 +49,17 @@ namespace :db do
 	desc "daily times collection"
 	task :times_cron do
 		Bundler.require
+		Mongoid.logger=Logger.new('/dev/null')
 		Dir.glob('./*.rb') do |file|
 			require file.gsub(/\.rb/, '')
 		end
+		include MyHelpers 
 
 		Headlines.collection.remove()
 		t = Time.now.strftime("%m/%d")
 		$YEAR = Integer(Time.now.strftime("%Y")) - 72
 		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
-		request = Typhoeus::Request.new(NY_api, :method => :get)
+		request = Typhoeus::Request.new(NY_api, :method => :get, :timeout => 60000)
 		
 		hydra = Typhoeus::Hydra.new
 		hydra.queue(request)
@@ -75,6 +77,7 @@ namespace :db do
 			}
 			Headlines.create(hash)
 		}
+		Logging.log.info "request completed"
 	end
 
 end

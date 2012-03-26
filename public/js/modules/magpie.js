@@ -13,7 +13,7 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 		resetForm();
 		$('#loc_add').on('show', function() {
 			if (environment.hasOwnProperty('streets')) {
-				log('loaded')
+				return true;
 			}
 			else {
 				fuzzy.init();

@@ -11,13 +11,6 @@ define(['require', 'jquery'], function(require, $) {
 				}
 			}
 
-			//resig => array remove
-			Array.prototype.remove = function(from, to) {
-				var rest = this.slice((to || from) + 1 || this.length);
-				this.length = from < 0 ? this.length + from : from;
-				return this.push.apply(this, rest);
-			};
-
 			this.moderns();
 			this.setCurrent('#nav_bar a');
 		},
@@ -41,11 +34,11 @@ define(['require', 'jquery'], function(require, $) {
 
 		moderns: function() {
 			if (!Modernizr.input.placeholder){
-				$.getScript('/js/libs/jquery.placeholder.min.js').done( function(script, textStatus) {
-					(function() {
-						$('input, textarea').placeholder();
-					});
-				});
+				// $.getScript('/js/libs/jquery.placeholder.min.js').done( function(script, textStatus) {
+				// 	(function() {
+				// 		$('input, textarea').placeholder();
+				// 	})();
+				// });
 			}
 		},
 

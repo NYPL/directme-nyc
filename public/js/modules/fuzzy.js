@@ -22,7 +22,7 @@ define(['jquery'], function($) {
 			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
 
 			if (streetName !== null && checkDisabled !== true) {
-				$.post(urlpath + '/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
+				$.post(urlpath + '/api/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}
@@ -57,13 +57,7 @@ define(['jquery'], function($) {
 	}
 
 	function loadContent() {
-		//just for testing
-		if (environment.borough === 'testset') {
-			environment.borough = 'brooklyn'
-		}
-		//testing is now complete
-
-		$.getJSON(urlpath + '/streets/' + environment.borough + '.json?callback=?', function(data) {
+		$.getJSON(urlpath + '/api/streets/' + environment.borough + '.json?callback=?', function(data) {
 			environment.streets = data.streets;
 			$('#state_hidden').val(data.state);
 			$('#fullcity_hidden').val(data.fullcity);

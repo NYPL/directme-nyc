@@ -9,6 +9,8 @@ Dir.glob('public/*.json') do |file|
 end
 
 $LIMIT = 10
+$SESS = nil
+$MAPS = ['http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-16.jsonp', 'http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp']
 #------------------------------------
 
 # app only methods
@@ -59,47 +61,64 @@ def paging_time(model, request, params)
 	}
 end
 
+def setsession(session)
+	$SESS = session[:session_id]
+end
+
+def sessioncheck(request, _id)
+	#check ip too => request.ip == '127.0.0.1'
+	if request.xhr? == true && $SESS == _id
+		return true
+	else
+		return false
+	end
+end
+
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
 		@scripts = ['/js/libs/jquery.marquee.js']
 		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/nytimes']
+		@deps = ['order!modules/front', 'order!modules/nytimes']
 
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
 
+		setsession(session)
 		slim :main
 	end
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates', 'order!modules/DV_load']
-		@deps = ['order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
+		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
+		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
+		setsession(session)
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
-	get '/latest' do
+	get '/findings' do
+		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/latest']
-    	@consts = ['order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min']
-
 		@LATEST = true
+		setsession(session)
 		slim :latest
 	end
 
   	get '/help' do
+  		setsession(session)
 		slim :help
 	end
 
 	get '/credits' do
+		setsession(session)
 		slim :credits
 	end
 
 	get '/results' do
-		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!libs/underscore', 'order!libs/wax/ext/leaflet', 'order!libs/wax/wax.leaf.min', 'order!modules/results']
-		@deps = ['order!modules/nytimes']
+		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
+		@consts = ['order!libs/underscore']
+		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
 
@@ -110,6 +129,7 @@ class Application < Sinatra::Base
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 				@RESULTS = true
+				setsession(session)
 				slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
@@ -125,155 +145,6 @@ class Application < Sinatra::Base
 		end
 	end
 
-#---------------API-CALLs-------------------------------------------------------
-
-	get '/locations.json' do
-		if Locations.exists?
-			ret_hash = paging_time(Locations, request, params)
-
-			hash = {
-				:locations => ret_hash[:objs],
-				:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-				:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-			}.to_json
-
-		else
-			log.info 'no location searches'
-			hash = error_json(404, 'no location searches').to_json
-		end
-
-		return JsonP(hash, params)
-	end
-
-	post '/locations.json' do
-		status 201
-		if !params['street'].blank? and !params['street'].nil?
-
-			hash = {}
-			params.each { |param, value|
-				if param != 'callback' and value != 'null'
-					hash[param] = value
-				end
-			}
-
-			hash['token'] = gen_random_id()
-			if request.host == 'localhost'
-				hash['url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, hash['token']]
-			else
-				hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
-			end
-
-
-			if hash['street'].scan(/\w+/).count() == 1
-				_street = hash['street'] + ' St'
-			else
-				_street = hash['street']
-			end
-
-			hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
-			hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
-
-			json = Locations.safely.create(hash).to_json
-		else
-
-			log.info 'write error here'
-		end
-
-		return JsonP(json, params)
-	end
-
-	get '/locations/:token.json' do
-		obj = Locations.where(:token => params['token']).first()
-		_stories = Stories.where(:result_url => obj.url).order_by(:created_at, :desc)
-
-		stories = time_ago(_stories)
-
-		ed_hash = $JSON[obj.borough]
-
-		crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
-		values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
-		hash = {
-			:cross_streets => crosses,
-			:cross_vals => values,
-			:eds => ed_hash['streets'][obj.street].fetch('eds'),
-			:fullcity_id => ed_hash['fullcity_id'],
-			:street => obj.street,
-			:coordinates => obj.coordinates,
-			:cutout => obj.cutout,
-			:stories => stories
-		}.to_json
-
-		return JsonP(hash, params)
-	end
-
-	get '/dvs/:borough.json' do
-		json = Loaders.where(:borough => params['borough']).first().to_json
-		return JsonP(json, params)
-	end
-
-	post '/stories.json' do
-		status 201
-
-		if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
-			hash = {}
-			params.each { |param, value|
-				if param != 'callback' and param != 'token' and value != 'null'
-					hash[param] = value
-				end
-			}
-
-			if request.host == 'localhost'
-				hash['result_url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, params['token']]
-			else
-				hash['result_url'] = 'http://%s/results?token=%s' % [request.host, params['token']]
-			end
-
-			json = Stories.safely.create(hash).to_json
-			return JsonP(json, params)
-
-		else
-			log.info 'write error here'
-		end
-	end
-
-	get '/stories.json' do
-		if Stories.exists?
-			ret_hash = paging_time(Stories, request, params)
-
-			hash = {
-				:stories => ret_hash[:objs],
-				:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-				:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-			}.to_json
-
-		else
-			log.info 'no stories exist'
-			hash = error_json(404, 'no stories created').to_json
-		end
-
-		return JsonP(hash, params)
-	end
-
-	get '/streets/:borough.json' do
-		hash = {
-			:fullcity => $JSON[params['borough']]['fullcity'],
-			:state => $JSON[params['borough']]['state'],
-			:streets => $JSON[params['borough']]['streets'].keys()
-		}.to_json
-
-		return JsonP(hash, params)
-	end
-
-	get '/headlines.json' do
-		if Headlines.exists?
-			json = Headlines.all().to_json
-		else
-			log.info 'no Headlines returned'
-		end
-
-		return JsonP(json, params)
-	end
 #---------------MOBILE&NOT-FOUND-------------------------------------------------------
 
 	get '/m' do
@@ -287,5 +158,238 @@ class Application < Sinatra::Base
 		redirect '/'
 	end
 	#################################################################
-
 end
+#---------------API-CALLs-------------------------------------------------------
+
+class Api < Application
+	get '/locations.json' do
+		if sessioncheck(request, session[:session_id])
+			if Locations.exists?
+				ret_hash = paging_time(Locations, request, params)
+
+				hash = {
+					:locations => ret_hash[:objs],
+					:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+					:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
+				}.to_json
+
+			else
+				log.info 'no location searches'
+				status 404
+				hash = error_json(404, 'no location searches').to_json
+			end
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(hash, params)
+	end
+
+	post '/locations.json' do
+		if sessioncheck(request, session[:session_id])
+			if !params['street'].blank? and !params['street'].nil?
+
+				hash = {}
+				params.each { |param, value|
+					if param != 'callback' and value != 'null'
+						hash[param] = value
+					end
+				}
+
+				hash['token'] = gen_random_id()
+				if request.host == 'localhost'
+					hash['url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, hash['token']]
+				else
+					hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
+				end
+
+
+				if hash['street'].scan(/\w+/).count() == 1
+					_street = hash['street'] + ' St'
+				else
+					_street = hash['street']
+				end
+
+				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
+				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+				hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
+
+				json = Locations.safely.create(hash).to_json
+				status 201
+			else
+				log.info 'write error here'
+			end
+
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(json, params)
+	end
+
+	get '/locations/:token.json' do
+		if sessioncheck(request, session[:session_id])
+			obj = Locations.where(:token => params['token']).first()
+			_stories = Stories.where(:result_url => obj.url).order_by(:created_at, :desc)
+
+			stories = time_ago(_stories)
+
+			ed_hash = $JSON[obj.borough]
+
+			crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
+			values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
+
+			#bust ie cache!
+			bust_maps = []
+			$MAPS.each { |url|
+				bust_maps.push(url + '?bust=' + randstring(8))
+			}
+
+			hash = {
+				:map_urls => bust_maps,
+				:cross_streets => crosses,
+				:cross_vals => values,
+				:eds => ed_hash['streets'][obj.street].fetch('eds'),
+				:fullcity_id => ed_hash['fullcity_id'],
+				:street => obj.street,
+				:coordinates => obj.coordinates,
+				:cutout => obj.cutout,
+				:stories => stories
+			}.to_json
+
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(hash, params)
+	end
+
+	get '/dvs/:borough.json' do
+		if sessioncheck(request, session[:session_id])
+			json = Loaders.where(:borough => params['borough']).first().to_json
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(json, params)
+	end
+
+	post '/stories.json' do
+		if sessioncheck(request, session[:session_id])
+			if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
+				hash = {}
+				params.each { |param, value|
+					if param != 'callback' and param != 'token' and value != 'null'
+						hash[param] = value
+					end
+				}
+
+				if request.host == 'localhost'
+					hash['result_url'] = 'http://%s:%s/results?token=%s' % [request.host, request.port, params['token']]
+				else
+					hash['result_url'] = 'http://%s/results?token=%s' % [request.host, params['token']]
+				end
+
+				json = Stories.safely.create(hash).to_json
+				status 201
+			else
+				log.info 'write error here'
+			end
+
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(json, params)
+	end
+
+	get '/stories.json' do
+		if sessioncheck(request, session[:session_id])
+			if Stories.exists?
+				ret_hash = paging_time(Stories, request, params)
+
+				hash = {
+					:stories => ret_hash[:objs],
+					:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
+					:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
+				}.to_json
+
+			else
+				log.info 'no stories exist'
+				status 404
+				hash = error_json(404, 'no stories created').to_json
+			end
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(hash, params)
+	end
+
+	get '/streets/:borough.json' do
+		if sessioncheck(request, session[:session_id])
+			hash = {
+				:fullcity => $JSON[params['borough']]['fullcity'],
+				:state => $JSON[params['borough']]['state'],
+				:streets => $JSON[params['borough']]['streets'].keys()
+			}.to_json
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(hash, params)
+	end
+
+	get '/indexes/:borough.json' do
+		if sessioncheck(request, session[:session_id])
+			if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
+				hash = {
+					:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs'],
+					:sections => $JSON['%s_%s' % ['idx', params['borough']]]['sections']
+				}.to_json
+			else
+				log.info 'no indexes for borough yet'
+				hash = error_json(404, 'no stories created').to_json
+			end
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			hash = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(hash, params)
+	end
+
+	get '/headlines.json' do
+		if sessioncheck(request, session[:session_id])
+			if Headlines.exists?
+				json = Headlines.all().to_json
+			else
+				log.info 'no Headlines returned'
+				status 404
+				json = error_json(404, 'no headlines available').to_json
+			end
+		else
+			log.info 'cannot access without browser session'
+			status 403
+			json = error_json(403, 'cannot access without browser session').to_json
+		end
+
+		return JsonP(json, params)
+	end
+end
+

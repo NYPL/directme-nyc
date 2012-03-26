@@ -56,6 +56,7 @@ def init_json(file, borough):
 
 	f = open('../public/%s.json' % borough,'w')
 	print >> f, streets
+	f.close()
 
 
 if __name__ == "__main__":

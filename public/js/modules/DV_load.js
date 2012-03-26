@@ -1,15 +1,29 @@
 define(['jquery'], function($) {
 
 	function _init() {
-		loader(environment.borough);
+		$.getJSON(window.location.protocol + "//" + window.location.host + "/api/indexes/" + environment.borough + '.json', function(data) {
+			if (data.hasOwnProperty('idxs')) {
+				var idx_data = data.idxs;
+			}
+
+			if (data.hasOwnProperty('sections')) {
+				var sect_data = data.sections;
+			}
+
+			loader(environment.borough, idx_data, sect_data);
+		});
 	}
 
-	function loader(borough) {
-		var docUrl = window.location.protocol + "//" + window.location.host + "/dvs/" + borough + '.json';
+	function loader(borough, indexes, sections) {
+		if (typeof indexes === 'undefined' || indexes === null) indexes = '';
+		if (typeof sections === 'undefined' || sections === null) sections = false;
+		var docUrl = window.location.protocol + "//" + window.location.host + "/api/dvs/" + borough + '.json';
 		DV.load(docUrl, { 
 			container: '.DV',
 			sidebar: false,
-			search: false
+			search: false,
+			idxs: indexes,
+			sections: sections
 		});
 	}
 
