@@ -58,25 +58,24 @@ namespace :db do
 		t = Time.now.strftime("%m/%d")
 		$YEAR = Integer(Time.now.strftime("%Y")) - 72
 		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
-		request = Typhoeus::Request.new(NY_api, :method => :get, :timeout => 1000)
+		request = Typhoeus::Request.new(NY_api, :method => :get, :timeout => 60000)
 		
 		hydra = Typhoeus::Hydra.new
 		hydra.queue(request)
 		hydra.run
 
 		resp = request.response
-		puts resp.body
-		#results = JSON.parse(resp.body)
-		# results[0].each { |result| 
-		# 	hash = {
-		# 		:hdl => result['hdl'],
-		# 		:lead => result['lp'],
-		# 		:date => result['dat'],
-		# 		:ny_url => result['url'],
-		# 		:pq_id => result['articleid']
-		# 	}
-		# 	Headlines.create(hash)
-		# }
+		results = JSON.parse(resp.body)['results']
+		results[0].each { |result| 
+			hash = {
+				:hdl => result['hdl'],
+				:lead => result['lp'],
+				:date => result['dat'],
+				:ny_url => result['url'],
+				:pq_id => result['articleid']
+			}
+			Headlines.create(hash)
+		}
 	end
 
 end
