@@ -65,8 +65,8 @@ namespace :db do
 		hydra.run
 
 		resp = request.response
-		results = JSON.parse(resp.body)
-		puts results
+		puts resp
+		#results = JSON.parse(resp.body)
 		# results[0].each { |result| 
 		# 	hash = {
 		# 		:hdl => result['hdl'],
