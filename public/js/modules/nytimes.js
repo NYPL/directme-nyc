@@ -45,6 +45,7 @@ define(['jquery'], function($) {
 		// combine link/headline
 		var i, l=headlines.length, hl;
 		var tickercontent = "";
+		headlines = _.shuffle(headlines);
 		for (i=0;i<l;++i) {
 			hl = headlines[i];
 			// only NYTimes urls for now

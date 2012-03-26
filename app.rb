@@ -90,7 +90,7 @@ class Application < Sinatra::Base
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
-		@consts = ['order!libs/underscore', 'order!modules/viewer', 'order!modules/templates']
+		@consts = ['order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
 		@DV = true
 		setsession(session)
@@ -117,7 +117,6 @@ class Application < Sinatra::Base
 
 	get '/results' do
 		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
-		@consts = ['order!libs/underscore']
 		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
