@@ -53,6 +53,7 @@ namespace :db do
 		Dir.glob('./*.rb') do |file|
 			require file.gsub(/\.rb/, '')
 		end
+		include MyHelpers 
 
 		Headlines.collection.remove()
 		t = Time.now.strftime("%m/%d")
@@ -75,8 +76,8 @@ namespace :db do
 				:pq_id => result['articleid']
 			}
 			Headlines.create(hash)
-			log.info('sweet!')
 		}
+		Logging.log.info "request completed"
 	end
 
 end
