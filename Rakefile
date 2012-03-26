@@ -40,7 +40,7 @@ namespace :db do
 		if ENV['RACK_ENV'] == 'production'
 			user = ENV['USER']
 			password = ENV['PWD']
-			exec "mongo staff.mongohq.com:10051/app3264842 -u #{user} -p#{password} scripts/mongs.js"
+			sh %{mongo staff.mongohq.com:10051/app3264842 -u #{user} -p#{password}}
 		else
 			sh %{mongo dev_project scripts/mongs.js}
 		end
