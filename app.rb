@@ -10,6 +10,7 @@ end
 
 $LIMIT = 10
 $SESS = nil
+$MAPS = ['http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-16.jsonp', 'http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp']
 #------------------------------------
 
 # app only methods
@@ -65,7 +66,8 @@ def setsession(session)
 end
 
 def sessioncheck(request, _id)
-	if request.xhr? == true && request.ip == '127.0.0.1' && $SESS == _id
+	#check ip too => request.ip == '127.0.0.1'
+	if request.xhr? == true && $SESS == _id
 		return true
 	else
 		return false
@@ -240,7 +242,15 @@ class Api < Application
 
 			crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
 			values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
+
+			#bust ie cache!
+			bust_maps = []
+			$MAPS.each { |url|
+				bust_maps.push(url + '?bust=' + randstring(8))
+			}
+
 			hash = {
+				:map_urls => bust_maps,
 				:cross_streets => crosses,
 				:cross_vals => values,
 				:eds => ed_hash['streets'][obj.street].fetch('eds'),
