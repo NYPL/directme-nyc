@@ -65,17 +65,18 @@ namespace :db do
 		hydra.run
 
 		resp = request.response
-		results = JSON.parse(resp.body)['results']
-		results[0].each { |result| 
-			hash = {
-				:hdl => result['hdl'],
-				:lead => result['lp'],
-				:date => result['dat'],
-				:ny_url => result['url'],
-				:pq_id => result['articleid']
-			}
-			Headlines.create(hash)
-		}
+		results = JSON.parse(resp.body)
+		puts results
+		# results[0].each { |result| 
+		# 	hash = {
+		# 		:hdl => result['hdl'],
+		# 		:lead => result['lp'],
+		# 		:date => result['dat'],
+		# 		:ny_url => result['url'],
+		# 		:pq_id => result['articleid']
+		# 	}
+		# 	Headlines.create(hash)
+		# }
 	end
 
 end
