@@ -3,13 +3,8 @@ define(['jquery'], function($) {
 
 	function _init() {
 		loadContent();
-		$.subscribe('touchEnd', tabletTouch);
 	}
 	
-	function tabletTouch(e, touch){
-		log(touch);
-	}
-
 	function onSubmitModal(page_idx) {
 		$('#submitED').on('click', function(e) {
 			e.preventDefault();
