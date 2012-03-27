@@ -99,6 +99,7 @@ DV.Schema.helpers = {
       });
 
       // Handle iPad / iPhone scroll events...
+      log("binding");
       _.bindAll(this, 'touchStart', 'touchMove', 'touchEnd');
       this.elements.window[0].ontouchstart  = this.touchStart;
       this.elements.window[0].ontouchmove   = this.touchMove;
