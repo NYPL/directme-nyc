@@ -23,7 +23,7 @@ define(['jquery'], function($) {
 				str += '<div class="story"><p>'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			}
 			else {
-				str += '<div class="story even"><p>'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+urlpath+'/results?token=' +story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
+				str += '<div class="story even"><p>'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			}
 		}
 		$("#stories h2").after(str);

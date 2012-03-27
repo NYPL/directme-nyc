@@ -32,6 +32,7 @@ javascripts:
 
 stylesheets:
     results:
+        - public/css/bootstrap_ext.css
         - public/css/reset.css
         - public/css/text.css
         - public/css/base.css
