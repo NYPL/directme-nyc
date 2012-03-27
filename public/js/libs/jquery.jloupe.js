@@ -73,6 +73,7 @@ jQuery.fn.jloupe = function(o){
 	
 	var lastdown = 0;
 	var isdown = false;
+	var cancelClick = false;
 	
 	$(this).data('zoom',i);	
 
