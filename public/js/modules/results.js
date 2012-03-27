@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(['jquery', 'modules/social'], function($, social) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;	
 
@@ -7,30 +7,44 @@ define(['jquery'], function($) {
 	}
 
 	function submitStory(page_idx, ifStories) {
-		$('#fb-submit').on('click', function(e) {
+		$('#conn_social').on('show', function() {
+			var _modal = $('.modal');
+			_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
+		});
 
-			var content = $('#frm-content').val();
-			var time_dist = 'just now'
+		$('#submit').on('click', function(e) {
+			socialStart();
 
-			//temp
-			var author = 'Anonymous'
-			//
+		// 	var content = $('#frm-content').val();
+		// 	var time_dist = 'just now'
 
-			var location = {}
-			if (content) {
-				$.post(urlpath + '/api/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
-					if (data.hasOwnProperty('content')) {
-						$('#frm-content').val('');
-						if (ifStories === true) {
-							appendStory(content, author, time_dist);
-							ifStories = false;
-						}
-						else {
-							prependStory(content, author, time_dist);
-						}
-					}
-				}, "json");
-			}
+		// 	//temp
+		// 	var author = 'Anonymous'
+		// 	//
+
+		// 	var location = {}
+		// 	if (content) {
+		// 		$.post(urlpath + '/api/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
+		// 			if (data.hasOwnProperty('content')) {
+		// 				$('#frm-content').val('');
+		// 				if (ifStories === true) {
+		// 					appendStory(content, author, time_dist);
+		// 					ifStories = false;
+		// 				}
+		// 				else {
+		// 					prependStory(content, author, time_dist);
+		// 				}
+		// 			}
+		// 		}, "json");
+		// 	}
+		});
+	}
+
+	function socialStart() {
+		$('#conn_social').modal({
+			'show': true,
+			'keyboard': false,
+			'backdrop': false
 		});
 	}
 
@@ -79,7 +93,8 @@ define(['jquery'], function($) {
 				}
 
 				if (data.hasOwnProperty('cutout')) {
-					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href);
+					var quick_link = urlpath + '/DV/' + data.borough + '#document/p' + data.cutout.page_idx 
+					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href, quick_link);
 				}
 
 				if (data.hasOwnProperty('stories')) {
@@ -96,7 +111,8 @@ define(['jquery'], function($) {
 		});
 	}
 	
-	function showCutout(x,y,href) {
+	function showCutout(x,y,href, quick_link) {
+		$("#cutout .cutoutlink").prop('href', quick_link)
 		$("#cutout .page").css('background', 'url(' + href + ') ' + (x-20) + 'px ' + y + 'px');
 	}
 

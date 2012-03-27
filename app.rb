@@ -89,9 +89,9 @@ class Application < Sinatra::Base
 	end
 
 	get '/DV/:borough' do
-		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js']
+		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
 		@consts = ['order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe', 'order!modules/bootstraps']
+		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe']
 		@DV = true
 		setsession(session)
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
@@ -116,7 +116,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/results' do
-		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
+		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', '/js/modules/bootstraps.js']
 		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
@@ -134,13 +134,11 @@ class Application < Sinatra::Base
 			else
 				log.info "No Valid Result Token"
 				status 404
-				redirect '/'
 			end
 
 		else
 			log.info "No Result Token"
 			status 404
-			redirect '/'
 		end
 	end
 
@@ -261,7 +259,8 @@ class Api < Application
 				:street => obj.street,
 				:coordinates => obj.coordinates,
 				:cutout => obj.cutout,
-				:stories => stories
+				:stories => stories,
+				:borough => obj.borough
 			}.to_json
 
 		else

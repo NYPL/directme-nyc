@@ -7,7 +7,8 @@ div#mainwrapper
 
 		div#geo
 			div#cutout
-				div.page
+				a.cutoutlink href="#"
+					div.page
 
 			div#nyplmap
 
@@ -56,11 +57,11 @@ div#mainwrapper
 			div#fb-root
 			form#frm-annotate
 				textarea#frm-content placeholder="Share your story..."
-				| <a href="#" id="fb-submit">Post with <span>Facebook</span></a><br />
-				| <a href="#" id="tw-submit">Post with <span>Twitter</span></a><br />
-				| <a href="#" id="g-submit">Post with <span>Google</span></a>
+				| <a href="#" id="submit">Post via...</a>
 		/! --annotations
 
 		==slim :nytimes
 
 		div.spacer
+
+		==slim :conn_modal
