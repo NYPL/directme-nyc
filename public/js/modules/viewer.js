@@ -2410,7 +2410,6 @@ DV.Schema.helpers = {
     },
 
     touchEnd : function(e) {
-      log("touchend");
       if (!this._moved) {
         var touch     = e.changedTouches[0];
         var target    = touch.target;
@@ -2420,6 +2419,9 @@ DV.Schema.helpers = {
           touch.screenX, touch.screenY, touch.clientX, touch.clientY,
           false, false, false, false, 0, null);
         target.dispatchEvent(fakeClick);
+        log("touchend");
+        // send stuff to fuzzy
+  	    $.publish('touchEnd', [touch]);
       }
       this._moved = false;
     },
