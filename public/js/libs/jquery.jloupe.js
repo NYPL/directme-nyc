@@ -189,7 +189,6 @@ jQuery.fn.jloupe = function(o){
 					top: $(window).height()/6,
 					left: ($(window).width()/2) - ($('.active-loupe').width()/2)
 					}, 300, function() {
-						log("page_idx:"+page_idx);
 						$.publish('clickSpot', [page_idx]);
 				});
 			}

@@ -238,6 +238,7 @@ DV.Schema.helpers = {
     },
 
     touchEnd : function(e) {
+      log("touchend");
       if (!this._moved) {
         var touch     = e.changedTouches[0];
         var target    = touch.target;
