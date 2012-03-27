@@ -8,7 +8,6 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 
 		$.subscribe('pages', recFunc)
 		$.subscribe('clickSpot', funModal);
-		$.subscribe('touchEnd', tabletTouch);
 
 		//setup modal
 		resetForm();
@@ -36,10 +35,6 @@ define(['require', 'jquery', 'modules/fuzzy'], function(require, $, fuzzy) {
 			reInitMag();
 		});
 
-	}
-
-	function tabletTouch(e, touch){
-		log(touch);
 	}
 
 	function resetForm() {

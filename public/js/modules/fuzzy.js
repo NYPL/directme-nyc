@@ -4,7 +4,7 @@ define(['jquery'], function($) {
 	function _init() {
 		loadContent();
 	}
-	
+
 	function onSubmitModal(page_idx) {
 		$('#submitED').on('click', function(e) {
 			e.preventDefault();

@@ -74,9 +74,60 @@ jQuery.fn.jloupe = function(o){
 	var lastdown = 0;
 	var isdown = false;
 	var cancelClick = false;
+	var isMoving = false;
 	
 	$(this).data('zoom',i);	
 
+	$.subscribe('tabletTouch', tabletTouch);
+	
+	function tabletTouch(e, num, page, touch) {
+		//log(page);
+		//log(touch);
+		if ($('.modal-backdrop').length == 0) {
+			// background stuff
+			var o = $(loupe).offset();
+			//var i = page.magImageEl;//$(loupe).data('zoom');
+			var i = $('<img />').attr('src', page.magImageEl[0]);
+			$(loupe).data('zoom',i);
+/*			
+			var str = "page:";
+			for (var k in page) {
+				str += "[" + k + "]=>" + page[k] + ",";
+			}
+			log(str);
+*/
+			posx = touch.clientX;
+			posy = touch.clientY;
+			
+			_left = posx+options.cursorOffsetX;
+
+			_top = posy+options.cursorOffsetY;
+
+			$(loupe).offset({top:_top, left:_left});
+
+
+			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
+			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
+			
+			zlo = (((posx - o.left) / touch.target.width) * w *-1) + options._offset;
+			zto = (((posy - o.top) / touch.target.height) * h *-1) + (options.height/2);
+			
+			log (zlo + "," + zto);
+			
+			
+			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
+			
+			// show loupe
+			$(loupe).show();
+			// animation + modal
+			$(loupe).animate({
+				top: $(window).height()/6,
+				left: ($(window).width()/2) - ($(loupe).width()/2)
+				}, 300, function() {
+					$.publish('clickSpot', [num]);
+			});
+		}
+	}
 
 	$(document).on('mouseup', function() {
 		clearTimeout(this.downTimer);
@@ -95,7 +146,7 @@ jQuery.fn.jloupe = function(o){
 			    else $(loupe).hide();
 			    cancelClick = true
 			}
-			if (locked_mode !== true && drag_mode !== true) {
+			if (locked_mode !== true && drag_mode !== true && !isMoving) {
 				$(loupe).hide();
 				$(loupe).show();
 
@@ -108,6 +159,9 @@ jQuery.fn.jloupe = function(o){
 
 				var o = $(this).offset();
 				var i = $(this).data('zoom');
+				
+				log (o);
+				log (i);
 
 				if(e.pageX || e.pageY){
 					posx = e.pageX;
@@ -177,18 +231,24 @@ jQuery.fn.jloupe = function(o){
 			if (t - lastdown < 100) {
 				// user was NOT dragging
 			    drag_mode = false;
+			} else {
+				cancelClick = true;
 			}
 		},
 
 		click: function(e) {
 			e.preventDefault();
-			if (locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined') {
+			if ($('.modal-backdrop').length == 0 && locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined' && !isMoving) {
 				locked_mode = true;
 				var page_idx = $(this).attr('data-page');
+				isMoving = true;
 				$('.active-loupe').animate({
 					top: $(window).height()/6,
 					left: ($(window).width()/2) - ($('.active-loupe').width()/2)
 					}, 300, function() {
+						isMoving = false;
+						isdown = false;
+						drag_mode = false;
 						$.publish('clickSpot', [page_idx]);
 				});
 			}
