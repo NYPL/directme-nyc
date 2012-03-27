@@ -50,7 +50,8 @@ DV.Schema.helpers = {
       viewer.$('.DV-allAnnotations').delegate('.DV-annotationGoto .DV-trigger','click', DV.jQuery.proxy(this.gotoPage, this));
 
       //make mag not clickable
-      viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
+      //viewer.$('.DV-page').delegate('.DV-mag', 'click', function(e){ return false; });
+      //viewer.$('.DV-page').delegate('.DV-mag', 'ontouchend', function(e){ return false; });
 
       //browse by section links and context open
       if (viewer.options.sections) {
@@ -99,7 +100,6 @@ DV.Schema.helpers = {
       });
 
       // Handle iPad / iPhone scroll events...
-      log("binding");
       _.bindAll(this, 'touchStart', 'touchMove', 'touchEnd');
       this.elements.window[0].ontouchstart  = this.touchStart;
       this.elements.window[0].ontouchmove   = this.touchMove;
