@@ -6,7 +6,7 @@ define(['jquery'], function($) {
 		$.subscribe('touchEnd', tabletTouch);
 	}
 	
-	function ipadTouch(e, touch){
+	function tabletTouch(e, touch){
 		log(touch);
 	}
 
