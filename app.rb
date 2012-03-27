@@ -116,7 +116,8 @@ class Application < Sinatra::Base
 	end
 
 	get '/results' do
-		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', '/js/modules/bootstraps.js']
+		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
+					'/js/modules/bootstraps.js']
 		@deps = ['order!modules/results', 'order!modules/nytimes']
 
 		if !params['token'].blank? and !params['token'].nil?
