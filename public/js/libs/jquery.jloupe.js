@@ -64,10 +64,8 @@ jQuery.fn.jloupe = function(o){
 	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
 
 	if(options.locked) {
-		log('djljldj')
 		var locked_mode = options.locked
 	};
-	log(options)
 	var drag_mode = false;
 
 	var h = $(this).parent('a').attr('href');
@@ -80,44 +78,38 @@ jQuery.fn.jloupe = function(o){
 	var cancelClick = false;
 	var isMoving = false;
 	
+	var ua = navigator.userAgent;
+	var isiPad = /iPad/i.test(ua) || /iPhone OS 3_1_2/i.test(ua) || /iPhone OS 3_2_2/i.test(ua);
+	
 	$(this).data('zoom',i);	
 
 	$.subscribe('tabletTouch', tabletTouch);
 	
 	function tabletTouch(e, num, page, touch) {
-		//log(page);
-		//log(touch);
 		if ($('.modal-backdrop').length == 0) {
 			// background stuff
 			var o = $(loupe).offset();
-			//var i = page.magImageEl;//$(loupe).data('zoom');
 			var i = $('<img />').attr('src', page.magImageEl[0]);
 			$(loupe).data('zoom',i);
-/*			
-			var str = "page:";
-			for (var k in page) {
-				str += "[" + k + "]=>" + page[k] + ",";
-			}
-			log(str);
-*/
+
 			posx = touch.clientX;
 			posy = touch.clientY;
 			
-			_left = posx+options.cursorOffsetX;
-
-			_top = posy+options.cursorOffsetY;
-
-			$(loupe).offset({top:_top, left:_left});
-
-
 			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
 			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
 			
-			zlo = (((posx - o.left) / touch.target.width) * w *-1) + options._offset;
-			zto = (((posy - o.top) / touch.target.height) * h *-1) + (options.height/2);
+			zlo = parseInt((((posx - touch.target.x) / touch.target.width) * w *-1) + options._offset);
+			zto = parseInt((((posy - touch.target.y) / touch.target.height) * h *-1) + (options.height/2));
 			
-			log (zlo + "," + zto);
+			/*
+			log(touch.clientX + "," + touch.clientY + "," + w + "," + h + "," + zlo + "," + zto + "," + options._offset + "," + options.height);
 			
+			var str = "touch.target:";
+			for (var k in touch.target) {
+				str += "[" + k + "]=>" + touch.target[k] + ",";
+			}
+			log(str);
+			*/
 			
 			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
 			
@@ -142,65 +134,69 @@ jQuery.fn.jloupe = function(o){
 	$(this)
 	.on({
 		mousemove: function(e){
-			if (isdown) {
-				// user is dragging
-			    drag_mode = true;
-			    $(loupe).stop(true, true);
-			    if(options.fade) $(loupe).fadeOut(10);
-			    else $(loupe).hide();
-			    cancelClick = true
-			}
-			if (locked_mode !== true && drag_mode !== true && !isMoving) {
-				$(loupe).hide();
-				$(loupe).show();
+			if (!isiPad) {
+				if (isdown) {
+					// user is dragging
+				    drag_mode = true;
+				    $(loupe).stop(true, true);
+				    if(options.fade) $(loupe).fadeOut(10);
+				    else $(loupe).hide();
+				    cancelClick = true
+				}
+				if (locked_mode !== true && drag_mode !== true && !isMoving) {
+					$(loupe).hide();
+					$(loupe).show();
 
-				if ($(view).css('background-image')) {
-					$(loupe).addClass('active-loupe');	
-				}
-				else {
-					$(loupe).removeClass('active-loupe');
-				}
+					if ($(view).css('background-image')) {
+						$(loupe).addClass('active-loupe');	
+					}
+					else {
+						$(loupe).removeClass('active-loupe');
+					}
 
-				var o = $(this).offset();
-				var i = $(this).data('zoom');
-				
-
-				if(e.pageX || e.pageY){
-					posx = e.pageX;
-					posy = e.pageY;
-				}
-				else if(e.clientX || e.clientY){
-					posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-					posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-				}
-
-
-				if ((posx + options.cursorOffsetX) > ($('.DV').width() - options.width)) {
-					_left = $('.DV').width()-options.width;
-				}
-				else if ((posx + options.cursorOffsetX) <= 0) {
-					_left = 0;
-				}
-				else {
-					_left = posx+options.cursorOffsetX;
-				}
-
-				if ((posy+options.cursorOffsetY) <= $('#wrapper').height() + $('.DV-header').height()) {
-					_top = $('#wrapper').height() + $('.DV-header').height();
-				}
-				else {
-					_top = posy+options.cursorOffsetY;
-				}
-
+					var o = $(this).offset();
+					var i = $(this).data('zoom');
 					
-				$(loupe).offset({top:posy+options.cursorOffsetY, left:_left});
+
+					if(e.pageX || e.pageY){
+						posx = e.pageX;
+						posy = e.pageY;
+					}
+					else if(e.clientX || e.clientY){
+						posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+						posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+					}
 
 
-				w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
-				h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
-				zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
-				zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
-				$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
+					if ((posx + options.cursorOffsetX) > ($('.DV').width() - options.width)) {
+						_left = $('.DV').width()-options.width;
+					}
+					else if ((posx + options.cursorOffsetX) <= 0) {
+						_left = 0;
+					}
+					else {
+						_left = posx+options.cursorOffsetX;
+					}
+
+					if ((posy+options.cursorOffsetY) <= $('#wrapper').height() + $('.DV-header').height()) {
+						_top = $('#wrapper').height() + $('.DV-header').height();
+					}
+					else {
+						_top = posy+options.cursorOffsetY;
+					}
+
+						
+					$(loupe).offset({top:posy+options.cursorOffsetY, left:_left});
+
+
+					w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
+					h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
+					zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
+					zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
+					$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
+				}
+			} else {
+				$(loupe).hide();
 			}
 		},
 
