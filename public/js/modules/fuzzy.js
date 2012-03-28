@@ -30,6 +30,14 @@ define(['jquery'], function($) {
 	}
 
 	function matchStreets(input) {
+		// check for N1 W1 E1 S1
+		if (input != '' && input.length>=2) {
+			if (isNaN(input[0]) && !isNaN(input.substr(1))) {
+				// first: letter second-fwd: number
+				// assuming no letters after the number (N10 but not N10St or N10th)
+				input = input.substr(1) + "" + input[0];
+			}
+		}
 		var trimmed = input.replace(/\s/,'');
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
 		return environment.streets.filter(function(st) {
