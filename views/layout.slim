@@ -63,6 +63,9 @@ html
                 };
 
     body
+        - if not @DV or not @HELP or not @ABOUT
+            ==slim :after_body_script
+
         div#wrapper
             ==slim :nypl
             - if @DV

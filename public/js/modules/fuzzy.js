@@ -15,10 +15,9 @@ define(['jquery'], function($) {
 			var fullcity = $('#fullcity_hidden').val() || environment.fullcity;
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			var checkDisabled = $(this).hasClass('disabled');
-			var theX = $('.active-loupe').find('.thejloupeview').css('background-position-x');
-			var theY = $('.active-loupe').find('.thejloupeview').css('background-position-y');
-			log(theX + "," + theY);
-			var positions = [theX,theY];
+			var theXY = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ")
+
+			var positions = [theXY[0],theXY[1]];
 			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
 			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
 
