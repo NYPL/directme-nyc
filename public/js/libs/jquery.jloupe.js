@@ -233,14 +233,10 @@ jQuery.fn.jloupe = function(o){
 			if (t - lastdown < 50) {
 				// user was NOT dragging
 			    drag_mode = false;
-			} else {
-				cancelClick = true;
 			}
 		},
 
 		click: function(e) {
-			log('jljld')
-			log(locked_mode, cancelClick)
 			if ($('.modal-backdrop').length == 0 && locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined' && isMoving !== true) {
 				locked_mode = true;
 				var page_idx = $(this).attr('data-page');
