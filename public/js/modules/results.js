@@ -1,22 +1,24 @@
 define(['jquery', 'modules/social'], function($, social) {
 
-	var urlpath = window.location.protocol + "//" + window.location.host;	
+	var urlpath = window.location.protocol + "//" + window.location.host;
 
 	function _init() {
 		EDcall(getUrlVar('token'));
 	}
 
 	function submitStory(page_idx, ifStories) {
-		$('#conn_social').on('show', function() {
+		$('#conn_social').on('show', function(e) {
+			e.preventDefault();
 			var _modal = $('.modal');
 			_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
 		});
 
 		$('#submit').on('click', function(e) {
+			e.preventDefault();
+			var content = $('#frm-content').val();
+			var time_dist = 'just now'
 			socialStart();
-
-		// 	var content = $('#frm-content').val();
-		// 	var time_dist = 'just now'
+			social.init(content, time_dist);
 
 		// 	//temp
 		// 	var author = 'Anonymous'

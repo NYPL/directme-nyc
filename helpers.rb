@@ -84,5 +84,12 @@ module MyHelpers
 			@rand_string = chars.sort_by { rand }.join[0...length]
 		end
 	end
+
+	module CurrentUser
+		extend self
+		attr_reader :current_user
+		def current_user
+		end
+	end
 end
 

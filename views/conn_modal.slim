@@ -4,8 +4,8 @@ div#conn_social.modal.hide.fade
 		h3 Connect
 
 	div.modal-body
-		div#fb-submit
-			div#fb-root
-			div.fb-login-button Login with Facebook
-
-		a.btn.logout href="#" data-dismiss="modal" Logout & Sign-in with a Different Account
+		div.conns
+			| <a href="#" id="fb-submit"><span>Facebook</span></a><br />
+			| <a href="#" id="tw-submit"><span>Twitter</span></a><br />
+			| <a href="#" id="g-submit"><span>Google</span></a>
+			a.btn.logout href="#" data-dismiss="modal" Logout & Sign-in with a Different Account

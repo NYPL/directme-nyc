@@ -25,6 +25,10 @@ class Application < Sinatra::Base
 	use Rack::Mongoid::Middleware::IdentityMap
 	use Rack::Deflater
 
+	use OmniAuth::Builder do
+		provider :facebook, ENV['FBKEY'], ENV['FBSECRET']
+	end
+
 	#set this when ready
 	#===========================================================
 	#$memcache = Dalli::Client.new
@@ -58,6 +62,7 @@ class Application < Sinatra::Base
 	set :raise_errors,    false
   	set :show_exceptions, false
   	set :db_config, ENV["db_config"] || 'mongo'
+  	set :protection, :except => :frame_options
 
   	#db/offload settings
   	if settings.db_config.eql?('mongo')

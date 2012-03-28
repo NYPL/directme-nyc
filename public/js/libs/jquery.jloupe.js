@@ -63,7 +63,11 @@ jQuery.fn.jloupe = function(o){
 
 	if(options.backgroundColor) view.css('backgroundColor', options.backgroundColor);
 
-	if(options.locked) var locked_mode = options.locked;
+	if(options.locked) {
+		log('djljldj')
+		var locked_mode = options.locked
+	};
+	log(options)
 	var drag_mode = false;
 
 	var h = $(this).parent('a').attr('href');
@@ -160,8 +164,6 @@ jQuery.fn.jloupe = function(o){
 				var o = $(this).offset();
 				var i = $(this).data('zoom');
 				
-				log (o);
-				log (i);
 
 				if(e.pageX || e.pageY){
 					posx = e.pageX;
@@ -228,7 +230,7 @@ jQuery.fn.jloupe = function(o){
 		mouseup: function(e) {
 			isdown = false;
 			var t = new Date().getTime();
-			if (t - lastdown < 100) {
+			if (t - lastdown < 50) {
 				// user was NOT dragging
 			    drag_mode = false;
 			} else {
@@ -237,15 +239,16 @@ jQuery.fn.jloupe = function(o){
 		},
 
 		click: function(e) {
-			e.preventDefault();
-			if ($('.modal-backdrop').length == 0 && locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined' && !isMoving) {
+			log('jljld')
+			log(locked_mode, cancelClick)
+			if ($('.modal-backdrop').length == 0 && locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined' && isMoving !== true) {
 				locked_mode = true;
 				var page_idx = $(this).attr('data-page');
 				isMoving = true;
 				$('.active-loupe').animate({
 					top: $(window).height()/6,
 					left: ($(window).width()/2) - ($('.active-loupe').width()/2)
-					}, 300, function() {
+					}, 200, function() {
 						isMoving = false;
 						isdown = false;
 						drag_mode = false;

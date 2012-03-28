@@ -160,6 +160,14 @@ class Application < Sinatra::Base
 		status 404
 		redirect '/'
 	end
+
+	get '/auth/:name/callback' do
+		auth = request.env["omniauth.auth"]
+		origin = request.env['omniauth.origin']
+		name = auth["info"]["name"]
+		puts name
+		redirect origin
+	end
 	#################################################################
 end
 #---------------API-CALLs-------------------------------------------------------
@@ -186,6 +194,7 @@ class Api < Application
 			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(hash, params)
 	end
 
@@ -230,6 +239,7 @@ class Api < Application
 			json = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(json, params)
 	end
 
@@ -270,6 +280,7 @@ class Api < Application
 			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(hash, params)
 	end
 
@@ -282,6 +293,7 @@ class Api < Application
 			json = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(json, params)
 	end
 
@@ -309,6 +321,7 @@ class Api < Application
 			json = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(json, params)
 	end
 
@@ -333,6 +346,7 @@ class Api < Application
 			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(hash, params)
 	end
 
@@ -349,6 +363,7 @@ class Api < Application
 			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(hash, params)
 	end
 
@@ -369,6 +384,7 @@ class Api < Application
 			hash = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(hash, params)
 	end
 
@@ -386,6 +402,7 @@ class Api < Application
 			json = error_json(403, 'cannot access without browser session').to_json
 		end
 
+		content_type 'application/json'
 		return JsonP(json, params)
 	end
 end

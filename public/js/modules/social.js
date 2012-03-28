@@ -1,50 +1,23 @@
 define(['jquery'], function($) {
 
-	function _init() {
+	var callback_url =  window.location;
+
+
+	function _init(content, time_ago) {
 		fbSetup();
 	}
 
-	function _status() {
-		//fbStatus();
-	}
-
 	function fbSetup() {
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId      : '383762241655543',
-				status     : true, 
-				cookie     : true,
-				xfbml      : true,
-				oauth      : true,
-			});
-		}
-
-		(function(d){
-		var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-		js = d.createElement('script'); js.id = id; js.async = true;
-		js.src = "//connect.facebook.net/en_US/all.js";
-		d.getElementsByTagName('head')[0].appendChild(js);
-		}(document));
-
-	}
-
-	function fbStatus() {
-		FB.Event.subscribe('auth.login', function(response) {
-
+		$('#fb-submit').on('click', function(e) {
+			e.preventDefault();
+			auth_url = encodeURI('/auth/facebook?display=popup&goto=' + callback_url);
+			window.location.href = auth_url
 		});
-	}
-
-	function tweetSetup() {
-
-	}
-
-	function gplusSetup() {
 
 	}
 
 	return {
-		init: _init,
-		status: _status
+		init: _init
 	};
 
 });

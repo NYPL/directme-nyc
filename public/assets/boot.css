@@ -1971,7 +1971,7 @@ p {
 	margin-bottom: 4px;
 }
 
-#frm-annotate a {
+.conns a {
 	display: inline-block;
 	width: 145px;
 	height: 16px;
@@ -1996,13 +1996,13 @@ p {
 	-ms-border-radius:6px;
 }
 
-#frm-annotate a {
+.conns a {
 	position: relative;
 	margin-left: 66px;
 	color: #666;
 }
 
-#frm-annotate a#fb-submit span:after, #frm-annotate a#tw-submit span:after, #frm-annotate a#g-submit span:after {
+.conns a#fb-submit span:after, .conns a#tw-submit span:after, .conns a#g-submit span:after {
 	content: "";
 	width: 16px;
 	height: 16px;
@@ -2012,15 +2012,15 @@ p {
 	background: url(../images/sprites.png?1331676552) no-repeat;
 }
 
-#frm-annotate a#fb-submit span:after {
+.conns a#fb-submit span:after {
 	background-position: 0 -19px;
 }
 
-#frm-annotate a#tw-submit span:after {
+.conns a#tw-submit span:after {
 	background-position: 0 -36px;
 }
 
-#frm-annotate a#g-submit span:after {
+.conns a#g-submit span:after {
 	background-position: 0 -53px;
 }
 
