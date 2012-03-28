@@ -471,15 +471,13 @@ DV.Schema.helpers = {
     },
 
     handleInitialState: function(){
-      var initialRouteMatch = this.viewer.history.loadURL(true);
-      if(!initialRouteMatch) {
-        var opts = this.viewer.options;
-        this.viewer.open('ViewThumbnails');
-        if (opts.note) {
-          this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
-        } else if (opts.page) {
-          this.jump(opts.page - 1);
-        }
+      var opts = this.viewer.options;
+      this.viewer.open('ViewThumbnails');
+
+      if (opts.note) {
+        this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
+      } else if (opts.page) {
+        this.jump(opts.page - 1);
       }
     }
 
