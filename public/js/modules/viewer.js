@@ -2409,18 +2409,28 @@ DV.Schema.helpers = {
     },
 
     touchEnd : function(e) {
-      if (!this._moved) {
-        var touch     = e.changedTouches[0];
-        var target    = touch.target;
-        var fakeClick = document.createEvent('MouseEvent');
-        while (target.nodeType !== 1) target = target.parentNode;
-        fakeClick.initMouseEvent('click', true, true, touch.view, 1,
-          touch.screenX, touch.screenY, touch.clientX, touch.clientY,
-          false, false, false, false, 0, null);
-        target.dispatchEvent(fakeClick);
-      }
-      this._moved = false;
-    },
+        if (!this._moved) {
+          var touch     = e.changedTouches[0];
+          var target    = touch.target;
+          // THIS IS SENDING FAKE CLICKS!!! (needed for tap on thumbnail)
+          var fakeClick = document.createEvent('MouseEvent');
+          while (target.nodeType !== 1) target = target.parentNode;
+          fakeClick.initMouseEvent('click', true, true, touch.view, 1,
+            touch.screenX, touch.screenY, touch.clientX, touch.clientY,
+            false, false, false, false, 0, null);
+          target.dispatchEvent(fakeClick);
+          // send stuff to fuzzy
+          if(this.viewer.state === 'ViewDocument'){
+              var p, n, pId  = this.viewer.$(e.target).closest('.DV-set').attr('data-id');
+              if (pId!=undefined) {
+                  p = this.viewer.pageSet.pages[pId];
+                  n = p.pageNumber;
+            	  $.publish('tabletTouch', [n, p, touch]);
+              }
+            }
+        }
+        this._moved = false;
+      },
 
     // Click to open a page's permalink.
     permalinkPage : function(mode, e) {

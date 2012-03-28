@@ -475,6 +475,20 @@ div.spacer{ display: block; }
 	margin: 0 auto;
 }
 
+#notfound {
+	padding-top: 12px;
+}
+
+#notfound h2 {
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+#notfound ul li {
+	list-style-type: square;
+	margin-bottom: 12px;
+}
+
 #nypl_bar {
 	font-family: "Kievit", "Myriad Pro", "Lucida Grande", "Calibri", verdana, arial, helvetica, sans-serif;
 	position: relative;

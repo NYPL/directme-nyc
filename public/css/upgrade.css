@@ -1,0 +1,17 @@
+#nav_bar {
+	display: none;
+}
+
+#upgrade {
+	text-align: center;
+	padding-top: 12px;
+}
+
+#upgrade h2 {
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+#upgrade p {
+	font-size: 18px;
+}
