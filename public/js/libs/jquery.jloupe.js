@@ -91,6 +91,7 @@ jQuery.fn.jloupe = function(o){
 			var o = $(loupe).offset();
 			var i = $('<img />').attr('src', page.magImageEl[0]);
 			$(loupe).data('zoom',i);
+			$(loupe).addClass('active-loupe');	
 
 			posx = touch.clientX;
 			posy = touch.clientY;
