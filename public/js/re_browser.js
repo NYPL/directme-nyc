@@ -16,6 +16,6 @@ var ie = (function(){
  
 }());
 
-if (ie === 7) {
+if (ie <= 7) {
     window.location.replace("/upgrade");
 }

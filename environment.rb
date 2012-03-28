@@ -23,6 +23,7 @@ class Application < Sinatra::Base
 	# ==============
 	use Rack::ShowExceptions
 	use Rack::Mongoid::Middleware::IdentityMap
+	use Rack::Deflater
 
 	#set this when ready
 	#===========================================================
@@ -73,7 +74,7 @@ class Application < Sinatra::Base
 	set :session_secret, ENV['SESSION_KEY'] || 'something_secret'
 	set :sessions, :domain => 'localhost:8888'
 
-	enable :sessions
+	enable :sessions, :static
 
 	#slim settings
 	set :slim, :pretty => true

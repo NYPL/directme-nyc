@@ -1,7 +1,7 @@
 embed_images: datauri
 compress_assets: off
 template_function: _.template
-gzip_assets: off
+gzip_assets: on
 
 javascripts:
     viewer:
@@ -56,6 +56,3 @@ stylesheets:
         - public/css/DV/components/ui.css                                                                                                                                                                                               
         - public/css/DV/components/*.css                                                                                                                                                                                                
         - public/css/DV/themes/plain.css
-
-    print:
-        - public/css/DV/print.css

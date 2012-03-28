@@ -204,6 +204,51 @@
 
 }
 
+@media print {
+
+	#annotations {
+		display: none;
+	}
+	
+	#nytimes {
+		display: none;
+	}
+
+	#cutout {
+		display: none;
+	}
+
+	#nav_bar {
+		display: none;
+	}
+
+	.streetchoices {
+		display: none;
+	}
+
+	.crossstreets {
+		display: none;
+	}
+
+	#nypl_bar {
+		display: none;
+	}
+
+	#geo {
+		float: left;
+	}
+
+	#results {
+		width: 470px;
+		margin-right: 470px;
+		min-height: 0;
+	}
+
+	#footer {
+		display: none;
+	}
+}
+
 @media screen and (min-width: 0px) and (max-width: 460px) {
 	#results {
 		width: 230px;
