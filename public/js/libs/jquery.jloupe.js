@@ -26,6 +26,9 @@ jQuery.fn.jloupe = function(o){
 			options.borderColor = options.backgroundColor = o.color;
 		}
 	}
+	var ua = navigator.userAgent;
+	var isiPad = /iPad/i.test(ua) || /iPhone OS 3_1_2/i.test(ua) || /iPhone OS 3_2_2/i.test(ua);
+	
 	var loupe = $('<div />').addClass('thejloupe')
 		.css('position','absolute')
 		.css('z-index', '20003')
@@ -47,7 +50,8 @@ jQuery.fn.jloupe = function(o){
 		.css('marginTop', options.margin +'px')
 		.appendTo(loupe);
 	
-	var help = $('<div>Line up arrow with name. Click to freeze frame.</div>').addClass('thejloupehelp')
+	if (!isiPad) {
+		var help = $('<div>Line up arrow with name. Click to freeze frame.</div>').addClass('thejloupehelp')
 		.css('width',options.width-options.margin*2 +'px')
 		.css('paddingTop','4px')
 		.css('height','20px')
@@ -57,6 +61,7 @@ jQuery.fn.jloupe = function(o){
 		.css('position','absolute')
 		.css('bottom', '0')
 		.appendTo(view);
+	}
 
 	var posx = 0; 
 	var posy = 0;
@@ -78,9 +83,6 @@ jQuery.fn.jloupe = function(o){
 	var cancelClick = false;
 	var isMoving = false;
 	
-	var ua = navigator.userAgent;
-	var isiPad = /iPad/i.test(ua) || /iPhone OS 3_1_2/i.test(ua) || /iPhone OS 3_2_2/i.test(ua);
-	
 	$(this).data('zoom',i);	
 
 	$.subscribe('tabletTouch', tabletTouch);
@@ -99,8 +101,8 @@ jQuery.fn.jloupe = function(o){
 			w = $(i).prop ? $(i).prop('width') : $(i).attr('width');
 			h = $(i).prop ? $(i).prop('height') : $(i).attr('height');
 			
-			zlo = parseInt((((posx - touch.target.x) / touch.target.width) * w *-1) + options._offset);
-			zto = parseInt((((posy - touch.target.y) / touch.target.height) * h *-1) + (options.height/2));
+			zlo = (((posx - touch.target.x) / touch.target.width) * w *-1) + options._offset;
+			zto = (((posy - touch.target.y) / touch.target.height) * h *-1) + (options.height/2);
 			
 			/*
 			log(touch.clientX + "," + touch.clientY + "," + w + "," + h + "," + zlo + "," + zto + "," + options._offset + "," + options.height);
