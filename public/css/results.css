@@ -138,6 +138,11 @@
 	display: none;
 }
 
+.print {
+	float: left;
+	padding-top: 20px;
+}
+
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
 	#geo {
@@ -251,6 +256,10 @@
 	#EDlist a{
 		font-size: 20px;
 		width: 70px;
+	}
+
+	.print {
+		display: none;
 	}
 }
 

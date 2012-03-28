@@ -80,6 +80,7 @@ define(['jquery', 'modules/social'], function($, social) {
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
+					printMe();
 
 					CSResolve(data.eds, data.fullcity_id, results, cross_string);
 				}
@@ -260,6 +261,12 @@ define(['jquery', 'modules/social'], function($, social) {
 
 	function prependStory(content, author, time_dist) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
+	}
+
+	function printMe() {
+		$('a.printme').on('click', function() {
+			window.print();
+		});
 	}
 
 	/** Return instantiated function */
