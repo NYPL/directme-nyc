@@ -175,12 +175,7 @@ p {
 	margin-bottom: 4px;
 }
 
-.conns a {
-	display: inline-block;
-	width: 145px;
-	height: 16px;
-	padding: 3px;
-	margin-bottom: 4px;
+#frm-annotate a, .conns a {
 	/* BACKGROUND GRADIENT */
 	background: rgb(255,255,255);
 	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
@@ -200,10 +195,25 @@ p {
 	-ms-border-radius:6px;
 }
 
-.conns a {
-	position: relative;
-	margin-left: 66px;
+#frm-annotate a {
+	display: inline-block;
+	padding: 3px 4px;
+	height: 16px;
+	margin-bottom: 4px;
 	color: #666;
+	float: right;
+	margin-right: 8px;
+}
+
+.conns a {
+	display: inline-block;
+	width: 145px;
+	height: 16px;
+	padding: 3px;
+	margin-bottom: 4px;
+	color: #666;
+	position: relative;
+	margin-left: 40px;
 }
 
 .conns a#fb-submit span:after, .conns a#tw-submit span:after, .conns a#g-submit span:after {
