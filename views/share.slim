@@ -1,10 +1,14 @@
 /! --share--
 div#share
+	h3 Share this 
 	/! --twitter--
-	| <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://directme.nypl.org" data-text="This is the text that people tweet" data-via="nyplmilstein">Tweet</a>
+	div.shareitem.twitter
+		| <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://directme.nypl.org" data-text="This is the text that people tweet" data-via="nyplmilstein">Tweet</a>
 	/! --facebook--
-	| <div id="fb-root"></div>
-	| <div class="fb-like" data-href="http://directme.nypl.org" data-send="true" data-width="80" data-show-faces="false" data-font="arial"></div>
+	div.shareitem.facebook
+		| <div id="fb-root"></div>
+		| <div class="fb-like" data-href="http://directme.nypl.org" data-send="true" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
 	/! --google--
-	| <g:plusone size="small" href="http://directme.nypl.org"></g:plusone>
+	div.shareitem.gplus
+		| <g:plusone size="small" href="http://directme.nypl.org"></g:plusone>
 	

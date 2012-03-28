@@ -8,6 +8,13 @@ div.spacer:after { content: "."; display: block; height: 0; clear: both; visibil
 * html div.spacer { height: 1%; }
 div.spacer{ display: block; }
 
+/* GENERIC */
+
+#share .shareitem {
+	margin: 0 5px 12px 5px;
+	clear: both;
+}
+
 /* MAIN STRUCTURE */
 
 #wrapper {
@@ -169,13 +176,13 @@ div.spacer{ display: block; }
 
 #ticker .title {
 	float: left;
-	width: 140px;
+	width: 145px;
 	margin-left: 5px;
 }
 
 #ticker .content {
 	float: left;
-	width: 800px;
+	width: 790px;
 	height: 17px;
 	line-height: 1.2;
 	overflow: hidden;
@@ -441,7 +448,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#ticker .content {
-		width: 565px;
+		width: 550px;
 	}
 
 	#ticker:before {
