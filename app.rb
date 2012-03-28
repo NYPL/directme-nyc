@@ -108,11 +108,13 @@ class Application < Sinatra::Base
 
   	get '/help' do
   		setsession(session)
+  		@HELP = true
 		slim :help
 	end
 
-	get '/credits' do
+	get '/about' do
 		setsession(session)
+		@ABOUT = true
 		slim :credits
 	end
 
