@@ -166,6 +166,13 @@ class Application < Sinatra::Base
 		origin = request.env['omniauth.origin']
 		name = auth["info"]["name"]
 		puts name
+		puts origin
+		redirect origin
+	end
+
+	get '/auth/failure' do
+		flash[:notice] = params[:message] # if using sinatra-flash or rack-flash
+		origin = request.env['omniauth.origin']
 		redirect origin
 	end
 	#################################################################
