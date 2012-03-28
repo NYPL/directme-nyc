@@ -176,13 +176,13 @@ div.spacer{ display: block; }
 
 #ticker .title {
 	float: left;
-	width: 140px;
+	width: 145px;
 	margin-left: 5px;
 }
 
 #ticker .content {
 	float: left;
-	width: 800px;
+	width: 790px;
 	height: 17px;
 	line-height: 1.2;
 	overflow: hidden;
@@ -448,7 +448,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 
 	#ticker .content {
-		width: 565px;
+		width: 550px;
 	}
 
 	#ticker:before {
