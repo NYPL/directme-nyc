@@ -23,7 +23,8 @@ define(['jquery'], function($) {
 			sidebar: false,
 			search: false,
 			idxs: indexes,
-			sections: sections
+			sections: sections,
+			boro: borough
 		});
 	}
 
