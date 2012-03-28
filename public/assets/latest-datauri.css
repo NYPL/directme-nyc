@@ -1,3 +1,469 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* undohtml.css */
+/* (c) 2004-2010 Tantek Çelik. Some Rights Reserved. http://tantek.com */
+/* This style sheet is licensed under a Creative Commons License.      */
+/*             http://creativecommons.org/licenses/by/2.0              */
+
+/* Purpose: undo some of the default styling of common browsers        */
+
+/* link underlines tend to make hypertext less readable,
+   because underlines obscure the shapes of the lower halves of words */
+:link,:visited,ins { text-decoration:none }
+
+/* no list-markers for nav lists, default markers work well for item lists */
+nav ul,nav ol { list-style:none }
+
+/* avoid browser default inconsistent heading font-sizes */
+/* and pre/code/kbd too */
+h1,h2,h3,h4,h5,h6,pre,code,kbd { font-size:1em; }
+
+/* remove the inconsistent (among browsers) default ul,ol padding or margin  */
+/* the default spacing on headings does not match nor align with
+   normal interline spacing at all, so let's get rid of it. */
+/* zero out the spacing around pre, form, body, html, p, blockquote as well */
+/* form elements are oddly inconsistent, and not quite CSS emulatable. */
+/*  nonetheless strip their margin and padding as well */
+dl,ul,ol,li,
+h1,h2,h3,h4,h5,h6,
+html,body,pre,p,blockquote,
+form,fieldset,input,label
+{ margin:0; padding:0 }
+
+/* who thought blue linked image borders were a good idea? no abbr borders */
+abbr, img, object,
+a img,:link img,:visited img,
+a object,:link object,:visited object
+{ border:0 }
+
+/* de-italicize address,abbr */
+address,abbr { font-style:normal }
+
+/* get rid of ad frames inserted by local wifi connections e.g. AnchorFree */
+/* iframe:not(.auto-link) { display:none ! important; visibility:hidden ! important; margin-left: -10000px ! important  } */
+
+/* more varnish stripping as necessary... */
+body {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+	font-size: 14px;
+}
+
+strong {
+	font-weight: bold;
+}
+
+a, a:hover {
+	color: #f00;
+}
+
+a.hi, .hl {
+	color: #f00;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+
+h1, h2, h3, h4, p, ul {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 6px;
+}
+
+p {
+	margin-bottom: 1em;
+	line-height: 1.4em;
+}
+
+#header h1 {
+	font-size: 32px;
+}
+
+#header h1 a {
+	color: #000;
+}
+
+#main h1 {
+	font-size: 24px;
+}
+
+#main h2 {
+	font-size: 18px;
+}
+
+#main h3 {
+	font-size: 16px;
+}
+
+#nav_bar a {
+	font-size: 18px;
+	color: #000;
+	line-height: 1.8em;
+}
+
+#nav_bar a:hover, #nav_bar a:active, #boroughs li a:hover, #boroughs li a:active {
+	color: #f00;
+}
+
+#blurb li {
+	line-height: 1.4em;
+}
+
+#arrow p {
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: bold;
+	padding-right: 60px;
+	margin-left: 24px;
+	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
+}
+
+#boroughs li {
+	font-family: league-gothic, "League Gothic", "Arial Narrow", sans-serif;
+	line-height: 0.85em;
+}
+
+#boroughs li a {
+	color: #000;
+}
+
+#tip {
+	padding: 12px 0;
+}
+
+#tip h3 {
+	font-size: 16px;
+	color: #666;
+}
+
+#tip .content {
+	font-size: 16px;
+	line-height: 1.2em;
+}
+
+#tip a {
+	margin: 0 5px;
+}
+
+#video .caption {
+	color: #666;
+	font-size: 12px;
+}
+
+#stories .story p.author {
+	color: #666;
+}
+
+#stories .story a {
+	color: #f00;
+}
+
+#nytimes .title {
+	font-weight: bold;
+}
+
+#nytimes p {
+	height: 12px;
+	margin: 0;
+}
+
+#nytimes .logo {
+	display: inline-block;
+	width: 137px;
+	height: 20px;
+	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
+	margin-left: 3px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#nytimes .content a {
+	color: #666;
+}
+
+#nytimes .content a:hover {
+	color: #f00;
+}
+
+#searchterms {
+	font-size: 24px;
+}
+
+#EDlist a {
+	font-size: 14px;
+	color: #f00;
+}
+
+#EDlist a:hover {
+	color: #fff;
+	background-color: #f00;
+}
+
+
+.annotation {
+	margin-bottom: 12px;
+}
+
+.annotation p, .annotation h4 {
+	margin-bottom: 0;
+}
+
+.annotation p.author {
+	color: #666;
+}
+
+#frm-annotate textarea {
+	width: 210px;
+	height: 120px;
+	margin-bottom: 4px;
+}
+
+#frm-annotate a, .conns a, .printme {
+	/* BACKGROUND GRADIENT */
+	background: rgb(255,255,255);
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	background: linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0 );
+	/* BORDER RADIUS */
+	border: 1px solid #ccc;
+	-webkit-border-radius:6px;
+	-moz-border-radius:6px;
+	-o-border-radius:6px;
+	-ms-border-radius:6px;
+	border-radius:6px;
+	-ms-border-radius:6px;
+}
+
+#frm-annotate a, .printme {
+	display: inline-block;
+	padding: 3px 4px;
+	height: 16px;
+	margin-bottom: 12px;
+	color: #666;
+	float: right;
+	margin-right: 8px;
+}
+
+.conns a {
+	display: inline-block;
+	width: 145px;
+	height: 16px;
+	padding: 3px;
+	margin-bottom: 4px;
+	color: #666;
+	position: relative;
+	margin-left: 40px;
+}
+
+.conns a#fb-submit span:after, .conns a#tw-submit span:after, .conns a#g-submit span:after {
+	content: "";
+	width: 16px;
+	height: 16px;
+	position:absolute;
+	right: 4px;
+	top: 3px;
+	background: url(../images/sprites.png?1331738064) no-repeat;
+}
+
+.conns a#fb-submit span:after {
+	background-position: 0 -19px;
+}
+
+.conns a#tw-submit span:after {
+	background-position: 0 -36px;
+}
+
+.conns a#g-submit span:after {
+	background-position: 0 -53px;
+}
+
+#latest .more {
+	text-align: center;
+	font-size: 18px;
+}
+
+#latest .more a:hover {
+	color: #f00;
+}
+
+.thejloupehelp em {
+	color: #f00;
+}
+
+.leaflet-container a, .leaflet-popup .leaflet-popup-content, #main .leaflet-container .leaflet-control-attribution {
+	font-family: ff-tisa-web-pro, "Tisa OT", Garamond, Times, serif;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+	color: #666;
+}
+
+.leaflet-popup .leaflet-popup-content a, .leaflet-control-attribution a:hover {
+	color: #f00;
+}
+
+/* TEMPLATE PAGES */
+
+#templateheader {
+	font-size: 24px;
+}
+
+#toc, #templatecontent {
+	font-size: 16px;
+	line-height: 1.4em;
+}
+
+#toc a {
+	color: #f00;
+}
+
+#templatecontent .q:before {
+	content: "Q/ ";
+}
+
+#templatecontent .q {
+	color: #666;
+}
+
+#templatecontent .a:before {
+	content: "A/ ";
+}
+
+.photo .caption {
+	font-size: 12px;
+	color: #666;
+	margin-bottom: 0;
+}
+
+.popover {
+	font-size: 16px;
+}
+
+.modal em, .popover em {
+	color: #f00;
+}
+
+.modal .frm-text {
+	padding: 6px;
+	font-size: 18px;
+}
+
+.modal-header h3 {
+	font-size: 18px;
+}
+
+.modal .frm-person-name {
+	margin-bottom: 12px;
+}
+
+.modal #frm-modal-name {
+	width: 310px;
+}
+
+.modal #frm-modal-number {
+	width: 80px;
+}
+
+.modal #frm-modal-street {
+	width: 190px;
+}
+
+.modal .frm-help {
+	color: #666;
+	font-size: 16px;
+	margin-right: 9px;
+	margin-left: 2px;
+}
+
+#header_compact #nav_bar a {
+	font-size: 18px;
+	color: #000;
+	line-height: 1.8em;
+}
+
+#header_compact #nav_bar a:hover, #header_compact #nav_bar a:active {
+	color: #f00;
+}
+
+#footer a {
+	color: #666;
+}
+
+#footer a:hover {
+	color: #f00;
+}
+
+@media screen and (min-width: 0px) and (max-width: 740px) {
+	
+	body {
+		font-size: 12px;
+	}
+}
+
+@media screen and (min-width: 0px) and (max-width: 460px) {
+	#header h1 {
+		font-size: 20px;
+	}
+	h1#searchterms {
+		font-size: 18px;
+	}
+	#nav-bar a {
+		font-size: 14px;
+	}
+}
 div.spacer {
 	clear: both;
 	height: 0px;
@@ -46,7 +512,7 @@ div.spacer{ display: block; }
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -115,7 +581,7 @@ div.spacer{ display: block; }
 
 #main {
 	position: relative;
-	background: url(../images/background.png);
+	background: url(../images/background.png?1331658353);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -374,7 +840,7 @@ div.spacer{ display: block; }
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
 }
 
 #geobig {
