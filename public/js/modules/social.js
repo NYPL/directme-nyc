@@ -10,7 +10,7 @@ define(['jquery'], function($) {
 	function fbSetup() {
 		$('#fb-submit').on('click', function(e) {
 			e.preventDefault();
-			auth_url = encodeURI('/auth/facebook?display=popup&goto=' + callback_url);
+			auth_url = encodeURI('/auth/facebook?display=popup&origin=' + callback_url);
 			window.location.href = auth_url
 		});
 

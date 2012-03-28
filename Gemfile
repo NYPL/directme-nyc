@@ -19,6 +19,8 @@ gem 'sinatra-flash', :require => 'sinatra/flash'
 gem 'sinatra_more', :require => 'sinatra_more/markup_plugin'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 
 #rack gems here	
 gem 'rack-cache', :require => 'rack/cache'  

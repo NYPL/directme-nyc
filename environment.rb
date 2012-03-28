@@ -27,6 +27,8 @@ class Application < Sinatra::Base
 
 	use OmniAuth::Builder do
 		provider :facebook, ENV['FBKEY'], ENV['FBSECRET']
+		provider :twitter, "", ""
+		provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {access_type: 'online', approval_prompt: ''} 
 	end
 
 	#set this when ready

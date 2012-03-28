@@ -54,6 +54,7 @@ GEM
     multipart-post (1.1.5)
     mustache (0.99.4)
     netrc (0.7.1)
+    oauth (0.4.5)
     oauth2 (0.5.2)
       faraday (~> 0.7)
       multi_json (~> 1.0)
@@ -62,9 +63,17 @@ GEM
       rack
     omniauth-facebook (1.2.0)
       omniauth-oauth2 (~> 1.0.0)
+    omniauth-google-oauth2 (0.1.9)
+      omniauth (~> 1.0)
+      omniauth-oauth2
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.0.0)
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
+    omniauth-twitter (0.0.8)
+      omniauth-oauth (~> 1.0)
     open4 (1.3.0)
     rack (1.4.1)
     rack-cache (1.2)
@@ -128,6 +137,8 @@ DEPENDENCIES
   mongoid
   omniauth
   omniauth-facebook
+  omniauth-google-oauth2
+  omniauth-twitter
   rack
   rack-cache
   rack-test
