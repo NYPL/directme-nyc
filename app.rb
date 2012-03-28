@@ -125,24 +125,23 @@ class Application < Sinatra::Base
 
 			else
 				log.info "No Valid Result Token"
-				status 404
+				redirect '/not_found'
 			end
 
 		else
 			log.info "No Result Token"
-			status 404
+			redirect '/not_found'
 		end
 	end
 
 #---------------MOBILE&NOT-FOUND&<=IE7-------------------------------------------------------
 	get '/upgrade' do
-		setsession(session)
 		slim :upgrade, :layout => :'eww/layout'
 	end 
 
-	not_found do
+	get '/not_found' do
 		status 404
-		redirect '/'
+		slim :not_found
 	end
 
 	get '/auth/:name/callback' do

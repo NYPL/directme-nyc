@@ -41,6 +41,15 @@ class Locations
 	field :main_string, :type => String
 	field :cutout, :type => Hash
 	field :url, :type => String
+
+	validates_presence_of :token
+	validates_presence_of :street
+	validates_presence_of :borough
+	validates_presence_of :address
+	validates_presence_of :main_string
+	validates_presence_of :cutout
+	validates_presence_of :coordinates
+	validates_presence_of :name, :message => 'suck it'
 end
 
 class Stories
@@ -48,6 +57,11 @@ class Stories
 	include Mongoid::Timestamps
 
 	index :result_token
+
+	validates_presence_of :result_token
+	validates_presence_of :location
+	validates_presence_of :content
+	validates_presence_of :page_idx
 
 	field :result_token, :type => String
 	field :content, :type => String
