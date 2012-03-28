@@ -241,7 +241,7 @@ jQuery.fn.jloupe = function(o){
 		click: function(e) {
 			log('jljld')
 			log(locked_mode, cancelClick)
-			if ($('.modal-backdrop').length == 0 && locked_mode !== true && cancelClick !== true && typeof $('.active-loupe').css('top') !== 'undefined' && isMoving !== true) {
+			if ($('.modal-backdrop').length == 0) {
 				locked_mode = true;
 				var page_idx = $(this).attr('data-page');
 				isMoving = true;
