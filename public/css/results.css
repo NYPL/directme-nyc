@@ -21,6 +21,10 @@
 	margin: 0 5px 6px 5px;
 }
 
+#main .modal {
+	width: 260px;
+}
+
 #geo {
 	float: right;
 	width: 470px;

@@ -1880,13 +1880,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1332512445);
+  background: url(../images/DV/browsers/safari.gif?1331658353);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1332512445);
+  background: url(../images/DV/browsers/chrome.gif?1331658353);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1332512445);
+  background: url(../images/DV/browsers/firefox.gif?1331658353);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;
@@ -2202,7 +2202,7 @@ span.DV-highlighted{
   .DV-controls {
     margin-top: 0;
     border: 0;
-    background: url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAlCAYAAACDKIOpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADtJREFUeNpiuHv37nemjx8/cjAxAAGE+P//P5RAcMGsf//+QblgFppihASaAWhiCC5OQ9F0YBI/AAIMAImPWEFTMQEnAAAAAElFTkSuQmCC");
+    background: #fff;
     text-shadow: 0px 1px 0px #ddd;
     color: #000;
   }
@@ -2311,3 +2311,12 @@ span.DV-highlighted{
   .DV-views .DV-last span {
     -webkit-border-top-right-radius: 5px; -moz-border-radius-topright: 5px;
   }
+
+#DV-logo {
+	display: inline-block;
+	float: left;
+	background: none;
+	width: 210px;
+	margin: 9px 0 0 6px;
+	padding: 0;
+}
