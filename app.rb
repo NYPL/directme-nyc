@@ -67,12 +67,11 @@ end
 
 def sessioncheck(request, _id)
 	#check ip too => request.ip == '127.0.0.1'
-	# if request.xhr? == true && $SESS == _id
-	# 	return true
-	# else
-	# 	return false
-	# end
-	return true
+	if request.xhr? == true
+		return true
+	else
+		return false
+	end
 end
 
 class Application < Sinatra::Base
@@ -86,6 +85,7 @@ class Application < Sinatra::Base
 		@year = (Time.new.year - 72)
 
 		setsession(session)
+		puts session
 		slim :main
 	end
 
