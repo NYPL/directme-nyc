@@ -82,6 +82,8 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    rack_csrf (2.4.0)
+      rack (>= 0.9)
     rake (0.9.2.2)
     redcarpet (1.17.2)
     rerun (0.6.5)
@@ -142,6 +144,7 @@ DEPENDENCIES
   rack
   rack-cache
   rack-test
+  rack_csrf
   rake
   rerun
   sass

@@ -18,6 +18,7 @@ html
         meta name="author" content="NYPL Labs - The New York Public Library"
         meta name="keywords" content=""
         meta name="viewport" content="width=device-width, initial-scale=1"
+        meta name="_csrf" content="#{csrf_token()}"
 
         - if @RESULTS
             ==slim :'css/css_results'

@@ -24,6 +24,7 @@ gem 'omniauth-google-oauth2'
 
 #rack gems here	
 gem 'rack-cache', :require => 'rack/cache'  
+gem 'rack_csrf', :require => 'rack/csrf'
 
 gem 'slim'
 gem 'sass'
