@@ -1948,12 +1948,6 @@ p {
 	color: #f00;
 }
 
-#EDlist a:hover {
-	color: #fff;
-	background-color: #f00;
-}
-
-
 .annotation {
 	margin-bottom: 12px;
 }
@@ -2829,6 +2823,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	position: absolute;
 	width: 470px;
 	margin-top: 4px;
+	z-index: 10;
 }
 
 #geo .overlays .nyploverlay {
@@ -2894,6 +2889,26 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	margin-bottom: 12px;
 }
 
+.EDcontent {
+	/* BACKGROUND GRADIENT */
+	background: rgb(255,255,255);
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	background: linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#cccccc',GradientType=0 );
+	/* BORDER RADIUS */
+	border: 1px solid #ccc;
+	-webkit-border-radius:6px;
+	-moz-border-radius:6px;
+	-o-border-radius:6px;
+	-ms-border-radius:6px;
+	border-radius:6px;
+	-ms-border-radius:6px;
+}
+
 .onesteplogo {
 	display: inline-block;
 	background: url(../images/sprites.png?1331738064) 0 0 no-repeat;
@@ -2915,7 +2930,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	float: left;
 	width: 64px;
 	text-align: center;
-	padding: 6px 2px;
+	padding: 6px 0;
 	margin: 6px 5px 6px 0;
 }
 
