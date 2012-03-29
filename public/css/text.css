@@ -132,6 +132,7 @@ p {
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+	vertical-align: top;
 }
 
 #nytimes .content a {

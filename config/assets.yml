@@ -42,6 +42,7 @@ stylesheets:
         - public/css/reset.css
         - public/css/text.css
         - public/css/base.css
+        - public/css/latest.css
 
     boot:
         - public/css/bootstrap_ext.css

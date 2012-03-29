@@ -10,9 +10,31 @@ div.spacer{ display: block; }
 
 /* GENERIC */
 
+#share {
+	border: 1px solid #aaa;
+	width: 230px;
+	background: #fff;
+	margin: 12px 0;
+}
+#share .border {
+	border: 2px solid #aaa;
+	margin: 2px;
+	padding: 12px 6px;
+	text-align: center;
+}
+#share h3 {
+	color: #666;
+}
 #share .shareitem {
-	margin: 0 5px 12px 5px;
+	margin: 6px;
+	float: left;
+	width: 90px;
+}
+#share .facebook {
+	float: none;
 	clear: both;
+	width: 110px;
+	margin: 6px auto;
 }
 
 /* MAIN STRUCTURE */
@@ -71,7 +93,7 @@ div.spacer{ display: block; }
 }
 
 #header h1 {
-	width: 375px;
+	width: 320px;
 	float: left;
 	margin: 12px 0 0 12px;
 }
@@ -85,7 +107,7 @@ div.spacer{ display: block; }
 #nav_bar {
 	float: right;
 	display: inline-block;
-	width: 395px;
+	width: 350px;
 	top: 0;
 }
 
