@@ -6,8 +6,6 @@ define(['require', 'jquery'], function(require, $) {
 			//requires handler dependent libraries and modules
 			log('init app');
 
-			if (window.location.hash == '#_=_') { window.location.hash = '';};
-
 			if(typeof args !== 'undefined') {
 				if(args.hasOwnProperty('depends')) {                                                                                                                                                                                                                                                                                                                   
 					require(args.depends, this.onDependsLoaded(args.depends));

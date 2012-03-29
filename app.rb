@@ -61,7 +61,7 @@ def paging_time(model, request, params)
 end
 
 
-def sessioncheck(request)
+def ajaxcheck(request)
 	if request.xhr? == true
 		return true
 	else
@@ -164,7 +164,7 @@ end
 
 class Api < Application
 	get '/locations.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			if Locations.exists?
 				ret_hash = paging_time(Locations, request, params)
 
@@ -189,7 +189,7 @@ class Api < Application
 	end
 
 	post '/locations.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			if !params['street'].blank? and !params['street'].nil?
 
 				hash = {}
@@ -217,8 +217,17 @@ class Api < Application
 				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
 				hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
-				json = Locations.safely.create(hash).to_json
-				status 201
+				location = Locations.safely.create(hash)
+
+				if location.valid? == false 
+					status 400
+					json = error_json(400, 'not a valid location object created').to_json
+
+				else
+					json = location.to_json
+					status 201
+				end
+
 			else
 				log.info 'write error here'
 			end
@@ -234,7 +243,7 @@ class Api < Application
 	end
 
 	get '/locations/:token.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			obj = Locations.where(:token => params['token']).first()
 			_stories = Stories.where(:result_token => params['token']).order_by(:created_at, :desc)
 
@@ -275,7 +284,7 @@ class Api < Application
 	end
 
 	get '/dvs/:borough.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			json = Loaders.where(:borough => params['borough']).first().to_json
 		else
 			log.info 'cannot access without browser session'
@@ -288,7 +297,7 @@ class Api < Application
 	end
 
 	post '/stories.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
 				hash = {}
 				params.each { |param, value|
@@ -299,8 +308,15 @@ class Api < Application
 
 				hash['result_token'] = params['token']
 
-				json = Stories.safely.create(hash).to_json
-				status 201
+				story = Stories.safely.create(hash).to_json
+
+				if story.valid? == false 
+					status 400
+					json = error_json(400, 'not a valid story object created').to_json
+				else
+					status 201
+					json = story.to_json
+				end
 			else
 				log.info 'write error here'
 			end
@@ -316,7 +332,7 @@ class Api < Application
 	end
 
 	get '/stories.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			if Stories.exists?
 				ret_hash = paging_time(Stories, request, params)
 
@@ -341,7 +357,7 @@ class Api < Application
 	end
 
 	get '/streets/:borough.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			hash = {
 				:fullcity => $JSON[params['borough']]['fullcity'],
 				:state => $JSON[params['borough']]['state'],
@@ -358,7 +374,7 @@ class Api < Application
 	end
 
 	get '/indexes/:borough.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
 				hash = {
 					:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs'],
@@ -379,7 +395,7 @@ class Api < Application
 	end
 
 	get '/headlines.json' do
-		if sessioncheck(request)
+		if ajaxcheck(request)
 			if Headlines.exists?
 				json = Headlines.all().to_json
 			else

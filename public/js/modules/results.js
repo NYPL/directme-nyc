@@ -19,26 +19,6 @@ define(['jquery', 'modules/social'], function($, social) {
 			var time_dist = 'just now'
 			socialStart();
 			social.init(content, time_dist);
-
-		// 	//temp
-		// 	var author = 'Anonymous'
-		// 	//
-
-		// 	var location = {}
-		// 	if (content) {
-		// 		$.post(urlpath + '/api/stories.json?callback=?', {author: author, content: content, location: location, page_idx: page_idx, token: getUrlVar('token')}, function(data) {
-		// 			if (data.hasOwnProperty('content')) {
-		// 				$('#frm-content').val('');
-		// 				if (ifStories === true) {
-		// 					appendStory(content, author, time_dist);
-		// 					ifStories = false;
-		// 				}
-		// 				else {
-		// 					prependStory(content, author, time_dist);
-		// 				}
-		// 			}
-		// 		}, "json");
-		// 	}
 		});
 	}
 
@@ -95,9 +75,17 @@ define(['jquery', 'modules/social'], function($, social) {
 						});
 				}
 
+				else {
+					$('#geo').hide();
+				}
+
 				if (data.hasOwnProperty('cutout')) {
 					var quick_link = urlpath + '/DV/' + data.borough + '#document/p' + data.cutout.page_idx 
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href, quick_link);
+				}
+
+				else {
+					$('#cutout').hide();
 				}
 
 				if (data.hasOwnProperty('stories')) {

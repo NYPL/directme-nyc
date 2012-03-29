@@ -29,7 +29,7 @@ class Locations
 
 	index :token
 
-	field :token, :type => String
+	field :token, :type => String, :required => true
 	field :number, :type => String
 	field :street, :type => String
 	field :borough, :type => String
@@ -42,14 +42,12 @@ class Locations
 	field :cutout, :type => Hash
 	field :url, :type => String
 
-	validates_presence_of :token
-	validates_presence_of :street
-	validates_presence_of :borough
-	validates_presence_of :address
-	validates_presence_of :main_string
-	validates_presence_of :cutout
-	validates_presence_of :coordinates
-	validates_presence_of :name, :message => 'suck it'
+	validates :token, :presence => true
+	validates :coordinates, :presence => true
+	validates :street, :presence => true
+	validates :main_string, :presence => true
+
+	
 end
 
 class Stories
@@ -58,16 +56,16 @@ class Stories
 
 	index :result_token
 
-	validates_presence_of :result_token
-	validates_presence_of :location
-	validates_presence_of :content
-	validates_presence_of :page_idx
-
-	field :result_token, :type => String
+	field :result_token, :type => String, :required => true
 	field :content, :type => String
 	field :connection, :type => String
 	field :location, :type => Hash
 	field :page_idx, :type => String
+
+	validates :result_token, :presence => true
+	validates :content, :presence => true
+	validates :connection, :presence => true
+
 end
 
 class Headlines

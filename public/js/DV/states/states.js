@@ -14,7 +14,7 @@ DV.Schema.states = {
     this.helpers.renderComponents();
 
     // Render chapters and notes navigation:
-    this.helpers.renderNavigation();
+    //this.helpers.renderNavigation();
 
     // Render CSS rules for showing/hiding specific pages:
     this.helpers.renderSpecificPageCss();
