@@ -56,7 +56,7 @@ define(['jquery', 'modules/social'], function($, social) {
 				var results = "";
 				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id')) {
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + 
+						results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
@@ -71,7 +71,7 @@ define(['jquery', 'modules/social'], function($, social) {
 						"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>", 
 						function() {
 							showMap(data.coordinates.lat,data.coordinates.lng,'gmap',
-								data.map_urls[1]);
+								data.map_urls[1],undefined,undefined,true);
 						});
 				}
 
@@ -200,11 +200,12 @@ define(['jquery', 'modules/social'], function($, social) {
 
 	}
 
-	function showMap(lat, lon, divid, tileset, attribution, callback) {
+	function showMap(lat, lon, divid, tileset, attribution, callback, canZoom) {
 		if (typeof attribution === 'undefined') attribution = '';
+		if (typeof canZoom === 'undefined') canZoom = false;
 		wax.tilejson(tileset,
 			function(tilejson) {
-				var map = new L.Map(divid, {zoomControl: false, trackResize: false}).addLayer(
+				var map = new L.Map(divid, {zoomControl: canZoom, trackResize: false}).addLayer(
 					new wax.leaf.connector(tilejson))
 					.setView(new L.LatLng(lat, lon), 16);
 				var centerMarker;
@@ -228,7 +229,7 @@ define(['jquery', 'modules/social'], function($, social) {
 				// disable interaction
 				//map.dragging.disable();
 				map.touchZoom.disable();
-				map.scrollWheelZoom.disable();
+				if (!canZoom) map.scrollWheelZoom.disable();
 				map.doubleClickZoom.disable();
 
 				if (typeof callback !=='undefined') {
