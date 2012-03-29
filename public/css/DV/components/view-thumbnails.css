@@ -8,6 +8,10 @@
   display:none;
 }
 
+.DV-non {
+  display: none;
+}
+
 .DV-viewThumbnails .DV-currentAnnotationPrefix,
 .DV-viewThumbnails .DV-totalAnnotations{
   display:none;

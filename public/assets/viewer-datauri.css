@@ -1880,6 +1880,7 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
+<<<<<<< HEAD
   background: url(../images/DV/browsers/safari.gif?1331658353);
 }
 .DV-unsupported .DV-chrome {
@@ -1887,6 +1888,15 @@ span.DV-highlighted{
 }
 .DV-unsupported .DV-firefox {
   background: url(../images/DV/browsers/firefox.gif?1331658353);
+=======
+  background: url(../images/DV/browsers/safari.gif?1329940696);
+}
+.DV-unsupported .DV-chrome {
+  background: url(../images/DV/browsers/chrome.gif?1329940696);
+}
+.DV-unsupported .DV-firefox {
+  background: url(../images/DV/browsers/firefox.gif?1329940696);
+>>>>>>> master
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;
@@ -2058,6 +2068,10 @@ span.DV-highlighted{
 .p1,
 .p2{
   display:none;
+}
+
+.DV-non {
+  display: none;
 }
 
 .DV-viewThumbnails .DV-currentAnnotationPrefix,

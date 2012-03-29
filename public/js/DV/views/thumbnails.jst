@@ -1,19 +1,19 @@
 <% for (; page <= endPage; page++) { %>
-  <% var url = imageUrl.replace(/\{page\}/, page) ; %>
-  <div class="DV-thumbnail" id="DV-thumbnail-<%= page %>" data-pageNumber="<%= page %>">
-    <div class="DV-overlay">
-      <div class='DV-caret'></div>
-    </div>
-    <div class="DV-thumbnail-page">
-      <div class="DV-thumbnail-select">
-        <div class="DV-thumbnail-shadow"></div>
-        <img class="DV-thumbnail-image" data-src="<%= url %>" />
-      </div>
-      <% if (_.isEmpty(indexes) || indexes === null || !indexes[page]['idx1'] || !indexes[page]['idx2']) { %>
-        <div class="DV-pageNumber DV-pageMeta"><span class="DV-pageNumberText"><span class="DV-pageNumberTextUnderline">p. <%= page %></span></span></div>
-      <% } else {%>
-        <div class="DV-pageNumber DV-pageMeta"><span class="DV-pageNumberText"><span class="DV-pageNumberTextUnderline"><%= indexes[page]['idx1'] %> - <%= indexes[page]['idx2'] %></span></span></div>
-      <% } %>
-    </div>
-  </div>
+  <% var url = imageUrl.replace(/\{page\}/, page); %>
+  <% if (_.isEmpty(indexes) || indexes === null || !indexes[page]['idx1'] || !indexes[page]['idx2']) { %>
+    <% continue; %>
+  <% } else {%>
+        <div class="DV-thumbnail" id="DV-thumbnail-<%= page %>" data-pageNumber="<%= page %>">
+          <div class="DV-overlay">
+            <div class='DV-caret'></div>
+          </div>
+          <div class="DV-thumbnail-page">
+            <div class="DV-thumbnail-select">
+              <div class="DV-thumbnail-shadow"></div>
+              <img class="DV-thumbnail-image" data-src="<%= url %>" />
+            </div>
+              <div class="DV-pageNumber DV-pageMeta"><span class="DV-pageNumberText"><span class="DV-pageNumberTextUnderline"><%= indexes[page]['idx1'] %> - <%= indexes[page]['idx2'] %></span></span></div>
+          </div>
+        </div>
+    <% } %>
 <% } %>
