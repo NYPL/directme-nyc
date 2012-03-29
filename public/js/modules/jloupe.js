@@ -163,11 +163,11 @@ define(['jquery'], function($) {
 
 	function browserEvents(elem, loupe, view, options) {
 
-		var clickRun = _.debounce(function() {
+		var clickRun = _.debounce(function(elem) {
 			if ($('.modal-backdrop').length == 0 && locked_mode !== true && drag_mode !== true) {
 				if ($(loupe).hasClass('active-loupe')) {
 					locked_mode = true;
-					var page_idx = $(this).attr('data-page');
+					var page_idx = $(elem).attr('data-page') || $(elem).data('page');
 					$('.active-loupe').animate({
 						top: $(window).height()/6,
 						left: ($(window).width()/2) - ($('.active-loupe').width()/2)
@@ -272,7 +272,7 @@ define(['jquery'], function($) {
 
 			click: function(e) {
 				e.preventDefault();
-				clickRun();
+				clickRun(elem);
 			},
 
 			dblclick: function(e) {
