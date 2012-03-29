@@ -27,6 +27,7 @@ DV.DragReporter.prototype.mouseUpReporter     = function(e){
   e.preventDefault();
   clearInterval(this.updateTimer);
   this.stop();
+  this.viewer.api.dragState(jQuery, 'dragging', false)
 };
 
 DV.DragReporter.prototype.oldPositionUpdater   = function(){
@@ -69,6 +70,7 @@ DV.DragReporter.prototype.mouseDownReporter   = function(e){
 DV.DragReporter.prototype.mouseMoveReporter     = function(e){
   if (this.shouldIgnore(e)) return true;
   e.preventDefault();
+  this.viewer.api.dragState(jQuery, 'dragging', true)
   var deltaX      = Math.round(this.sensitivityX * (this.pageX - e.pageX));
   var deltaY      = Math.round(this.sensitivityY * (this.pageY - e.pageY));
   var directionX  = (deltaX > 0) ? 'right' : 'left';

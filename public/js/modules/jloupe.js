@@ -5,14 +5,33 @@
 */
 
 var locked_mode = null;
+var drag_mode = null;
+
+var curr_loupe = null;
+var curr_view = null;
+var curr_options = null;
+
 define(['jquery'], function($) {
 	function _init() {
 		$.subscribe('pages', reFunc)
+		$.subscribe('dragging', dragEvent)
 		locked_mode = false;
+		drag_mode = false;
 	}
 
 	function _tab_init() {
 		$.subscribe('tabletTouch', tabletTouch);
+	}
+
+	function dragEvent(e, on_off) {
+		if (on_off == true) {
+			drag_mode = true;
+		}
+		else {
+			setTimeout(function() {
+				drag_mode = false;
+			}, 75);
+		}
 	}
 
 	function reFunc(e) {
@@ -84,11 +103,35 @@ define(['jquery'], function($) {
 		var i = $('<img />').attr('src', s);	
 		
 		$(elem).data('zoom',i);
-		browserEvents(elem, loupe, view, options)
 
+		if (!isiPad) {
+			browserEvents(elem, loupe, view, options)
+		}
+		else {
+			tabletSets(loupe, view, options);
+			loupe.hide();
+		}
+
+	}
+
+	function tabletSets(loupe, view, options) {
+		if (!!loupe && !!view && !!options) {
+			curr_loupe = loupe;
+			curr_view = view;
+			curr_options = options;
+		}
+		else {
+			log(curr_view)
+			return [curr_loupe, curr_view, curr_options]
+		}
 	}
 	
 	function tabletTouch(e, num, page, touch) {
+		loupe_vars = tabletSets();
+		loupe = loupe_vars[0];
+		view = loupe_vars[1];
+		options = loupe_vars[2];
+
 		if ($('.modal-backdrop').length == 0) {
 			// background stuff
 			var o = $(loupe).offset();
@@ -120,9 +163,35 @@ define(['jquery'], function($) {
 	}
 
 	function browserEvents(elem, loupe, view, options) {
+
+		var clickRun = _.debounce(function() {
+			if ($('.modal-backdrop').length == 0 && locked_mode !== true && drag_mode !== true) {
+				if ($(loupe).hasClass('active-loupe')) {
+					locked_mode = true;
+					var page_idx = $(this).attr('data-page');
+					$('.active-loupe').animate({
+						top: $(window).height()/6,
+						left: ($(window).width()/2) - ($('.active-loupe').width()/2)
+						}, 100, function() {
+							$.publish('clickSpot', [page_idx]);
+					});
+
+					$(this).die('click');
+					$(this).die('mousemove');
+					$(this).die('mouseenter');
+					$(this).die('mouseleave');
+					$.unsubscribe("pages");
+				}
+			}
+		}, 200);
+
 		$(elem)
 		.on({
 			mousemove: function(e){
+				if (drag_mode == true) {
+					loupe.hide();
+					return true;
+				}
 				if (locked_mode !== true) {
 					$(loupe).hide().promise().done(function() {
 						$(loupe).show();
@@ -197,19 +266,11 @@ define(['jquery'], function($) {
 
 			click: function(e) {
 				e.preventDefault();
-				if ($('.modal-backdrop').length == 0 && locked_mode !== true) {
-					locked_mode = true;
-					var page_idx = $(this).attr('data-page');
-					$('.active-loupe').animate({
-						top: $(window).height()/6,
-						left: ($(window).width()/2) - ($('.active-loupe').width()/2)
-						}, 200, function() {
-							$.publish('clickSpot', [page_idx]);
-					});
+				clickRun();
+			},
 
-					$(this).die('mousemove');
-					$.unsubscribe("pages");
-				}
+			dblclick: function(e) {
+				e.preventDefault();
 			} 
 		});
 	}

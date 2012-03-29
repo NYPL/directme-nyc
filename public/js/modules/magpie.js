@@ -60,7 +60,8 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 		show_Modal(function() {
 			$('#loc_add').modal({
 				'show': true,
-				'keyboard': false
+				'keyboard': false,
+				'backdrop': 'static'
 			});
 		});
 	}

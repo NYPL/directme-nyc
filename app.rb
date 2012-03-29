@@ -78,7 +78,7 @@ class Application < Sinatra::Base
 
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
-
+		@SOCIAL = true
 		slim :main
 	end
 
@@ -94,16 +94,15 @@ class Application < Sinatra::Base
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/latest']
 		@LATEST = true
+		@SOCIAL = true
 		slim :latest
 	end
 
   	get '/help' do
-  		@HELP = true
 		slim :help
 	end
 
 	get '/about' do
-		@ABOUT = true
 		slim :credits
 	end
 
@@ -121,6 +120,7 @@ class Application < Sinatra::Base
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 				@RESULTS = true
+				@SOCIAL = true
 				slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else

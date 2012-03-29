@@ -185,7 +185,6 @@ DV.Page.prototype.loadImage = function(argHash) {
   if(this.loadTimer){
     clearTimeout(this.loadTimer);
     delete this.loadTimer;
-    this.viewer.api.updateMag(jQuery, 'pages');
   }
 
   this.el.removeClass('DV-loaded').addClass('DV-loading');
@@ -195,7 +194,7 @@ DV.Page.prototype.loadImage = function(argHash) {
   var preloader       = DV.jQuery(new Image);
   var me              = this;
 
-  var lazyImageLoader = function(){
+  var lazyImageLoader = function(base){
     if(me.loadTimer){
       clearTimeout(me.loadTimer);
       delete me.loadTimer;
@@ -209,6 +208,7 @@ DV.Page.prototype.loadImage = function(argHash) {
         clearTimeout(me.loadTimer);
         delete me.loadTimer;
       }
+    base.api.updateMag(jQuery, 'pages')
     });
 
     var src = me.model_pages.imageURL(me.index);
@@ -216,7 +216,7 @@ DV.Page.prototype.loadImage = function(argHash) {
     preloader[0].src = src;
   };
 
-  this.loadTimer = setTimeout(lazyImageLoader, 150);
+  this.loadTimer = setTimeout(lazyImageLoader(this.viewer), 150);;
   this.viewer.pageSet.redraw();
 };
 
