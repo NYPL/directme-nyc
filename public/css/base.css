@@ -93,7 +93,7 @@ div.spacer{ display: block; }
 }
 
 #header h1 {
-	width: 375px;
+	width: 320px;
 	float: left;
 	margin: 12px 0 0 12px;
 }
@@ -107,7 +107,7 @@ div.spacer{ display: block; }
 #nav_bar {
 	float: right;
 	display: inline-block;
-	width: 395px;
+	width: 350px;
 	top: 0;
 }
 
