@@ -61,11 +61,13 @@ define(['jquery'], function($) {
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-		tickerDOM.marquee('pointer').mouseover(function () {
-            $(this).trigger('stop');
-        }).mouseout(function () {
-            $(this).trigger('start');
-        });
+		if (typeof tickerDOM !== 'undefined' && tickerDOM.hasOwnProperty('marquee')) {
+			tickerDOM.marquee('pointer').mouseover(function () {
+	            $(this).trigger('stop');
+	        }).mouseout(function () {
+	            $(this).trigger('start');
+	        });
+	    }
 	}
 
 	function showError() {

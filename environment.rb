@@ -24,6 +24,8 @@ class Application < Sinatra::Base
 	use Rack::ShowExceptions
 	use Rack::Mongoid::Middleware::IdentityMap
 	use Rack::Deflater
+	use Rack::Session::Cookie, :secret => "some unique secret string here"
+	use Rack::Csrf, :raise => true
 
 	use OmniAuth::Builder do
 		provider :facebook, ENV['FBKEY'], ENV['FBSECRET']
@@ -64,7 +66,7 @@ class Application < Sinatra::Base
 	set :raise_errors,    false
   	set :show_exceptions, false
   	set :db_config, ENV["db_config"] || 'mongo'
-  	set :protection, :except => :frame_options
+  	set :protection, :except => [:remote_token, :frame_options] 
 
   	#db/offload settings
   	if settings.db_config.eql?('mongo')
@@ -76,12 +78,6 @@ class Application < Sinatra::Base
 	set :root, root_dir
 	set :public_folder, 'public'
 	set :views, 'views'
-
-	#cookie settings
-	set :session_secret, ENV['SESSION_KEY'] || 'something_secret'
-	set :sessions, :domain => 'localhost:8888'
-
-	enable :sessions, :static
 
 	#slim settings
 	set :slim, :pretty => true

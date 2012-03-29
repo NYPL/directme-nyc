@@ -6,15 +6,30 @@ define(['require', 'jquery'], function(require, $) {
 			//requires handler dependent libraries and modules
 			log('init app');
 
-			if (window.location.hash == '#_=_') { window.location.hash = '';};
-
 			if(typeof args !== 'undefined') {
 				if(args.hasOwnProperty('depends')) {                                                                                                                                                                                                                                                                                                                   
 					require(args.depends, this.onDependsLoaded(args.depends));
 				}
 			}
 
+			this.ajaxSetup();
+
+			//typical header bar
 			this.setCurrent('#nav_bar a');
+		},
+
+		ajaxSetup: function() {
+			/*
+			* Set the CSRF token for each AJAX request, Rack::Csrf handle the rest.
+			* Assumes your layout has a metatag with name of "_csrf" and you're
+			* using the default Rack:Csrf header setup.
+			*/
+			$.ajaxSetup({
+				beforeSend: function(xhr) {
+					var token = $('meta[name="_csrf"]').attr('content');
+					xhr.setRequestHeader('X_CSRF_TOKEN', token);
+				}
+			});
 		},
 
 		setCurrent: function(elem) {

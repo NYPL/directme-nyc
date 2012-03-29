@@ -10,7 +10,7 @@ define(['jquery'], function($) {
 			e.preventDefault();
 			var number = $('#frm-modal-number').val() || null;
 			var name = $('#frm-modal-name').val() || null;
-			var borough = environment.borough;
+			var boro = environment.borough;
 			var state = $('#state_hidden').val() || environment.state;
 			var fullcity = $('#fullcity_hidden').val() || environment.fullcity;
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
@@ -22,7 +22,7 @@ define(['jquery'], function($) {
 			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
 
 			if (streetName !== null && checkDisabled !== true) {
-				$.post(urlpath + '/api/locations.json?callback=?', {name: name, number: number, street: streetName, borough: borough, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
+				$.post(urlpath + '/api/locations.json?callback=?', {name: name, number: number, street: streetName, borough: boro, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}

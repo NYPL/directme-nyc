@@ -4,7 +4,7 @@
 /** jquery can be an ajax call, manually loaded due to speed up time with `DV` and `jammit` */
 
 require.config({
-	waitSeconds: 12,
+	waitSeconds: 20,
 	paths: {
 		require: 'libs/require',
 		jquery: 'libs/jquery-1.7.1.min',
@@ -14,16 +14,14 @@ require.config({
 	}
 });
 
-var domReq = function() {
-	require(['domReady', 'libs/respond.min', 'app', 'plugins'], function(domReady, respond, app, plugins) { 
-		domReady(function() {
-			if (environment.hasOwnProperty('deps') && environment.deps !== null) {
-				app.initialize({depends: environment.deps});
-			}
-			else {
-				app.initialize();
-			}
-		});
+var depRun = function() {
+	require(['libs/respond.min', 'app', 'plugins'], function(respond, app, plugins) { 
+		if (environment.hasOwnProperty('deps') && environment.deps !== null) {
+			app.initialize({depends: environment.deps});
+		}
+		else {
+			app.initialize();
+		}
 	});
 }
 
@@ -37,10 +35,10 @@ require(['libs/jquery-1.7.1.min', 'libs/underscore'], function($, _) {
 			/** load index/route/handler specific constant funcs */
 			require(environment.consts, function() {
 				/** load post-dom-ready globals in order */
-				domReq();
+				depRun();
 			});
 		}
 		else {
-			domReq()
+			depRun()
 		}
 	});

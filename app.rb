@@ -9,7 +9,6 @@ Dir.glob('public/*.json') do |file|
 end
 
 $LIMIT = 10
-$SESS = nil
 $MAPS = ['http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-16.jsonp', 'http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp']
 #------------------------------------
 
@@ -61,12 +60,8 @@ def paging_time(model, request, params)
 	}
 end
 
-def setsession(session)
-	$SESS = session[:session_id]
-end
 
-def sessioncheck(request, _id)
-	#check ip too => request.ip == '127.0.0.1'
+def ajaxcheck(request)
 	if request.xhr? == true
 		return true
 	else
@@ -83,18 +78,15 @@ class Application < Sinatra::Base
 
 		@monthday = Time.now.strftime("%m/%d")
 		@year = (Time.new.year - 72)
-
-		setsession(session)
-		puts session
+		@SOCIAL = true
 		slim :main
 	end
 
 	get '/DV/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
 		@consts = ['order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie', 'order!libs/jquery.jloupe']
+		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
 		@DV = true
-		setsession(session)
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
@@ -102,19 +94,15 @@ class Application < Sinatra::Base
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/latest']
 		@LATEST = true
-		setsession(session)
+		@SOCIAL = true
 		slim :latest
 	end
 
   	get '/help' do
-  		setsession(session)
-  		@HELP = true
 		slim :help
 	end
 
 	get '/about' do
-		setsession(session)
-		@ABOUT = true
 		slim :credits
 	end
 
@@ -132,36 +120,28 @@ class Application < Sinatra::Base
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 				@RESULTS = true
-				setsession(session)
+				@SOCIAL = true
 				slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
 				log.info "No Valid Result Token"
-				status 404
+				redirect '/not_found'
 			end
 
 		else
 			log.info "No Result Token"
-			status 404
+			redirect '/not_found'
 		end
 	end
 
 #---------------MOBILE&NOT-FOUND&<=IE7-------------------------------------------------------
-
-	get '/m' do
-
-	end
-	#################################################################
-
-	########################other handlers###########################
 	get '/upgrade' do
-		setsession(session)
 		slim :upgrade, :layout => :'eww/layout'
 	end 
 
-	not_found do
+	get '/not_found' do
 		status 404
-		redirect '/'
+		slim :not_found
 	end
 
 	get '/auth/:name/callback' do
@@ -184,7 +164,7 @@ end
 
 class Api < Application
 	get '/locations.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			if Locations.exists?
 				ret_hash = paging_time(Locations, request, params)
 
@@ -209,7 +189,7 @@ class Api < Application
 	end
 
 	post '/locations.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			if !params['street'].blank? and !params['street'].nil?
 
 				hash = {}
@@ -237,8 +217,17 @@ class Api < Application
 				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
 				hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
-				json = Locations.safely.create(hash).to_json
-				status 201
+				location = Locations.safely.create(hash)
+
+				if location.valid? == false 
+					status 400
+					json = error_json(400, 'not a valid location object created').to_json
+
+				else
+					json = location.to_json
+					status 201
+				end
+
 			else
 				log.info 'write error here'
 			end
@@ -254,7 +243,7 @@ class Api < Application
 	end
 
 	get '/locations/:token.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			obj = Locations.where(:token => params['token']).first()
 			_stories = Stories.where(:result_token => params['token']).order_by(:created_at, :desc)
 
@@ -295,7 +284,7 @@ class Api < Application
 	end
 
 	get '/dvs/:borough.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			json = Loaders.where(:borough => params['borough']).first().to_json
 		else
 			log.info 'cannot access without browser session'
@@ -308,7 +297,7 @@ class Api < Application
 	end
 
 	post '/stories.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
 				hash = {}
 				params.each { |param, value|
@@ -319,8 +308,15 @@ class Api < Application
 
 				hash['result_token'] = params['token']
 
-				json = Stories.safely.create(hash).to_json
-				status 201
+				story = Stories.safely.create(hash).to_json
+
+				if story.valid? == false 
+					status 400
+					json = error_json(400, 'not a valid story object created').to_json
+				else
+					status 201
+					json = story.to_json
+				end
 			else
 				log.info 'write error here'
 			end
@@ -336,7 +332,7 @@ class Api < Application
 	end
 
 	get '/stories.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			if Stories.exists?
 				ret_hash = paging_time(Stories, request, params)
 
@@ -361,7 +357,7 @@ class Api < Application
 	end
 
 	get '/streets/:borough.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			hash = {
 				:fullcity => $JSON[params['borough']]['fullcity'],
 				:state => $JSON[params['borough']]['state'],
@@ -378,7 +374,7 @@ class Api < Application
 	end
 
 	get '/indexes/:borough.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
 				hash = {
 					:idxs => $JSON['%s_%s' % ['idx', params['borough']]]['idxs'],
@@ -399,7 +395,7 @@ class Api < Application
 	end
 
 	get '/headlines.json' do
-		if sessioncheck(request, session[:session_id])
+		if ajaxcheck(request)
 			if Headlines.exists?
 				json = Headlines.all().to_json
 			else

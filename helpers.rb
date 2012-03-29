@@ -85,10 +85,13 @@ module MyHelpers
 		end
 	end
 
-	module CurrentUser
-		extend self
-		attr_reader :current_user
-		def current_user
+	module CSRF
+		def csrf_token()
+			Rack::Csrf.csrf_token(env)
+		end
+
+		def csrf_tag()
+			Rack::Csrf.csrf_tag(env)
 		end
 	end
 end

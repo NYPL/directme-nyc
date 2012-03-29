@@ -18,6 +18,7 @@ html
         meta name="author" content="NYPL Labs - The New York Public Library"
         meta name="keywords" content=""
         meta name="viewport" content="width=device-width, initial-scale=1"
+        meta name="_csrf" content="#{csrf_token()}"
 
         - if @RESULTS
             ==slim :'css/css_results'
@@ -41,6 +42,18 @@ html
 
         script src="/js/re_browser.js"
         script src="/js/libs/modernizr.js"
+
+        - if @SOCIAL
+            script src="https://apis.google.com/js/plusone.js"
+            javascript:
+                !function(d,s,id){
+                    var js,fjs=d.getElementsByTagName(s)[0];
+                    if(!d.getElementById(id)){
+                        js=d.createElement(s);
+                        js.id=id;
+                        js.src="//platform.twitter.com/widgets.js";
+                        fjs.parentNode.insertBefore(js,fjs);
+                    }}(document,"script","twitter-wjs");
         
         /! require.js => special version
         script data-main="/js/main.js" src="/js/libs/require-jquery.js"
@@ -63,7 +76,7 @@ html
                 };
 
     body
-        - if not @DV or not @HELP or not @ABOUT
+        - if @SOCIAL
             ==slim :after_body_script
 
         div#wrapper

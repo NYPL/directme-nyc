@@ -514,6 +514,7 @@ DV.DragReporter.prototype.mouseUpReporter     = function(e){
   e.preventDefault();
   clearInterval(this.updateTimer);
   this.stop();
+  this.viewer.api.dragState(jQuery, 'dragging', false)
 };
 
 DV.DragReporter.prototype.oldPositionUpdater   = function(){
@@ -556,6 +557,7 @@ DV.DragReporter.prototype.mouseDownReporter   = function(e){
 DV.DragReporter.prototype.mouseMoveReporter     = function(e){
   if (this.shouldIgnore(e)) return true;
   e.preventDefault();
+  this.viewer.api.dragState(jQuery, 'dragging', true)
   var deltaX      = Math.round(this.sensitivityX * (this.pageX - e.pageX));
   var deltaY      = Math.round(this.sensitivityY * (this.pageY - e.pageY));
   var directionX  = (deltaX > 0) ? 'right' : 'left';
@@ -884,7 +886,7 @@ DV.Page.prototype.loadImage = function(argHash) {
   var preloader       = DV.jQuery(new Image);
   var me              = this;
 
-  var lazyImageLoader = function(){
+  var lazyImageLoader = function(base){
     if(me.loadTimer){
       clearTimeout(me.loadTimer);
       delete me.loadTimer;
@@ -898,6 +900,7 @@ DV.Page.prototype.loadImage = function(argHash) {
         clearTimeout(me.loadTimer);
         delete me.loadTimer;
       }
+    base.api.updateMag(jQuery, 'pages')
     });
 
     var src = me.model_pages.imageURL(me.index);
@@ -905,7 +908,7 @@ DV.Page.prototype.loadImage = function(argHash) {
     preloader[0].src = src;
   };
 
-  this.loadTimer = setTimeout(lazyImageLoader, 150);
+  this.loadTimer = setTimeout(lazyImageLoader(this.viewer), 150);;
   this.viewer.pageSet.redraw();
 };
 
@@ -947,7 +950,6 @@ DV.Page.prototype.drawImage = function(imageURL) {
 
   // Update the status of the image load
   this.el.addClass('DV-loaded').removeClass('DV-loading');
-  this.viewer.api.updateMag(jQuery, 'pages');
 };
 
 DV.PageSet = function(viewer){
@@ -2642,13 +2644,15 @@ DV.Schema.helpers = {
     },
 
     handleInitialState: function(){
-      var opts = this.viewer.options;
-      this.viewer.open('ViewThumbnails');
-
-      if (opts.note) {
-        this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
-      } else if (opts.page) {
-        this.jump(opts.page - 1);
+     var initialRouteMatch = this.viewer.history.loadURL(true);
+      if(!initialRouteMatch) {
+        var opts = this.viewer.options;
+        this.viewer.open('ViewThumbnails');
+        if (opts.note) {
+          this.viewer.pageSet.showAnnotation(this.viewer.models.annotations.byId[opts.note]);
+        } else if (opts.page) {
+          this.jump(opts.page - 1);
+        }
       }
     }
 
@@ -3080,7 +3084,7 @@ DV.Schema.states = {
     this.helpers.renderComponents();
 
     // Render chapters and notes navigation:
-    this.helpers.renderNavigation();
+    //this.helpers.renderNavigation();
 
     // Render CSS rules for showing/hiding specific pages:
     this.helpers.renderSpecificPageCss();
@@ -3492,6 +3496,10 @@ _.extend(DV.Api.prototype, {
 
 	updateMag : function(jQuery, _event) {
 		jQuery.publish(_event, []);
+	},
+
+	dragState: function(jQuery, _event, on_off) {
+		jQuery.publish(_event, [on_off]);
 	}
 
 });
