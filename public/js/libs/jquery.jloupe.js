@@ -51,7 +51,7 @@ jQuery.fn.jloupe = function(o){
 		.appendTo(loupe);
 	
 	if (!isiPad) {
-		var help = $('<div>Line up arrow with name. Click to freeze frame.</div>').addClass('thejloupehelp')
+		var help = $('<div>Line up arrow to left of name. Click to freeze frame. Census district calculator will appear.</div>').addClass('thejloupehelp')
 		.css('width',options.width-options.margin*2 +'px')
 		.css('paddingTop','4px')
 		.css('height','20px')
