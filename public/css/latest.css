@@ -1,0 +1,24 @@
+#share {
+	border: 1px solid rgb(204,204,204);
+	width: auto;
+	background: #fff;
+	margin: 12px 0;
+}
+#share .border {
+	border: none;
+	padding: 2px 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+#share h3 {
+	display: inline-block;
+	margin: 4px;
+	width: 90px;
+}
+#share .shareitem, #share .facebook {
+	float: none;
+	clear: none;
+	display: inline-block;
+	margin: 0;
+	width: 80px;
+}
