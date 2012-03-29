@@ -184,6 +184,12 @@ define(['jquery'], function($) {
 			}
 		}, 300);
 
+		$(elem).off({
+			mousemove: function(e) {
+				log("jdljd")
+			}
+		});
+
 		$(elem)
 		.on({
 			mousemove: function(e){
@@ -249,6 +255,7 @@ define(['jquery'], function($) {
 
 			mouseleave: function(){
 				if (locked_mode !== true) {
+					$(loupe).removeClass('active-loupe');
 					$(loupe).stop(true, true);
 					$(loupe).hide();
 				}
