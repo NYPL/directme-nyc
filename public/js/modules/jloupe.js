@@ -121,7 +121,6 @@ define(['jquery'], function($) {
 			curr_options = options;
 		}
 		else {
-			log(curr_view)
 			return [curr_loupe, curr_view, curr_options]
 		}
 	}
@@ -183,7 +182,7 @@ define(['jquery'], function($) {
 					$.unsubscribe("pages");
 				}
 			}
-		}, 200);
+		}, 300);
 
 		$(elem)
 		.on({
