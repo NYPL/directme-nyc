@@ -185,6 +185,7 @@ DV.Page.prototype.loadImage = function(argHash) {
   if(this.loadTimer){
     clearTimeout(this.loadTimer);
     delete this.loadTimer;
+    this.viewer.api.updateMag(jQuery, 'pages');
   }
 
   this.el.removeClass('DV-loaded').addClass('DV-loading');
@@ -257,5 +258,4 @@ DV.Page.prototype.drawImage = function(imageURL) {
 
   // Update the status of the image load
   this.el.addClass('DV-loaded').removeClass('DV-loading');
-  this.viewer.api.updateMag(jQuery, 'pages');
 };
