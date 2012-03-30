@@ -61,7 +61,8 @@ define(['jquery'], function($) {
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-		if (typeof tickerDOM !== 'undefined' && tickerDOM.hasOwnProperty('marquee')) {
+		if (typeof tickerDOM !== 'undefined') {
+			log("YUH!");
 			tickerDOM.marquee('pointer').mouseover(function () {
 	            $(this).trigger('stop');
 	        }).mouseout(function () {

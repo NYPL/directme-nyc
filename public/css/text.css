@@ -136,11 +136,11 @@ p {
 }
 
 #ticker .content {
-	line-height: 1;
+	line-height: 1.2em;
 }
 
 #nytimes .content a {
-	color: #666;
+	color: #000;
 }
 
 #nytimes .content a:hover {

@@ -228,11 +228,11 @@ p {
 }
 
 #ticker .content {
-	line-height: 1;
+	line-height: 1.2em;
 }
 
 #nytimes .content a {
-	color: #666;
+	color: #000;
 }
 
 #nytimes .content a:hover {
@@ -681,8 +681,7 @@ div.spacer{ display: block; }
 #ticker .content {
 	float: left;
 	width: 790px;
-	height: 17px;
-	line-height: 0.9em;
+	height: 20px;
 	overflow: hidden;
 }
 
@@ -690,7 +689,7 @@ div.spacer{ display: block; }
 	width: 230px;
 	margin: 12px auto 0 auto;
 	text-align: center;
-	padding-top: 40px;
+	padding-top: 45px;
 }
 
 /* DROP SHADOWS [http://nicolasgallagher.com/css-drop-shadows-without-images/demo/] */
@@ -1050,7 +1049,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 	
 	#nytimes .footer {
-		padding-top: 55px;
+		padding-top: 60px;
 	}
 
 	#templateheader, #toc, #templatecontent {
