@@ -163,7 +163,7 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331676552) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -219,7 +219,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331676552) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -293,6 +293,16 @@ p {
 	margin-right: 8px;
 }
 
+#frm-modal div.frm-modal-help {
+	margin: 4px 16px 4px 0;
+	font-size: 12px;
+}
+
+#loc_add div.modal-footer .disabled {
+	background-color: #f00;
+	color: #fff;
+}
+
 .conns a {
 	display: inline-block;
 	width: 145px;
@@ -311,7 +321,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331676552) no-repeat;
+	background: url(../images/sprites.png?1331738064) no-repeat;
 }
 
 .conns a#fb-submit span:after {
@@ -530,7 +540,7 @@ div.spacer{ display: block; }
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png?1331676552) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -599,7 +609,7 @@ div.spacer{ display: block; }
 
 #main {
 	position: relative;
-	background: url(../images/background.png?1331049270);
+	background: url(../images/background.png?1331658353);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -858,7 +868,7 @@ div.spacer{ display: block; }
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png?1331323956) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
 }
 
 #geobig {

@@ -113,7 +113,7 @@
 /**/
 
 /* CUSTOM STUFF */
-.DV-boroughsView, .DV-azView {
+.DV-boroughsView, .DV-azView, .DV-helpView {
 	position: relative;
 }
 
@@ -122,7 +122,7 @@
 	text-align: center;
 }
 
-.DV-boroughsView:hover .DV-submenu, .DV-azView:hover .DV-submenu {
+.DV-boroughsView:hover .DV-submenu, .DV-azView:hover .DV-submenu, .DV-helpView:hover .DV-submenu {
 	display: block;
 }
 
@@ -142,7 +142,20 @@ div.DV-submenu {
 	width: 70px;
 }
 
-.DV-submenu a {
+.DV-helpView .DV-submenu {
+	width: 390px;
+	left: -331px;
+}
+
+.DV-helpView .DV-submenu div {
+	padding: 6px;
+}
+
+.DV-helpView .DV-submenu a {
+	color: #f00;
+}
+
+.DV-boroughsView .DV-submenu a, .DV-azView .DV-submenu a {
 	display: block;
 }
 

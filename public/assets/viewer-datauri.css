@@ -1139,7 +1139,7 @@
 /**/
 
 /* CUSTOM STUFF */
-.DV-boroughsView, .DV-azView {
+.DV-boroughsView, .DV-azView, .DV-helpView {
 	position: relative;
 }
 
@@ -1148,7 +1148,7 @@
 	text-align: center;
 }
 
-.DV-boroughsView:hover .DV-submenu, .DV-azView:hover .DV-submenu {
+.DV-boroughsView:hover .DV-submenu, .DV-azView:hover .DV-submenu, .DV-helpView:hover .DV-submenu {
 	display: block;
 }
 
@@ -1168,7 +1168,20 @@ div.DV-submenu {
 	width: 70px;
 }
 
-.DV-submenu a {
+.DV-helpView .DV-submenu {
+	width: 390px;
+	left: -331px;
+}
+
+.DV-helpView .DV-submenu div {
+	padding: 6px;
+}
+
+.DV-helpView .DV-submenu a {
+	color: #f00;
+}
+
+.DV-boroughsView .DV-submenu a, .DV-azView .DV-submenu a {
 	display: block;
 }
 
@@ -1878,13 +1891,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1329940696);
+  background: url(../images/DV/browsers/safari.gif?1331658353);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1329940696);
+  background: url(../images/DV/browsers/chrome.gif?1331658353);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1329940696);
+  background: url(../images/DV/browsers/firefox.gif?1331658353);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;

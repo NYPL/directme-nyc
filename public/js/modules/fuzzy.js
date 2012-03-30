@@ -103,9 +103,11 @@ define(['jquery'], function($) {
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
+				$('#submitED').html('Find ED number for this address');
 			}
 			else {
 				$('#submitED').addClass('disabled');
+				$('#submitED').html('Type/select a non-abbreviated street');
 			}			
 		});
 
@@ -114,15 +116,18 @@ define(['jquery'], function($) {
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
+				$('#submitED').html('Find ED number for this address');
 			}
 			else {
 				$('#submitED').addClass('disabled');
+				$('#submitED').html('Type/select a non-abbreviated street');
 			}			
 		});
 
 		$('#frm-modal-noresults').on('keyup', function() {
 			$('#frm-modal-street').val('');
 			$('#submitED').removeClass('disabled');			
+			$('#submitED').html('Find ED number for this address');
 		});
 
 		onSubmitModal(page_idx);
