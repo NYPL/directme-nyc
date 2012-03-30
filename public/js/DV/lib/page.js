@@ -216,7 +216,7 @@ DV.Page.prototype.loadImage = function(argHash) {
     preloader[0].src = src;
   };
 
-  this.loadTimer = setTimeout(lazyImageLoader(this.viewer), 150);;
+  this.loadTimer = setTimeout(lazyImageLoader, 150, this.viewer);
   this.viewer.pageSet.redraw();
 };
 

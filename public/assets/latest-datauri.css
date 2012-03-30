@@ -163,7 +163,7 @@ p {
 	font-weight: bold;
 	padding-right: 60px;
 	margin-left: 24px;
-	background: url(../images/sprites.png?1331676552) 120px -70px no-repeat;
+	background: url(../images/sprites.png?1331738064) 120px -70px no-repeat;
 }
 
 #boroughs li {
@@ -219,7 +219,7 @@ p {
 	display: inline-block;
 	width: 137px;
 	height: 20px;
-	background: url(../images/sprites.png?1331676552) 0 -123px no-repeat;
+	background: url(../images/sprites.png?1331738064) 0 -123px no-repeat;
 	margin-left: 3px;
 	text-indent: 100%;
 	white-space: nowrap;
@@ -237,18 +237,13 @@ p {
 
 #searchterms {
 	font-size: 24px;
+	color: #f00;
 }
 
 #EDlist a {
 	font-size: 14px;
 	color: #f00;
 }
-
-#EDlist a:hover {
-	color: #fff;
-	background-color: #f00;
-}
-
 
 .annotation {
 	margin-bottom: 12px;
@@ -316,7 +311,7 @@ p {
 	position:absolute;
 	right: 4px;
 	top: 3px;
-	background: url(../images/sprites.png?1331676552) no-repeat;
+	background: url(../images/sprites.png?1331738064) no-repeat;
 }
 
 .conns a#fb-submit span:after {
@@ -535,7 +530,7 @@ div.spacer{ display: block; }
 	height: 30px;
 	margin: 0;
 	padding: 0 0 0 60px;
-	background: url(../images/sprites.png?1331676552) 10px -151px no-repeat black;
+	background: url(../images/sprites.png?1331738064) 10px -151px no-repeat black;
 	color: #aaa;
 	font-size: 14px;
 }
@@ -604,7 +599,7 @@ div.spacer{ display: block; }
 
 #main {
 	position: relative;
-	background: url(../images/background.png?1331049270);
+	background: url(../images/background.png?1331658353);
 	padding-top: 24px;
 	padding-bottom: 48px;
 	z-index: 1;
@@ -863,7 +858,7 @@ div.spacer{ display: block; }
 	position: absolute;
 	width: 480px;
 	height: 108px;
-	background: url(../images/magnifier.png?1331323956) 0px 45px no-repeat;
+	background: url(../images/magnifier.png?1331658353) 0px 45px no-repeat;
 }
 
 #geobig {
@@ -1074,4 +1069,28 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#header {
 		height: 76px;
 	}
+}
+#share {
+	border: 1px solid rgb(204,204,204);
+	width: auto;
+	background: #fff;
+	margin: 12px 0;
+}
+#share .border {
+	border: none;
+	padding: 2px 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+#share h3 {
+	display: inline-block;
+	margin: 4px;
+	width: 90px;
+}
+#share .shareitem, #share .facebook {
+	float: none;
+	clear: none;
+	display: inline-block;
+	margin: 0;
+	width: 80px;
 }

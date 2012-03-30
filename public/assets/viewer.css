@@ -87,7 +87,11 @@
 .DV-well .DV-navControls{
   background-color: #fff;
   background-repeat: repeat-x;
+<<<<<<< HEAD
+  background-image: url(../images/DV/embed/shadow-white.gif?1331658353);
+=======
   background-image: url(../images/DV/embed/shadow-white.gif?1329940696);
+>>>>>>> master
 }
 
 .DV-pages{
@@ -130,7 +134,11 @@
   font-style:oblique;
   padding-left:24px;
   margin: 10px auto;
+<<<<<<< HEAD
+  background:url(../images/DV/embed/spinner.gif?1331658353) no-repeat left 8px;
+=======
   background:url(../images/DV/embed/spinner.gif?1329940696) no-repeat left 8px;
+>>>>>>> master
 }
 
 .DV-loadingDocument strong{
@@ -270,7 +278,11 @@
   }
   .DV-activeAnnotation .DV-annotationClose{
     display:block;
+<<<<<<< HEAD
+    background: transparent url(../images/DV/embed/close_tab.png?1331658353) no-repeat 6px 7px;
+=======
     background: transparent url(../images/DV/embed/close_tab.png?1329940696) no-repeat 6px 7px;
+>>>>>>> master
   }
 
   .DV-activeAnnotation.DV-annotation{
@@ -452,7 +464,11 @@
   }
   /* ---------------------------------------------------- tabs */
   .DV-annotationTab{
+<<<<<<< HEAD
+    background: url(../images/DV/embed/tabs.png?1331658353) no-repeat 0 0;
+=======
     background: url(../images/DV/embed/tabs.png?1329940696) no-repeat 0 0;
+>>>>>>> master
     height:26px;
     position:absolute;
     left: -35px;
@@ -472,7 +488,11 @@
   .DV-annotationTab .DV-annotationDraftDot {
     width: 11px;
     height: 11px;
+<<<<<<< HEAD
+    background: transparent url(../images/DV/embed/draft_dot.png?1331658353) no-repeat 0 0;
+=======
     background: transparent url(../images/DV/embed/draft_dot.png?1329940696) no-repeat 0 0;
+>>>>>>> master
     margin: 0 0 0 -3px;
   }
     .DV-activeAnnotation .DV-annotationTab .DV-annotationDraftDot {
@@ -527,7 +547,11 @@
 
 .DV-resultPrevious,
 .DV-annotationPrevious {
+<<<<<<< HEAD
+  background: url(../images/DV/embed/leftArrow.png?1331658353) no-repeat left 1px;
+=======
   background: url(../images/DV/embed/leftArrow.png?1329940696) no-repeat left 1px;
+>>>>>>> master
 }
 
 .DV-annotationPrevious{
@@ -549,7 +573,11 @@
 
 .DV-resultNext,
 .DV-annotationNext {
+<<<<<<< HEAD
+  background:transparent url(../images/DV/embed/rightArrow.png?1331658353) no-repeat right 1px;
+=======
   background:transparent url(../images/DV/embed/rightArrow.png?1329940696) no-repeat right 1px;
+>>>>>>> master
 }
 
 .DV-annotationNext{
@@ -930,7 +958,11 @@
 }
 
 .DV-linkage {
+<<<<<<< HEAD
+  background: url(../images/DV/embed/link.png?1331658353) no-repeat 0px -34px;
+=======
   background: url(../images/DV/embed/link.png?1329940696) no-repeat 0px -34px;
+>>>>>>> master
 }
 
 .DV-sidebar.DV-hide {
@@ -950,7 +982,11 @@
   text-shadow: 0px 1px 0px #ddd;
   color: #333;
   overflow: hidden;
+<<<<<<< HEAD
+  background: url(../images/DV/embed/headerbg.png?1331658353);
+=======
   background: url(../images/DV/embed/headerbg.png?1329940696);
+>>>>>>> master
   box-shadow: 0 0 25px rgba(0,0,0,.05); -webkit-box-shadow: 0 0 25px rgba(0,0,0,.05); -moz-box-shadow: 0 0 25px rgba(0,0,0,.05);
 }
   .DV-footer.DV-hide {
@@ -979,7 +1015,11 @@
     position: absolute;
     left: 5px; top: 5px;
     width: 22px; height: 22px;
+<<<<<<< HEAD
+    background: url(../images/DV/embed/fullscreen.png?1331658353) no-repeat 0 0;
+=======
     background: url(../images/DV/embed/fullscreen.png?1329940696) no-repeat 0 0;
+>>>>>>> master
   }
     .DV-header .DV-fullscreen {
       left: 6px; top: 6px;
@@ -1062,7 +1102,11 @@
 .DV-views div span{
   display: block;
   padding: 9px 14px 8px;
+<<<<<<< HEAD
+  background: #bfbfbf url(../images/DV/embed/tabbg.png?1331658353);
+=======
   background: #bfbfbf url(../images/DV/embed/tabbg.png?1329940696);
+>>>>>>> master
   border: 1px solid #777; border-top-color: #888;
   font: 10px Arial, Helvetica, sans-serif;
   text-decoration: none;
@@ -1238,7 +1282,11 @@ div.DV-submenu {
 
 .DV-previous, .DV-next {
   border: 1px solid #bbb; border-top-color: #ccc; border-bottom-color: #999;
+<<<<<<< HEAD
+  background-image:url(../images/DV/embed/controlsArrows.png?1331658353);
+=======
   background-image:url(../images/DV/embed/controlsArrows.png?1329940696);
+>>>>>>> master
   background-repeat: no-repeat;
   width:32px; height:22px;
   position:absolute;
@@ -1382,7 +1430,11 @@ div.DV-submenu {
 .DV-hasChildren .DV-annotationMarker{
   margin:0 0 4px;
   padding:0 0 0 8px;
+<<<<<<< HEAD
+  background: transparent url(../images/DV/embed/bullet4x4.gif?1331658353) no-repeat 0 4px;
+=======
   background: transparent url(../images/DV/embed/bullet4x4.gif?1329940696) no-repeat 0 4px;
+>>>>>>> master
   font-family:Arial,Helvetica,sans-serif;
   font-size:11px;
   font-weight:normal;
@@ -1430,7 +1482,11 @@ div.DV-submenu {
 }
 
 .DV-descriptionToggle, .DV-navigation div.DV-first span.DV-expander {
+<<<<<<< HEAD
+  background: url(../images/DV/embed/expanders.png?1331658353) no-repeat 0 5px;
+=======
   background: url(../images/DV/embed/expanders.png?1329940696) no-repeat 0 5px;
+>>>>>>> master
 }
 
 .DV-navigation div.DV-first span.DV-expander{
@@ -1554,7 +1610,11 @@ div.DV-submenu {
   width:210px;
   font-size: 11px;
   line-height: 14px;
+<<<<<<< HEAD
+  background: #FFF url(../images/DV/embed/search_icon.png?1331658353) no-repeat 5px 5px;
+=======
   background: #FFF url(../images/DV/embed/search_icon.png?1329940696) no-repeat 5px 5px;
+>>>>>>> master
   outline: none;
 }
 
@@ -1583,7 +1643,11 @@ div.DV-submenu {
   position: absolute;
   right: 12px;
   top: 8px;
+<<<<<<< HEAD
+  background: transparent url(../images/DV/embed/close.png?1331658353) no-repeat 0 0;
+=======
   background: transparent url(../images/DV/embed/close.png?1329940696) no-repeat 0 0;
+>>>>>>> master
   width: 11px;
   height: 11px;
   cursor: pointer;
@@ -1607,7 +1671,11 @@ div.DV-submenu {
   position: absolute;
   top: 0px; left: 0px; right: 282px;
   height: 50px;
+<<<<<<< HEAD
+  background: url(../images/DV/embed/shadow.png?1331658353) repeat-x 0 bottom;
+=======
   background: url(../images/DV/embed/shadow.png?1329940696) repeat-x 0 bottom;
+>>>>>>> master
   font-family: Arial,Helvetica,sans-serif;
   display: none;
 }
@@ -1637,7 +1705,11 @@ div.DV-submenu {
 }
 
 .DV-highlightedMatch{
+<<<<<<< HEAD
+  background: #f1e90f url(../images/DV/embed/highlight.gif?1331658353) repeat-x 0 bottom;
+=======
   background: #f1e90f url(../images/DV/embed/highlight.gif?1329940696) repeat-x 0 bottom;
+>>>>>>> master
   padding: 3px 3px 2px;
   -moz-border-radius: 3px;
   background-color:#fff;
@@ -1816,7 +1888,11 @@ span.DV-highlighted{
 }
 
 .DV-zoomBox{
+<<<<<<< HEAD
+  background: url(../images/DV/embed/bar.png?1331658353) repeat-x 0 88%;
+=======
   background: url(../images/DV/embed/bar.png?1329940696) repeat-x 0 88%;
+>>>>>>> master
   height:20px;
   width:43px;
   float: left;
@@ -1824,7 +1900,11 @@ span.DV-highlighted{
   cursor: pointer;
 }
   .DV-narrowControls .DV-zoomBox {
+<<<<<<< HEAD
+    background: url(../images/DV/embed/bar_small.png?1331658353) repeat-x 0 88%;
+=======
     background: url(../images/DV/embed/bar_small.png?1329940696) repeat-x 0 88%;
+>>>>>>> master
     width:25px;
   }
 
@@ -1836,7 +1916,11 @@ span.DV-highlighted{
   top:0;
   margin-top:5px;
   margin-left:-5px;
+<<<<<<< HEAD
+  background: transparent url(../images/DV/embed/slider.png?1331658353) no-repeat 0 0;
+=======
   background: transparent url(../images/DV/embed/slider.png?1329940696) no-repeat 0 0;
+>>>>>>> master
   outline: none;
 }
 
@@ -1880,6 +1964,15 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
+<<<<<<< HEAD
+  background: url(../images/DV/browsers/safari.gif?1331658353);
+}
+.DV-unsupported .DV-chrome {
+  background: url(../images/DV/browsers/chrome.gif?1331658353);
+}
+.DV-unsupported .DV-firefox {
+  background: url(../images/DV/browsers/firefox.gif?1331658353);
+=======
   background: url(../images/DV/browsers/safari.gif?1329940696);
 }
 .DV-unsupported .DV-chrome {
@@ -1887,6 +1980,7 @@ span.DV-highlighted{
 }
 .DV-unsupported .DV-firefox {
   background: url(../images/DV/browsers/firefox.gif?1329940696);
+>>>>>>> master
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;
@@ -2060,6 +2154,10 @@ span.DV-highlighted{
   display:none;
 }
 
+.DV-non {
+  display: none;
+}
+
 .DV-viewThumbnails .DV-currentAnnotationPrefix,
 .DV-viewThumbnails .DV-totalAnnotations{
   display:none;
@@ -2217,7 +2315,11 @@ span.DV-highlighted{
 }
 
 .DV-pages, .DV-paper {
+<<<<<<< HEAD
+  background: #f5f6f7 url(../images/DV/embed/pagesbg.jpg?1331658353);
+=======
   background: #f5f6f7 url(../images/DV/embed/pagesbg.jpg?1329940696);
+>>>>>>> master
 }
   .DV-paper {
     padding-top: 1px; /* needed to uncollapse the margin */
@@ -2290,13 +2392,21 @@ span.DV-highlighted{
   .DV-logo a {
     display: block;
     width: 105px; height: 19px;
+<<<<<<< HEAD
+    background: url(../images/DV/embed/dc_inline_logo.png?1331658353);
+=======
     background: url(../images/DV/embed/dc_inline_logo.png?1329940696);
+>>>>>>> master
   }
 
 .DV-footerLogoLink {
   display: block;
   width: 33px; height: 24px;
+<<<<<<< HEAD
+  background: url(../images/DV/embed/dc_mini_logo.png?1331658353) no-repeat center center;
+=======
   background: url(../images/DV/embed/dc_mini_logo.png?1329940696) no-repeat center center;
+>>>>>>> master
   position: absolute;
   right: 5px; top: 5px;
 }
