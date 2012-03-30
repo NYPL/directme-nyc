@@ -18,6 +18,7 @@ define(['jquery'], function($) {
 		if (typeof indexes === 'undefined' || indexes === null) indexes = '';
 		if (typeof sections === 'undefined' || sections === null) sections = false;
 		var docUrl = window.location.protocol + "//" + window.location.host + "/api/dvs/" + borough + '.json';
+		if (borough === 'staten') { borough = 'Staten Island';};
 		DV.load(docUrl, { 
 			container: '.DV',
 			sidebar: false,
