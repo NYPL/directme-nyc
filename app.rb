@@ -98,7 +98,7 @@ class Application < Sinatra::Base
 		slim :latest
 	end
 
-  	get '/help' do
+  	get '/faq' do
 		slim :help
 	end
 
@@ -213,8 +213,7 @@ class Api < Application
 					hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
 				end
 
-
-				if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0]
+				if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0] or is_numeric? hash['street'].split('nd')[0]
 					_street = hash['street'] + ' St' 
 				else
 					_street = hash['street']
@@ -225,6 +224,15 @@ class Api < Application
 				else
 					string_boro = hash['borough'].capitalize
 				end
+
+				directions = ['e', 'w', 'n', 's', 'nw', 'ne', 'sw', 'se']
+
+
+				# _street.scan(/\w+/).each { |street|
+				# 	if _street.scan(/\w+/)[idx] == 1
+				# 		put "hey"
+				# 	end
+				# }
 
 				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
 				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), string_boro, hash['state'].upcase].compact.join(', ')
@@ -297,7 +305,8 @@ class Api < Application
 				:coordinates => coords,
 				:cutout => obj.cutout,
 				:stories => stories,
-				:borough => obj.borough
+				:borough => obj.borough,
+				:state => obj.state
 			}
 
 			hash = hash.delete_if { |k, v| v.nil? }.to_json
