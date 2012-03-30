@@ -24,7 +24,7 @@ class Application < Sinatra::Base
 	use Rack::ShowExceptions
 	use Rack::Mongoid::Middleware::IdentityMap
 	use Rack::Deflater
-	use Rack::Session::Cookie, :secret => "some unique secret string here"
+	use Rack::Session::Cookie, :secret => "testing", :expire_after => 14400, :key => 'directmenyc'
 	use Rack::Csrf, :raise => true
 
 	use OmniAuth::Builder do
@@ -74,7 +74,7 @@ class Application < Sinatra::Base
   	end
 
 	#directory settings
-	set :static_cache_control, [:public, :max_age => 1]
+	set :static_cache_control, [:public, :max_age => 300]
 	set :root, root_dir
 	set :public_folder, 'public'
 	set :views, 'views'

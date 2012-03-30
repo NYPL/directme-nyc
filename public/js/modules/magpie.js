@@ -9,7 +9,6 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 		magView.tab_init();
 
 		$.subscribe('clickSpot', funModal);
-
 		hide_Modal();
 	}
 
@@ -23,6 +22,7 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 
 	function show_Modal(callback) {
 		$('#loc_add').on('show', function() {
+			resetForm();
 			window_Modal(this);
 		});
 

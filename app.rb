@@ -99,7 +99,7 @@ class Application < Sinatra::Base
 	end
 
   	get '/faq' do
-		slim :help
+		erb :faq, :layout_engine => :slim
 	end
 
 	get '/about' do
