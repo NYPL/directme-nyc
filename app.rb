@@ -243,9 +243,9 @@ class Api < Application
 						_street = hash['street']
 					end
 				end
-
-				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), string_boro, hash['state'].upcase].compact.join(', ')
+				num_street = "%s %s" % [hash['number'], _street.split.map {|w| w.capitalize}.join(' ')]
+				hash['address'] = [num_street, hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
+				hash['main_string'] = [hash['name'], num_street, string_boro, hash['state'].upcase].compact.join(', ')
 				hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
 				location = Locations.safely.create(hash)
