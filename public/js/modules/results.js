@@ -35,16 +35,18 @@ define(['jquery', 'modules/social'], function($, social) {
 
 			if (typeof data !== 'undefined') {
 
-				if (data.eds.length > 1) {
+				environment.borough = data.borough;
+
+				if (data.hasOwnProperty('eds') && data.eds.length > 1) {
 					$("#results .EDmore1").show();
-				} else if (data.eds.length == 1) {
+				} else if (data.hasOwnProperty('eds') && data.eds.length == 1) {
 					$("#results .EDonly1").show();
 				} else {
 					$("#results .EDnone").show();
 				}
 
-				var cross_string = "";
 				if (data.hasOwnProperty('cross_streets') && data.hasOwnProperty('cross_vals')) {
+					var cross_string = "";
 					cross_string = "";
 					for (var i = 0; i < data.cross_streets.length; i++) {
 						cross_string += "<option value='" + data.cross_vals[i] + "'>" + 
@@ -53,17 +55,16 @@ define(['jquery', 'modules/social'], function($, social) {
 					$('.crossstreets').append(cross_string);
 				}
 
-				var results = "";
 				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id')) {
+					var results = "";
 					for (i = 0; i < data.eds.length; i++) {
 						results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
-					printMe();
-
-					CSResolve(data.eds, data.fullcity_id, results, cross_string);
 				}
+
+				CSResolve(data.eds, data.fullcity_id, results, cross_string);
 
 				if (data.hasOwnProperty('coordinates') && data.hasOwnProperty('map_urls')) {
 					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap',
@@ -80,7 +81,7 @@ define(['jquery', 'modules/social'], function($, social) {
 				}
 
 				if (data.hasOwnProperty('cutout')) {
-					var quick_link = urlpath + '/DV/' + data.borough + '#document/p' + data.cutout.page_idx 
+					var quick_link = urlpath + '/viewer/' + data.borough + '#document/p' + data.cutout.page_idx 
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href, quick_link);
 				}
 
@@ -97,6 +98,9 @@ define(['jquery', 'modules/social'], function($, social) {
 						}
 					}
 				}
+
+
+				printMe();
 				submitStory(data.cutout.page_idx, ifStories);
 			}
 		});
@@ -108,11 +112,15 @@ define(['jquery', 'modules/social'], function($, social) {
 	}
 
 	function CSResolve(arr, city_id, _results, _crosses) {
+		if (typeof arr !== 'undefined') {
+			loadStreets();
+			city_id = environment.fullcity;
+		}
 		var oldText = "";
-		var curr_results = $('#EDlist').text().split(city_id + '-')
+		var curr_results = $('#EDlist').text().split(city_id + '-') || Array();
 		curr_results.remove(0);
-		var state_results = [_results]; 
-		var state_cross = [_crosses];
+		var state_results = [_results] || Array();
+		var state_cross = [_crosses] || Array();
 		var idx = 0;
 
 		$('.crossstreets').change(function(e) {
@@ -255,6 +263,12 @@ define(['jquery', 'modules/social'], function($, social) {
 	function printMe() {
 		$('a.printme').on('click', function() {
 			window.print();
+		});
+	}
+
+	function loadStreets() {
+		$.getJSON(urlpath + '/api/streets/' + environment.borough + '.json?callback=?', function(data) {
+			environment.fullcity = data.fullcity;
 		});
 	}
 

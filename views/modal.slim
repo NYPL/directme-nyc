@@ -10,10 +10,13 @@ div#loc_add.modal.hide.fade
 				label.frm-help.popovers for="frm-modal-name" data-original-title="Person Name" data-content="The name of the person <em>as you see it</em> in the phone book. This field is optional." ?
 			input#frm-modal-number.frm-text type="text" placeholder="Number" value=""
 			label.frm-help.popovers for="frm-modal-number" data-original-title="Address number" data-content="e.g.: Type '1178' (no quotes) if address is '1178RemsnAv'" ?
-			input#frm-modal-street.frm-text type="text" placeholder="Street name" value=""
+			input#frm-modal-street.frm-text type="text" placeholder="Street name search" value=""
 			label.frm-help.popovers for="frm-modal-street" data-original-title="Street name" data-content="e.g.: Type 'RemsnAv' (no quotes) if address is '1178RemsnAv'. Make sure to select a <em>non-abbreviated</em> name." ?
 			input#state_hidden type="hidden" value=""
 			input#fullcity_hidden type="hidden" value=""
+
+			input#frm-modal-noresults.frm-text type="text" placeholder="If no Results" value=""
+			label.frm-help.popovers for="frm-modal-noresults" data-original-title="Street name" data-content="e.g.: Type" ?
 
 	div.modal-footer
               a#submitED.btn.btn-primary.disabled href="#" Find ED number for this address

@@ -82,9 +82,7 @@ html
 
         div#wrapper
             ==slim :nypl
-            - if @DV
-                ==slim :headercompact
-            - else
+            - if not @DV
                 ==slim :header
           
         ==yield

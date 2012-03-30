@@ -2,6 +2,7 @@ from BeautifulSoup import BeautifulSoup as BS
 import json
 import argparse
 import datetime
+import collections
 
 parser = argparse.ArgumentParser(description='Mongo Census INIT')
 parser.add_argument('-path', action='store', dest='path', help='File path for HTM Street files', default="")
@@ -26,7 +27,7 @@ def init_json(file, borough):
 	data = open(file).read()
 	soup = BS(data)
 	options = soup.findAll('option')
-	streets = {}
+	streets = collections.OrderedDict()
 
 	fullcity_id = options[0]['value']
 	for option in options[1:]:

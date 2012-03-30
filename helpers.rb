@@ -85,6 +85,12 @@ module MyHelpers
 		end
 	end
 
+	module IsNumeric
+		def is_numeric?(obj) 
+		   obj.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+		end
+	end
+
 	module CSRF
 		def csrf_token()
 			Rack::Csrf.csrf_token(env)

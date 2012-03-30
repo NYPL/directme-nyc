@@ -90,7 +90,7 @@ class Application < Sinatra::Base
 		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 	end
 
-	get '/findings' do
+	get '/latest' do
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/latest']
 		@LATEST = true
@@ -107,16 +107,14 @@ class Application < Sinatra::Base
 	end
 
 	get '/results' do
-		@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
-					'/js/modules/bootstraps.js']
-		@deps = ['order!modules/results', 'order!modules/nytimes']
-
 		if !params['token'].blank? and !params['token'].nil?
 
 			obj = Locations.where(:token => params['token']).first()
 
 			if !obj.blank? and !obj.nil?
-
+				@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
+							'/js/modules/bootstraps.js']
+				@deps = ['order!modules/results', 'order!modules/nytimes']
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 				@RESULTS = true
@@ -125,12 +123,12 @@ class Application < Sinatra::Base
 
 			else
 				log.info "No Valid Result Token"
-				redirect '/not_found'
+				status 404
 			end
 
 		else
 			log.info "No Result Token"
-			redirect '/not_found'
+			status 404
 		end
 	end
 
@@ -138,11 +136,6 @@ class Application < Sinatra::Base
 	get '/upgrade' do
 		slim :upgrade, :layout => :'eww/layout'
 	end 
-
-	get '/not_found' do
-		status 404
-		slim :not_found
-	end
 
 	not_found do
 		status 404
@@ -195,7 +188,16 @@ class Api < Application
 
 	post '/locations.json' do
 		if ajaxcheck(request)
-			if !params['street'].blank? and !params['street'].nil?
+
+			con_streets = $JSON[params['borough']]
+
+			if params['noSearch'] or con_streets['streets'].has_key?(params['street'])
+				goAhead = true
+			else
+				goAhead = false
+			end
+
+			if !params['street'].blank? and !params['street'].nil? and goAhead
 
 				hash = {}
 				params.each { |param, value|
@@ -212,14 +214,20 @@ class Api < Application
 				end
 
 
-				if hash['street'].scan(/\w+/).count() == 1
-					_street = hash['street'] + ' St'
+				if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0]
+					_street = hash['street'] + ' St' 
 				else
 					_street = hash['street']
 				end
 
+				if hash['borough'] == 'staten'
+					string_boro = 'Staten Island'
+				else
+					string_boro = hash['borough'].capitalize
+				end
+
 				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
-				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['borough'].capitalize, hash['state'].upcase].compact.join(', ')
+				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), string_boro, hash['state'].upcase].compact.join(', ')
 				hash['coordinates'] = Geocoder.search(hash['address']).first.data['geometry'].fetch('location')
 
 				location = Locations.safely.create(hash)
@@ -234,7 +242,8 @@ class Api < Application
 				end
 
 			else
-				log.info 'write error here'
+				status 400
+				json = error_json(400, 'bad request, missing correct parameters').to_json
 			end
 
 		else
@@ -256,8 +265,21 @@ class Api < Application
 
 			ed_hash = $JSON[obj.borough]
 
-			crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
-			values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
+			if ed_hash['streets'].has_key?(obj.street)
+				crosses = ed_hash['streets'][obj.street]['cross'].map(&:keys).flatten
+				values = ed_hash['streets'][obj.street]['cross'].map(&:values).flatten
+				eds = ed_hash['streets'][obj.street].fetch('eds')
+			else
+				crosses = nil
+				values = nil
+				eds = nil
+			end
+
+			if  obj.coordinates and obj.coordinates.class == BSON::OrderedHash
+				coords = obj.coordinates
+			else
+				coords = nil
+			end
 
 			#bust ie cache!
 			bust_maps = []
@@ -269,15 +291,16 @@ class Api < Application
 				:map_urls => bust_maps,
 				:cross_streets => crosses,
 				:cross_vals => values,
-				:eds => ed_hash['streets'][obj.street].fetch('eds'),
+				:eds => eds,
 				:fullcity_id => ed_hash['fullcity_id'],
 				:street => obj.street,
-				:coordinates => obj.coordinates,
+				:coordinates => coords,
 				:cutout => obj.cutout,
 				:stories => stories,
 				:borough => obj.borough
-			}.to_json
+			}
 
+			hash = hash.delete_if { |k, v| v.nil? }.to_json
 		else
 			log.info 'cannot access without browser session'
 			status 403

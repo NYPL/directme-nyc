@@ -8,12 +8,14 @@ define(['jquery'], function($) {
 	function onSubmitModal(page_idx) {
 		$('#submitED').on('click', function(e) {
 			e.preventDefault();
+			var noSearch = false;
 			var number = $('#frm-modal-number').val() || null;
 			var name = $('#frm-modal-name').val() || null;
 			var boro = environment.borough;
 			var state = $('#state_hidden').val() || environment.state;
 			var fullcity = $('#fullcity_hidden').val() || environment.fullcity;
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
+			var noResultsName = $('#frm-modal-noresults').val() || null;
 			var checkDisabled = $(this).hasClass('disabled');
 			var theXY = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ")
 
@@ -21,8 +23,13 @@ define(['jquery'], function($) {
 			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
 			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
 
+			if (streetName === null && noResultsName !== null) {
+				streetName = $('#frm-modal-noresults').val().toLowerCase();
+				noSearch = true;
+			}
+
 			if (streetName !== null && checkDisabled !== true) {
-				$.post(urlpath + '/api/locations.json?callback=?', {name: name, number: number, street: streetName, borough: boro, state: state, fullcity: fullcity, cutout: cutout}, function(data) {
+				$.post(urlpath + '/api/locations.json?callback=?', {name: name, number: number, street: streetName, borough: boro, state: state, fullcity: fullcity, cutout: cutout, noSearch: noSearch}, function(data) {
 					window.location.href = '/results?token=' + data.token;
 				}, "json");
 			}
@@ -42,7 +49,16 @@ define(['jquery'], function($) {
 		var reg = new RegExp(trimmed.split('').join('[^\\n]*'), 'i');
 		return environment.streets.filter(function(st) {
 			if (st.match(reg)) {
-				return capitalize(st);
+				return st;
+			}
+		});
+	}
+
+	function matchFirst(valChar) {
+		var reg = new RegExp('^' + valChar, 'i');
+		return environment.streets.filter(function(st) {
+			if (st.match(reg)) {
+				return st;
 			}
 		});
 	}
@@ -58,6 +74,9 @@ define(['jquery'], function($) {
 
 	function callback(req, resp) {
 		var filtered = matchStreets(req.term);
+		if (filtered.length < 1) {
+			filtered = matchFirst(req.term.charAt(0));
+		}
 		filtered = _.map(filtered, function(i) {
 			return capitalize(i);
 		})
@@ -79,7 +98,8 @@ define(['jquery'], function($) {
 			source: callback
 		});
 
-		$('.ui-autocomplete').on('click', function() { 
+		$('.ui-autocomplete').on('click', function() {
+			$('#frm-modal-noresults').val(''); 
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
@@ -90,6 +110,7 @@ define(['jquery'], function($) {
 		});
 
 		$('#frm-modal-street').on('keyup', function() {
+			$('#frm-modal-noresults').val('');
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			if (_.include(environment.streets, streetName)) {
 				$('#submitED').removeClass('disabled');
@@ -97,6 +118,11 @@ define(['jquery'], function($) {
 			else {
 				$('#submitED').addClass('disabled');
 			}			
+		});
+
+		$('#frm-modal-noresults').on('keyup', function() {
+			$('#frm-modal-street').val('');
+			$('#submitED').removeClass('disabled');			
 		});
 
 		onSubmitModal(page_idx);
