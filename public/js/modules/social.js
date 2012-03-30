@@ -10,14 +10,13 @@ define(['jquery'], function($) {
 	function fbSetup() {
 		$('#fb-submit').on('click', function(e) {
 			e.preventDefault();
-			auth_url = encodeURI('/auth/facebook?display=popup');
+			$('#conn_social').modal('hide');
+			auth_url = encodeURI('/auth/facebook?display=popup&origin=' + callback_url);
 
 			auth_window = popupCenter(auth_url, 600, 400, "authPopup");
 
-			auth_window.load(function() { 
-				auth_window.unload(function(){
-					updateStories();
-				});
+			auth_window.unload(function(){
+				updateStories();
 			});
 
 			e.stopPropagation(); 
@@ -33,7 +32,11 @@ define(['jquery'], function($) {
 	}
 
 	function updateStories() {
-		log("fuck")
+		
+	}
+
+	function prependStory(content, author, time_dist) {
+		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
 	}
 
 	return {

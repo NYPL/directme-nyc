@@ -9,6 +9,7 @@ define(['jquery', 'modules/social'], function($, social) {
 
 	function _init() {
 		EDcall(getUrlVar('token'));
+		printMe();
 	}
 
 	function submitStory(page_idx, ifStories) {
@@ -41,8 +42,7 @@ define(['jquery', 'modules/social'], function($, social) {
 			if (typeof data !== 'undefined') {
 
 				environment.borough = data.borough;
-				
-				$('#newsearch').prop('href',"/viewer/" + data.borough);
+				$('a#newsearch').prop('href', '/directory/' + data.borough);
 
 				if (data.hasOwnProperty('eds') && data.eds.length > 1) {
 					$("#results .EDmore1").show();
@@ -65,11 +65,12 @@ define(['jquery', 'modules/social'], function($, social) {
 				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id') && data.hasOwnProperty('state')) {
 					var results = "";
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a class='EDcontent' href='" + narapath + data.state + '/' + data.fullcity_id + "-" + data.eds[i] + "/'>" + 
+						results += "<a target='_blank' class='EDcontent' href='" + narapath + data.state + '/' + data.fullcity_id + "-" + data.eds[i] + "/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
 
+					//call methods based on ED
 					CSResolve(data.eds, data.fullcity_id, data.state, results, cross_string);
 				}
 
@@ -87,7 +88,7 @@ define(['jquery', 'modules/social'], function($, social) {
 								} else {
 									$('#nyplmap').html('<div style="margin:60px 12px;font-size:13px;line-height:1.4em;color:#666;text-align:center;">This address appears to be outside of the New York City metropolitan area. 1940s maps beyond this area are not currently available.</div>');
 								}
-							});
+							}, true);
 				}
 
 				else {
@@ -113,8 +114,6 @@ define(['jquery', 'modules/social'], function($, social) {
 					}
 				}
 
-
-				printMe();
 				submitStory(data.cutout.page_idx, ifStories);
 			}
 		});
@@ -266,12 +265,8 @@ define(['jquery', 'modules/social'], function($, social) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").appendTo('#frm-annotate')
 	}
 
-	function prependStory(content, author, time_dist) {
-		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
-	}
-
 	function printMe() {
-		$('a.printme').on('click', function() {
+		$('a#printpage').on('click', function() {
 			window.print();
 		});
 	}

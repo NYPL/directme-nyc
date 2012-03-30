@@ -144,17 +144,19 @@ class Application < Sinatra::Base
 
 	get '/auth/:name/callback' do
 		auth = request.env["omniauth.auth"]
-		origin = request.env['omniauth.origin']
 		name = auth["info"]["name"]
 		puts name
-		puts origin
-		redirect origin
+		redirect '/callback'
 	end
 
 	get '/auth/failure' do
 		flash[:notice] = params[:message] # if using sinatra-flash or rack-flash
 		origin = request.env['omniauth.origin']
 		redirect origin
+	end
+
+	get '/callback' do
+		slim :callback, :layout => :'eww/layout'
 	end
 	#################################################################
 end
@@ -233,7 +235,6 @@ class Api < Application
 						end
 					end
 				else
-					puts st_arr.length
 					if st_arr.length == 1
 						if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0] or is_numeric? hash['street'].split('nd')[0]
 							_street = hash['street'] + ' St'

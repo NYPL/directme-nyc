@@ -1,0 +1,21 @@
+/ most concepts out of this https://gist.github.com/1053847
+doctype html
+/[if lt IE 7]
+    | <html class="no-js ie6 oldie" lang="en">
+/[if IE 7]
+    | <html class="no-js ie7 oldie" lang="en">
+/[if IE 8]
+    | <html class="no-js ie8 oldie" lang="en">
+/[if (gte IE 9)|!(IE)]
+    | <html class="no-js" lang="en">
+
+html
+    head
+        meta charset="utf-8"
+        meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+        title= "Direct Me NYC: 1940 | Auth Callback"
+
+		javascript:
+			if(window.opener) {
+				window.close();
+			}
