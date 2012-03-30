@@ -3,6 +3,19 @@ define(['jquery'], function($) {
 
 	function _init() {
 		loadContent();
+		addPopovers();
+	}
+	
+	function addPopovers() {
+		var namePop = {title:"Person Name", content:"The name of the person <em>as you see it</em> in the phone book. This field is optional."};
+		var numberPop = {title:"Address number", content:"e.g.: Type '1178' (no quotes) if address is '1178RemsnAv'."};
+		var streetPop = {title:"Street name", content:"e.g.: Type 'RemsnAv' (no quotes) if address is '1178RemsnAv'. Make sure to select a <em>non-abbreviated</em> name."};
+		$('#frm-pop-name').popover({placement:"right",trigger:"hover",title:namePop.title,content:namePop.content});
+		$('#frm-pop-number').popover({placement:"right",trigger:"hover",title:numberPop.title,content:numberPop.content});
+		$('#frm-pop-street').popover({placement:"right",trigger:"hover",title:streetPop.title,content:streetPop.content});
+		$('#frm-modal-name').popover({placement:"right",trigger:"focus",title:namePop.title,content:namePop.content});
+		$('#frm-modal-number').popover({placement:"right",trigger:"focus",title:numberPop.title,content:numberPop.content});
+		$('#frm-modal-street').popover({placement:"right",trigger:"focus",title:streetPop.title,content:streetPop.content});
 	}
 
 	function onSubmitModal(page_idx) {

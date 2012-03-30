@@ -1,6 +1,10 @@
 define(['jquery', 'modules/social'], function($, social) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
+	
+	var NE = new L.LatLng(41.0053,-74.4234),
+    SW = new L.LatLng(40.3984,-73.5212),
+    NYCbounds = new L.LatLngBounds(SW, NE);
 
 	function _init() {
 		EDcall(getUrlVar('token'));
@@ -67,13 +71,20 @@ define(['jquery', 'modules/social'], function($, social) {
 				CSResolve(data.eds, data.fullcity_id, results, cross_string);
 
 				if (data.hasOwnProperty('coordinates') && data.hasOwnProperty('map_urls')) {
-					showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap',
-						data.map_urls[0],
-						"<a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>", 
-						function() {
-							showMap(data.coordinates.lat,data.coordinates.lng,'gmap',
-								data.map_urls[1],undefined,undefined,true);
-						});
+					showMap(data.coordinates.lat,data.coordinates.lng,'gmap',
+							data.map_urls[1],
+							undefined,
+							function() {
+								// verify bounds are ok (it's inside NYC)
+								if (NYCbounds.contains(new L.LatLng(data.coordinates.lat,data.coordinates.lng))) {
+									showMap(data.coordinates.lat,data.coordinates.lng,'nyplmap',
+											data.map_urls[0],
+											"Map © USGS. <a href='http://www.nypl.org/locations/schwarzman/map-division/fire-insurance-topographic-zoning-property-maps-nyc' title='open in new window' target='_blank'>Find more maps in the Lionel Pincus & Princess Firyal Map Division</a>"
+									);
+								} else {
+									$('#nyplmap').html('<div style="margin:60px 12px;font-size:13px;line-height:1.4em;color:#666;text-align:center;">This address appears to be outside of the New York City metropolitan area. 1940s maps beyond this area are not currently available.</div>');
+								}
+							});
 				}
 
 				else {
