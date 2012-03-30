@@ -11,7 +11,10 @@ opts = parser.parse_args()
 
 b_dict = {
 	'%s/bronx.csv' % opts.path: 'bronx',
-	'%s/staten.csv' % opts.path: 'staten' 
+	'%s/staten.csv' % opts.path: 'staten',
+	'%s/brooklyn.csv' % opts.path: 'brooklyn',
+	'%s/manhattan.csv' % opts.path: 'manhattan',
+	'%s/queens.csv' % opts.path: 'queens' 
 }
 
 def init_json(file, borough):
