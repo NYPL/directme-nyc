@@ -490,7 +490,7 @@ div.spacer{ display: block; }
 	border: 1px solid #aaa;
 	width: 230px;
 	background: #fff;
-	margin: 12px 0;
+	margin: 12px auto;
 }
 #share .border {
 	border: 2px solid #aaa;
@@ -620,10 +620,17 @@ div.spacer{ display: block; }
 }
 
 #blurb {
+	margin: 0 5px 16px 5px;
+	border-bottom: 1px solid #000;
+}
+
+#blurb .b1, #blurb .b2, #blurb .b3 {
 	float: left;
 	width: 230px;
-	margin: 0 5px 0 5px;
-	min-height: 450px;
+}
+
+#blurb .b1, #blurb .b2 {
+	margin-right: 10px;
 }
 
 #blurb li {
@@ -653,11 +660,9 @@ div.spacer{ display: block; }
 }
 
 #tip {
-	position: absolute;
-	top: 275px;
-	left: 245px;
+	float: left;
 	width: 230px;
-	margin: 0;
+	margin: 14px 0 0 10px;
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	background: #fff;
@@ -768,9 +773,7 @@ div.spacer{ display: block; }
 /* END TICKER SHADOWS */
 
 #video {
-	position: absolute;
-	top: 275px;
-	left: 480px;
+	float: left;
 	width: 230px;
 
 	background: #fff;
@@ -818,7 +821,7 @@ div.spacer{ display: block; }
 
 #templatecontent {
 	clear: both;
-	width: 710px;
+	width: 720px;
 }
 
 #templatecontent .q	{
@@ -954,12 +957,11 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	}
 	
 	#tip {
-		top: 230px;
+		display: none;
 	}
 	
 	#video {
-		top: 370px;
-		left: 240px;
+		display: none;
 	}
 
 }
@@ -1009,8 +1011,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 
 	#blurb {
-		margin-bottom: 12px;
-		min-height: 0;
+		display: none;
 	}
 
 	#tip {
@@ -1080,7 +1081,30 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		width: 240px;
 	}
 	
+	#arrow {
+		float: none;
+		margin-top: 0;
+		margin-bottom: 6px;
+	}
+	
+	#arrow p {
+		background-image: none;
+		margin: 0 5px;
+	}
+	
+	#boroughs {
+		float: none;
+	}
+	
+	#stories {
+		width: auto;
+	}
+	
 	#header {
 		height: 76px;
+	}
+	
+	#ticker .content {
+		width: 240px;
 	}
 }

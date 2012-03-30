@@ -14,7 +14,7 @@ define(['jquery'], function($) {
 		$('#frm-pop-number').popover({placement:"right",trigger:"hover",title:numberPop.title,content:numberPop.content});
 		$('#frm-pop-street').popover({placement:"right",trigger:"hover",title:streetPop.title,content:streetPop.content});
 		$('#frm-modal-name').popover({placement:"right",trigger:"focus",title:namePop.title,content:namePop.content});
-		$('#frm-modal-number').popover({placement:"right",trigger:"focus",title:numberPop.title,content:numberPop.content});
+		$('#frm-modal-number').popover({placement:"left",trigger:"focus",title:numberPop.title,content:numberPop.content});
 		$('#frm-modal-street').popover({placement:"right",trigger:"focus",title:streetPop.title,content:streetPop.content});
 	}
 
