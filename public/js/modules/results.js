@@ -40,6 +40,8 @@ define(['jquery', 'modules/social'], function($, social) {
 			if (typeof data !== 'undefined') {
 
 				environment.borough = data.borough;
+				
+				$('#newsearch').prop('href',"/viewer/" + data.borough);
 
 				if (data.hasOwnProperty('eds') && data.eds.length > 1) {
 					$("#results .EDmore1").show();

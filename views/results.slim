@@ -26,31 +26,34 @@ div#mainwrapper
 		div#results
 
 			div.crosscontent.EDmore1
-				h3 Your search returned more than one ED
-				p There is more than one possible ED for this address. For best results finding the right census record narrow your search by selecting a cross street or back street:
+				h3 1940 Census ED numbers for this address
+				p Refine results by selecting cross or back streets on the same same city block (use reference maps to help locate).
+				p Tip: you may not be able to reduce to a single ED (<a href="/help">why?</a>).
 
 				div.streetchoices
 
 				select.crossstreets name="crossstreet"
 					option selected='selected' Select cross/back street
 
-
 			div.EDcontent.EDonly1
-				h3 Find Census Record for ED
-				p Click to find the National Archive Census Record for an ED
+				h3 1940 Census ED number for this address
 			
 			div.EDnone
 				h3 No Enumeration Districts found for this address
 				p Please try again with another Address.
 			
 			div
-				p Results powered by: <strong>1-step </strong><a href="http://stephenmorse.com/census/" class="onesteplogo">1-Step</a>
+				p Results powered by <strong>One-Step</strong> <a href="http://stephenmorse.com/census/unified.html" class="onesteplogo">1-Step</a>
+				p Click ED# to explore 1940 Census Records at National Archives:
 				div#EDlist
 
 			div.spacer
 			
 			div.print
 				a.printme href="#" Print a Receipt of Your Results
+
+			div.print
+				a#newsearch.printme href="#" Do Another Search
 			
 			div.spacer
 
@@ -61,8 +64,8 @@ div#mainwrapper
 		/! annotations
 		div#annotations
 			div.content
-				h3 Stories about this address
-				| <p>Patron-generated stories of this area.<br /><a href="#">Legal info</a></p>
+				h3 Share a story about this address
+				p Read <a href="http://www.nypl.org/policy-patron-generated-web-content">NYPL policy on patron-generated content</a>
 
 			form#frm-annotate
 				textarea#frm-content placeholder="Share your story..."
