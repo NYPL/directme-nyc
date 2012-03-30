@@ -14,29 +14,21 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 	}
 
 	function hide_Modal() {
-		$('#loc_add').on('hidden', function () {
+		$('#loc_add').on('hide', function () {
 			resetForm();
+			$('.thejloupe').remove();
 			reInitMag();
 		});
 	}
 
 	function show_Modal(callback) {
 		$('#loc_add').on('show', function() {
-			if (environment.hasOwnProperty('streets')) {
-				window_Modal(this);
-			}
-			else {
-				fuzzy.init();
-				fuzzy.search(page_idx);
-				window_Modal(this);
-				$('.popovers').popover();
-			}
+			window_Modal(this);
 		});
 
 		if (typeof callback !=='undefined') {
 			callback();
 		}
-
 	}
 
 	function window_Modal(elem) {
@@ -57,6 +49,14 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 
 	function funModal(e, page) {
 		page_idx = page;
+		if (environment.hasOwnProperty('streets')) {
+		}
+		else {
+			fuzzy.init();
+			fuzzy.search(page_idx);
+			$('.popovers').popover();
+		}
+
 		show_Modal(function() {
 			$('#loc_add').modal({
 				'show': true,
@@ -67,7 +67,6 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 	}
 
 	function reInitMag() {
-		$('.modal').hide();
 		magView.init();
 		$.publish('pages', []);
 	}

@@ -400,7 +400,7 @@ DV.Schema.helpers = {
       var totalPagesToCreate = (this.viewer.schema.data.totalPages < 3) ? this.viewer.schema.data.totalPages : 3;
       var height = this.models.pages.height;
       for (var i = 0; i < totalPagesToCreate; i++) {
-        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, pageMagSource: null, pagebaseHeight: height }));
+        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, pageMagSource: null, pagebaseHeight: height, indexes: this.viewer.options.idxs}));
       }
       return pages.join('');
     },
