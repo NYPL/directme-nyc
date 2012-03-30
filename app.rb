@@ -213,21 +213,6 @@ class Api < Application
 					hash['url'] = 'http://%s/results?token=%s' % [request.host, hash['token']]
 				end
 
-				checks = ['ex', 'avenue', 'av', 'ave', 'ext', 'court', 'ct', 'place', 'pl']
-				_street = ''
-				hash['street'].scan(/\w+/).each { |word|
-					if checks.include?(word.downcase!)
-						_street = hash['street']
-						break
-					else
-						if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0] or is_numeric? hash['street'].split('nd')[0]
-							_street = hash['street'] + ' St'
-						else
-							_street = hash['street']
-						end
-					end
-				}
-
 				if hash['borough'] == 'staten'
 					string_boro = 'Staten Island'
 				else
@@ -236,10 +221,26 @@ class Api < Application
 
 				directions = ['e', 'w', 'n', 's', 'nw', 'ne', 'sw', 'se']
 
-				if directions.include?(_street.scan(/\w+/)[1])
+				st_arr = hash['street'].scan(/\w+/)
+				_street = hash['street']
+				if directions.include?(st_arr[1])
 					arr = []
-					arr.push(_street.scan(/\w+/)[1], _street.scan(/\w+/)[0], _street.scan(/\w+/)[2..-1])
+					arr.push(st_arr[1], st_arr[0], st_arr[2..-1])
 					_street = arr.join(" ")
+					if st_arr.length <= 2 
+						if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0] or is_numeric? hash['street'].split('nd')[0]
+							_street += ' St'
+						end
+					end
+				else
+					puts st_arr.length
+					if st_arr.length == 1
+						if is_numeric? hash['street'].split('th')[0] or is_numeric? hash['street'].split('rd')[0] or is_numeric? hash['street'].split('nd')[0]
+							_street = hash['street'] + ' St'
+						end
+					else	
+						_street = hash['street']
+					end
 				end
 
 				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
