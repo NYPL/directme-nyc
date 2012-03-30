@@ -103,7 +103,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/about' do
-		slim :credits
+		erb :about
 	end
 
 	get '/results' do
