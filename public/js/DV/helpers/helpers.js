@@ -144,7 +144,7 @@ DV.Schema.helpers = {
 
       this.elements.coverPages.live('mousedown', cleanUp);
 
-      viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
+      //viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
     },
 

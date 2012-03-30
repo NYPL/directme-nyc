@@ -1,6 +1,7 @@
 define(['jquery', 'modules/social'], function($, social) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
+	var narapath = "http://1940census.archives.gov/show-image/enumeration-district/"
 	
 	var NE = new L.LatLng(41.0053,-74.4234),
     SW = new L.LatLng(40.3984,-73.5212),
@@ -61,16 +62,16 @@ define(['jquery', 'modules/social'], function($, social) {
 					$('.crossstreets').append(cross_string);
 				}
 
-				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id')) {
+				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id') && data.hasOwnProperty('state')) {
 					var results = "";
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a class='EDcontent' href='http://1940census.archives.gov/'>" + 
+						results += "<a class='EDcontent' href='" + narapath + data.state + '/' + data.fullcity_id + "-" + data.eds[i] + "/'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
-				}
 
-				CSResolve(data.eds, data.fullcity_id, results, cross_string);
+					CSResolve(data.eds, data.fullcity_id, data.state, results, cross_string);
+				}
 
 				if (data.hasOwnProperty('coordinates') && data.hasOwnProperty('map_urls')) {
 					showMap(data.coordinates.lat,data.coordinates.lng,'gmap',
@@ -94,7 +95,7 @@ define(['jquery', 'modules/social'], function($, social) {
 				}
 
 				if (data.hasOwnProperty('cutout')) {
-					var quick_link = urlpath + '/viewer/' + data.borough + '#document/p' + data.cutout.page_idx 
+					var quick_link = urlpath + '/directory/' + data.borough + '#document/p' + data.cutout.page_idx 
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href, quick_link);
 				}
 
@@ -124,16 +125,12 @@ define(['jquery', 'modules/social'], function($, social) {
 		$("#cutout .page").css('background', 'url(' + href + ') ' + (x-20) + 'px ' + y + 'px');
 	}
 
-	function CSResolve(arr, city_id, _results, _crosses) {
-		if (typeof arr !== 'undefined') {
-			loadStreets();
-			city_id = environment.fullcity;
-		}
+	function CSResolve(arr, city_id, state, _results, _crosses) {
 		var oldText = "";
-		var curr_results = $('#EDlist').text().split(city_id + '-') || Array();
+		var curr_results = $('#EDlist').text().split(city_id + '-')
 		curr_results.remove(0);
-		var state_results = [_results] || Array();
-		var state_cross = [_crosses] || Array();
+		var state_results = [_results]
+		var state_cross = [_crosses]
 		var idx = 0;
 
 		$('.crossstreets').change(function(e) {
@@ -165,7 +162,7 @@ define(['jquery', 'modules/social'], function($, social) {
 			fin_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<a class='EDcontent' target='_blank' href='http://1940census.archives.gov/'>" + city_id + "-" + matched[i] + "</a>";
+				results += "<a class='EDcontent' target='_blank' href='" + narapath + state + '/' + city_id + "-" + matched[i] + "/'>" + city_id + "-" + matched[i] + "</a>";
 			}
 
 			$('a', '#EDlist').remove();
@@ -276,12 +273,6 @@ define(['jquery', 'modules/social'], function($, social) {
 	function printMe() {
 		$('a.printme').on('click', function() {
 			window.print();
-		});
-	}
-
-	function loadStreets() {
-		$.getJSON(urlpath + '/api/streets/' + environment.borough + '.json?callback=?', function(data) {
-			environment.fullcity = data.fullcity;
 		});
 	}
 

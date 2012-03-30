@@ -2322,7 +2322,7 @@ DV.Schema.helpers = {
 
       this.elements.coverPages.live('mousedown', cleanUp);
 
-      viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
+      //viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
     },
 
@@ -3138,7 +3138,7 @@ DV.Schema.states = {
     this.helpers.addObserver('drawPages');
     this.dragReporter.setBinding();
     this.elements.window.mouseleave(DV.jQuery.proxy(this.dragReporter.stop, this.dragReporter));
-    this.acceptInput.allow();
+    //this.acceptInput.allow();
     this.helpers.toggleContent('viewDocument');
 
     this.helpers.setActiveChapter(this.models.chapters.getChapterId(this.models.document.currentIndex()));
