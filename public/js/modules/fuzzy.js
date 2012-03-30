@@ -30,9 +30,16 @@ define(['jquery'], function($) {
 			var streetName = $('#frm-modal-street').val().toLowerCase() || null;
 			var noResultsName = $('#frm-modal-noresults').val() || null;
 			var checkDisabled = $(this).hasClass('disabled');
-			var theXY = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ")
 
-			var positions = [theXY[0],theXY[1]];
+			if (typeof ie === 'undefined' || ie >= 9) {
+				var theXY = $('.active-loupe').find('.thejloupeview').css('backgroundPosition').split(" ");
+				var positions = [theXY[0],theXY[1]];
+			}
+			else {
+				var X = $('.active-loupe').find('.thejloupeview').css('background-position-x');
+				var Y = $('.active-loupe').find('.thejloupeview').css('background-position-y');
+				var positions = [X,Y]
+			}
 			var bg_img = $('.active-loupe').find('.thejloupeview').css('backgroundImage').replace(/"/g,"").replace(/url\(|\)$/ig, "");
 			var cutout = {x: parseInt(positions[0]), y: parseInt(positions[1]), href: bg_img, page_idx: page_idx};
 
