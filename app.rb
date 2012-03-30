@@ -82,7 +82,7 @@ class Application < Sinatra::Base
 		slim :main
 	end
 
-	get '/DV/:borough' do
+	get '/viewer/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
 		@consts = ['order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
@@ -140,6 +140,11 @@ class Application < Sinatra::Base
 	end 
 
 	get '/not_found' do
+		status 404
+		slim :not_found
+	end
+
+	not_found do
 		status 404
 		slim :not_found
 	end

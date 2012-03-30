@@ -31,7 +31,7 @@ define(['jquery'], function($) {
 		else {
 			setTimeout(function() {
 				drag_mode = false;
-			}, 375);
+			}, 275);
 		}
 	}
 
@@ -175,6 +175,9 @@ define(['jquery'], function($) {
 					});
 
 					$(this).die('mousemove');
+					$(this).die('mouseleave');
+					$(this).die('mouseenter');
+					$(this).die('click');
 					$.unsubscribe("pages");
 				}
 			}
@@ -188,9 +191,8 @@ define(['jquery'], function($) {
 					return true;
 				}
 				if (locked_mode !== true) {
-					$(loupe).hide().promise().done(function() {
-						$(loupe).show();
-					});
+					$(loupe).hide()
+					$(loupe).show();
 
 					if ($(view).css('background-image')) {
 						$(loupe).addClass('active-loupe');	
@@ -240,10 +242,16 @@ define(['jquery'], function($) {
 					zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
 					zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
 					$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
+
+					$(this).on('mouseenter', function() {
+						$(loupe).stop(true, true);
+						$(loupe).show();
+					});
 				}
 			},
 
 			mouseleave: function(){
+				log("jldjld")
 				if (locked_mode !== true) {
 					$(loupe).removeClass('active-loupe');
 					$(loupe).stop(true, true);
@@ -252,15 +260,8 @@ define(['jquery'], function($) {
 				
 			},
 
-			mouseenter: function(){
-				if (locked_mode !== true) {
-					$(loupe).stop(true, true);
-					$(loupe).show();
-				}
-				
-			},
-
 			click: function(e) {
+				log("bbjldjld")
 				e.preventDefault();
 				clickRun(elem);
 			},
