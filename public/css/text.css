@@ -201,6 +201,16 @@ p {
 	margin-right: 8px;
 }
 
+#frm-modal div.frm-modal-help {
+	margin: 4px 16px 4px 0;
+	font-size: 12px;
+}
+
+#loc_add div.modal-footer .disabled {
+	background-color: #f00;
+	color: #fff;
+}
+
 .conns a {
 	display: inline-block;
 	width: 145px;
