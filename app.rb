@@ -103,7 +103,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/about' do
-		erb :about
+		erb :about, :layout_engine => :slim
 	end
 
 	get '/results' do
