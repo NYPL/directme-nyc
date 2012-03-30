@@ -2,15 +2,32 @@ div#mainwrapper
 	div#main
 		/! blurb
 		div#blurb
-			p You can't search the 1940 Federal Census by name, but you can search by address. Here's how:
-			p Suppose you are looking for <a href="/directory/manhattan#document/p319">John H Fedeler</a>, live-in superintendent at The New York Public Library, 1910-1940:
-			img src="/images/fedeler_1.png" alt="John H Fedeler, live-in superintendent for the NYPL Bryant Park branch until 1940"
-			p Use our 1940 NYC telephone directories to find his address:
-			img src="/images/fedeler_2.png" alt="Page of the 1940 Manhattan Telephone Directory"
-			p Convert the address to a Census district, then find his Census record at the National Archives.
-			img src="/images/fedeler_3.png" alt="1930 Census record that includes John H Fedeler's information"
-			p It's easy! <a href="/faq">Learn more in our FAQ</a>.
+			div.b0
+				p You can't search the 1940 Federal Census by name, but you can search by address. Here's how:
+			div.b1
+				img src="/images/fedeler_1.png" alt="John H Fedeler, live-in superintendent for the NYPL Bryant Park branch until 1940"
+				p Suppose you are looking for <a href="/directory/manhattan#document/p319">John H Fedeler</a>, live-in superintendent at The New York Public Library, 1910-1940.
+			div.b2
+				img src="/images/fedeler_2.png" alt="Page of the 1940 Manhattan Telephone Directory"
+				p Use our 1940 NYC telephone directories to find his address.
+			div.b3
+				img src="/images/fedeler_3.png" alt="1930 Census record that includes John H Fedeler's information"
+				p Convert the address to a Census district, then find his Census record at the National Archives.
+				p It's easy! <a href="/faq">Learn more in our FAQ</a>.
+
+			/! tip
+			div#tip
+				p.content Brought to you by the New York Public Library's <a href="http://www.nypl.org/milstein">Milstein Division</a> of United States History, Local History and Genealogy & <a href="http://www.nypl.org/collections/labs">NYPL Labs</a>
+	
+			/! --tip--
+
+			div.spacer
 		/! --blurb--
+
+		/! stories
+		div#stories
+			h2 Latest stories
+		/! --stories--
 
 		/! borough_selector
 		div#borough_selector
@@ -30,21 +47,10 @@ div#mainwrapper
 					a#staten.borough href="/directory/staten" STATEN ISLAND
 		/! --borough_selector--
 
-		/! tip
-		div#tip
-			p.content Brought to you by the New York Public Library's <a href="http://www.nypl.org/milstein">Milstein Division</a> of United States History, Local History and Genealogy & <a href="http://www.nypl.org/collections/labs">NYPL Labs</a>
-
-		/! --tip--
-
-		/! stories
-		div#stories
-			h2 Latest stories
-		/! --stories--
-
 		/! video
 		div#video
 			div.embed
-			| <span class="caption">Audiovisual context from NARA and NYPL.</span>
+			| <span class="caption">Audiovisual context from NARA & NYPL</span>
 		/! --video--
 
 		==slim :nytimes
