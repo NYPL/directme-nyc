@@ -216,7 +216,7 @@ class Api < Application
 				checks = ['ex', 'avenue', 'av', 'ave', 'ext', 'court', 'ct', 'place', 'pl']
 				_street = ''
 				hash['street'].scan(/\w+/).each { |word|
-					if checks.include?(word)
+					if checks.include?(word.downcase!)
 						_street = hash['street']
 						break
 					else
