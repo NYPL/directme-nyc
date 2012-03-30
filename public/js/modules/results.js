@@ -93,7 +93,7 @@ define(['jquery', 'modules/social'], function($, social) {
 				}
 
 				if (data.hasOwnProperty('cutout')) {
-					var quick_link = urlpath + '/viewer/' + data.borough + '#document/p' + data.cutout.page_idx 
+					var quick_link = urlpath + '/directory/' + data.borough + '#document/p' + data.cutout.page_idx 
 					showCutout(parseInt(data.cutout.x),parseInt(data.cutout.y),data.cutout.href, quick_link);
 				}
 
