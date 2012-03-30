@@ -26,11 +26,12 @@ define(['jquery'], function($) {
 	function dragEvent(e, on_off) {
 		if (on_off == true) {
 			drag_mode = true;
+
 		}
 		else {
 			setTimeout(function() {
 				drag_mode = false;
-			}, 75);
+			}, 375);
 		}
 	}
 
@@ -46,14 +47,14 @@ define(['jquery'], function($) {
 	function setupMag(elem) {
 		var options = {		
 			margin:0,
-			backgroundColor:'#fff',
+			backgroundColor:'transparent',
 			image: false,
 			repeat: false,
 			_offset: 35,
 			width: 480,
 			height: 108,
 			cursorOffsetX:parseInt(-480/2),
-			cursorOffsetY:-128,
+			cursorOffsetY:-150,
 			borderColor:'#333'
 		};
 
@@ -109,7 +110,6 @@ define(['jquery'], function($) {
 		}
 		else {
 			tabletSets(loupe, view, options);
-			loupe.hide();
 		}
 
 	}
@@ -162,7 +162,6 @@ define(['jquery'], function($) {
 	}
 
 	function browserEvents(elem, loupe, view, options) {
-
 		var clickRun = _.debounce(function(elem) {
 			if ($('.modal-backdrop').length == 0 && locked_mode !== true && drag_mode !== true) {
 				if ($(loupe).hasClass('active-loupe')) {
@@ -171,24 +170,15 @@ define(['jquery'], function($) {
 					$('.active-loupe').animate({
 						top: $(window).height()/6,
 						left: ($(window).width()/2) - ($('.active-loupe').width()/2)
-						}, 100, function() {
+						}, 200, function() {
 							$.publish('clickSpot', [page_idx]);
 					});
 
-					$(this).die('click');
 					$(this).die('mousemove');
-					$(this).die('mouseenter');
-					$(this).die('mouseleave');
 					$.unsubscribe("pages");
 				}
 			}
-		}, 300);
-
-		$(elem).off({
-			mousemove: function(e) {
-				log("jdljd")
-			}
-		});
+		}, 200);
 
 		$(elem)
 		.on({
@@ -235,14 +225,14 @@ define(['jquery'], function($) {
 					}
 
 					if ((posy+options.cursorOffsetY) <= $('#wrapper').height() + $('.DV-header').height()) {
-						_top = $('#wrapper').height() + $('.DV-header').height();
+						_top = $('#wrapper').height() + $('.DV-header').height() + 175;
 					}
 					else {
 						_top = posy+options.cursorOffsetY;
 					}
 
 						
-					$(loupe).offset({top:posy+options.cursorOffsetY, left:_left});
+					$(loupe).offset({top:_top, left:_left});
 
 
 					w = $(i).prop ? $(i).prop('width') : $(i).attr('width');

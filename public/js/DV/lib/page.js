@@ -176,7 +176,12 @@ DV.Page.prototype.position = function(argHash){
 
 // Render the page meta, currently only the page number
 DV.Page.prototype.renderMeta = function(argHash){
-  this.pageNumberEl.text('p. '+argHash.pageNumber);
+  if (this.viewer.options.idxs[argHash.pageNumber]['idx1'] !== null || this.viewer.options.idxs[argHash.pageNumber]['idx2'] !== null) {
+    this.pageNumberEl.text(this.viewer.options.idxs[argHash.pageNumber]['idx1'] + ' - ' + this.viewer.options.idxs[argHash.pageNumber]['idx2']);
+  }
+  else {
+    this.pageNumberEl.text('p. '+argHash.pageNumber);
+  }
   this.pageNumber = argHash.pageNumber;
 };
 

@@ -868,7 +868,12 @@ DV.Page.prototype.position = function(argHash){
 
 // Render the page meta, currently only the page number
 DV.Page.prototype.renderMeta = function(argHash){
-  this.pageNumberEl.text('p. '+argHash.pageNumber);
+  if (this.viewer.options.idxs[argHash.pageNumber]['idx1'] !== null || this.viewer.options.idxs[argHash.pageNumber]['idx2'] !== null) {
+    this.pageNumberEl.text(this.viewer.options.idxs[argHash.pageNumber]['idx1'] + ' - ' + this.viewer.options.idxs[argHash.pageNumber]['idx2']);
+  }
+  else {
+    this.pageNumberEl.text('p. '+argHash.pageNumber);
+  }
   this.pageNumber = argHash.pageNumber;
 };
 
@@ -2573,7 +2578,7 @@ DV.Schema.helpers = {
       var totalPagesToCreate = (this.viewer.schema.data.totalPages < 3) ? this.viewer.schema.data.totalPages : 3;
       var height = this.models.pages.height;
       for (var i = 0; i < totalPagesToCreate; i++) {
-        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, pageMagSource: null, pagebaseHeight: height }));
+        pages.push(JST.pages({ pageNumber: i+1, pageIndex: i , pageImageSource: null, pageMagSource: null, pagebaseHeight: height, indexes: this.viewer.options.idxs}));
       }
       return pages.join('');
     },
