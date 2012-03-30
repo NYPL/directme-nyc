@@ -19,10 +19,10 @@
 .DV-pageNumber  {
   display:inline;
   float:left;
-  margin: 0;
+  margin: 0 0 0 -40px;
   position:relative;
   zoom:1;
-  font-size:10px;
+  font-size:14px;
   font-weight:bold;
   cursor: pointer;
   padding-top:15px;

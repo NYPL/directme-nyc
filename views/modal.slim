@@ -7,11 +7,11 @@ div#loc_add.modal.hide.fade
 		form#frm-modal
 			div.frm-person-name
 				input#frm-modal-name.frm-text type="text" placeholder="Person Name (optional)" value=""
-				label.frm-help.popovers for="frm-modal-name" data-original-title="Person Name" data-content="The name of the person <em>as you see it</em> in the phone book. This field is optional." ?
+				label#frm-pop-name.frm-help for="frm-modal-name" ?
 			input#frm-modal-number.frm-text type="text" placeholder="Number" value=""
-			label.frm-help.popovers for="frm-modal-number" data-original-title="Address number" data-content="e.g.: Type '1178' (no quotes) if address is '1178RemsnAv'" ?
+			label#frm-pop-number.frm-help for="frm-modal-number" ?
 			input#frm-modal-street.frm-text type="text" placeholder="Street name search" value=""
-			label.frm-help.popovers for="frm-modal-street" data-original-title="Street name" data-content="e.g.: Type 'RemsnAv' (no quotes) if address is '1178RemsnAv'. Make sure to select a <em>non-abbreviated</em> name." ?
+			label#frm-pop-street.frm-help for="frm-modal-street" ?
 			input#state_hidden type="hidden" value=""
 			input#fullcity_hidden type="hidden" value=""
 			div.frm-modal-help This finder works with non-abbreviated streets. If you don't find a non-abbreviated version (the street you see in the phone book does not match any street shown in the list) please <a href="mailto:steve@stevemorse.org">contact Steven Morse</a> from <strong>1-Step</strong>.

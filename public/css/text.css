@@ -135,6 +135,10 @@ p {
 	vertical-align: top;
 }
 
+#ticker .content {
+	line-height: 1;
+}
+
 #nytimes .content a {
 	color: #666;
 }

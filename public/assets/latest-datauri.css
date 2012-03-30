@@ -227,6 +227,10 @@ p {
 	vertical-align: top;
 }
 
+#ticker .content {
+	line-height: 1;
+}
+
 #nytimes .content a {
 	color: #666;
 }
@@ -678,7 +682,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 790px;
 	height: 17px;
-	line-height: 1.2;
+	line-height: 0.9em;
 	overflow: hidden;
 }
 
@@ -734,6 +738,7 @@ div.spacer{ display: block; }
 	position:absolute; 
 	width: 64px;
 	color: #fff;
+	height: 100%;
 }
 
 #ticker .content:before {
