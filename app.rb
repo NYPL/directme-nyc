@@ -82,7 +82,7 @@ class Application < Sinatra::Base
 		slim :main
 	end
 
-	get '/viewer/:borough' do
+	get '/directory/:borough' do
 		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
 		@consts = ['order!modules/viewer', 'order!modules/templates']
 		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
@@ -227,12 +227,11 @@ class Api < Application
 
 				directions = ['e', 'w', 'n', 's', 'nw', 'ne', 'sw', 'se']
 
-
-				# _street.scan(/\w+/).each { |street|
-				# 	if _street.scan(/\w+/)[idx] == 1
-				# 		put "hey"
-				# 	end
-				# }
+				if directions.include?(_street.scan(/\w+/)[1])
+					arr = []
+					arr.push(_street.scan(/\w+/)[1], _street.scan(/\w+/)[0], _street.scan(/\w+/)[2..-1])
+					_street = arr.join(" ")
+				end
 
 				hash['address'] = [hash['number'], _street.split.map {|w| w.capitalize}.join(' '), hash['fullcity'].capitalize, hash['state'].upcase].compact.join(', ')
 				hash['main_string'] = [hash['name'], hash['number'], _street.split.map {|w| w.capitalize}.join(' '), string_boro, hash['state'].upcase].compact.join(', ')
@@ -306,7 +305,7 @@ class Api < Application
 				:cutout => obj.cutout,
 				:stories => stories,
 				:borough => obj.borough,
-				:state => obj.state
+				:state => obj.state.downcase!
 			}
 
 			hash = hash.delete_if { |k, v| v.nil? }.to_json
