@@ -194,6 +194,12 @@ define(['jquery'], function($) {
 					$(loupe).hide()
 					$(loupe).show();
 
+					//allow enter only on mousemovement in
+					$(this).on('mouseenter', function() {
+						$(loupe).stop(true, true);
+						$(loupe).show();
+					});
+
 					if ($(view).css('background-image')) {
 						$(loupe).addClass('active-loupe');	
 					}
@@ -227,7 +233,7 @@ define(['jquery'], function($) {
 					}
 
 					if ((posy+options.cursorOffsetY) <= $('#wrapper').height() + $('.DV-header').height()) {
-						_top = $('#wrapper').height() + $('.DV-header').height() + 175;
+						_top = $('#wrapper').height() + $('.DV-header').height() + 160;
 					}
 					else {
 						_top = posy+options.cursorOffsetY;
@@ -242,16 +248,10 @@ define(['jquery'], function($) {
 					zlo = (((posx - o.left) / this.width) * w *-1) + options._offset;
 					zto = (((posy - o.top) / this.height) * h *-1) + (options.height/2);
 					$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
-
-					$(this).on('mouseenter', function() {
-						$(loupe).stop(true, true);
-						$(loupe).show();
-					});
 				}
 			},
 
 			mouseleave: function(){
-				log("jldjld")
 				if (locked_mode !== true) {
 					$(loupe).removeClass('active-loupe');
 					$(loupe).stop(true, true);
@@ -261,7 +261,6 @@ define(['jquery'], function($) {
 			},
 
 			click: function(e) {
-				log("bbjldjld")
 				e.preventDefault();
 				clickRun(elem);
 			},
