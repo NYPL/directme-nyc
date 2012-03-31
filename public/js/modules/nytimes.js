@@ -47,6 +47,7 @@ define(['jquery'], function($) {
 		var i, l=headlines.length, hl;
 		var tickercontent = "";
 		headlines = _.shuffle(headlines);
+		var islocalIP = environment.onSite == "true";
 		for (i=0;i<l;++i) {
 			hl = headlines[i];
 			var url;

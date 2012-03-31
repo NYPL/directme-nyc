@@ -73,6 +73,15 @@ html
                     borough: '#{borough}'
                 };
 
+        -elsif @year
+            javascript:
+                var environment = {
+                    page_title: 'NYPL Labs',
+                    deps: $.parseJSON('#{{@deps}}'),
+                    consts: $.parseJSON('#{{@consts}}'),
+                    onSite: '#{@onsite}'
+                };
+
         - else
             javascript:
                 var environment = {

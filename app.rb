@@ -60,7 +60,6 @@ def paging_time(model, request, params)
 	}
 end
 
-
 def ajaxcheck(request)
 	if request.xhr? == true
 		return true
@@ -82,6 +81,13 @@ class Application < Sinatra::Base
 			@monthday = Time.now.strftime("%m/%d")
 			@year = (Time.new.year - 72)
 			@SOCIAL = true
+
+			if checkIP(request.ip)
+				@onsite = true
+			else
+				@onsite = false
+			end
+
 			slim :main
 		end
 	end
@@ -94,6 +100,7 @@ class Application < Sinatra::Base
 			@consts = ['order!modules/viewer', 'order!modules/templates']
 			@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
 			@DV = true
+
 			slim :DV_page, :locals => {:borough => "#{params['borough']}"}
 		end
 	end
@@ -103,6 +110,7 @@ class Application < Sinatra::Base
 		@deps = ['order!modules/latest']
 		@LATEST = true
 		@SOCIAL = true
+
 		slim :latest
 	end
 
@@ -125,8 +133,16 @@ class Application < Sinatra::Base
 				@deps = ['order!modules/results', 'order!modules/nytimes']
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
+
 				@RESULTS = true
 				@SOCIAL = true
+
+				if checkIP(request.ip)
+					@onsite = true
+				else
+					@onsite = false
+				end
+
 				slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
