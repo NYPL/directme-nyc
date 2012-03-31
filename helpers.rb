@@ -98,9 +98,8 @@ module MyHelpers
 		def isMobile(req_agent)
 			puts req_agent
 			@ua = AgentOrange::UserAgent.new(req_agent)
-			puts @ua.device.platform
 			plat = @ua.device.platform.to_s.downcase
-			if @ua.is_mobile? and plat.index('ipad').nil? and plat.index('pc').nil? and req_agent.downcase.index('tablet').nil?
+			if @ua.is_mobile? and plat.index('ipad').nil? and !req_agent.downcase.index('mobile').nil? and req_agent.downcase.index('tablet').nil?
 				return true
 			else
 				return false
