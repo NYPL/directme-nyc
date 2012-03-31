@@ -10,14 +10,8 @@ define(['jquery'], function($) {
 	function fbSetup() {
 		$('#fb-submit').on('click', function(e) {
 			e.preventDefault();
-			$('#conn_social').modal('hide');
-			auth_url = encodeURI('/auth/facebook?display=popup&origin=' + callback_url);
 
-			auth_window = popupCenter(auth_url, 600, 400, "authPopup");
-
-			auth_window.unload(function(){
-				updateStory();
-			});
+			baseConn('facebook');
 
 			e.stopPropagation(); 
 			return false;
@@ -28,14 +22,8 @@ define(['jquery'], function($) {
 	function twitterSetup() {
 		$('#tw-submit').on('click', function(e) {
 			e.preventDefault();
-			$('#conn_social').modal('hide');
-			auth_url = encodeURI('/auth/twitter?display=popup&origin=' + callback_url);
 
-			auth_window = popupCenter(auth_url, 600, 400, "authPopup");
-
-			auth_window.unload(function(){
-				updateStories();
-			});
+			baseConn('twitter');
 
 			e.stopPropagation(); 
 			return false;
@@ -46,14 +34,8 @@ define(['jquery'], function($) {
 	function googleSetup() {
 		$('#g-submit').on('click', function(e) {
 			e.preventDefault();
-			$('#conn_social').modal('hide');
-			auth_url = encodeURI('/auth/google?display=popup&origin=' + callback_url);
 
-			auth_window = popupCenter(auth_url, 600, 400, "authPopup");
-
-			auth_window.unload(function(){
-				updateStories();
-			});
+			baseConn('google');
 
 			e.stopPropagation(); 
 			return false;
@@ -71,12 +53,24 @@ define(['jquery'], function($) {
 		
 	}
 
+
+	function checkSession() {
+
+	}
+
 	function prependStory(content, author, time_dist) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
 	}
 
-	function checkSession() {
+	function baseConn(service) {
+		$('#conn_social').modal('hide');
+		auth_url = encodeURI('/auth/' + service + '?display=popup&origin=' + callback_url);
 
+		auth_window = popupCenter(auth_url, 600, 400, "authPopup");
+
+		auth_window.unload(function(){
+			updateStory();
+		});
 	}
 
 	return {

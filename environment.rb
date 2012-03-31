@@ -24,12 +24,12 @@ class Application < Sinatra::Base
 	use Rack::ShowExceptions
 	use Rack::Mongoid::Middleware::IdentityMap
 	use Rack::Deflater
-	use Rack::Session::Cookie, :secret => "testing", :expire_after => 14400, :key => 'directmenyc'
+	use Rack::Session::Cookie, :secret => ENV['COOKIESECRET'], :expire_after => 14400, :key => 'directmenyc'
 	use Rack::Csrf, :raise => true
 
 	use OmniAuth::Builder do
 		provider :facebook, ENV['FBKEY'], ENV['FBSECRET']
-		provider :twitter, "", ""
+		provider :twitter, ENV['TWKEY'], ENV['TWSECRET']
 		provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {access_type: 'online', approval_prompt: ''} 
 	end
 
