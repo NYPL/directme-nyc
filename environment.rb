@@ -95,6 +95,7 @@ class Application < Sinatra::Base
 	end
 
 	configure :production do
+		require 'newrelic_rpm'
 		if defined?(Mongoid)
 			Mongoid.logger=Logger.new('/dev/null')
 		end
