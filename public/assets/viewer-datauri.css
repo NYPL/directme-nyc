@@ -1098,7 +1098,7 @@
   position: absolute;
   right: 0;
   top: 8px;
-  width: 150px;
+  width: 110px;
   text-align: center;
 }
 /**/
@@ -1891,13 +1891,13 @@ span.DV-highlighted{
   clear: both;
 }
 .DV-unsupported .DV-safari {
-  background: url(../images/DV/browsers/safari.gif?1331658353);
+  background: url(../images/DV/browsers/safari.gif?1332512445);
 }
 .DV-unsupported .DV-chrome {
-  background: url(../images/DV/browsers/chrome.gif?1331658353);
+  background: url(../images/DV/browsers/chrome.gif?1332512445);
 }
 .DV-unsupported .DV-firefox {
-  background: url(../images/DV/browsers/firefox.gif?1331658353);
+  background: url(../images/DV/browsers/firefox.gif?1332512445);
 }
 .DV-unsupported .DV-after {
   margin-top: 20px;

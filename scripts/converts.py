@@ -36,9 +36,9 @@ if opts.outdir is None:
 	opts.outdir = opts.indir
 
 def convert(filename, idx):
-	subprocess.call('gm convert -size %sx %s/%s -resize %sx %s/p%s--large.%s' % (opts.large, opts.indir, filename, opts.large, opts.outdir, idx, opts.out_ext), shell=True)
-	subprocess.call('gm convert -size %sx %s/%s -resize %sx %s/p%s--normal.%s' % (opts.normal, opts.indir, filename, opts.normal, opts.outdir, idx, opts.out_ext), shell=True)
-	subprocess.call('gm convert -size %sx %s/%s -resize %sx %s/p%s--small.%s' % (opts.small, opts.indir, filename, opts.small, opts.outdir, idx, opts.out_ext), shell=True)
+	subprocess.call('gm convert -size %sx %s/%s -quality 60 +dither -colorspace GRAY -colors 50 -depth 8 -resize %sx %s/p%s--large.%s' % (opts.large, opts.indir, filename, opts.large, opts.outdir, idx, opts.out_ext), shell=True)
+	subprocess.call('gm convert -size %sx %s/%s +dither -colorspace GRAY -colors 50 -depth 8 -resize %sx %s/p%s--normal.%s' % (opts.normal, opts.indir, filename, opts.normal, opts.outdir, idx, opts.out_ext), shell=True)
+	subprocess.call('gm convert -size %sx %s/%s +dither -colorspace GRAY -colors 50 -depth 8 -resize %sx %s/p%s--small.%s' % (opts.small, opts.indir, filename, opts.small, opts.outdir, idx, opts.out_ext), shell=True)
 
 def loop_to_zon():
 	index = 0
@@ -81,4 +81,4 @@ def pdf_to_zon():
 
 if __name__ == "__main__":
 	loop_to_zon()
-	pdf_to_zon()
+	#pdf_to_zon()

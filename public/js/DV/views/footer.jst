@@ -6,9 +6,9 @@
           
 	<div class="DV-navControlsContainer"></div>
       <% if (pdf_mb) {%>
-        <div class="DV-download"><a href="#">Download Directory PDF (<%= pdf_mb %>MB)</a></div>
+        <div class="DV-download"><a href="<%= pdfURL %>">Download Directory PDF (<%= pdf_mb %> MB)</a></div>
       <% } else {%>
-        <div class="DV-download"><a href="#">Download Directory PDF</a></div>
+        <div class="DV-download"><a href="<%= pdfURL %>">Download Directory PDF</a></div>
       <% } %>
 
 </div>

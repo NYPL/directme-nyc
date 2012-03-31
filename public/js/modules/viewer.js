@@ -1343,7 +1343,6 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
 
   this.document               = DV.jQuery.extend(true, {}, json);
   // Everything after this line is for back-compatibility.
-  this.data.pdf_mb            = json.pdf_mb;
   this.data.title             = json.title;
   this.data.totalPages        = json.pages;
   this.data.totalAnnotations  = json.annotations.length;
@@ -2766,11 +2765,9 @@ _.extend(DV.Schema.helpers, {
       story_url   : storyURL,
       title       : doc.title || ''
     });
-    var footerHTML = JST.footer({options : this.viewer.options, pdf_mb : doc.pdf_mb || ''});
-    var sidebarLeftHTML = JST.sidebarLeft({options : this.viewer.options, descriptionContainer: JST.descriptionContainer({ description: description})});
 
-    var pdfURL = doc.resources.pdf;
-    pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
+    var footerHTML = JST.footer({options : this.viewer.options, pdf_mb : doc.pdf_mb || '', pdfURL: doc.pdf});
+    var sidebarLeftHTML = JST.sidebarLeft({options : this.viewer.options, descriptionContainer: JST.descriptionContainer({ description: description})});
     
     var contributorList = '' + this.viewer.schema.document.contributor +', '+ this.viewer.schema.document.contributor_organization;
 
@@ -2783,7 +2780,6 @@ _.extend(DV.Schema.helpers, {
       header: headerHTML,
       footer: footerHTML,
       sidebar_left: sidebarLeftHTML,
-      pdf_url: pdfURL,
       print_notes_url: printNotesURL,
       autoZoom: this.viewer.options.zoom == 'auto'
     };

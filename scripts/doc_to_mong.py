@@ -25,6 +25,15 @@ borough_pages = {
 }
 
 def init_json(borough, num_pages):
+
+	pdf_sizes = {
+		'manhattan': 1, 
+		'brooklyn': 1, 
+		'queens': 2, 
+		'bronx': 3, 
+		'staten': 4
+	}
+
 	elem_id = None
 	_check = db.loaders.find_one({'borough': borough})
 	if _check is None:
@@ -46,6 +55,7 @@ def init_json(borough, num_pages):
 			}
 		}, 
 		"pdf": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.pdf" % (borough, borough),
+		"pdf_mb": pdf_sizes[borough],
 		"thumbnail": "http://1940census.nypl.org.s3.amazonaws.com/%s/p1--small.jpg" % (borough),
 		"title": "1940-%s-telephone-directory" % (borough)
 	}
