@@ -15,7 +15,9 @@ require.config({
 });
 
 var depRun = function() {
-	require(['libs/respond.min', 'app', 'plugins'], function(respond, app, plugins) { 
+	require(['libs/respond.min', 'app', 'plugins', 'analytics'], function(respond, app, plugins, analytics) {
+		analytics.track('UA-1420324-103');
+
 		if (environment.hasOwnProperty('deps') && environment.deps !== null) {
 			app.initialize({depends: environment.deps});
 		}
@@ -28,7 +30,6 @@ var depRun = function() {
 /** ### Require libs for all handlers... which instantiate app.js */
 //* Checks for deps and/or libs dependent on the handler/route/page call
 
-/** load pre-dom-ready globals */
 require(['libs/jquery-1.7.1.min', 'libs/underscore'], function($, _) { 
 		/** The environment object is loaded per `layout.slim` */
 		if (environment.hasOwnProperty('consts') && environment.consts !== null) {
