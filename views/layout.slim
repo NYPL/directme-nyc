@@ -41,6 +41,12 @@ html
             javascript:
                 try{Typekit.load();}catch(e){}
 
+        - else 
+            javascript:
+                if (screen.width <= 480) {
+                    document.location = "/latest";
+                }
+
         script src="/js/re_browser.js"
         script src="/js/libs/modernizr.js"
 

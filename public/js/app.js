@@ -4,6 +4,7 @@ define(['require', 'jquery'], function(require, $) {
 	return {
 		initialize: function(args) {
 			//requires handler dependent libraries and modules
+
 			log('init app');
 
 			if(typeof args !== 'undefined') {
