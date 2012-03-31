@@ -11,6 +11,7 @@ DV.Schema.helpers = {
       var doc       = context.models.document;
       var value     = _.indexOf(doc.ZOOM_RANGES, doc.zoomLevel);
       var viewer    = this.viewer;
+      var api       = this.viewer.api;
       viewer.slider = viewer.$('.DV-zoomBox').slider({
         step: 1,
         min: 0,
@@ -94,7 +95,7 @@ DV.Schema.helpers = {
           var pageIndex = $thumbnail.closest('.DV-thumbnail').attr('data-pageNumber') - 1;
           viewer.models.document.setPageIndex(pageIndex);
           viewer.open('ViewDocument');
-          // viewer.history.save('document/p'+pageNumber);
+          //viewer.history.save('document/p'+pageNumber);
         }
       });
 
@@ -146,6 +147,13 @@ DV.Schema.helpers = {
 
       //viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
+      //subscribes
+      $.subscribe('clickSpot', DV.jQuery.proxy(this.saveClick, this));
+
+    },
+
+    saveClick: function(e, page) {
+      this.viewer.history.save('document/p'+page);
     },
 
     // Unbind jQuery events that have been bound to objects outside of the viewer.

@@ -116,6 +116,7 @@ DV.DocumentViewer.prototype.jQuery = function(selector, context) {
 DV.load = function(documentRep, options) {
   options = options || {};
   var id  = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
+
   var defaults = {
     container : document.body,
     zoom      : 'auto',
