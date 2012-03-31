@@ -36,16 +36,15 @@ html
         link rel='shortcut icon' href='/favicon.ico'
         link rel='apple-touch-icon' href='/images/apple-touch-icon.png' 
 
-        - if not @DV
-            script src="http://use.typekit.com/adp0eod.js"
-            javascript:
-                try{Typekit.load();}catch(e){}
-
-        - else 
+        - if @DV
             javascript:
                 if (screen.width <= 480) {
                     document.location = "/latest";
                 }
+        - else 
+            script src="http://use.typekit.com/adp0eod.js"
+            javascript:
+                try{Typekit.load();}catch(e){}
 
         script src="/js/re_browser.js"
         script src="/js/libs/modernizr.js"
