@@ -10,21 +10,25 @@ define(['jquery', 'modules/social'], function($, social) {
 	function _init() {
 		EDcall(getUrlVar('token'));
 		printMe();
+		submitStory();
 	}
 
-	function submitStory(page_idx, ifStories) {
-		$('#conn_social').on('show', function(e) {
-			e.preventDefault();
-			var _modal = $('.modal');
-			_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
-		});
-
+	function submitStory() {
 		$('#submit').on('click', function(e) {
 			e.preventDefault();
+
+			$('#conn_social').on('show', function(e) {
+				e.preventDefault();
+				var _modal = $('.modal');
+				_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
+			});
+			socialStart();
+			social.init();
+
+
 			var content = $('#frm-content').val();
 			var time_dist = 'just now'
-			socialStart();
-			social.init(content, time_dist);
+
 		});
 	}
 
@@ -105,16 +109,11 @@ define(['jquery', 'modules/social'], function($, social) {
 				}
 
 				if (data.hasOwnProperty('stories')) {
-					var ifStories = _.isEmpty(data.stories);
-
-					if (ifStories === false) {
-						for (i = 0; i < data.stories.length; i++) {
-							appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
-						}
+					for (i = 0; i < data.stories.length; i++) {
+						appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
 					}
 				}
 
-				submitStory(data.cutout.page_idx, ifStories);
 			}
 		});
 	}

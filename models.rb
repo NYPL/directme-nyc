@@ -45,9 +45,24 @@ class Locations
 	validates :token, :presence => true
 	validates :coordinates, :presence => true
 	validates :street, :presence => true
-	validates :main_string, :presence => true
+	validates :main_string, :presence => true	
+end
 
-	
+class UserSessions
+	include Mongoid::Document
+	include Mongoid::Timestamps
+
+	index :session
+
+	field :session, :type => String, :required => true
+	field :user_name, :type => String
+	field :user_token, :type => String
+	field :connection, :type => String
+
+	validates :session, :presence => true
+	validates :user_token, :presence => true
+	validates :connection, :presence => true
+
 end
 
 class Stories
@@ -60,12 +75,10 @@ class Stories
 	field :content, :type => String
 	field :connection, :type => String
 	field :location, :type => Hash
-	field :page_idx, :type => String
 
 	validates :result_token, :presence => true
 	validates :content, :presence => true
 	validates :connection, :presence => true
-
 end
 
 class Headlines
