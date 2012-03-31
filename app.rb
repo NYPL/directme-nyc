@@ -72,22 +72,30 @@ end
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
-		@scripts = ['/js/libs/jquery.marquee.js']
-		@consts = ['order!modules/ytube']
-		@deps = ['order!modules/front', 'order!modules/nytimes']
+		if isMobile(request.user_agent)
+			redirect '/latest'
+		else
+			@scripts = ['/js/libs/jquery.marquee.js']
+			@consts = ['order!modules/ytube']
+			@deps = ['order!modules/front', 'order!modules/nytimes']
 
-		@monthday = Time.now.strftime("%m/%d")
-		@year = (Time.new.year - 72)
-		@SOCIAL = true
-		slim :main
+			@monthday = Time.now.strftime("%m/%d")
+			@year = (Time.new.year - 72)
+			@SOCIAL = true
+			slim :main
+		end
 	end
 
 	get '/directory/:borough' do
-		@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
-		@consts = ['order!modules/viewer', 'order!modules/templates']
-		@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
-		@DV = true
-		slim :DV_page, :locals => {:borough => "#{params['borough']}"}
+		if isMobile(request.user_agent)
+			redirect '/latest'
+		else
+			@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
+			@consts = ['order!modules/viewer', 'order!modules/templates']
+			@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
+			@DV = true
+			slim :DV_page, :locals => {:borough => "#{params['borough']}"}
+		end
 	end
 
 	get '/latest' do

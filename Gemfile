@@ -32,6 +32,7 @@ gem 'sass'
 #id-y things
 gem 'base32'
 gem 'uuidtools'
+gem 'agent_orange'
 
 #geothings
 gem 'geocoder'
