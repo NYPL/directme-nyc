@@ -28,7 +28,11 @@ h1, h2, h3, h4, p, ul {
 
 p {
 	margin-bottom: 1em;
-	line-height: 1.4em;
+	line-height: 1.6em;
+}
+
+li {
+	line-height: 1.6em;
 }
 
 #header h1 {
@@ -280,8 +284,14 @@ p {
 }
 
 #toc, #templatecontent {
-	font-size: 16px;
-	line-height: 1.4em;
+}
+
+#toc ul {
+	margin-bottom: 1.6em;
+}
+
+#toc li {
+	margin-bottom: 0.4em;
 }
 
 #toc a {
@@ -363,6 +373,21 @@ p {
 #footer a:hover {
 	color: #f00;
 }
+
+#notfound {
+	text-align: center;
+	padding-top: 12px;
+}
+
+#notfound h2 {
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+#notfound p {
+	font-size: 18px;
+}
+
 
 @media screen and (min-width: 0px) and (max-width: 740px) {
 	
