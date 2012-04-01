@@ -10,7 +10,6 @@ define(['jquery'], function($) {
 
 	function fbSetup() {
 		$('#fb-submit').off('click').on('click', function(e) {
-			e.preventDefault();
 			baseConn('facebook');
 
 			e.stopPropagation(); 
@@ -21,8 +20,6 @@ define(['jquery'], function($) {
 
 	function twitterSetup() {
 		$('#tw-submit').off('click').on('click', function(e) {
-			e.preventDefault();
-
 			baseConn('twitter');
 
 			e.stopPropagation(); 
@@ -33,8 +30,6 @@ define(['jquery'], function($) {
 
 	function googleSetup() {
 		$('#g-submit').off('click').on('click', function(e) {
-			e.preventDefault();
-
 			baseConn('google');
 
 			e.stopPropagation(); 

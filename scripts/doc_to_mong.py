@@ -27,11 +27,11 @@ borough_pages = {
 def init_json(borough, num_pages):
 
 	pdf_sizes = {
-		'manhattan': 1, 
-		'brooklyn': 1, 
-		'queens': 2, 
-		'bronx': 3, 
-		'staten': 4
+		'manhattan': 379, 
+		'brooklyn': 199, 
+		'queens': 156, 
+		'bronx': 100, 
+		'staten': 25
 	}
 
 	elem_id = None
