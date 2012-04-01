@@ -1,6 +1,9 @@
 define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
+	
+	var urlForMoreStories = "";
+	var isUpdating = false;
 
 	function _init() {
 		latest();
@@ -18,10 +21,22 @@ define(['jquery'], function($) {
 			}
 
 			if (story_data[0].hasOwnProperty('stories')) {
+				urlForMoreStories = story_data[0].before_timestamp;
+				log(urlForMoreStories);
 				addStories(story_data[0].stories);
+				log(story_data);
 			}
 
 		});
+		$("#moreloader").click(
+				function () {
+					if (!isUpdating) {
+						isUpdating = true;
+						$(this).html("Loading...");
+						moreClick();
+					}
+				}
+		);
 	}
 
 	function latestLocations() {
@@ -31,9 +46,26 @@ define(['jquery'], function($) {
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/api/stories.json?limit=200&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=36&callback=?', function(data) {
 		});
 
+	}
+	
+	function moreClick() {
+		$.when(moreStories()).done(function(story_data) {
+			if (story_data[0].hasOwnProperty('stories')) {
+				urlForMoreStories = story_data[0].before_timestamp; 
+				addStories(story_data[0].stories);
+				$("#moreloader").html("Load more stories");
+				isUpdating = false;
+				log(story_data);
+			}
+		});
+	}
+
+	function moreStories() {
+		return $.getJSON(urlForMoreStories + '&callback=?', function(data) {
+		});
 	}
 
 	function showLocations(loc) {

@@ -345,7 +345,7 @@ div.spacer{ display: block; }
 
 #templatecontent {
 	clear: both;
-	width: 720px;
+	width: 710px;
 }
 
 #templatecontent .q	{
@@ -369,7 +369,8 @@ div.spacer{ display: block; }
 
 #templatecontent .plain {
 	float: right;
-	width: 465px;
+	width: 460px;
+	margin-right: 0;
 }
 
 .thejloupe {
@@ -412,6 +413,7 @@ div.spacer{ display: block; }
 #latest .annotation {
 	float: left;
 	width: 230px;
+	min-height: 120px;
 	margin: 0 5px 12px 5px;
 }
 
