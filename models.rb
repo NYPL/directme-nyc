@@ -52,7 +52,7 @@ class UserSessions
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	#store_in :usersessions, capped:true, size:100000
+	store_in :user_sessions, capped:true, size:100000
 
 	index :session
 	index :connection
