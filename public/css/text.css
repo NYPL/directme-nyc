@@ -47,6 +47,12 @@ li {
 	color: #000;
 }
 
+#header .tagline {
+	font-size: 14px;
+	font-weight: normal;
+	margin-top: 4px;
+}
+
 #main h1 {
 	font-size: 24px;
 }

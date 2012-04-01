@@ -127,12 +127,22 @@ li {
 	line-height: 1.6em;
 }
 
+.post_error {
+	color: #f00;
+}
+
 #header h1 {
 	font-size: 32px;
 }
 
 #header h1 a {
 	color: #000;
+}
+
+#header .tagline {
+	font-size: 14px;
+	font-weight: normal;
+	margin-top: 4px;
 }
 
 #main h1 {
@@ -306,7 +316,7 @@ li {
 }
 
 #frm-annotate a {
-	padding: 3px 4px;
+	padding: 3px 6px;
 	height: 16px;
 	margin-bottom: 12px;
 	color: #666;
