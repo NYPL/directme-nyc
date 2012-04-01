@@ -2380,6 +2380,10 @@ div.spacer{ display: block; }
 	float: left;
 }
 
+#arrow p {
+	line-height: 1em;
+}
+
 #boroughs {
 	float: right;
 	width: 230px;

@@ -175,6 +175,10 @@ div.spacer{ display: block; }
 	float: left;
 }
 
+#arrow p {
+	line-height: 23px;
+}
+
 #boroughs {
 	float: right;
 	width: 230px;
