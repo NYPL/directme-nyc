@@ -43,20 +43,30 @@ def paging_time(model, request, params)
 		objs = model.where(:created_at.lt => now).order_by(:created_at, :desc).limit(limit)
 	end
 
-	first_result = objs.first().created_at
-	last_result = objs.last().created_at
+	#first_result = objs[0].created_at
+
+	if objs.count() < Integer(limit) - 1
+		last_result = nil
+	else
+		last_result = objs[Integer(limit) - 1].created_at
+	end
 
 	url = request.url.split('?')[0]
-	before_url = {:limit => limit, :before_timestamp => last_result}.to_query
-	after_url = {:limit => limit, :after_timestamp => first_result}.to_query
+
+	if !last_result.nil?
+		before_url = {:limit => limit, :before_timestamp => last_result}.to_query
+	else
+		before_url = nil
+	end	
+
+	#after_url = {:limit => limit, :after_timestamp => first_result}.to_query
 
 	changed_objs = time_ago(objs)
 
 	return {
 		:objs => changed_objs, 
 		:url => url, 
-		:before_url => before_url, 
-		:after_url => after_url
+		:before_url => before_url
 	}
 end
 
@@ -211,11 +221,16 @@ class Api < Application
 			if Locations.exists?
 				ret_hash = paging_time(Locations, request, params)
 
-				hash = {
-					:locations => ret_hash[:objs],
-					:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-					:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-				}.to_json
+				if !ret_hash[:before_url].nil?
+					hash = {
+						:locations => ret_hash[:objs],
+						:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
+					}.to_json
+				else
+					hash = {
+						:locations => ret_hash[:objs]
+					}.to_json
+				end
 
 			else
 				log.info 'no location searches'
@@ -442,11 +457,16 @@ class Api < Application
 			if Stories.exists?
 				ret_hash = paging_time(Stories, request, params)
 
-				hash = {
-					:stories => ret_hash[:objs],
-					:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]],
-					:after_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:after_url]] 
-				}.to_json
+				if !ret_hash[:before_url].nil?
+					hash = {
+						:stories => ret_hash[:objs],
+						:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
+					}.to_json
+				else
+					hash = {
+						:stories => ret_hash[:objs]
+					}.to_json
+				end
 
 			else
 				log.info 'no stories exist'
