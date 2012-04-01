@@ -231,6 +231,7 @@ class Api < Application
 	end
 
 	post '/locations.json' do
+		put "djdlj"
 		if ajaxcheck(request)
 
 			con_streets = $JSON[params['borough']]

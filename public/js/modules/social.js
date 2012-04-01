@@ -66,7 +66,7 @@ define(['jquery'], function($) {
 		}, "json")
 		.error(function() { 
 			 appendError();
-		})
+		});
 	}
 
 
@@ -107,15 +107,15 @@ define(['jquery'], function($) {
 
 	function appendError(false_auth) {
 		if (typeof false_auth !== 'undefined') {
-			$("<div class='false_auth'><p> Not Authenticated. </p>").prependTo('.texts')
+			$("<div class='post_error'><p> Not Authenticated. </p>").prependTo('.texts')
 			setTimeout(function() {
-				$('.false_auth').fadeOut().empty();
+				$('.post_error').fadeOut().empty();
 			}, 5000);
 		}
 		else {
-			$("<div class='false_auth'><p> Error in Attempt to Post Story. Try Again Later </p>").prependTo('.texts')
+			$("<div class='post_error'><p> Error in Attempt to Post Story. Try Again Later </p>").prependTo('.texts')
 			setTimeout(function() {
-				$('.false_auth').fadeOut().empty();
+				$('.post_error').fadeOut().empty();
 			}, 30000)
 		}
 	}

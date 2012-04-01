@@ -51,9 +51,19 @@ define(['jquery'], function($) {
 			if (streetName !== null && checkDisabled !== true) {
 				$.post(urlpath + '/api/locations.json?callback=?', {name: name, number: number, street: streetName, borough: boro, state: state, fullcity: fullcity, cutout: cutout, noSearch: noSearch}, function(data) {
 					window.location.href = '/results?token=' + data.token;
-				}, "json");
+				}, "json")
+				.error(function() { 
+					 appendModalError();
+				});
 			}
 		});
+	}
+
+	function appendModalError() {
+		$("<div class='post_error'><p> Error in Attempt to Post Location. Try Again Later </p>").prependTo('.frm-modal-help')
+		setTimeout(function() {
+			$('.post_error').fadeOut().empty();
+		}, 30000);
 	}
 
 	function matchStreets(input) {
