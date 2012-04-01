@@ -1064,8 +1064,8 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		margin-left: 30px;
 		border-top: none;
 		border-bottom: 5px solid #fff;
-		padding-top: 12px;
-		padding-bottom: 7px;
+		padding-top: 2px;
+		padding-bottom: 0px;
 	}
 
 	#nav_bar a:hover, #nav_bar a:active, #nav_bar a.current {
