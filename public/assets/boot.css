@@ -1977,7 +1977,7 @@ li {
 
 #frm-annotate a, .conns a, .printme {
 	/* BACKGROUND GRADIENT */
-	background: rgb(255,255,255);
+	background: #fff;
 	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(204,204,204,1)));
 	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(204,204,204,1) 100%);
@@ -1995,7 +1995,29 @@ li {
 	-ms-border-radius:6px;
 }
 
-#frm-annotate a, .printme {
+#frm-annotate a.post {
+	color: #fff;
+  background-color: #006dcc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(top, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+#frm-annotate a {
+	padding: 3px 4px;
+	height: 16px;
+	margin-bottom: 12px;
+	color: #666;
+	margin-right: 8px;
+}
+
+.printme {
 	display: inline-block;
 	padding: 3px 4px;
 	height: 16px;
@@ -2381,7 +2403,7 @@ div.spacer{ display: block; }
 }
 
 #arrow p {
-	line-height: 1em;
+	line-height: 23px;
 }
 
 #boroughs {

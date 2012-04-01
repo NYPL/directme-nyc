@@ -25,6 +25,10 @@
 	margin: 0 5px 6px 5px;
 }
 
+#frm-annotate .buttons {
+	margin: 4px 0 0 4px;
+}
+
 #main .modal {
 	width: 260px;
 }
@@ -67,7 +71,7 @@
 }
 
 #geo .overlays span {
-	background: rgba(255, 255, 255, 0.9);
+	background: #fff;
 	padding: 0 4px;
 }
 

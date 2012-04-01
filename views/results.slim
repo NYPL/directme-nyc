@@ -69,7 +69,8 @@ div#mainwrapper
 
 			form#frm-annotate
 				textarea#frm-content placeholder="Share your story..."
-				| <a href="#" id="submit">Post via...</a>
+				div.buttons
+					| <a href="#" id="submit" class="post">Post via...</a> <input type="checkbox" id="frm-anonymous-check" name="frm-anonymous" value="1" checked="checked" /> <label for="frm-anonymous-check">Post anonymously</label>
 
 			div.texts
 		/! --annotations

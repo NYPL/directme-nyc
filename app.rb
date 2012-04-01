@@ -70,7 +70,7 @@ end
 
 def checkSession(session, service)
 	if session
-		obj = UserSessions.where(:session => session['session_id']).and(:connection => service).first()
+		obj = UserSessions.where(:session => session['session_id']).first()
 		if !obj.blank? and !obj.nil?
 			return {:conn => obj.connection, :user => obj.user_name, :sess => true}
 		else

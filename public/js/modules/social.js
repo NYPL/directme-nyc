@@ -22,6 +22,9 @@ define(['jquery'], function($) {
 
 	function twitterSetup() {
 		$('#tw-submit').off('click').on('click', function(e) {
+			// check if popups work
+			window.open("http://www.google.com", "checking", "menubar=no,toolbar=no,status=no,scrollbars=no,resizable=no,width=320,height=240,toolbar=no,left=10,top=10");
+			// end check
 			e.preventDefault();
 			baseConn('twitter');
 
@@ -76,7 +79,7 @@ define(['jquery'], function($) {
 		$.getJSON(urlpath + '/api/session.json?service=' + service + '&callback=?', function(data) {
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false && data.hasOwnProperty('user')) {
 				$('#submit').addClass('post');
-				$('#submit').html('Submit');
+				$('#submit').html('Post');
 
 				$('#submit.post').off('click').on('click', function() {
 					updateStory(_conn, data.user, data.sess);
@@ -112,13 +115,13 @@ define(['jquery'], function($) {
 
 	function appendError(false_auth) {
 		if (typeof false_auth !== 'undefined') {
-			$("<div class='post_error'><p> Not Authenticated. </p>").prependTo('.texts')
+			$("<div class='post_error'><p> Not Authenticated. </p>").prependTo('#frm-annotate .buttons')
 			setTimeout(function() {
 				$('.post_error').fadeOut().empty();
 			}, 5000);
 		}
 		else {
-			$("<div class='post_error'><p> Error in Attempt to Post Story. Try Again Later </p>").prependTo('.texts')
+			$("<div class='post_error'><p> Error in Attempt to Post Story. Try Again Later </p>").prependTo('#frm-annotate .buttons')
 			setTimeout(function() {
 				$('.post_error').fadeOut().empty();
 			}, 30000)
