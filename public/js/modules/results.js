@@ -17,18 +17,17 @@ define(['jquery', 'modules/social'], function($, social) {
 		$('#submit').on('click', function(e) {
 			e.preventDefault();
 
-			$('#conn_social').on('show', function(e) {
-				e.preventDefault();
+			$('#conn_social').on('show', function() {
 				var _modal = $('.modal');
 				_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
+				social.init();
 			});
-			socialStart();
-			social.init();
 
-
-			var content = $('#frm-content').val();
-			var time_dist = 'just now'
-
+			var content = $('#frm-content').val() || null;
+	
+			if (content !== null) {
+				socialStart();
+			}
 		});
 	}
 
@@ -110,7 +109,7 @@ define(['jquery', 'modules/social'], function($, social) {
 
 				if (data.hasOwnProperty('stories')) {
 					for (i = 0; i < data.stories.length; i++) {
-						appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
+						social.appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
 					}
 				}
 
@@ -253,15 +252,6 @@ define(['jquery', 'modules/social'], function($, social) {
 				}
 			}
 		);
-	}
-	
-	function getUrlVar(key){
-		var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
-		return result && unescape(result[1]) || ""; 
-	}
-
-	function appendStory(content, author, time_dist) {
-		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").appendTo('#frm-annotate')
 	}
 
 	function printMe() {

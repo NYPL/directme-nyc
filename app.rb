@@ -68,6 +68,17 @@ def ajaxcheck(request)
 	end
 end
 
+def checkSession(session, service)
+	if session
+		obj = UserSessions.where(:session => session['session_id']).and(:connection => service).first()
+		if !obj.blank? and !obj.nil?
+			return {:conn => obj.connection, :user => obj.user_name, :sess => true}
+		else
+			return nil
+		end
+	end
+end
+
 class Application < Sinatra::Base
 	#########################main handlers###########################
 	get '/' do
@@ -169,14 +180,21 @@ class Application < Sinatra::Base
 	get '/auth/:name/callback' do
 		auth = request.env["omniauth.auth"]
 		name = auth["info"]["name"]
-		puts name
+		token = auth["credentials"]["token"]
+		hash = {
+			:session => session['session_id'],
+			:user_name => name,
+			:user_token => token,
+			:connection => params['name']
+		}
+
+		UserSessions.safely.create(hash)
 		redirect '/callback'
 	end
 
 	get '/auth/failure' do
-		flash[:notice] = params[:message] # if using sinatra-flash or rack-flash
-		origin = request.env['omniauth.origin']
-		redirect origin
+		#flash[:notice] = "Not Able to Log You In"
+		redirect '/callback'
 	end
 
 	get '/callback' do
@@ -367,19 +385,34 @@ class Api < Application
 		return JsonP(json, params)
 	end
 
+	get '/session.json' do
+		sess = checkSession(session, params['service'])
+
+		if sess.nil?
+			json = {:sess => false}.to_json
+		else
+			json = sess.to_json
+		end
+
+		content_type 'application/json'
+		return JsonP(json, params)
+	end
+
 	post '/stories.json' do
 		if ajaxcheck(request)
 			if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
 				hash = {}
 				params.each { |param, value|
-					if param != 'callback' and param != 'token' and value != 'null'
+					if param != 'callback' and param != 'token' and param != 'session' and value != 'null'
 						hash[param] = value
 					end
 				}
 
 				hash['result_token'] = params['token']
 
-				story = Stories.safely.create(hash).to_json
+				puts hash
+
+				story = Stories.safely.create(hash)
 
 				if story.valid? == false 
 					status 400
@@ -388,8 +421,11 @@ class Api < Application
 					status 201
 					json = story.to_json
 				end
+
 			else
-				log.info 'write error here'
+				log.info 'content is needed to post a story'
+				status 404
+				json = error_json(404, 'content is needed to post a story').to_json
 			end
 
 		else

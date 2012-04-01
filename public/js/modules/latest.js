@@ -63,7 +63,7 @@ define(['jquery'], function($) {
 					var it = loc[i];
 					var m = new L.Marker(new L.LatLng(it.coordinates.lat, it.coordinates.lng), {icon: markerIcon});
 					map.addLayer(m);
-					m.bindPopup("<strong><a href='" + it.url + "'>" + it.address + "</a></strong><br />Found " + it.time_ago + " ago");
+					m.bindPopup("<strong><a href='" + urlpath + '/results?token=' + it.token + "'>" + it.address + "</a></strong><br />Found " + it.time_ago + " ago");
 				}
 				
 				// center on last marker
@@ -84,6 +84,10 @@ define(['jquery'], function($) {
 	function addStories(stories) {
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
+			
+			if (story.content.length > 140) {
+				story.content = story.content.substring(0, 137) + '...'
+			}
 			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			$("#annotations").append(str);
 		}

@@ -19,6 +19,11 @@ define(['jquery'], function($) {
 		var str = "";
 		for (var i=0; i<stories.length; ++i) {
 			var story = stories[i];
+
+			if (story.content.length > 140) {
+				story.content = story.content.substring(0, 137) + '...'
+			}
+
 			if (i%2 == 0) {
 				str += '<div class="story"><p>'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			}

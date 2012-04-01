@@ -2657,7 +2657,6 @@ DV.Schema.helpers = {
 
     handleInitialState: function(){
      var initialRouteMatch = this.viewer.history.loadURL(true);
-     log(initialRouteMatch)
       if(!initialRouteMatch) {
         var opts = this.viewer.options;
         this.viewer.open('ViewThumbnails');

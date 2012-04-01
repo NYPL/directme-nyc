@@ -80,5 +80,5 @@ def pdf_to_zon():
 
 
 if __name__ == "__main__":
-	loop_to_zon()
-	#pdf_to_zon()
+	#loop_to_zon()
+	pdf_to_zon()

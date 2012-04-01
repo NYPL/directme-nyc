@@ -17,6 +17,10 @@
 	margin-bottom: 12px;
 }
 
+.texts {
+	margin-top: 50px;
+}
+
 #annotations #frm-annotate textarea {
 	margin: 0 5px 6px 5px;
 }

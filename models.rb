@@ -42,7 +42,7 @@ class Locations
 	field :cutout, :type => Hash
 	field :url, :type => String
 
-	validates :token, :presence => true
+	validates :token, :presence => true, :uniqueness => true
 	validates :coordinates, :presence => true
 	validates :street, :presence => true
 	validates :main_string, :presence => true	
@@ -52,12 +52,15 @@ class UserSessions
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
+	#store_in :usersessions, capped:true, size:100000
+
 	index :session
+	index :connection
 
 	field :session, :type => String, :required => true
 	field :user_name, :type => String
 	field :user_token, :type => String
-	field :connection, :type => String
+	field :connection, :type => Hash
 
 	validates :session, :presence => true
 	validates :user_token, :presence => true
@@ -74,7 +77,7 @@ class Stories
 	field :result_token, :type => String, :required => true
 	field :content, :type => String
 	field :connection, :type => String
-	field :location, :type => Hash
+	field :author, :type => String
 
 	validates :result_token, :presence => true
 	validates :content, :presence => true

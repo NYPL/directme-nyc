@@ -20,7 +20,7 @@ borough_pages = {
 	'manhattan': 1136, 
 	'brooklyn': 716, 
 	'queens': 546, 
-	'bronx': 376, 
+	'bronx': 372, 
 	'staten': 90
 }
 

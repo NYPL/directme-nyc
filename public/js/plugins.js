@@ -27,6 +27,11 @@ window.log = function(){
 /* IE and other needy functions */
 (function () {
 
+    getUrlVar = function(key) {
+        var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
+        return result && unescape(result[1]) || ""; 
+    };
+
     Array.prototype.remove = function(from, to) {
       var rest = this.slice((to || from) + 1 || this.length);
       this.length = from < 0 ? this.length + from : from;

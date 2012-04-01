@@ -24,7 +24,7 @@ class Application < Sinatra::Base
 	use Rack::ShowExceptions
 	use Rack::Mongoid::Middleware::IdentityMap
 	use Rack::Deflater
-	use Rack::Session::Cookie, :secret => ENV['COOKIESECRET'], :expire_after => 14400, :key => 'directmenyc'
+	use Rack::Session::Cookie, :secret => ENV['COOKIESECRET'], :expire_after => 1200, :key => 'directmenyc'
 	use Rack::Csrf, :raise => true
 
 	use OmniAuth::Builder do
