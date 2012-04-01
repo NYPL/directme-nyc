@@ -1,6 +1,7 @@
 define(['jquery'], function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
+	var callback_url =  window.location;
 
 	function _init() {
 		fbSetup();
@@ -10,6 +11,7 @@ define(['jquery'], function($) {
 
 	function fbSetup() {
 		$('#fb-submit').off('click').on('click', function(e) {
+			e.preventDefault();
 			baseConn('facebook');
 
 			e.stopPropagation(); 
@@ -20,6 +22,7 @@ define(['jquery'], function($) {
 
 	function twitterSetup() {
 		$('#tw-submit').off('click').on('click', function(e) {
+			e.preventDefault();
 			baseConn('twitter');
 
 			e.stopPropagation(); 
@@ -30,6 +33,7 @@ define(['jquery'], function($) {
 
 	function googleSetup() {
 		$('#g-submit').off('click').on('click', function(e) {
+			e.preventDefault();
 			baseConn('google');
 
 			e.stopPropagation(); 
@@ -71,7 +75,13 @@ define(['jquery'], function($) {
 
 		$.getJSON(urlpath + '/api/session.json?service=' + service + '&callback=?', function(data) {
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false && data.hasOwnProperty('user')) {
-				updateStory(_conn, data.user, data.sess);
+				$('#submit').addClass('post');
+				$('#submit').html('Submit');
+
+				$('#submit.post').off('click').on('click', function() {
+					updateStory(_conn, data.user, data.sess);
+				});
+
 				return true;
 			}
 
@@ -82,7 +92,7 @@ define(['jquery'], function($) {
 			}
 
 			else {
-				auth_url = encodeURI('/auth/' + service + '?display=popup');
+				auth_url = encodeURI('/auth/' + service + '?display=popup');				
 				auth_window = popupCenter(auth_url, 600, 400, "authPopup");
 
 				var timer = setInterval(function() {   
@@ -91,7 +101,7 @@ define(['jquery'], function($) {
 						var stopback = true;
 						checkSession(_conn, stopback); 
 				    }  
-				}, 200); 
+				}, 200);
 			}
 		});
 	}

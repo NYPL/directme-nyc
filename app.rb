@@ -179,6 +179,7 @@ class Application < Sinatra::Base
 
 	get '/auth/:name/callback' do
 		auth = request.env["omniauth.auth"]
+		#callback = request.env["omniauth.origin"]
 		name = auth["info"]["name"]
 		token = auth["credentials"]["token"]
 		hash = {
@@ -231,7 +232,6 @@ class Api < Application
 	end
 
 	post '/locations.json' do
-		put "djdlj"
 		if ajaxcheck(request)
 
 			con_streets = $JSON[params['borough']]
@@ -410,8 +410,6 @@ class Api < Application
 				}
 
 				hash['result_token'] = params['token']
-
-				puts hash
 
 				story = Stories.safely.create(hash)
 
