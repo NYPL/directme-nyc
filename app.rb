@@ -103,7 +103,6 @@ class Application < Sinatra::Base
 			@year = (Time.new.year - 72)
 			@SOCIAL = true
 
-			puts checkIP(request.ip)
 			if checkIP(request.ip)
 				@onsite = true
 			else
