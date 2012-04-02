@@ -90,7 +90,6 @@ define(['jquery'], function($) {
 
 	function checkSession() {
 		$.getJSON(urlpath + '/api/session.json?callback=?', function(data) {
-			log(data)
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false) {
 				environment.login = true;
 				$('#conn_social').remove();
@@ -99,7 +98,15 @@ define(['jquery'], function($) {
 
 				//anon stuff ehre and check
 				$('#submit.post').off('click').on('click', function() {
-					updateStory(data.conn, data.user, data.sess);
+					var checked = $("input#frm-anonymous-check:checked");
+					if (checked.length == 1) {
+						var author = 'Anonymous'
+					}
+					else {
+						var author = data.user;
+					}
+					
+					updateStory(data.conn, author, data.sess);
 				});
 			}
 			else {
