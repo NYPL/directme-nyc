@@ -19,9 +19,18 @@ html
         	title= "Direct Me NYC: 1940"
         meta name="description" content="content"
         meta name="author" content="NYPL Labs - The New York Public Library"
+        meta name="keywords" content="NYPL, NYPL Labs, The New York Public Library, Milstein, genealogy, phonebooks, new york city, nyc history, Federal Census, 1940 Census, US Census, New York Public Library, Steve Morse, Stephen Morse, Joel Weintraub, 1940"
         meta name="keywords" content="NYPL, NYPL Labs, The New York Public Library, Milstein, genealogy, phonebooks, new york city, nyc history, Federal Census, 1940 Census, US Census, New York Public Library, Steve Morse, Stephen Morse, Joel Weintraub, 1940, telephone directories"
         meta name="viewport" content="width=device-width, initial-scale=1"
         meta name="_csrf" content="#{csrf_token()}"
+
+        // Facebook Stuff
+        meta property="og:title" content="NYPL Direct Me NYC: 1940"
+        meta property="og:type" content="website"
+        meta property="og:url" content="http://directme.nypl.org"
+        meta property="og:image" content=""
+        meta property="og:site_name" content="Direct Me NYC: 1940 by NYPL Labs"
+        meta property="fb:app_id" content="197421743694376"
 
         - if @RESULTS
             ==slim :'css/css_results'
