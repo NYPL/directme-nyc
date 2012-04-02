@@ -15,7 +15,10 @@ define(['jquery', 'modules/social'], function($, social) {
 
 	function submitStory() {
 		social.checkSession();
-		social.logout();
+
+		$('#frm-content').on('keyup', function() {
+			$('#submit').removeClass('disabled');			
+		});
 
 		$('#submit').on('click', function(e) {
 			e.preventDefault();
