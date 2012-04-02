@@ -151,7 +151,7 @@ define(['jquery'], function($) {
 	}
 
 	function appendStory(content, author, time_dist) {
-		$("<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + "</p></div>").appendTo('.texts')
+		$("<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + " ago</p></div>").appendTo('.texts')
 	}
 
 	function appendError(false_auth, false_logout) {
@@ -178,7 +178,7 @@ define(['jquery'], function($) {
 	}
 
 	function prependStory(content, author, time_dist) {
-		$("<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + "</p></div>").prependTo('div.annotation:first')
+		$("<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + " ago</p></div>").prependTo('div.annotation:first')
 	}
 
 	return {
