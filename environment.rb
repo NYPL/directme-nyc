@@ -33,6 +33,15 @@ class Application < Sinatra::Base
 		provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {access_type: 'online', approval_prompt: ''} 
 	end
 
+	Airbrake.configure do |config|
+	  config.api_key = `ENV['AIRBRAKE_API_KEY']`
+	end
+
+	app = Rack::Builder.app do
+	  use Airbrake::Rack
+	  run lambda { |env| raise "Rack down" }
+	end
+
 	#set this when ready
 	#===========================================================
 	#$memcache = Dalli::Client.new
@@ -96,6 +105,7 @@ class Application < Sinatra::Base
 
 	configure :production do
 		require 'newrelic_rpm'
+		require 'airbrake'
 		if defined?(Mongoid)
 			Mongoid.logger=Logger.new('/dev/null')
 		end
