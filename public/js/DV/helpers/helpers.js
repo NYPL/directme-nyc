@@ -147,6 +147,10 @@ DV.Schema.helpers = {
 
       //viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
+      $('a').not('a.azLetter').on('click', function() {
+        history.save('document/p'+viewer.models.document.currentPage())
+      });
+
       //subscribes
       $.subscribe('clickSpot', DV.jQuery.proxy(this.saveClick, this));
 
@@ -154,6 +158,10 @@ DV.Schema.helpers = {
 
     saveClick: function(e, page) {
       this.viewer.history.save('document/p'+page);
+    },
+
+    saveLink: function() {
+      alert("hey");
     },
 
     // Unbind jQuery events that have been bound to objects outside of the viewer.
