@@ -544,15 +544,9 @@ div.spacer{ display: block; }
 /* GENERIC */
 
 #share {
-	border: 1px solid #aaa;
+	float: left;
 	width: 230px;
-	background: #fff;
-	margin: 12px auto;
-}
-#share .border {
-	border: 2px solid #aaa;
-	margin: 2px;
-	padding: 12px 6px;
+	margin: 12px 5px;
 	text-align: center;
 }
 #share h3 {
@@ -848,13 +842,15 @@ div.spacer{ display: block; }
 }
 
 #stories {
-	width: 230px;
-	float: right;
 	margin-bottom: 12px;
+	margin: 0 10px;
 }
 
 #stories .story {
 	margin-bottom: 12px;
+	float: left;
+	width: 230px;
+	margin-right: 5px;
 }
 
 #stories .story p {

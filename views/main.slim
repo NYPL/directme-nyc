@@ -24,11 +24,6 @@ div#mainwrapper
 			div.spacer
 		/! --blurb--
 
-		/! stories
-		div#stories
-			h2 Latest stories
-		/! --stories--
-
 		/! borough_selector
 		div#borough_selector
 			div#arrow 
@@ -53,9 +48,15 @@ div#mainwrapper
 			| <span class="caption">Audiovisual context from NARA & NYPL</span>
 		/! --video--
 
+		==slim :share
+
 		==slim :nytimes
+
+		/! stories
+		div#stories
+			h2 Latest stories | <a href="/latest">see more</a>
+		/! --stories--
 
 		div.spacer
 		
-		==slim :share
 		
