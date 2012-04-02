@@ -338,18 +338,17 @@
 	
 	/*for now till fix*/
 	#geo .overlays {
-		display: none;
 		position: relative;
 	}
 
 	#geo .overlays .nyploverlay {
 		position: absolute;
-		top: -470px;
+		top: 4px;
 	}
 
 	#geo .overlays .gmapoverlay {
 		position: absolute;
-		top: -230px;
+		top: 244px;
 	}
 
 	#nytimes {
