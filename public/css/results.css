@@ -321,12 +321,12 @@
 	#annotations {
 		width: 230px;
 	}
-
 	
 	#geo {
 		float: none;
 		width: 230px;
 	}
+
 	
 	#nyplmap, #gmap {
 		float: none;
@@ -336,7 +336,9 @@
 		margin-bottom: 10px;
 	}
 	
+	/*for now till fix*/
 	#geo .overlays {
+		display: none;
 		position: relative;
 	}
 
