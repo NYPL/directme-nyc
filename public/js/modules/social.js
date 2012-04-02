@@ -116,7 +116,7 @@ define(['jquery'], function($) {
 				$('#conn_social').remove();
 				$('#submit').html('Post');
 				$('div.logout').show();
-				$('.frm-connection').html(data.conn[0].toUpperCase() + .substring(1));
+				$('.frm-connection').html(data.conn[0].toUpperCase() + data.conn.substring(1));
 
 				$('#frm-content').on('keyup', function() {
 					$('#submit').removeClass('disabled');			
