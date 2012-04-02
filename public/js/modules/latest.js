@@ -67,7 +67,7 @@ define(['jquery'], function($) {
 					urlForMoreStories = story_data.before_timestamp;
 					$("#moreloader").html("Load more stories"); 
 				}
-				addStories(story_data.stories);
+				addStories(story_data.stories, story_data.count);
 				isUpdating = false;
 			}
 		});
@@ -123,7 +123,7 @@ define(['jquery'], function($) {
 		);
 	}
 	
-	function addStories(stories) {
+	function addStories(stories, count) {
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
 			
@@ -132,6 +132,9 @@ define(['jquery'], function($) {
 			}
 			var str = '<div class="annotation"><p class="author"><strong>'+story.author+'</strong> wrote:</p><p class="content">'+story.content+'</p><p class="author"><a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			$("#annotations").append(str);
+			if (parseInt(count) == $('.annotation').length) {
+				$('.more').hide();
+			}
 		}
 	}
 
