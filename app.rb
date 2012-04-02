@@ -45,7 +45,7 @@ def paging_time(model, request, params)
 
 	#first_result = objs[0].created_at
 
-	if objs.count() < Integer(limit) - 1
+	if objs.count() < Integer(limit)
 		last_result = nil
 	else
 		last_result = objs[Integer(limit) - 1].created_at
