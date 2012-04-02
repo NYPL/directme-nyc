@@ -4,6 +4,7 @@ define(['jquery'], function($) {
 	
 	var urlForMoreStories = "";
 	var isUpdating = false;
+	var story_limit = 32
 
 	function _init() {
 		latest();
@@ -25,7 +26,12 @@ define(['jquery'], function($) {
 				addStories(story_data[0].stories);
 			}
 
+			if (story_data[0].stories.length < story_limit) {
+				$('.more').show();
+			}
+
 		});
+
 		$("#moreloader").click(
 				function () {
 					if (!isUpdating) {
@@ -44,7 +50,7 @@ define(['jquery'], function($) {
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/api/stories.json?limit=10&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=' + story_limit + '&callback=?', function(data) {
 		});
 
 	}
