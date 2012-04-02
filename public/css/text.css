@@ -219,6 +219,11 @@ li {
 	color: #f00;
 	margin: 0;
 	padding: 0;
+	display: none;
+}
+
+.frm-connection {
+	display: none;
 }
 
 #frm-annotate a.post {

@@ -416,7 +416,6 @@ class Api < Application
 
 	get '/session.json' do
 		sess = checkSession(session)
-		puts session
 
 		if sess.nil?
 			json = {:sess => false}.to_json
@@ -426,6 +425,19 @@ class Api < Application
 
 		content_type 'application/json'
 		return JsonP(json, params)
+	end
+
+	post '/session.json' do
+		sess = checkSession(session)
+
+		if !sess.nil?
+			UserSessions.where(:session => session['session_id']).delete_all
+		end
+
+		status 204
+
+		redirect request.url
+
 	end
 
 	post '/stories.json' do
