@@ -46,10 +46,18 @@ define(['jquery'], function($) {
 	}
 
 	function logout() {
-
+		//$('a.logout').prop('href', callback_url);
+		$('a.logout').on('click', function(e) {
+			e.preventDefault();
+			$.post(urlpath + '/api/session.json?callback=?', {}, function(data) {
+				window.location.replace(callback_url);
+			}, "json")
+			.error(function() { 
+				var false_logout = true;
+				appendError(false_logout);
+			});
+		});
 	}
-
-
 
 	function popupCenter(url, width, height, name) {
 		var left = (screen.width/2)-(width/2);
@@ -79,7 +87,9 @@ define(['jquery'], function($) {
 		$.post(urlpath + '/api/stories.json?callback=?', {connection: _conn, content: content, token: getUrlVar('token'), author: author, session: session}, function(data) {
 			if (data.hasOwnProperty('content')) {
 				var time_dist = 'just now';
+
 				$('#frm-content').val('');
+				$('#submit').addClass('disabled');
 	
 				if ($('.annotation').length > 0) {
 					prependStory(data.content, data.author, time_dist);
@@ -99,12 +109,24 @@ define(['jquery'], function($) {
 		$.getJSON(urlpath + '/api/session.json?callback=?', function(data) {
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false) {
 				environment.login = true;
-				$('#conn_social').remove();
-				$('#submit').addClass('post');
-				$('#submit').html('Post');
 
-				//anon stuff ehre and check
+				$('a.logout').show();
+
+				$('#conn_social').remove();
+				$('#submit').html('Post');
+				$('.frm-connection').show().html(data.conn);
+
+				$('a.logout').on('keyup', function() {
+					$('#submit').removeClass('disabled');			
+				});
+
 				$('#submit.post').off('click').on('click', function() {
+					var content = $('#frm-content').val();
+
+					if (!content) {
+						return false;
+					}
+
 					var checked = $("input#frm-anonymous-check:checked");
 					if (checked.length == 1) {
 						var author = 'Anonymous'
@@ -133,7 +155,7 @@ define(['jquery'], function($) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").appendTo('.texts')
 	}
 
-	function appendError(false_auth) {
+	function appendError(false_auth, false_logout) {
 		if (typeof false_auth !== 'undefined') {
 			$("<div class='post_error'><p> Not Authenticated. </p>").prependTo('#frm-annotate .buttons')
 			setTimeout(function() {
@@ -155,7 +177,8 @@ define(['jquery'], function($) {
 	return {
 		init: _init,
 		appendStory: appendStory,
-		checkSession: checkSession
+		checkSession: checkSession,
+		logout: logout
 	};
 
 });
