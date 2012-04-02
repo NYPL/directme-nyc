@@ -314,13 +314,14 @@
 		margin-right: 0;
 	}
 
+	.content, #frm-annotate {
+		display: none;
+	}
+
 	#annotations {
 		width: 230px;
 	}
 
-	#annotations .content, #annotations #frm-annotate {
-		float: none;
-	}
 	
 	#geo {
 		float: none;
