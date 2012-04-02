@@ -75,8 +75,6 @@ define(['jquery'], function($) {
 	function checkSession(_conn, stopback) {
 		if (_conn == 'google') {var service = 'google_oauth2';}
 		else {var service = _conn;}
-		window.open("http://www.google.com", "checking", "menubar=no,toolbar=no,status=no,scrollbars=no,resizable=no,width=320,height=240,toolbar=no,left=10,top=10");
-
 		$.getJSON(urlpath + '/api/session.json?service=' + service + '&callback=?', function(data) {
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false && data.hasOwnProperty('user')) {
 				$('#submit').addClass('post');
