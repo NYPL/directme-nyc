@@ -130,7 +130,7 @@ define(['jquery'], function($) {
 			if (story.content.length > 140) {
 				story.content = story.content.substring(0, 137) + '...'
 			}
-			var str = prepareStoryHTML(story.content, story.author, story.time_ago, urlpath, story.result_token);
+			var str = prepareStoryHTML(story.content, story.author, story.main_string, story.time_ago, urlpath, story.result_token);
 			$("#annotations").append(str);
 			if (parseInt(count) == $('.annotation').length) {
 				$('.more').hide();
@@ -138,7 +138,7 @@ define(['jquery'], function($) {
 		}
 	}
 
-	function prepareStoryHTML(content, author, time_dist, url, token) {
+	function prepareStoryHTML(content, author, address, time_dist, url, token) {
 		var a = content.split(" ");
 		var i,l=a.length;
 		var limit = 28;
@@ -157,7 +157,7 @@ define(['jquery'], function($) {
 			a[i] = tmp;
 		}
 		content = a.join(" ");
-		return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
+		return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + address + "</a><br />" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
 	}
 
 	/** Return instantiated function */
