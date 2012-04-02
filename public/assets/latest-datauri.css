@@ -427,7 +427,9 @@ li {
 }
 
 #toc li {
-	margin-bottom: 0.4em;
+	margin-bottom: 0.2em;
+	list-style-type: square;
+	margin-left: 5px;
 }
 
 #toc a {
@@ -440,6 +442,7 @@ li {
 
 #templatecontent .q {
 	color: #666;
+	font-weight: bold;
 }
 
 #templatecontent .a:before {
