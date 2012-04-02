@@ -4,7 +4,7 @@ define(['jquery'], function($) {
 	
 	var urlForMoreStories = "";
 	var isUpdating = false;
-	var story_limit = 2
+	var story_limit = 32
 
 	function _init() {
 		latest();
