@@ -74,7 +74,7 @@ class Application < Sinatra::Base
   	end
 
 	#directory settings
-	set :static_cache_control, [:public, :max_age => 1]
+	set :static_cache_control, [:public, :max_age => 300]
 	set :root, root_dir
 	set :public_folder, 'public'
 	set :views, 'views'
@@ -98,7 +98,7 @@ class Application < Sinatra::Base
 		require 'newrelic_rpm'
 		require 'airbrake'
 
-		
+
 		Airbrake.configure do |config|
 		  config.api_key = `ENV['AIRBRAKE_API_KEY']`
 		end
