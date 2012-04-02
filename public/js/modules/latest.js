@@ -51,7 +51,6 @@ define(['jquery'], function($) {
 	
 	function moreClick() {
 		$.when(moreStories()).done(function(story_data) {
-			log(story_data)
 			if (story_data.hasOwnProperty('stories')) {
 				if (!story_data.before_timestamp) {
 					$(".more").hide();
