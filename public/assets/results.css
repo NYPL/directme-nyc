@@ -2607,6 +2607,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	margin-right: 5px;
+	min-height: 120px;
 }
 
 #stories .story p {
@@ -2916,6 +2917,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		width: auto;
 	}
 	
+	#stories .story, #latest .annotation {
+		min-height: 0;
+	}
+
 	#header {
 		height: 76px;
 	}

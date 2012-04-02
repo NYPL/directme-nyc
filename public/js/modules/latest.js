@@ -122,7 +122,7 @@ define(['jquery'], function($) {
 			if (story.content.length > 140) {
 				story.content = story.content.substring(0, 137) + '...'
 			}
-			var str = '<div class="annotation"><p class="content">'+story.content+'</p><p class="author">Posted by <strong>'+story.author+'</strong> <a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
+			var str = '<div class="annotation"><p class="author"><strong>'+story.author+'</strong> wrote:</p><p class="content">'+story.content+'</p><p class="author"><a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
 			$("#annotations").append(str);
 		}
 	}
