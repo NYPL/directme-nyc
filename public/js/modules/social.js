@@ -47,15 +47,14 @@ define(['jquery'], function($) {
 
 	function logout() {
 		//$('a.logout').prop('href', callback_url);
-		$('a.logout').on('click', function(e) {
+		$('a.logout').off('click').on('click', function(e) {
 			e.preventDefault();
 			$.post(urlpath + '/api/session.json?callback=?', {}, function(data) {
-				window.location.replace(callback_url);
-			}, "json")
-			.error(function() { 
-				var false_logout = true;
-				appendError(false_logout);
-			});
+			}, "json");
+
+			setTimeout(function() {
+				window.location.reload(callback_url);
+			}, 100);
 		});
 	}
 
@@ -110,13 +109,15 @@ define(['jquery'], function($) {
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false) {
 				environment.login = true;
 
-				$('a.logout').show();
+				$.when($('a.logout').show()).done(function() {
+					logout();
+				});
 
 				$('#conn_social').remove();
 				$('#submit').html('Post');
 				$('.frm-connection').show().html(data.conn);
 
-				$('a.logout').on('keyup', function() {
+				$('#frm-content').on('keyup', function() {
 					$('#submit').removeClass('disabled');			
 				});
 
@@ -157,13 +158,21 @@ define(['jquery'], function($) {
 
 	function appendError(false_auth, false_logout) {
 		if (typeof false_auth !== 'undefined') {
-			$("<div class='post_error'><p> Not Authenticated. </p>").prependTo('#frm-annotate .buttons')
+			$("<div class='post_error'><p>Unable to Log You In.</p>").prependTo('#frm-annotate .buttons')
 			setTimeout(function() {
 				$('.post_error').fadeOut().empty();
 			}, 5000);
 		}
+
+		else if (typeof false_logout !== 'undefined') {
+			$("<div class='post_error'><p>Unable to Log You Out</p>").prependTo('#frm-annotate .buttons')
+			setTimeout(function() {
+				$('.post_error').fadeOut().empty();
+			}, 5000);
+		}
+
 		else {
-			$("<div class='post_error'><p> Error in Attempt to Post Story. Try Again Later </p>").prependTo('#frm-annotate .buttons')
+			$("<div class='post_error'><p>Post Unsuccessful. Try Again Later.</p>").prependTo('#frm-annotate .buttons')
 			setTimeout(function() {
 				$('.post_error').fadeOut().empty();
 			}, 30000)

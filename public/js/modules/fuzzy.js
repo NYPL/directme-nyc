@@ -60,7 +60,7 @@ define(['jquery'], function($) {
 	}
 
 	function appendModalError() {
-		$("<div class='post_error'><p> Error in Attempt to Post Location. Try Again Later </p>").prependTo('.frm-modal-help')
+		$("<div class='post_error'><p> Search Unsuccessful. Try Again Later </p>").prependTo('.frm-modal-help')
 		setTimeout(function() {
 			$('.post_error').fadeOut().empty();
 		}, 30000);

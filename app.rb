@@ -435,9 +435,6 @@ class Api < Application
 		end
 
 		status 204
-
-		redirect request.url
-
 	end
 
 	post '/stories.json' do
