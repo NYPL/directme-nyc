@@ -91,13 +91,13 @@ define(['jquery'], function($) {
 				});
 				
 				var markerIcon = new CensusIcon();
-				
+
 				// add markers
 				for (var i=0;i<loc.length;++i) {
 					var it = loc[i];
 					var m = new L.Marker(new L.LatLng(it.coordinates.lat, it.coordinates.lng), {icon: markerIcon});
 					map.addLayer(m);
-					m.bindPopup("<strong><a href='" + urlpath + '/results?token=' + it.token + "'>" + it.address + "</a></strong><br />Found " + it.time_ago + " ago");
+					m.bindPopup("<strong><a href='" + urlpath + '/results?token=' + it.token + "'>" + it.main_string + "</a></strong><br />Found " + it.time_ago + " ago");
 				}
 				
 				// center on last marker
