@@ -1985,7 +1985,7 @@ li {
 	margin-bottom: 4px;
 }
 
-#frm-annotate a, .conns a, .printme {
+#frm-annotate a.post, .conns a, .printme {
 	/* BACKGROUND GRADIENT */
 	background: #fff;
 	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(204,204,204,1) 100%);
@@ -2003,6 +2003,18 @@ li {
 	-ms-border-radius:6px;
 	border-radius:6px;
 	-ms-border-radius:6px;
+}
+
+#frm-annotate .logout {
+	font-size: 12px;
+	margin-top: 11px;
+	color: #666;
+}
+
+#frm-annotate .logout a {
+	color: #f00;
+	margin: 0;
+	padding: 0;
 }
 
 #frm-annotate a.post {
@@ -2901,6 +2913,14 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 
 #frm-annotate .buttons {
 	margin: 4px 0 0 4px;
+}
+
+#frm-annotate #submit {
+	display: none;
+}
+
+#frm-annotate #submit.post {
+	display: inline;
 }
 
 #main .modal {
