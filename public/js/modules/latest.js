@@ -22,9 +22,7 @@ define(['jquery'], function($) {
 
 			if (story_data[0].hasOwnProperty('stories')) {
 				urlForMoreStories = story_data[0].before_timestamp;
-				log(urlForMoreStories);
 				addStories(story_data[0].stories);
-				log(story_data);
 			}
 
 		});
@@ -46,19 +44,24 @@ define(['jquery'], function($) {
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/api/stories.json?limit=36&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=10&callback=?', function(data) {
 		});
 
 	}
 	
 	function moreClick() {
 		$.when(moreStories()).done(function(story_data) {
-			if (story_data[0].hasOwnProperty('stories')) {
-				urlForMoreStories = story_data[0].before_timestamp; 
-				addStories(story_data[0].stories);
-				$("#moreloader").html("Load more stories");
+			log(story_data)
+			if (story_data.hasOwnProperty('stories')) {
+				if (!story_data.before_timestamp) {
+					$(".more").hide();
+				}
+				else {
+					urlForMoreStories = story_data.before_timestamp;
+					$("#moreloader").html("Load more stories"); 
+				}
+				addStories(story_data.stories);
 				isUpdating = false;
-				log(story_data);
 			}
 		});
 	}

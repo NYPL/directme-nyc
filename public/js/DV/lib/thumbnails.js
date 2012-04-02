@@ -7,12 +7,20 @@ DV.Thumbnails = function(viewer){
   this.imageUrl        = viewer.schema.document.resources.page.image.replace(/\{size\}/, 'small');
   this.pageCount       = viewer.schema.document.pages;
   this.indexes         = viewer.options.idxs || null;
+  this.boro            = viewer.options.boro || null;
   this.viewer          = viewer;
   this.resizeId        = _.uniqueId();
   this.sizes           = {
     "0": {w: 120, h: 150},
     "1": {w: 150, h: 188},
     "2": {w: 180, h: 225}
+  };
+  this.boro_fix = {
+    'staten': 11,
+    'bronx': 12,
+    'manhattan': 12,
+    'brooklyn': 12,
+    'queens': 12
   };
   _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
@@ -50,6 +58,7 @@ DV.Thumbnails.prototype.getCurrentIndex = function() {
 
 DV.Thumbnails.prototype.highlightCurrentPage = function() {
   this.currentIndex = this.viewer.models.document.currentIndex();
+  this.currentIndex = this.currentIndex - this.boro_fix[this.boro];
   this.viewer.$('.DV-thumbnail.DV-selected').removeClass('DV-selected');
 
   var currentThumbnail = this.viewer.$('.DV-thumbnail:eq('+this.currentIndex+')');

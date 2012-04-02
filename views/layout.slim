@@ -13,7 +13,10 @@ html
     head
         meta charset="utf-8"
         meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-        title= "Direct Me NYC: 1940"
+        - if @title
+        	title= "#{@title} : Direct Me NYC: 1940"
+        - else
+        	title= "Direct Me NYC: 1940"
         meta name="description" content="content"
         meta name="author" content="NYPL Labs - The New York Public Library"
         meta name="keywords" content=""
