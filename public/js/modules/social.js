@@ -151,7 +151,7 @@ define(['jquery'], function($) {
 	}
 
 	function appendStory(content, author, time_dist) {
-		$("<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + "</p></div>").appendTo('.texts')
+		$(prepareStoryHTML(content, author, time_dist)).appendTo('.texts')
 	}
 
 	function appendError(false_auth, false_logout) {
@@ -178,7 +178,39 @@ define(['jquery'], function($) {
 	}
 
 	function prependStory(content, author, time_dist) {
-		$("<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + "</p></div>").prependTo('div.annotation:first')
+		$(prepareStoryHTML(content, author, time_dist)).prependTo('div.annotation:first')
+	}
+	
+	function prepareStoryHTML(content, author, time_dist) {
+		var a = content.split(" ");
+		var i,l=a.length;
+		var limit = 28;
+		// http://en.wikipedia.org/wiki
+		// 28
+		for (i=0;i<l;++i) {
+			// is it a url?
+			var tmp = "";
+			var isurl = a[i].match(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+			if (isurl) {
+				if (a[i].substr(0,7)!="http://" && a[i].substr(0,8)!="https://") {
+					tmp = "<a href=\"http://" + a[i] + "\">";
+				} else {
+					tmp = "<a href=\"" + a[i] + "\">";
+				}
+			}
+			// is it long?
+			if (a[i].length > limit) {
+				tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
+			} else {
+				tmp += a[i];
+			}
+			if (isurl) {
+				tmp += "</a>";
+			}
+			a[i] = tmp;
+		}
+		content = a.join(" ");
+		return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + " ago</p></div>";
 	}
 
 	return {
