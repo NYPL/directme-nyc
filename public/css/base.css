@@ -321,7 +321,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	margin-right: 5px;
-	min-height: 120px;
+	height: 155px;
 }
 
 #stories .story p {
