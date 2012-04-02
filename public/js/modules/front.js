@@ -25,16 +25,16 @@ define(['jquery'], function($) {
 			}
 
 			if (i%2 == 0) {
-				str += prepareStoryHTML("story", story.content, story.author, story.time_ago, urlpath, story.result_token);
+				str += prepareStoryHTML("story", story.content, story.main_string, story.author, story.time_ago, urlpath, story.result_token);
 			}
 			else {
-				str += prepareStoryHTML("story even", story.content, story.author, story.time_ago, urlpath, story.result_token);
+				str += prepareStoryHTML("story even", story.content, story.main_string, story.author, story.time_ago, urlpath, story.result_token);
 			}
 		}
 		$("#stories h2").after(str);
 	}
 
-	function prepareStoryHTML(css, content, author, time_dist, url, token) {
+	function prepareStoryHTML(css, content, address, author, time_dist, url, token) {
 		var a = content.split(" ");
 		var i,l=a.length;
 		var limit = 28;
@@ -53,7 +53,7 @@ define(['jquery'], function($) {
 			a[i] = tmp;
 		}
 		content = a.join(" ");
-		return "<div class='"+css+"'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
+		return "<div class='"+css+"'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + address + "</a><br />" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
 	}
 
 	/** Return instantiated function */
