@@ -45,6 +45,12 @@ define(['jquery'], function($) {
 
 	}
 
+	function logout() {
+
+	}
+
+
+
 	function popupCenter(url, width, height, name) {
 		var left = (screen.width/2)-(width/2);
 		var top = (screen.height/2)-(height/2);
@@ -60,8 +66,9 @@ define(['jquery'], function($) {
 
 			var timer = setInterval(function() {   
 			    if(auth_window.closed) {
-			    	clearInterval(timer);   
-					checkSession(); 
+			    	clearInterval(timer);
+			    	var stopback = true;   
+					checkSession(stopback); 
 			    }  
 			}, 200);
 		}
@@ -88,7 +95,7 @@ define(['jquery'], function($) {
 	}
 
 
-	function checkSession() {
+	function checkSession(stopback) {
 		$.getJSON(urlpath + '/api/session.json?callback=?', function(data) {
 			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false) {
 				environment.login = true;
@@ -109,6 +116,13 @@ define(['jquery'], function($) {
 					updateStory(data.conn, author, data.sess);
 				});
 			}
+
+			else if (typeof stopback !== 'undefined') {
+				environment.login = false;
+				var false_auth = true
+				appendError(false_auth);
+			}
+
 			else {
 				environment.login = false;
 			}

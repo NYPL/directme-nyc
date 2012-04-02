@@ -5,7 +5,7 @@ define(['require', 'jquery'], function(require, $) {
 		initialize: function(args) {
 			//requires handler dependent libraries and modules
 
-			log('init app');
+			//log('init app');
 
 			if(typeof args !== 'undefined') {
 				if(args.hasOwnProperty('depends')) {                                                                                                                                                                                                                                                                                                                   
@@ -54,7 +54,6 @@ define(['require', 'jquery'], function(require, $) {
 		
 		//* (later) like Backbone, init calls below should instantiate a `new` class, as each module should return a new instance of its class/view
 		onDependsLoaded: function(mods) {
-			console.log('spec. modules being loaded and init_ed');
 			for (var i = 0; i < mods.length; i++) {
 				mods[i].init;
 			}
