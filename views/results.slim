@@ -28,7 +28,7 @@ div#mainwrapper
 			div.crosscontent.EDmore1
 				h3 1940 Census ED numbers for this address
 				p Refine results by selecting cross or back streets on the same same city block (use reference maps to help locate).
-				p Tip: you may not be able to reduce to a single ED (<a href="/faq">why?</a>).
+				p Tip: you may not be able to reduce to a single ED (<a href="/faq#q4">why?</a>).
 
 				div.streetchoices
 
@@ -57,7 +57,7 @@ div#mainwrapper
 			
 			div.spacer
 
-			==slim :share
+			==slim :share_result
 
 		/! --results--
 
@@ -70,7 +70,7 @@ div#mainwrapper
 			form#frm-annotate
 				textarea#frm-content placeholder="Share your story..."
 				div.buttons
-					| <a href="#" id="submit" class="post">Post via...</a> <input type="checkbox" id="frm-anonymous-check" name="frm-anonymous" value="1" checked="checked" /> <label for="frm-anonymous-check">Post anonymously</label>
+					| <a href="#" id="submit" class="post disabled">Post via...</a> <input type="checkbox" id="frm-anonymous-check" name="frm-anonymous" value="1" checked="checked" /> <label for="frm-anonymous-check">Post anonymously</label>
 					div.logout Posting via <span class="frm-connection">CONNECTION</span>. <a href="#" class="logout">Log out</a>.
 
 			div.texts

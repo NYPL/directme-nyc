@@ -30,6 +30,9 @@ div.spacer{ display: block; }
 	width: 110px;
 	margin: 6px auto;
 }
+#share .twitter {
+	margin-left: 30px;
+}
 
 /* MAIN STRUCTURE */
 
