@@ -1175,6 +1175,7 @@ DV.Thumbnails = function(viewer){
     "1": {w: 150, h: 188},
     "2": {w: 180, h: 225}
   };
+  //boro fixes
   this.boro_fix = {
     'staten': 11,
     'bronx': 12,
@@ -1182,6 +1183,13 @@ DV.Thumbnails = function(viewer){
     'brooklyn': 12,
     'queens': 12
   };
+
+  if (this.boro == 'Staten Island') {
+    this.boro = 'staten';
+  }
+  //for hiding
+
+
   _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
 
