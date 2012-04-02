@@ -96,7 +96,6 @@ module MyHelpers
 		attr_reader :ua
 
 		def isMobile(req_agent)
-			puts req_agent
 			@ua = AgentOrange::UserAgent.new(req_agent)
 			plat = @ua.device.platform.to_s.downcase
 			if @ua.is_mobile? and plat.index('ipad').nil? and !req_agent.downcase.index('mobile').nil? and req_agent.downcase.index('tablet').nil?
@@ -110,6 +109,7 @@ module MyHelpers
 	module NYPLipRange
 		def checkIP(req_ip)
 			#hardcoded range into this value... for the library
+			puts req_ip
 			("65.88.88.0".split(".").inject(0) { |s, p| (s << 8) + p.to_i }..
 				"65.255.255.255".split(".").inject(0) { |s, p| (s << 8) + p.to_i }).include?(req_ip)
 		end
