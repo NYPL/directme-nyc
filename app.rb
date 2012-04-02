@@ -43,8 +43,6 @@ def paging_time(model, request, params)
 		objs = model.where(:created_at.lt => now).order_by(:created_at, :desc).limit(limit)
 	end
 
-	#first_result = objs[0].created_at
-
 	if objs.count() < Integer(limit)
 		last_result = nil
 	else
@@ -64,6 +62,7 @@ def paging_time(model, request, params)
 	changed_objs = time_ago(objs)
 
 	return {
+		:count => model.count,
 		:objs => changed_objs, 
 		:url => url, 
 		:before_url => before_url
@@ -236,6 +235,7 @@ class Api < Application
 
 				if !ret_hash[:before_url].nil?
 					hash = {
+						:count => ret_hash[:count],
 						:locations => ret_hash[:objs],
 						:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
 					}.to_json
@@ -482,6 +482,7 @@ class Api < Application
 
 				if !ret_hash[:before_url].nil?
 					hash = {
+						:count => ret_hash[:count],
 						:stories => ret_hash[:objs],
 						:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
 					}.to_json
