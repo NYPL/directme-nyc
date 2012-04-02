@@ -9,7 +9,7 @@ doctype html
 /[if (gte IE 9)|!(IE)]
     | <html class="no-js" lang="en">
 
-html
+html itemtype="http://schema.org/Organization" itemprop=""
     head
         meta charset="utf-8"
         meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
@@ -32,6 +32,11 @@ html
         | <meta property="og:site_name" content="Direct Me NYC: 1940 by NYPL Labs" />
         | <meta property="fb:app_id" content="197421743694376" />
         | <meta name="google-site-verification" content="UBTjDORSlIkAVoVgmmQ-JsIeoppdFgEG59mrAYFKVas" />
+
+        // Google Stuff
+        | <meta itemprop="name" content="NYPL Direct Me NYC: 1940 - Use old phone books to unlock the 1940 Federal Census">
+        | <meta itemprop="description" content="NYPL Direct Me NYC: 1940 - Use old phone books to unlock the 1940 Federal Census">
+        | <meta itemprop="image" content="http://directme.nypl.org/images/fedeler_1.png">
 
         - if @RESULTS
             ==slim :'css/css_results'
