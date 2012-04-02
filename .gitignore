@@ -36,3 +36,4 @@ log
 .rbx/
 
 #[SCRIPTS]
+scripts/dump.py
