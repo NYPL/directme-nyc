@@ -6,12 +6,11 @@ div#share
 	p Follow this project and connect with NYPL librarians:<br /><a href="https://twitter.com/nyplmilstein">Twitter</a> | <a href="http://www.facebook.com/NYPL.Milstein">Facebook</a> | <a href="http://www.nypl.org/blog/division/milstein">Blog</a>
 	/! --twitter--
 	div.shareitem.twitter
-		| <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://directme.nypl.org" data-text="#{@title}: Direct Me NYC: use old phone books to unlock the 1940 Federal Census" data-via="nyplmilstein" data-related="nypl_labs">Tweet</a>
+		| <a href="https://twitter.com/share" class="twitter-share-button" data-url="#{@ogurl}" data-text="#{@title}: Direct Me NYC: use old phone books to unlock the 1940 Federal Census" data-via="nyplmilstein" data-related="nypl_labs" data-counturl="#{@ogurl}">Tweet</a>
 	/! --google--
 	div.shareitem.gplus
-		| <g:plusone size="small" href="http://directme.nypl.org"></g:plusone>
+		| <g:plusone size="small" href="#{@ogurl}"></g:plusone>
 	/! --facebook--
 	div.shareitem.facebook
-		| <div id="fb-root"></div>
-		| <div class="fb-like" data-href="http://directme.nypl.org" data-send="true" data-layout="button_count" data-width="10" data-show-faces="false" data-font="arial"></div>
+		| <div class="fb-like" data-href="#{@ogurl}" data-send="true" data-layout="button_count" data-width="10" data-show-faces="false" data-font="arial"></div>
 	div.spacer

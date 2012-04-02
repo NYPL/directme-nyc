@@ -149,39 +149,39 @@ class Application < Sinatra::Base
 
 	get '/results' do
     @title = 'Results'
-		if !params['token'].blank? and !params['token'].nil?
+	if !params['token'].blank? and !params['token'].nil?
 
-			obj = Locations.where(:token => params['token']).first()
+		obj = Locations.where(:token => params['token']).first()
 
-			if !obj.blank? and !obj.nil?
-				@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
-							'/js/modules/bootstraps.js']
-				@deps = ['order!modules/results', 'order!modules/nytimes']
-				@monthday = Time.now.strftime("%m/%d")
-				@year = (Time.new.year - 72)
+		if !obj.blank? and !obj.nil?
+			@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
+						'/js/modules/bootstraps.js']
+			@deps = ['order!modules/results', 'order!modules/nytimes']
+			@monthday = Time.now.strftime("%m/%d")
+			@year = (Time.new.year - 72)
 
-				@RESULTS = true
-				@SOCIAL = true
+			@RESULTS = true
+			@SOCIAL = true
 
-				if checkIP(request.ip)
-					@onsite = true
-				else
-					@onsite = false
-				end
-
-        @title = obj.main_string
-        @ogurl = request.url
-        slim :results, :locals => {:header_string => "#{obj.main_string}"}
-
+			if checkIP(request.ip)
+				@onsite = true
 			else
-				log.info "No Valid Result Token"
-				status 404
+				@onsite = false
 			end
 
+    @title = obj.main_string
+    @ogurl = request.url
+    slim :results, :locals => {:header_string => "#{obj.main_string}"}
+
 		else
-			log.info "No Result Token"
+			log.info "No Valid Result Token"
 			status 404
 		end
+
+	else
+		log.info "No Result Token"
+		status 404
+	end
 	end
 
 #---------------MOBILE&NOT-FOUND&<=IE7-------------------------------------------------------
