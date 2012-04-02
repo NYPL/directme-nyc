@@ -186,8 +186,7 @@ define(['jquery'], function($) {
 	return {
 		init: _init,
 		appendStory: appendStory,
-		checkSession: checkSession,
-		logout: logout
+		checkSession: checkSession
 	};
 
 });
