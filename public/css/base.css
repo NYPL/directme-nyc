@@ -423,6 +423,7 @@ div.spacer{ display: block; }
 }
 
 #latest .more {
+	display: none;
 	width: 230px;
 	margin: 0 auto;
 	background: white;
