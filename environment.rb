@@ -108,9 +108,9 @@ class Application < Sinatra::Base
 		  run lambda { |env| raise "Rack down" }
 		end
 
-		if defined?(Mongoid)
-			Mongoid.logger=Logger.new('/dev/null')
-		end
+		# if defined?(Mongoid)
+		# 	Mongoid.logger=Logger.new('/dev/null')
+		# end
 	end
 end
 
