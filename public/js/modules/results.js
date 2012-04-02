@@ -1,7 +1,8 @@
 define(['jquery', 'modules/social'], function($, social) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
-	var narapath = "http://1940census.archives.gov/show-image/enumeration-district/"
+	//var narapath = "http://1940census.archives.gov/show-image/enumeration-district/";
+	var narapath = "http://1940census.archives.gov/search/";
 	
 	var NE = new L.LatLng(41.0053,-74.4234),
     SW = new L.LatLng(40.3984,-73.5212),
@@ -74,7 +75,8 @@ define(['jquery', 'modules/social'], function($, social) {
 				if (data.hasOwnProperty('eds') && data.hasOwnProperty('fullcity_id') && data.hasOwnProperty('state')) {
 					var results = "";
 					for (i = 0; i < data.eds.length; i++) {
-						results += "<a target='_blank' class='EDcontent' href='" + narapath + data.state + '/' + data.fullcity_id + "-" + data.eds[i] + "/'>" + 
+						// ?search.result_type=description&search.state=NY&search.enumeration_district=3-1273#searchby=enumeration&searchmode=search&year=1940
+						results += "<a target='_blank' class='EDcontent' href='" + narapath + "?search.result_type=description&search.state="+ data.state + "&search.enumeration_district=" + data.fullcity_id + "-" + data.eds[i] + "#searchby=enumeration&searchmode=search&year=1940'>" + 
 							 data.fullcity_id + "-" + data.eds[i] + "</a>";
 					}
 					$('#EDlist').append(results);
@@ -164,7 +166,9 @@ define(['jquery', 'modules/social'], function($, social) {
 			fin_string = '<option selected="selected" value="_">Select another cross/back street</option>' + cross_string;
 
 			for(var i = 0; i < matched.length; i++) {
-				results += "<a class='EDcontent' target='_blank' href='" + narapath + state + '/' + city_id + "-" + matched[i] + "/'>" + city_id + "-" + matched[i] + "</a>";
+				// ?search.result_type=description&search.state=NY&search.enumeration_district=3-1273#searchby=enumeration&searchmode=search&year=1940
+				results += "<a target='_blank' class='EDcontent' href='" + narapath + "?search.result_type=description&search.state="+ state + "&search.enumeration_district=" + city_id + "-" + matched[i] + "#searchby=enumeration&searchmode=search&year=1940'>" + 
+				city_id + "-" + matched[i] + "</a>";
 			}
 
 			$('a', '#EDlist').remove();
