@@ -4,7 +4,7 @@ define(['jquery'], function($) {
 	
 	var urlForMoreStories = "";
 	var isUpdating = false;
-	var story_limit = 32
+	var story_limit = 2
 
 	function _init() {
 		latest();
@@ -23,11 +23,13 @@ define(['jquery'], function($) {
 
 			if (story_data[0].hasOwnProperty('stories')) {
 				urlForMoreStories = story_data[0].before_timestamp;
+				if (typeof urlForMoreStories !== 'undefined') {
+					$('.more').show();
+				}
+				else {
+					$('.more').hide();
+				}
 				addStories(story_data[0].stories);
-			}
-
-			if (story_data[0].stories.length < story_limit) {
-				$('.more').show();
 			}
 
 		});
