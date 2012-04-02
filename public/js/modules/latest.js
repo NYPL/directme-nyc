@@ -130,12 +130,44 @@ define(['jquery'], function($) {
 			if (story.content.length > 140) {
 				story.content = story.content.substring(0, 137) + '...'
 			}
-			var str = '<div class="annotation"><p class="author"><strong>'+story.author+'</strong> wrote:</p><p class="content">'+story.content+'</p><p class="author"><a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
+			var str = prepareStoryHTML(story.content, story.author, story.time_ago, urlpath, story.result_token);
 			$("#annotations").append(str);
 			if (parseInt(count) == $('.annotation').length) {
 				$('.more').hide();
 			}
 		}
+	}
+
+	function prepareStoryHTML(content, author, time_dist, url, token) {
+		var a = content.split(" ");
+		var i,l=a.length;
+		var limit = 28;
+		// http://en.wikipedia.org/wiki
+		// 28
+		for (i=0;i<l;++i) {
+			// is it a url?
+			var tmp = "";
+			var isurl = a[i].match(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+			if (isurl) {
+				if (a[i].substr(0,7)!="http://" || a[i].substr(0,8)!="https://") {
+					tmp = "<a href=\"http://" + a[i] + "\">";
+				} else {
+					tmp = "<a href=\"" + a[i] + "\">";
+				}
+			}
+			// is it long?
+			if (a[i].length > limit) {
+				tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
+			} else {
+				tmp += a[i];
+			}
+			if (isurl) {
+				tmp += "</a>";
+			}
+			a[i] = tmp;
+		}
+		content = a.join(" ");
+		return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
 	}
 
 	/** Return instantiated function */

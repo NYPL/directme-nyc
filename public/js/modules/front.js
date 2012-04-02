@@ -25,13 +25,45 @@ define(['jquery'], function($) {
 			}
 
 			if (i%2 == 0) {
-				str += '<div class="story"><p class="author"><strong>'+story.author+'</strong> wrote:</p><p>'+story.content+'</p><p class="author"><a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
+				str += prepareStoryHTML("story", story.content, story.author, story.time_ago, urlpath, story.result_token);
 			}
 			else {
-				str += '<div class="story even"><p class="author"><strong>'+story.author+'</strong> wrote:</p><p>'+story.content+'</p><p class="author"><a href="'+urlpath+'/results?token='+story.result_token+'" class="hl">'+story.time_ago+' ago</a></p></div>';
+				str += prepareStoryHTML("story even", story.content, story.author, story.time_ago, urlpath, story.result_token);
 			}
 		}
 		$("#stories h2").after(str);
+	}
+
+	function prepareStoryHTML(css, content, author, time_dist, url, token) {
+		var a = content.split(" ");
+		var i,l=a.length;
+		var limit = 28;
+		// http://en.wikipedia.org/wiki
+		// 28
+		for (i=0;i<l;++i) {
+			// is it a url?
+			var tmp = "";
+			var isurl = a[i].match(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+			if (isurl) {
+				if (a[i].substr(0,7)!="http://" || a[i].substr(0,8)!="https://") {
+					tmp = "<a href=\"http://" + a[i] + "\">";
+				} else {
+					tmp = "<a href=\"" + a[i] + "\">";
+				}
+			}
+			// is it long?
+			if (a[i].length > limit) {
+				tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
+			} else {
+				tmp += a[i];
+			}
+			if (isurl) {
+				tmp += "</a>";
+			}
+			a[i] = tmp;
+		}
+		content = a.join(" ");
+		return "<div class='"+css+"'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
 	}
 
 	/** Return instantiated function */

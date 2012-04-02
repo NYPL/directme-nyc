@@ -192,7 +192,11 @@ define(['jquery'], function($) {
 			var tmp = "";
 			var isurl = a[i].match(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
 			if (isurl) {
-				tmp = "<a href=\"" + a[i] + "\">";
+				if (a[i].substr(0,7)!="http://" || a[i].substr(0,8)!="https://") {
+					tmp = "<a href=\"http://" + a[i] + "\">";
+				} else {
+					tmp = "<a href=\"" + a[i] + "\">";
+				}
 			}
 			// is it long?
 			if (a[i].length > limit) {
