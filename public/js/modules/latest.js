@@ -79,14 +79,14 @@ define(['jquery'], function($) {
 	}
 
 	function showLocations(loc) {
-		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11.jsonp',
+		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11-13.jsonp',
 			function(tilejson) {
 				// limit bounds of map
 				var NE = new L.LatLng(41.0053,-74.4234),
 			    SW = new L.LatLng(40.3984,-73.5212),
 			    bounds = new L.LatLngBounds(SW, NE);
 
-				var map = new L.Map('bigmap', {zoomControl: false, trackResize: false, maxBounds:bounds}).addLayer(
+				var map = new L.Map('bigmap', {zoomControl: false, trackResize: false, maxBounds:bounds, minZoom:11, maxZoom:13}).addLayer(
 					new wax.leaf.connector(tilejson));
 				
 				var CensusIcon = L.Icon.extend({
@@ -118,7 +118,7 @@ define(['jquery'], function($) {
 				//map.dragging.disable();
 				map.touchZoom.disable();
 				map.scrollWheelZoom.disable();
-				map.doubleClickZoom.disable();
+				//map.doubleClickZoom.disable();
 			}
 		);
 	}
