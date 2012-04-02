@@ -114,6 +114,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/directory/:borough' do
+    @title = params['borough'].split(/(\W)/).map(&:capitalize).join
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
@@ -127,6 +128,7 @@ class Application < Sinatra::Base
 	end
 
 	get '/latest' do
+	  @title = 'Latest'
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
 		@deps = ['order!modules/latest']
 		@LATEST = true
@@ -135,15 +137,18 @@ class Application < Sinatra::Base
 		slim :latest
 	end
 
-  	get '/faq' do
+  get '/faq' do
+    @title = 'FAQ'
 		erb :faq, :layout_engine => :slim
 	end
 
 	get '/about' do
+    @title = 'About'
 		erb :about, :layout_engine => :slim
 	end
 
 	get '/results' do
+    @title = 'Results'
 		if !params['token'].blank? and !params['token'].nil?
 
 			obj = Locations.where(:token => params['token']).first()
@@ -164,7 +169,9 @@ class Application < Sinatra::Base
 					@onsite = false
 				end
 
-				slim :results, :locals => {:header_string => "#{obj.main_string}"}
+        @title = obj.main_string
+
+        slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
 				log.info "No Valid Result Token"
