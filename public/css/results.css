@@ -314,7 +314,7 @@
 		margin-right: 0;
 	}
 
-	.content, #frm-annotate {
+	div.content, #frm-annotate {
 		display: none;
 	}
 
