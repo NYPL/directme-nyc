@@ -341,6 +341,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 470px;
 	margin-bottom: 12px;
+	margin-left: 245px;
 }
 
 #templatecontent {
@@ -367,7 +368,7 @@ div.spacer{ display: block; }
 	margin-right: 5px;
 }
 
-#templatecontent .plain {
+#templatecontent h2, #templatecontent .plain {
 	float: right;
 	width: 460px;
 	margin-right: 0;
@@ -585,7 +586,7 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 		margin: 0 5px 0 5px;
 	}
 
-	#templatecontent .q, #templatecontent .a, #templatecontent .plain {
+	#templatecontent .q, #templatecontent .a, #templatecontent h2, #templatecontent .plain {
 		float: none;
 		width: auto;
 	}
