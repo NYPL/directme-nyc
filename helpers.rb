@@ -109,9 +109,7 @@ module MyHelpers
 	module NYPLipRange
 		def checkIP(req_ip)
 			#hardcoded range into this value... for the library
-			puts req_ip
-			("65.88.88.0".split(".").inject(0) { |s, p| (s << 8) + p.to_i }..
-				"65.255.255.255".split(".").inject(0) { |s, p| (s << 8) + p.to_i }).include?(req_ip)
+			("65.88.88.0".split(".").inject(0) { |s, p| (s << 8) + p.to_i }.."65.255.255.255".split(".").inject(0) { |s, p| (s << 8) + p.to_i }).include?(req_ip)
 		end
 	end
 
