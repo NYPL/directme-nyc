@@ -29,6 +29,14 @@
 	margin: 4px 0 0 4px;
 }
 
+#frm-annotate #submit {
+	display: none;
+}
+
+#frm-annotate #submit.post {
+	display: inline;
+}
+
 #main .modal {
 	width: 260px;
 }
