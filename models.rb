@@ -55,7 +55,6 @@ class UserSessions
 	store_in :user_sessions, capped:true, size:100000
 
 	index :session
-	index :connection
 
 	field :session, :type => String, :required => true
 	field :user_name, :type => String

@@ -14,6 +14,8 @@ define(['jquery', 'modules/social'], function($, social) {
 	}
 
 	function submitStory() {
+		social.checkSession();
+
 		$('#submit').on('click', function(e) {
 			e.preventDefault();
 

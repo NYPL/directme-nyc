@@ -78,7 +78,7 @@ def ajaxcheck(request)
 	end
 end
 
-def checkSession(session, service)
+def checkSession(session)
 	if session
 		obj = UserSessions.where(:session => session['session_id']).first()
 		if !obj.blank? and !obj.nil?
@@ -196,14 +196,20 @@ class Application < Sinatra::Base
 
 	get '/auth/:name/callback' do
 		auth = request.env["omniauth.auth"]
-		#callback = request.env["omniauth.origin"]
 		name = auth["info"]["name"]
+
+		if params['name'] == 'google_oauth2'
+			service = 'google'
+		else
+			service = params['name']
+		end
+
 		token = auth["credentials"]["token"]
 		hash = {
 			:session => session['session_id'],
 			:user_name => name,
 			:user_token => token,
-			:connection => params['name']
+			:connection => service
 		}
 
 		UserSessions.safely.create(hash)
@@ -409,7 +415,8 @@ class Api < Application
 	end
 
 	get '/session.json' do
-		sess = checkSession(session, params['service'])
+		sess = checkSession(session)
+		puts session
 
 		if sess.nil?
 			json = {:sess => false}.to_json

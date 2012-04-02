@@ -12,7 +12,8 @@ define(['jquery'], function($) {
 	function fbSetup() {
 		$('#fb-submit').off('click').on('click', function(e) {
 			e.preventDefault();
-			baseConn('facebook');
+
+			howwedo('facebook');
 
 			e.stopPropagation(); 
 			return false;
@@ -22,11 +23,9 @@ define(['jquery'], function($) {
 
 	function twitterSetup() {
 		$('#tw-submit').off('click').on('click', function(e) {
-			// check if popups work
-			window.open("http://www.google.com", "checking", "menubar=no,toolbar=no,status=no,scrollbars=no,resizable=no,width=320,height=240,toolbar=no,left=10,top=10");
-			// end check
 			e.preventDefault();
-			baseConn('twitter');
+
+			howwedo('twitter');
 
 			e.stopPropagation(); 
 			return false;
@@ -37,7 +36,8 @@ define(['jquery'], function($) {
 	function googleSetup() {
 		$('#g-submit').off('click').on('click', function(e) {
 			e.preventDefault();
-			baseConn('google');
+
+			howwedo('google_oauth2');
 
 			e.stopPropagation(); 
 			return false;
@@ -49,6 +49,22 @@ define(['jquery'], function($) {
 		var left = (screen.width/2)-(width/2);
 		var top = (screen.height/2)-(height/2);
 		return window.open(url, name, "menubar=no,toolbar=no,status=no,scrollbars=no,resizable=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+	}
+
+	function howwedo(service) {
+		if (environment.hasOwnProperty('login') && environment.login == false) {
+			$('#conn_social').modal('hide');
+
+			auth_url = encodeURI('/auth/' + service + '?display=popup');				
+			auth_window = popupCenter(auth_url, 600, 400, "authPopup");
+
+			var timer = setInterval(function() {   
+			    if(auth_window.closed) {
+			    	clearInterval(timer);   
+					checkSession(); 
+			    }  
+			}, 200);
+		}
 	}
 
 	function updateStory(_conn, author, session) {
@@ -72,38 +88,29 @@ define(['jquery'], function($) {
 	}
 
 
-	function checkSession(_conn, stopback) {
-		if (_conn == 'google') {var service = 'google_oauth2';}
-		else {var service = _conn;}
-		$.getJSON(urlpath + '/api/session.json?service=' + service + '&callback=?', function(data) {
-			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false && data.hasOwnProperty('user')) {
+	function checkSession() {
+		$.getJSON(urlpath + '/api/session.json?callback=?', function(data) {
+			if (typeof data !== 'undefined' && data.hasOwnProperty('sess') && data.sess !== false) {
+				environment.login = true;
+				$('#conn_social').remove();
 				$('#submit').addClass('post');
 				$('#submit').html('Post');
 
+				//anon stuff ehre and check
 				$('#submit.post').off('click').on('click', function() {
-					updateStory(_conn, data.user, data.sess);
+					var checked = $("input#frm-anonymous-check:checked");
+					if (checked.length == 1) {
+						var author = 'Anonymous'
+					}
+					else {
+						var author = data.user;
+					}
+					
+					updateStory(data.conn, author, data.sess);
 				});
-
-				return true;
 			}
-
-			else if (typeof stopback !== 'undefined') {
-				var false_auth = true
-				appendError(false_auth);
-				return true;
-			}
-
 			else {
-				auth_url = encodeURI('/auth/' + service + '?display=popup');				
-				auth_window = popupCenter(auth_url, 600, 400, "authPopup");
-
-				var timer = setInterval(function() {   
-				    if(auth_window.closed) {
-				    	clearInterval(timer);   
-						var stopback = true;
-						checkSession(_conn, stopback); 
-				    }  
-				}, 200);
+				environment.login = false;
 			}
 		});
 	}
@@ -131,14 +138,10 @@ define(['jquery'], function($) {
 		$("<div class='annotation'><p class='content'>" + content + "</p><p class='author'>Posted by <strong>" + author + "</strong> " + time_dist + "</p></div>").prependTo('div.annotation:first')
 	}
 
-	function baseConn(service) {
-		$('#conn_social').modal('hide');
-		checkSession(service);
-	}
-
 	return {
 		init: _init,
-		appendStory: appendStory
+		appendStory: appendStory,
+		checkSession: checkSession
 	};
 
 });
