@@ -16,7 +16,6 @@ define(['jquery'], function($) {
 			howwedo('facebook');
 
 			e.stopPropagation(); 
-			return false;
 		});
 
 	}
@@ -28,7 +27,6 @@ define(['jquery'], function($) {
 			howwedo('twitter');
 
 			e.stopPropagation(); 
-			return false;
 		});
 
 	}
@@ -40,7 +38,6 @@ define(['jquery'], function($) {
 			howwedo('google_oauth2');
 
 			e.stopPropagation(); 
-			return false;
 		});
 
 	}

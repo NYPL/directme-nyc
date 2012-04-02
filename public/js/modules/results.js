@@ -138,7 +138,6 @@ define(['jquery', 'modules/social'], function($, social) {
 
 		$('.crossstreets').change(function(e) {
 			if (curr_results.length === 1) {
-				e.preventDefault();
 				return false;
 			}
 
