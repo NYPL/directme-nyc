@@ -86,7 +86,7 @@ define(['jquery'], function($) {
 			    SW = new L.LatLng(40.3984,-73.5212),
 			    bounds = new L.LatLngBounds(SW, NE);
 
-				var map = new L.Map('bigmap', {zoomControl: false, trackResize: false, maxBounds:bounds, minZoom:11, maxZoom:13}).addLayer(
+				var map = new L.Map('bigmap', {zoomControl: true, trackResize: false, maxBounds:bounds, minZoom:11, maxZoom:13}).addLayer(
 					new wax.leaf.connector(tilejson));
 				
 				var CensusIcon = L.Icon.extend({
@@ -117,7 +117,7 @@ define(['jquery'], function($) {
 				// disable zooming interaction
 				//map.dragging.disable();
 				map.touchZoom.disable();
-				map.scrollWheelZoom.disable();
+				//map.scrollWheelZoom.disable();
 				//map.doubleClickZoom.disable();
 			}
 		);
