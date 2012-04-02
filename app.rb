@@ -101,6 +101,7 @@ class Application < Sinatra::Base
 			@monthday = Time.now.strftime("%m/%d")
 			@year = (Time.new.year - 72)
 			@SOCIAL = true
+			@ogurl = 'http://directme.nypl.org'
 
 			if checkIP(request.ip)
 				@onsite = true
@@ -169,7 +170,7 @@ class Application < Sinatra::Base
 				end
 
         @title = obj.main_string
-
+        @ogurl = request.url
         slim :results, :locals => {:header_string => "#{obj.main_string}"}
 
 			else
