@@ -86,9 +86,9 @@ class Application < Sinatra::Base
 	#app based configurations
 	configure :development do
 		puts "fun_times_had_by_all"
-		if defined?(Mongoid)
-			Mongoid.logger = Logger.new(STDOUT)
-		end
+		# if defined?(Mongoid)
+		# 	Mongoid.logger = Logger.new(STDOUT)
+		# end
 	end
 
 	configure :test do
