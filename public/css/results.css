@@ -234,12 +234,12 @@
 		width: 470px;
 	}
 
-	#annotations .content, #annotations #frm-annotate {
-		float: left;
-		width: 230px;
+	#annotation .content, #annotations #frm-annotate {
+		float: none;
+		width: 470px;
 	}
 
-	#annotations .content {
+	#annotation .content {
 		margin-right: 10px;
 	}
 	
