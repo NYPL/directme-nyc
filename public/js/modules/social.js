@@ -190,7 +190,7 @@ define(['jquery'], function($) {
 		for (i=0;i<l;++i) {
 			// is it a url?
 			var tmp = "";
-			var isurl = a[i].match(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+			var isurl = a[i].match(/(^|\s)((https?:\/\/)[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
 			if (isurl) {
 				if (a[i].substr(0,7)!="http://" && a[i].substr(0,8)!="https://") {
 					tmp = "<a href=\"http://" + a[i] + "\">";
