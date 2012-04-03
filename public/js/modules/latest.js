@@ -116,7 +116,7 @@ define(['jquery'], function($) {
 				
 				// disable zooming interaction
 				//map.dragging.disable();
-				map.touchZoom.disable();
+				//map.touchZoom.disable();
 				//map.scrollWheelZoom.disable();
 				//map.doubleClickZoom.disable();
 			}

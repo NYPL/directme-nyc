@@ -321,7 +321,7 @@ div.spacer{ display: block; }
 	float: left;
 	width: 230px;
 	margin-right: 5px;
-	height: 155px;
+	height: 160px;
 }
 
 #stories .story p {
@@ -418,7 +418,7 @@ div.spacer{ display: block; }
 #latest .annotation {
 	float: left;
 	width: 230px;
-	height: 155px;
+	height: 160px;
 	margin: 0 5px 12px 5px;
 }
 
