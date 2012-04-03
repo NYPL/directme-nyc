@@ -44,19 +44,19 @@ def init_json(borough, num_pages):
 		elem_id = _check['_id']
 
 	init_json = {
-		"canonical_url": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.html" % (borough, borough),
+		"canonical_url": "http://directme-assets.nypl.org/%s/1940-%s-telephone-directory.html" % (borough, borough),
 		"created_at": datetime.datetime.utcnow().isoformat(),
 		"description": "",
 		"borough": _id,
 		"pages": num_pages,
 		"resources": {
 			"page": {
-				"image": "http://1940census.nypl.org.s3.amazonaws.com/%s/p{page}--{size}.jpg" % (borough)
+				"image": "http://directme-assets.nypl.org/%s/p{page}--{size}.jpg" % (borough)
 			}
 		}, 
-		"pdf": "http://1940census.nypl.org.s3.amazonaws.com/%s/1940-%s-telephone-directory.pdf" % (borough, borough),
+		"pdf": "http://directme-assets.nypl.org/%s/1940-%s-telephone-directory.pdf" % (borough, borough),
 		"pdf_mb": pdf_sizes[borough],
-		"thumbnail": "http://1940census.nypl.org.s3.amazonaws.com/%s/p1--small.jpg" % (borough),
+		"thumbnail": "http://directme-assets.nypl.org/%s/p1--small.jpg" % (borough),
 		"title": "1940-%s-telephone-directory" % (borough)
 	}
 
