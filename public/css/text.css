@@ -130,6 +130,7 @@ li {
 
 #nytimes .title {
 	font-weight: bold;
+	-webkit-text-size-adjust:100%;
 }
 
 #nytimes p {
