@@ -9,7 +9,7 @@ doctype html
 /[if (gte IE 9)|!(IE)]
     | <html class="no-js" lang="en">
 
-html
+html itemtype="http://schema.org/Organization" itemprop=""
     head
         meta charset="utf-8"
         meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
@@ -17,7 +17,7 @@ html
         	title= "#{@title} : Direct Me NYC: 1940"
         - else
         	title= "Direct Me NYC: 1940"
-        meta name="description" content="content"
+
         meta name="author" content="NYPL Labs - The New York Public Library"
         meta name="keywords" content="NYPL, NYPL Labs, The New York Public Library, Milstein, genealogy, phonebooks, new york city, nyc history, Federal Census, 1940 Census, US Census, New York Public Library, Steve Morse, Stephen Morse, Joel Weintraub, 1940"
         meta name="viewport" content="width=device-width, initial-scale=1"
@@ -26,11 +26,17 @@ html
         // Facebook Stuff
         | <meta property="og:title" content="NYPL Direct Me NYC: 1940" />
         | <meta property="og:type" content="website" />
-        | <meta property="og:url" content="http://directme.nypl.org" />
-        | <meta property="og:image" content="" />
+        | <meta property="og:description" content="NYPL Direct Me NYC: 1940" />
+        | <meta property="og:url" content="#{@ogurl}" />
+        | <meta property="og:image" content="http://directme.nypl.org/images/fedeler_1.png" />
         | <meta property="og:site_name" content="Direct Me NYC: 1940 by NYPL Labs" />
         | <meta property="fb:app_id" content="197421743694376" />
         | <meta name="google-site-verification" content="UBTjDORSlIkAVoVgmmQ-JsIeoppdFgEG59mrAYFKVas" />
+
+        // Google Stuff
+        | <meta itemprop="name" content="NYPL Direct Me NYC: 1940 - Use old phone books to unlock the 1940 Federal Census">
+        | <meta itemprop="description" content="NYPL Direct Me NYC: 1940 - Use old phone books to unlock the 1940 Federal Census">
+        | <meta itemprop="image" content="http://directme.nypl.org/images/fedeler_1.png">
 
         - if @RESULTS
             ==slim :'css/css_results'
