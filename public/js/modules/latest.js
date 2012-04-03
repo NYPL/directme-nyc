@@ -128,7 +128,7 @@ define(['jquery'], function($) {
 			var story = stories[i];
 			
 			if (story.content.length > 140) {
-				story.content = story.content.substring(0, 137) + '...'
+				story.content = story.content.substring(0, 139) + '…'
 			}
 			var str = prepareStoryHTML(story.content, story.author, story.time_ago, urlpath, story.result_token);
 			$("#annotations").append(str);
