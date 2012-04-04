@@ -117,9 +117,8 @@ class Application < Sinatra::Base
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
-			@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js',
-				'/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/DV_load.js', 
-				'/js/modules/pubsub.js', '/js/modules/magpie.js']
+			@scripts = ['/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/pubsub.js',
+			'/js/modules/DV_load.js', '/js/modules/pubsub.js', '/js/modules/magpie.js']
 			@DV = true
 
 			slim :DV_page, :locals => {:borough => "#{params['borough']}"}
@@ -153,8 +152,7 @@ class Application < Sinatra::Base
 
 			if !obj.blank? and !obj.nil?
 				@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
-							'/js/modules/bootstraps.js']
-				@deps = ['order!modules/results', 'order!modules/nytimes']
+							'/js/modules/bootstraps.js', '/js/modules/results.js', '/js/modules/nytimes.js']
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 

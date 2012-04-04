@@ -1,4 +1,4 @@
-define(['jquery', 'modules/social'], function($, social) {
+(function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 	//var narapath = "http://1940census.archives.gov/show-image/enumeration-district/";
@@ -15,26 +15,28 @@ define(['jquery', 'modules/social'], function($, social) {
 	}
 
 	function submitStory() {
-		social.checkSession();
+		$.getScript('/js/modules/social.js', function(data, textStatus, jqxhr) {
+			checkSession();
 
-		$('#frm-content').on('keyup', function() {
-			$('#submit').removeClass('disabled');			
-		});
-
-		$('#submit').on('click', function(e) {
-			e.preventDefault();
-
-			$('#conn_social').on('show', function() {
-				var _modal = $('.modal');
-				_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
-				social.init();
+			$('#frm-content').on('keyup', function() {
+				$('#submit').removeClass('disabled');			
 			});
 
-			var content = $('#frm-content').val() || null;
-	
-			if (content !== null) {
-				socialStart();
-			}
+			$('#submit').on('click', function(e) {
+				e.preventDefault();
+
+				$('#conn_social').on('show', function() {
+					var _modal = $('.modal');
+					_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
+					init();
+				});
+
+				var content = $('#frm-content').val() || null;
+		
+				if (content !== null) {
+					socialStart();
+				}
+			});
 		});
 	}
 
@@ -273,4 +275,4 @@ define(['jquery', 'modules/social'], function($, social) {
 	return {
 		init: _init()
 	};
-});
+}(jQuery));

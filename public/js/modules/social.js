@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+(function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 	var callback_url =  window.location;
@@ -212,11 +212,4 @@ define(['jquery'], function($) {
 		content = a.join(" ");
 		return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + " ago</p></div>";
 	}
-
-	return {
-		init: _init,
-		appendStory: appendStory,
-		checkSession: checkSession
-	};
-
-});
+}(jQuery));

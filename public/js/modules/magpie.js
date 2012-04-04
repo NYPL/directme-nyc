@@ -1,4 +1,4 @@
-define(function($) {
+(function($) {
 
 	//globals
 	var page_idx = 0;
