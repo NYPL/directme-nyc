@@ -11,7 +11,7 @@ var curr_loupe = null;
 var curr_view = null;
 var curr_options = null;
 
-define(['jquery'], function($) {
+function($) {
 	function _init() {
 		$.subscribe('pages', reFunc)
 		$.subscribe('dragging', dragEvent)
@@ -275,4 +275,4 @@ define(['jquery'], function($) {
 		init: _init,
 		tab_init : _tab_init
 	}
-});
+}(jQuery));

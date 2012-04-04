@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+(function($) {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
@@ -60,4 +60,4 @@ define(['jquery'], function($) {
 	return {
 		init: _init(),
 	};
-});
+}(jQuery));

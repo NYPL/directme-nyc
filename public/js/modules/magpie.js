@@ -1,12 +1,14 @@
-define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(require, $, fuzzy, magView) {
+define(function($) {
 
 	//globals
 	var page_idx = 0;
 
 	function _init() {
 		//defined module inits
-		magView.init();
-		magView.tab_init();
+		$.getScript('/js/modules/jloupe.js', function(magView) {
+			magView.init();
+			magView.tab_init();
+		});
 
 		$.subscribe('clickSpot', funModal);
 		hide_Modal();
@@ -52,8 +54,8 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 		if (environment.hasOwnProperty('streets')) {
 		}
 		else {
-			fuzzy.init();
-			fuzzy.search(page_idx);
+			//fuzzy.init();
+			//fuzzy.search(page_idx);
 			$('.popovers').popover();
 		}
 
@@ -67,7 +69,9 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 	}
 
 	function reInitMag() {
-		magView.init();
+		$.getScript('/js/modules/jloupe.js', function() {
+			magView.init();
+		});
 		$.publish('pages', []);
 	}
 
@@ -75,4 +79,4 @@ define(['require', 'jquery', 'modules/fuzzy', 'modules/jloupe'], function(requir
 	return {
 		init: _init()
 	};
-});
+}(jQuery));

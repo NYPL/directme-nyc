@@ -54,6 +54,7 @@ html itemtype="http://schema.org/Organization" itemprop=""
         link rel='shortcut icon' href='/favicon.ico'
         link rel='apple-touch-icon' href='/images/apple-touch-icon.png' 
 
+
         - if @DV
             javascript:
                 if (screen.width <= 480) {
@@ -67,6 +68,11 @@ html itemtype="http://schema.org/Organization" itemprop=""
         script src="/js/re_browser.js"
         script src="/js/libs/modernizr.js"
 
+        script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
+        script src='/js/libs/underscore.js'
+        script src='/js/plugins.js'
+        script src='/js/app.js'
+
         - if @SOCIAL
             script src="https://apis.google.com/js/plusone.js"
             javascript:
@@ -79,15 +85,11 @@ html itemtype="http://schema.org/Organization" itemprop=""
                         fjs.parentNode.insertBefore(js,fjs);
                     }}(document,"script","twitter-wjs");
         
-        /! require.js => special version
-        script data-main="/js/main.js" src="/js/libs/require-jquery.js"
 
         - if @DV
             javascript:
                 var environment = {
                     page_title: 'Viewing #{borough}',
-                    deps: $.parseJSON('#{{@deps}}'),
-                    consts: $.parseJSON('#{{@consts}}'),
                     borough: '#{borough}'
                 };
 
@@ -95,8 +97,6 @@ html itemtype="http://schema.org/Organization" itemprop=""
             javascript:
                 var environment = {
                     page_title: 'NYPL Labs',
-                    deps: $.parseJSON('#{{@deps}}'),
-                    consts: $.parseJSON('#{{@consts}}'),
                     onSite: '#{@onsite}'
                 };
 
@@ -104,8 +104,6 @@ html itemtype="http://schema.org/Organization" itemprop=""
             javascript:
                 var environment = {
                     page_title: 'NYPL Labs',
-                    deps: $.parseJSON('#{{@deps}}'),
-                    consts: $.parseJSON('#{{@consts}}')
                 };
 
     body

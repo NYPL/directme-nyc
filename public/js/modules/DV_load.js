@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+(function($) {
 
 	function _init() {
 		$.getJSON(window.location.protocol + "//" + window.location.host + "/api/indexes/" + environment.borough + '.json', function(data) {
@@ -33,4 +33,4 @@ define(['jquery'], function($) {
 	return {
 		init: _init()
 	};
-});
+})(jQuery);

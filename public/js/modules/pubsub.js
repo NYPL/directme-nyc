@@ -1,11 +1,11 @@
-define(['jquery'], function($) {
+(function($) {
 
 	function _init() {
 		pubsub();
 	}
 
 	function pubsub() {
-		var o = $({}),
+		var o = $({});
 		s = 'subscribe';
 		$.each({
 			on: s,
@@ -23,4 +23,4 @@ define(['jquery'], function($) {
 	return {
 		init: _init()
 	};
-});
+}(jQuery));

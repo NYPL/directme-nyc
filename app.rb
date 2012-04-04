@@ -94,9 +94,8 @@ class Application < Sinatra::Base
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
-			@scripts = ['/js/libs/jquery.marquee.js']
-			@consts = ['order!modules/ytube']
-			@deps = ['order!modules/front', 'order!modules/nytimes']
+			@scripts = ['/js/libs/jquery.marquee.js', '/js/modules/ytube.js',
+				'/js/modules/front.js', '/js/modules/nytimes.js']
 
 			@monthday = Time.now.strftime("%m/%d")
 			@year = (Time.new.year - 72)
@@ -118,9 +117,9 @@ class Application < Sinatra::Base
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
-			@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js']
-			@consts = ['order!modules/viewer', 'order!modules/templates']
-			@deps = ['order!modules/DV_load', 'order!modules/pubsub', 'order!modules/magpie']
+			@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js',
+				'/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/DV_load.js', 
+				'/js/modules/pubsub.js', '/js/modules/magpie.js']
 			@DV = true
 
 			slim :DV_page, :locals => {:borough => "#{params['borough']}"}
