@@ -119,7 +119,7 @@
 
 				if (data.hasOwnProperty('stories')) {
 					for (i = 0; i < data.stories.length; i++) {
-						social.appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
+						//social.appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
 					}
 				}
 
