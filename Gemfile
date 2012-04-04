@@ -37,6 +37,10 @@ gem 'agent_orange'
 #geothings
 gem 'geocoder'
 
+#backups
+gem "heroku-mongo-backup", :require => 'heroku_mongo_backup'
+
+
 group :test do
 	gem 'rack-test', :require => 'rack/test'
 	gem 'webmock'

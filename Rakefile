@@ -14,6 +14,11 @@ Rake::TestTask.new do |t|
 end
 
 namespace :db do
+	desc "backups"
+	task :backup_cron => :environment do
+	  Rake::Task['mongo:backup'].invoke
+	end
+
 	desc "heroku sync install"
 	task :installs do
 		sh %{heroku plugins:install http://github.com/pedro/heroku-mongo-sync.git}
