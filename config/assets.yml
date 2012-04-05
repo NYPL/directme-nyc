@@ -5,6 +5,7 @@ gzip_assets: on
 
 javascripts:
     viewer:
+        - public/js/DV/vendor/jquery-1.7.1.min.js 
         - public/js/DV/vendor/jquery-ui-1.8.1.custom.min.js                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         - public/js/DV/vendor/jquery.acceptInput.js                                                                                                                                                                                    
         - public/js/DV/vendor/jquery.placeholder.js                                                                                                                                                                                    
@@ -29,6 +30,22 @@ javascripts:
         - public/bootstrap/js/bootstrap-transition.js
         - public/bootstrap/js/bootstrap-tooltip.js
         - public/bootstrap/js/bootstrap-popover.js
+
+    # mainpipe:
+    #   -
+
+    # index:
+    #   - 
+
+    # DV: 
+    #   - 
+
+    # results:
+    #   - 
+
+    # latest: 
+    #   - 
+
 
 stylesheets:
     results:

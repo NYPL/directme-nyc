@@ -94,8 +94,8 @@ class Application < Sinatra::Base
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
-			@scripts = ['/js/libs/jquery.marquee.js', '/js/modules/ytube.js',
-				'/js/modules/front.js', '/js/modules/nytimes.js']
+			@scripts = ['/js/modules/ytube.js', '/js/modules/front.js', 
+				'/js/libs/jquery.marquee.js', '/js/modules/nytimes.js']
 
 			@monthday = Time.now.strftime("%m/%d")
 			@year = (Time.new.year - 72)
@@ -113,12 +113,12 @@ class Application < Sinatra::Base
 	end
 
 	get '/directory/:borough' do
-    @title = params['borough'].split(/(\W)/).map(&:capitalize).join
+    	@title = params['borough'].split(/(\W)/).map(&:capitalize).join
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
-			@scripts = ['/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/pubsub.js',
-			'/js/modules/DV_load.js', '/js/modules/pubsub.js', '/js/modules/magpie.js']
+			@scripts = ['/js/modules/bootstraps.js', '/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/DV_load.js', 
+				'/js/modules/pubsub.js', '/js/modules/jloupe.js', '/js/modules/magpie.js']
 			@DV = true
 
 			slim :DV_page, :locals => {:borough => "#{params['borough']}"}
@@ -126,9 +126,8 @@ class Application < Sinatra::Base
 	end
 
 	get '/latest' do
-	  @title = 'Latest'
-		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js']
-		@deps = ['order!modules/latest']
+		@title = 'Latest'
+		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', '/js/modules/latest.js']
 		@LATEST = true
 		@SOCIAL = true
 
@@ -151,8 +150,9 @@ class Application < Sinatra::Base
 			obj = Locations.where(:token => params['token']).first()
 
 			if !obj.blank? and !obj.nil?
-				@scripts = ['/js/libs/jquery.marquee.js', '/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
-							'/js/modules/bootstraps.js', '/js/modules/results.js', '/js/modules/nytimes.js']
+				@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', 
+							'/js/modules/bootstraps.js', '/js/modules/results.js', '/js/libs/jquery.marquee.js', 
+							'/js/modules/nytimes.js']
 				@monthday = Time.now.strftime("%m/%d")
 				@year = (Time.new.year - 72)
 

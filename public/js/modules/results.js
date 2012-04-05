@@ -15,7 +15,7 @@
 	}
 
 	function submitStory() {
-		$.getScript('/js/modules/social.js', function(data, textStatus, jqxhr) {
+		$.getScript('/js/modules/social.js', function(script, textStatus, jqxhr) {
 			checkSession();
 
 			$('#frm-content').on('keyup', function() {
@@ -28,7 +28,7 @@
 				$('#conn_social').on('show', function() {
 					var _modal = $('.modal');
 					_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
-					init();
+					social_init();
 				});
 
 				var content = $('#frm-content').val() || null;
@@ -118,9 +118,11 @@
 				}
 
 				if (data.hasOwnProperty('stories')) {
-					for (i = 0; i < data.stories.length; i++) {
-						//social.appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
-					}
+					$.getScript('/js/modules/social.js', function(script, textStatus, jqxhr) {
+						for (i = 0; i < data.stories.length; i++) {
+							appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
+						}
+					});
 				}
 
 			}

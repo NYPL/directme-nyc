@@ -5,10 +5,8 @@
 
 	function _init() {
 		//defined module inits
-		$.getScript('/js/modules/jloupe.js', function(magView) {
-			magView.init();
-			magView.tab_init();
-		});
+		jloupe_init();
+		tab_init();
 
 		$.subscribe('clickSpot', funModal);
 		hide_Modal();
@@ -69,9 +67,7 @@
 	}
 
 	function reInitMag() {
-		$.getScript('/js/modules/jloupe.js', function() {
-			magView.init();
-		});
+		jloupe_init();
 		$.publish('pages', []);
 	}
 

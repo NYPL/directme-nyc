@@ -1,7 +1,7 @@
 var urlpath = window.location.protocol + "//" + window.location.host;
 var callback_url =  window.location;
 
-function init() {
+function social_init() {
 	log("jldj")
 	fbSetup();
 	twitterSetup();
