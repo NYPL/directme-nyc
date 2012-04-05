@@ -277,5 +277,5 @@
 	/** Return instantiated function */
 	return {
 		init: _init()
-	};
+	}
 }(jQuery));

@@ -5,8 +5,8 @@
 
 	function _init() {
 		//defined module inits
-		jloupe_init();
-		tab_init();
+		jloupe().init();
+		jloupe().tab_init();
 
 		$.subscribe('clickSpot', funModal);
 		hide_Modal();
@@ -53,8 +53,8 @@
 		}
 		else {
 			$.getScript('/js/modules/fuzzy.js', function(script, textStatus, jqxhr) {
-				fuzzy_init();
-				autoCompleteO(page_idx);
+				fuzzy().init();
+				fuzzy().autoCompleteO(page_idx);
 				$('.popovers').popover();
 			});
 		}
@@ -69,12 +69,12 @@
 	}
 
 	function reInitMag() {
-		jloupe_init();
+		jloupe().init();
 		$.publish('pages', []);
 	}
 
 	/** Return instantiated function */
 	return {
 		init: _init()
-	};
+	}
 }(jQuery));

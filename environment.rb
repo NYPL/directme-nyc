@@ -26,6 +26,7 @@ class Application < Sinatra::Base
 	use Rack::Deflater
 	use Rack::Session::Cookie, :secret => ENV['COOKIESECRET'], :expire_after => 1200, :key => 'directmenyc'
 	use Rack::Csrf, :raise => true
+	#use Rack::Cache
 
 	use OmniAuth::Builder do
 		provider :facebook, ENV['FBKEY'], ENV['FBSECRET']
@@ -74,7 +75,8 @@ class Application < Sinatra::Base
   	end
 
 	#directory settings
-	set :static_cache_control, [:public, :max_age => 1]
+	enable :static
+	set :static_cache_control, [:public, {:max_age => 1}]
 	set :root, root_dir
 	set :public_folder, 'public'
 	set :views, 'views'
@@ -86,9 +88,6 @@ class Application < Sinatra::Base
 	#app based configurations
 	configure :development do
 		puts "fun_times_had_by_all"
-		# if defined?(Mongoid)
-		# 	Mongoid.logger = Logger.new(STDOUT)
-		# end
 	end
 
 	configure :test do
@@ -107,10 +106,6 @@ class Application < Sinatra::Base
 		  use Airbrake::Rack
 		  run lambda { |env| raise "Rack down" }
 		end
-
-		# if defined?(Mongoid)
-		# 	Mongoid.logger=Logger.new('/dev/null')
-		# end
 	end
 end
 

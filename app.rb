@@ -117,8 +117,8 @@ class Application < Sinatra::Base
 		if isMobile(request.user_agent)
 			redirect '/latest'
 		else
-			@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js', '/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/DV_load.js', 
-				'/js/modules/pubsub.js', '/js/modules/jloupe.js', '/js/modules/magpie.js']
+			@scripts = ['/js/libs/jquery-ui-1.8.18.custom.min.js', '/js/modules/bootstraps.js', '/js/modules/jloupe.js', '/js/modules/viewer.js', '/js/modules/templates.js', '/js/modules/DV_load.js', 
+				'/js/modules/pubsub.js', '/js/modules/magpie.js']
 			@DV = true
 
 			slim :DV_page, :locals => {:borough => "#{params['borough']}"}

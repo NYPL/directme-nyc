@@ -199,7 +199,6 @@ DV.Page.prototype.loadImage = function(argHash) {
   var preloader       = DV.jQuery(new Image);
   var me              = this;
   var base            = this.viewer;
-
   var lazyImageLoader = function(){
     if(me.loadTimer){
       clearTimeout(me.loadTimer);
@@ -214,7 +213,7 @@ DV.Page.prototype.loadImage = function(argHash) {
         clearTimeout(me.loadTimer);
         delete me.loadTimer;
       }
-    base.api.updateMag(jQuery, 'pages')
+      base.api.updateMag(jQuery, 'pages')
     });
 
     var src = me.model_pages.imageURL(me.index);
