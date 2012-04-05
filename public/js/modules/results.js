@@ -16,7 +16,7 @@
 
 	function submitStory() {
 		$.getScript('/js/modules/social.js', function(script, textStatus, jqxhr) {
-			checkSession();
+			social().checkSession();
 
 			$('#frm-content').on('keyup', function() {
 				$('#submit').removeClass('disabled');			
@@ -28,7 +28,7 @@
 				$('#conn_social').on('show', function() {
 					var _modal = $('.modal');
 					_modal.css('left',($('#main').width()/2) - ($(this).width()/2) + 'px');
-					social_init();
+					social().init();
 				});
 
 				var content = $('#frm-content').val() || null;
@@ -118,13 +118,10 @@
 				}
 
 				if (data.hasOwnProperty('stories')) {
-					$.getScript('/js/modules/social.js', function(script, textStatus, jqxhr) {
-						for (i = 0; i < data.stories.length; i++) {
-							appendStory(data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
-						}
-					});
+					for (i = 0; i < data.stories.length; i++) {
+						appendStory('annotation', data.stories[i].content, data.stories[i].author, data.stories[i].time_ago)
+					}
 				}
-
 			}
 		});
 	}
@@ -271,6 +268,10 @@
 		$('a#printpage').on('click', function() {
 			window.print();
 		});
+	}
+
+	function appendStory(css, content, author, time_dist) {
+		$(prepareStoryHTML(css, content, author, time_dist)).appendTo('.texts')
 	}
 
 	/** Return instantiated function */

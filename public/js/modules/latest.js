@@ -127,37 +127,12 @@
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
 			
-			if (story.content.length > 140) {
-				story.content = story.content.substring(0, 139) + '…'
-			}
-			var str = prepareStoryHTML(story.content, story.author, story.time_ago, urlpath, story.result_token);
+			var str = prepareStoryHTML('annotation', story.content, story.author, story.time_ago, urlpath, story.result_token, true);
 			$("#annotations").append(str);
 			if (parseInt(count) == $('.annotation').length) {
 				$('.more').hide();
 			}
 		}
-	}
-
-	function prepareStoryHTML(content, author, time_dist, url, token) {
-		var a = content.split(" ");
-		var i,l=a.length;
-		var limit = 28;
-		// http://en.wikipedia.org/wiki
-		// 28
-		for (i=0;i<l;++i) {
-			// is it a url?
-			var tmp = "";
-			// no links in latest (could be broken)
-			// is it long?
-			if (a[i].length > limit) {
-				tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
-			} else {
-				tmp += a[i];
-			}
-			a[i] = tmp;
-		}
-		content = a.join(" ");
-		return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
 	}
 
 	/** Return instantiated function */

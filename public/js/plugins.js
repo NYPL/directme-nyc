@@ -10,6 +10,52 @@ window.log = function(){
   	}
 };
 
+(function() {
+    prepareStoryHTML = function(css, content, author, time_dist, url, token, shorten) {
+        if (content.length > 140 && typeof shorten !== 'undefined') {
+            content = content.substring(0, 139) + '…'
+        }
+
+        else {
+            var a = content.split(" ");
+            var i,l=a.length;
+            var limit = 28;
+            // http://en.wikipedia.org/wiki
+            // 28
+            for (i=0;i<l;++i) {
+                // is it a url?
+                var tmp = "";
+                var isurl = a[i].match(/(^|\s)((https?:\/\/)[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+                if (isurl) {
+                    if (a[i].substr(0,7)!="http://" && a[i].substr(0,8)!="https://") {
+                        tmp = "<a href=\"http://" + a[i] + "\">";
+                    } else {
+                        tmp = "<a href=\"" + a[i] + "\">";
+                    }
+                }
+                // is it long?
+                if (a[i].length > limit) {
+                    tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
+                } else {
+                    tmp += a[i];
+                }
+                if (isurl) {
+                    tmp += "</a>";
+                }
+                a[i] = tmp;
+            }
+            content = a.join(" ");
+        }
+
+        if (typeof url !== 'undefined' || typeof token !== 'undefined') {
+            return "<div class='" + css + "'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p><a href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
+        }
+        else {
+            return "<div class='annotation'><p class='author'><strong>" + author + "</strong> wrote:</p><p class='content'>" + content + "</p><p class='author'>" + time_dist + " ago</p></div>";   
+        }
+    }
+}());
+
 // make it safe to use console.log always
 (function(b){function c(){}for(var d="assert,clear,count,debug,dir,dirxml,error,exception,firebug,group,groupCollapsed,groupEnd,info,log,memoryProfile,memoryProfileEnd,profile,profileEnd,table,time,timeEnd,timeStamp,trace,warn".split(","),a;a=d.pop();){b[a]=b[a]||c}})((function(){try
 {console.log();return window.console;}catch(err){return window.console={};}})());
@@ -22,7 +68,7 @@ window.log = function(){
             $('input, textarea').placeholder();
         });
     }
-})();
+}());
 
 /* IE and other needy functions */
 (function () {
@@ -131,4 +177,4 @@ window.log = function(){
          return false;
      };
     }
-})();
+}());

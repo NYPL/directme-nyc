@@ -52,9 +52,11 @@
 		if (environment.hasOwnProperty('streets')) {
 		}
 		else {
-			//fuzzy.init();
-			//fuzzy.search(page_idx);
-			$('.popovers').popover();
+			$.getScript('/js/modules/fuzzy.js', function(script, textStatus, jqxhr) {
+				fuzzy_init();
+				autoCompleteO(page_idx);
+				$('.popovers').popover();
+			});
 		}
 
 		show_Modal(function() {
