@@ -66,12 +66,8 @@ html itemtype="http://schema.org/Organization" itemprop=""
                 try{Typekit.load();}catch(e){}
 
         script src="/js/re_browser.js"
-        script src="/js/libs/modernizr.js"
-
         script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
-        script src='/js/libs/underscore.js'
-        script src='/js/plugins.js'
-        script src='/js/app.js'
+        script src="/assets/mainpipe.js"
 
         - if @SOCIAL
             script src="https://apis.google.com/js/plusone.js"
@@ -124,6 +120,6 @@ html itemtype="http://schema.org/Organization" itemprop=""
         - for script in @scripts do
             script src=script
 
-    script src='/js/analytics.js'
+    script src='/assets/analytics.js'
 	
 

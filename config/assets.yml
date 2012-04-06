@@ -31,20 +31,38 @@ javascripts:
         - public/bootstrap/js/bootstrap-tooltip.js
         - public/bootstrap/js/bootstrap-popover.js
 
-    # mainpipe:
-    #   -
+    mainpipe:
+        - public/js/libs/modernizr.js
+        - public/js/libs/underscore.js
+        - public/js/libs/respond.min.js
+        - public/js/plugins.js
+        - public/js/app.js
 
-    # index:
-    #   - 
+    index:
+        - public/js/modules/ytube.js
+        - public/js/modules/front.js
+        - public/js/libs/jquery.marquee.js
+        - public/js/modules/nytimes.js
 
-    # DV: 
-    #   - 
+    DV: 
+        - public/js/libs/jquery-ui-1.8.18.custom.min.js
+        - public/js/modules/bootstraps.js
+        - public/js/modules/jloupe.js
+        - public/js/modules/DV_load.js
+        - public/js/modules/pubsub.js
+        - public/js/modules/magpie.js 
 
-    # results:
-    #   - 
+    results:
+        - public/js/modules/bootstraps.js
+        - public/js/modules/results.js
+        - public/js/libs/jquery.marquee.js
+        - public/js/modules/nytimes.js
 
-    # latest: 
-    #   - 
+    latest:
+        - public/js/modules/latest.js
+
+    analytics:
+        - public/js/analytics.js
 
 
 stylesheets:

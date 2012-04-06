@@ -39,6 +39,7 @@ gem 'geocoder'
 
 #backups
 gem "heroku-mongo-backup", :require => 'heroku_mongo_backup'
+gem "aws-s3", :require => 'aws/s3'
 
 
 group :test do

@@ -101,11 +101,11 @@ namespace :app do
 		end
 	end
 
-	desc "rocco_doc for js files (css in future?); only for js now"
-	task :rocco_doc do
-		puts "rocco!"
-		sh %{cd public/js; rocco -o ../docs modules/*.js app.js main.js}
-	end
+	# desc "rocco_doc for js files (css in future?); only for js now"
+	# task :rocco_doc do
+	# 	puts "rocco!"
+	# 	sh %{cd public/js; rocco -o ../docs modules/*.js app.js main.js}
+	# end
 
 	desc "jammit man!"
 	task :jammit do
@@ -113,11 +113,11 @@ namespace :app do
 		exec "jammit"
 	end
 
-	desc "movement"
-	task :moveme do
-		puts "moving assets/js to modules"
-		sh %{mv public/assets/*.js public/js/modules}
-	end
+	# desc "movement"
+	# task :moveme do
+	# 	puts "moving assets/js to modules"
+	# 	sh %{mv public/assets/*.js public/js/modules}
+	# end
 
 	desc "just move and jam"
 	task :movejam do
@@ -126,7 +126,7 @@ namespace :app do
 
 	desc "run all rakes in namespace app"
 	task :setup do
-		sh %{rake app:less_css; rake app:scss_css; rake app:jammit; rake app:moveme}
+		sh %{rake app:less_css; rake app:scss_css; rake app:jammit}
 	end
 
 end
