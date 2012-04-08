@@ -15,7 +15,7 @@
 	}
 
 	function submitStory() {
-		$.getScript('/js/modules/social.js', function(script, textStatus, jqxhr) {
+		$.getScript('/js/assets/social.js', function(script, textStatus, jqxhr) {
 			social().checkSession();
 
 			$('#frm-content').on('keyup', function() {
