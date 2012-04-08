@@ -62,7 +62,7 @@
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
-		if (typeof tickerDOM !== 'undefined' && typeof ie === 'undefined') {
+		if (typeof tickerDOM !== 'undefined') {
 			tickerDOM.marquee('pointer').mouseover(function () {
 	            $(this).trigger('stop');
 	        }).mouseout(function () {
