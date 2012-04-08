@@ -64,7 +64,7 @@ window.log = function(){
 /* Moderns */
 (function() {
     if (!Modernizr.input.placeholder){
-        $.getScript('/assets/jquery.placeholder.min.js').done( function(script, textStatus) {
+        $.getScript('/js/libs/jquery.placeholder.min.js').done( function(script, textStatus) {
             $('input, textarea').placeholder();
         });
     }
