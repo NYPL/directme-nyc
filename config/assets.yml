@@ -64,6 +64,15 @@ javascripts:
     analytics:
         - public/js/analytics.js
 
+    fuzzy:
+        - public/js/modules/fuzzy.js
+
+    social:
+        - public/js/modules/social.js
+
+    rebrowser:
+        - public/js/re_browser.js
+
 
 stylesheets:
     results:

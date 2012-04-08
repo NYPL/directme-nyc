@@ -52,7 +52,7 @@
 		if (environment.hasOwnProperty('streets')) {
 		}
 		else {
-			$.getScript('/js/modules/fuzzy.js', function(script, textStatus, jqxhr) {
+			$.getScript('/assets/fuzzy.js', function(script, textStatus, jqxhr) {
 				fuzzy().init();
 				fuzzy().autoCompleteO(page_idx);
 				$('.popovers').popover();

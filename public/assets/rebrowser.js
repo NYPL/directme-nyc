@@ -1,0 +1,1 @@
+var ie=(function(){var c,a=3,d=document.createElement("div"),b=d.getElementsByTagName("i");while(d.innerHTML="<!--[if gt IE "+(++a)+"]><i></i><![endif]-->",b[0]){}return a>4?a:c}());if(ie<=7){window.location.replace("/upgrade")};
