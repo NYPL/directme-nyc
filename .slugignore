@@ -3,5 +3,6 @@ public/bootstrap
 public/css
 public/scss
 public/less
-public/js
+public/js/modules
+public/js/*.js
 scripts
