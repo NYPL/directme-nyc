@@ -76,7 +76,7 @@ class Application < Sinatra::Base
 
 	#directory settings
 	enable :static
-	set :static_cache_control, [:public, {:max_age => 1}]
+	set :static_cache_control, [:public, {:max_age => 10800}]
 	set :root, root_dir
 	set :public_folder, 'public'
 	set :views, 'views'

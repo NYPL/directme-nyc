@@ -8,10 +8,6 @@ function jloupe() {
 	var locked_mode = null;
 	var drag_mode = null;
 
-	var curr_loupe = null;
-	var curr_view = null;
-	var curr_options = null;
-
 	function _init() {
 		$.subscribe('pages', reFunc)
 		$.subscribe('dragging', dragEvent)
@@ -20,6 +16,9 @@ function jloupe() {
 	}
 
 	function _tab_init() {
+		var curr_loupe = null;
+		var curr_view = null;
+		var curr_options = null;
 		$.subscribe('tabletTouch', tabletTouch);
 	}
 
@@ -106,7 +105,7 @@ function jloupe() {
 		$(elem).data('zoom',i);
 
 		if (!isiPad) {
-			browserEvents(elem, loupe, view, options)
+			browserEvents(elem, loupe, view, options);
 		}
 		else {
 			tabletSets(loupe, view, options);
@@ -115,7 +114,7 @@ function jloupe() {
 	}
 
 	function tabletSets(loupe, view, options) {
-		if (!!loupe && !!view && !!options) {
+		if (typeof loupe !== 'undefined' && typeof view !== 'undefined' && typeof options !== 'undefined') {
 			curr_loupe = loupe;
 			curr_view = view;
 			curr_options = options;
@@ -126,11 +125,11 @@ function jloupe() {
 	}
 
 	function tabletTouch(e, num, page, touch) {
-		log("publish jdldlj")
 		loupe_vars = tabletSets();
-		loupe = loupe_vars[0];
-		view = loupe_vars[1];
-		options = loupe_vars[2];
+		var loupe = loupe_vars[0];
+		var view = loupe_vars[1];
+		var options = loupe_vars[2];
+
 
 		if ($('.modal-backdrop').length == 0) {
 			// background stuff
@@ -149,7 +148,6 @@ function jloupe() {
 			zto = (((posy - touch.target.y) / touch.target.height) * h *-1) + (options.height/2);
 			
 			$(view).css('backgroundImage', 'url('+ $(i).attr('src') +')').css('backgroundPosition', zlo+'px ' + zto+'px');
-			
 			// show loupe
 			$(loupe).show();
 			// animation + modal
