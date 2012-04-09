@@ -1,4 +1,3 @@
-#encodings working in rubinius with ruby 1.9, still being developed though
 Encoding.default_internal = 'UTF-8'
 # ==========================
 # = Requirement - *bundler =
@@ -26,7 +25,6 @@ class Application < Sinatra::Base
 	use Rack::Deflater
 	use Rack::Session::Cookie, :secret => ENV['COOKIESECRET'], :expire_after => 1200, :key => 'directmenyc'
 	use Rack::Csrf, :raise => true
-	#use Rack::Cache
 
 	use OmniAuth::Builder do
 		provider :facebook, ENV['FBKEY'], ENV['FBSECRET']
@@ -96,7 +94,6 @@ class Application < Sinatra::Base
 	configure :production do
 		require 'newrelic_rpm'
 		require 'airbrake'
-
 
 		Airbrake.configure do |config|
 		  config.api_key = ENV['AIRBRAKE_API_KEY']
