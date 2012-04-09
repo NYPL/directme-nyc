@@ -45,11 +45,11 @@ javascripts:
         - public/js/modules/nytimes.js
 
     DV: 
+        - public/js/modules/pubsub.js
+        - public/js/modules/DV_load.js
         - public/js/libs/jquery-ui-1.8.18.custom.min.js
         - public/js/modules/bootstraps.js
         - public/js/modules/jloupe.js
-        - public/js/modules/DV_load.js
-        - public/js/modules/pubsub.js
         - public/js/modules/magpie.js 
 
     results:

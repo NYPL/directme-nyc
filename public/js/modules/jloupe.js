@@ -4,7 +4,6 @@
  w/ edits/changes/additions by Zeeshan Lakhani
 */
 
-
 function jloupe() {
 	var locked_mode = null;
 	var drag_mode = null;
@@ -20,7 +19,7 @@ function jloupe() {
 		drag_mode = false;
 	}
 
-	function tab_init() {
+	function _tab_init() {
 		$.subscribe('tabletTouch', tabletTouch);
 	}
 
@@ -127,6 +126,7 @@ function jloupe() {
 	}
 
 	function tabletTouch(e, num, page, touch) {
+		log("publish jdldlj")
 		loupe_vars = tabletSets();
 		loupe = loupe_vars[0];
 		view = loupe_vars[1];
@@ -276,6 +276,6 @@ function jloupe() {
 
 	return {
 		init: _init,
-		tab_init: tab_init
+		tab_init: _tab_init
 	}
 }

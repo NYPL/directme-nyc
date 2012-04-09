@@ -269,7 +269,8 @@ DV.Schema.helpers = {
               if (pId!=undefined) {
                   p = this.viewer.pageSet.pages[pId];
                   n = p.pageNumber;
-            	  $.publish('tabletTouch', [n, p, touch]);
+                  log("check")
+                  $.publish('tabletTouch', [n, p, touch]);
               }
             }
         }
