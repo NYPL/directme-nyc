@@ -17,11 +17,11 @@ DV.Thumbnails = function(viewer){
   };
   //boro fixes
   this.boro_fix = {
-    'staten': 11,
-    'bronx': 12,
-    'manhattan': 12,
-    'brooklyn': 12,
-    'queens': 12
+    'staten': 10,
+    'bronx': 11,
+    'manhattan': 11,
+    'brooklyn': 11,
+    'queens': 11
   };
 
   if (this.boro == 'Staten Island') {
