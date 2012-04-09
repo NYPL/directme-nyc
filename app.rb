@@ -472,14 +472,30 @@ class Api < Application
 			if Stories.exists?
 				ret_hash = paging_time(Stories, request, params)
 
+				add_hash = {}
+				loc_array = []
+
+				if !params['include_loc'].blank? and !params['include_loc'].nil?
+					ret_hash[:objs].each {|story| 
+						loc_array.push(story.result_token)
+					}
+					addresses = Locations.where(:token.in=>loc_array.uniq).only(:main_string, :token)
+
+					addresses.each { |loc|
+						add_hash[loc.token] = loc.main_string
+					}
+				end
+				
 				if !ret_hash[:before_url].nil?
 					hash = {
 						:count => ret_hash[:count],
+						:addresses => add_hash,
 						:stories => ret_hash[:objs],
 						:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
 					}.to_json
 				else
 					hash = {
+						:addresses => add_hash,
 						:stories => ret_hash[:objs]
 					}.to_json
 				end

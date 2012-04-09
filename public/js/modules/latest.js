@@ -29,7 +29,7 @@
 				else {
 					$('.more').hide();
 				}
-				addStories(story_data[0].stories);
+				addStories(story_data[0].stories, story_data[0].addresses);
 			}
 
 		});
@@ -52,7 +52,7 @@
 	}
 
 	function latestStories() {
-		return $.getJSON(urlpath + '/api/stories.json?limit=' + story_limit + '&callback=?', function(data) {
+		return $.getJSON(urlpath + '/api/stories.json?limit=' + story_limit + '&include_loc=true&callback=?', function(data) {
 		});
 
 	}
@@ -67,14 +67,14 @@
 					urlForMoreStories = story_data.before_timestamp;
 					$("#moreloader").html("Load more stories"); 
 				}
-				addStories(story_data.stories, story_data.count);
+				addStories(story_data.stories, story_data.addresses, story_data.count);
 				isUpdating = false;
 			}
 		});
 	}
 
 	function moreStories() {
-		return $.getJSON(urlForMoreStories + '&callback=?', function(data) {
+		return $.getJSON(urlForMoreStories + '&include_loc=true&callback=?', function(data) {
 		});
 	}
 
@@ -123,13 +123,20 @@
 		);
 	}
 	
-	function addStories(stories, count) {
+	function addStories(stories, addresses, count) {
 		for (var i=0;i<stories.length;++i) {
 			var story = stories[i];
-			
-			var str = prepareStoryHTML('annotation', story.content, story.author, story.time_ago, urlpath, story.result_token, true);
+
+			if ($.isEmptyObject(addresses)) {
+				address_token = null;
+			}
+			else {
+				address_token = addresses[story.result_token];
+			}
+
+			var str = prepareStoryHTML('annotation', story.content, story.author, story.time_ago, urlpath, story.result_token, address_token, true);
 			$("#annotations").append(str);
-			if (parseInt(count) == $('.annotation').length) {
+			if (typeof count !== 'undefined' && parseInt(count) == $('.annotation').length) {
 				$('.more').hide();
 			}
 		}

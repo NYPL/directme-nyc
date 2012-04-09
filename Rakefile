@@ -1,7 +1,6 @@
 require 'bundler'
 Bundler.setup
 require 'rake/testtask'
-require 'heroku_mongo_backup'
 
 #globals
 $APIURL = ENV['NYURL']
@@ -12,11 +11,6 @@ Rake::TestTask.new do |t|
   t.libs << "tests"
   t.test_files = FileList['tests/*_test.rb']
   t.verbose = true
-end
-
-desc "backups"
-task :backup_cron => :environment do
-  Rake::Task['mongo:backup'].invoke
 end
 
 namespace :db do

@@ -16,10 +16,6 @@ GEM
     airbrake (3.0.9)
       activesupport
       builder
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
     base32 (0.2.0)
     bson (1.6.2)
     bson_ext (1.6.2)
@@ -45,7 +41,6 @@ GEM
       netrc (~> 0.7.1)
       rest-client (~> 1.6.1)
       rubyzip
-    heroku-mongo-backup (0.3.2)
     i18n (0.6.0)
     jammit (0.6.5)
       yui-compressor (>= 0.9.3)
@@ -130,7 +125,6 @@ GEM
     webmock (1.8.6)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
-    xml-simple (1.1.1)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
 
@@ -140,7 +134,6 @@ PLATFORMS
 DEPENDENCIES
   agent_orange
   airbrake
-  aws-s3
   base32
   bson_ext
   dalli
@@ -148,7 +141,6 @@ DEPENDENCIES
   foreman
   geocoder
   heroku
-  heroku-mongo-backup
   jammit
   json
   mongoid

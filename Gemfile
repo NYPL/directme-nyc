@@ -38,8 +38,7 @@ gem 'agent_orange'
 gem 'geocoder'
 
 #backups
-gem "heroku-mongo-backup"
-gem "aws-s3", :require => 'aws/s3'
+
 
 
 group :test do
