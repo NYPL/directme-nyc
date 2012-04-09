@@ -1,6 +1,7 @@
 require 'bundler'
 Bundler.setup
 require 'rake/testtask'
+require 'heroku_mongo_backup'
 
 #globals
 $APIURL = ENV['NYURL']
@@ -13,12 +14,12 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-namespace :db do
-	desc "backups"
-	task :backup_cron => :environment do
-	  Rake::Task['mongo:backup'].invoke
-	end
+desc "backups"
+task :backup_cron => :environment do
+  Rake::Task['mongo:backup'].invoke
+end
 
+namespace :db do
 	desc "heroku sync install"
 	task :installs do
 		sh %{heroku plugins:install http://github.com/pedro/heroku-mongo-sync.git}
