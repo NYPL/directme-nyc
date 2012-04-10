@@ -605,6 +605,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 }
 
 @media screen and (min-width: 0px) and (max-width: 460px) {
+	#nav_bar a:first-child {
+		display: none;
+	}
+
 	#nypl_bar select {
 		display: none;
 	}
