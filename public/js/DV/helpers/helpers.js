@@ -70,6 +70,10 @@ DV.Schema.helpers = {
       // Prevent navigation elements from being selectable when clicked.
       viewer.$('.DV-trigger').bind('selectstart', function(){ return false; });
 
+      //popover for print button
+      var printPop = {title:"Print/Download page", content:"Will open page image in new window for print/download"};
+      $('.DV-printme').popover({placement:"right",trigger:"hover",title:printPop.title,content:printPop.content});
+
       this.elements.viewer.delegate('.DV-fullscreen', 'click', _.bind(this.openFullScreen, this));
 
       var boundToggle  = DV.jQuery.proxy(this.annotationBridgeToggle, this);

@@ -168,3 +168,17 @@
 .DV-linkage {
   background: url(../../../images/DV/embed/link.png) no-repeat 0px -34px;
 }
+
+.DV-printme{
+  display:inline;
+  float:left;
+  margin: 75px 0 0 -40px;
+  position:relative;
+  zoom:1;
+  font-size:14px;
+  font-weight:bold;
+  cursor: pointer;
+  padding-top:15px;
+  padding-bottom: 5px;
+  width: 20px;
+}

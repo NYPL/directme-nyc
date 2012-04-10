@@ -1691,6 +1691,9 @@ input[type="submit"].btn.small {
 .modal-open .popover {
   z-index: 20004;
 }
+.popover {
+  z-index: 20004;
+}
 .modal {
   width: 400px;
   position: absolute;

@@ -9,7 +9,8 @@ DV.Page = function(viewer, argHash){
   this.pageNumberEl     = this.el.find('span.DV-pageNumber');
   this.pageInsertEl     = this.el.find('.DV-pageNoteInsert');
   this.removedOverlayEl = this.el.find('.DV-overlay');
-  this.magImageEl       = this.el.find('.DV-mag')
+  this.magImageEl       = this.el.find('.DV-mag');
+  this.printLinkEl      = this.el.find('.DV-printme a');
   this.pageImageEl      = this.getPageImage();
   this.pageEl           = this.el.find('div.DV-page');
   this.annotationContainerEl = this.el.find('div.DV-annotations');
@@ -252,7 +253,8 @@ DV.Page.prototype.drawImage = function(imageURL) {
     return;
   }
   var imageLINK = magSize === 'normal' ? imageURL.split('--')[0] + '--large.jpg' : imageURL;
-  this.magImageEl.attr('href', imageLINK);
+  this.magImageEl.prop('href', imageLINK);
+  this.printLinkEl.prop('href', imageURL);
   // Replace the image completely because of some funky loading bugs we were having
   this.pageImageEl.replaceWith('<img width="'+this.model_pages.width+'" height="'+imageHeight+'" data-page="' +this.pageNumber+'" class="DV-pageImage" id="DV-pageImage-'+this.pageImageEl.parents('.DV-set').attr('data-id')+'" src="'+imageURL+'" />');
 
