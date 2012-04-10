@@ -474,6 +474,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	color: #fff;
 }
 
+#ifmobile {
+	display: none;
+}
+
 /* media queries */
 @media screen and (min-width: 0px) and (max-width: 960px) {
 	#mainwrapper {
@@ -647,4 +651,10 @@ ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {
 	#ticker .content {
 		width: 240px;
 	}
+
+	#ifmobile {
+		display: block;
+		color: #f00;
+	}
+
 }
