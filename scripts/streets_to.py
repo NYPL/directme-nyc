@@ -63,3 +63,4 @@ def init_json(borough, _file):
 if __name__ == "__main__":
 	for k, v in b_dict.iteritems():
 		init_json(k, v)
+	print "done!"
