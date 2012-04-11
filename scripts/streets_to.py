@@ -1,21 +1,22 @@
 from BeautifulSoup import BeautifulSoup as BS
 import json
-import argparse
 import datetime
 import collections
+import requests
 
-parser = argparse.ArgumentParser(description='Mongo Census INIT')
-parser.add_argument('-path', action='store', dest='path', help='File path for HTM Street files', default="")
-
-opts = parser.parse_args()
+many = requests.get("http://stevemorse.org/census/1940cities/many.htm")
+bkny = requests.get("http://stevemorse.org/census/1940cities/bkny.htm")
+bxny = requests.get("http://stevemorse.org/census/1940cities/bxny.htm")
+quny = requests.get("http://stevemorse.org/census/1940cities/quny.htm")
+riny = requests.get("http://stevemorse.org/census/1940cities/riny.htm")
 
 
 b_dict = {
-	'%s/bkny.htm' % opts.path: 'brooklyn',
-	'%s/bxny.htm' % opts.path: 'bronx',
-	'%s/many.htm' % opts.path: 'manhattan',
-	'%s/quny.htm' % opts.path: 'queens',
-	'%s/riny.htm' % opts.path: {'staten' : 'richmond'} 
+	'brooklyn': bkny,
+	'bronx': bxny,
+	'manhattan': many,
+	'queens': quny,
+	'staten': riny
 }
 
 def cross_streets(soup, values, main_street):
@@ -23,8 +24,8 @@ def cross_streets(soup, values, main_street):
 		filter(set(values).__contains__, option.get('value').split(',')) and option.contents[0] is not main_street]
 	return vals
 
-def init_json(file, borough):
-	data = open(file).read()
+def init_json(borough, _file):
+	data = _file.text
 	soup = BS(data)
 	options = soup.findAll('option')
 	streets = collections.OrderedDict()
@@ -38,11 +39,10 @@ def init_json(file, borough):
 		}
 
 	if isinstance(borough, str):
-		ED_city = borough.title()
-	else:
-		_borough = borough.keys()[0]
-		ED_city = borough[_borough].title()
-		borough = _borough
+		if borough == 'staten':
+			ED_city = 'Richmond'
+		else:
+			ED_city = borough.title()
 
 	init_json = {
 		"created_at": datetime.datetime.utcnow().isoformat(),
@@ -55,7 +55,7 @@ def init_json(file, borough):
 
 	streets =  json.dumps(init_json)
 
-	f = open('../public/%s.json' % borough,'w')
+	f = open('public/%s.json' % borough,'w')
 	print >> f, streets
 	f.close()
 
