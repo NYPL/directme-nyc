@@ -14,19 +14,19 @@ Rake::TestTask.new do |t|
 end
 
 namespace :db do
-	desc "Copy production database to local"
-	mongo_pwd = ENV["MONGO_PWD"]
-	mongo_host = ENV["MONGO_HOST"]
-	mongo_db = ENV["MONGO_DB"]
-	s3_key = ENV["S3KEY"]
-	s3_secret = ENV["S3SECRET"]
-	s3_bucket = ENV["S3BUCKET"]
+	#desc "Copy production database to local"
+	# mongo_pwd = ENV["MONGO_PWD"]
+	# mongo_host = ENV["MONGO_HOST"]
+	# mongo_db = ENV["MONGO_DB"]
+	# s3_key = ENV["S3KEY"]
+	# s3_secret = ENV["S3SECRET"]
+	# s3_bucket = ENV["S3BUCKET"]
 
-	task :backup do
-		sh %{mongodump -h #{mongo_host} -d #{mongo_db} -u heroku -p #{mongo_pwd} -o backups/;cd backups;tar czvf $(date -u +%Y%m%d_%H%M%S).tar.gz #{mongo_db}; rm -Rf #{mongo_db}}
-		sh %{cd backups; python ../scripts/bk.py -aws_key #{s3_key} -aws_secret #{s3_secret} -aws_bucket #{s3_bucket} -project DirectMe -file *.gz}
-		sh %{rm backups/*.gz}
-	end
+	# task :backup do
+	# 	sh %{mongodump -h #{mongo_host} -d #{mongo_db} -u heroku -p #{mongo_pwd} -o backups/;cd backups;tar czvf $(date -u +%Y%m%d_%H%M%S).tar.gz #{mongo_db}; rm -Rf #{mongo_db}}
+	# 	sh %{cd backups; python ../scripts/bk.py -aws_key #{s3_key} -aws_secret #{s3_secret} -aws_bucket #{s3_bucket} -project DirectMe -file *.gz}
+	# 	sh %{rm backups/*.gz}
+	# end
 
 	desc "heroku sync install"
 	task :installs do
