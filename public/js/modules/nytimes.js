@@ -58,7 +58,7 @@
 				// NYTimes.com url
 				url = hl.nyt_url;
 			}
-			tickercontent += ' <a href="' +  url + '" target="blank" title="open link in new window">' + hl.hdl + '</a> &middot; &middot; &middot;';
+			tickercontent += ' <a href="' +  url + '" target="_blank" title="open link in new window">' + hl.hdl + '</a> &middot; &middot; &middot;';
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
