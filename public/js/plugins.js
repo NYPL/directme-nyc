@@ -17,29 +17,32 @@ window.log = function(){
         var limit = 28;
         // http://en.wikipedia.org/wiki
         // 28
-        for (i=0;i<l;++i) {
-            // is it a url?
-            var tmp = "";
-            var isurl = a[i].match(/(^|\s)((https?:\/\/)[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
-            if (isurl) {
-                if (a[i].substr(0,7)!="http://" && a[i].substr(0,8)!="https://") {
-                    tmp = "<a href=\"http://" + a[i] + "\">";
-                } else {
-                    tmp = "<a href=\"" + a[i] + "\">";
+
+        if (typeof shorten === 'undefined') {
+            for (i=0;i<l;++i) {
+                // is it a url?
+                var tmp = "";
+                var isurl = a[i].match(/(^|\s)((https?:\/\/)[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+                if (isurl) {
+                    if (a[i].substr(0,7)!="http://" && a[i].substr(0,8)!="https://") {
+                        tmp = "<a href=\"http://" + a[i] + "\">";
+                    } else {
+                        tmp = "<a href=\"" + a[i] + "\">";
+                    }
                 }
+                // is it long?
+                if (a[i].length > limit) {
+                    tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
+                } else {
+                    tmp += a[i];
+                }
+                if (isurl) {
+                    tmp += "</a>";
+                }
+                a[i] = tmp;
             }
-            // is it long?
-            if (a[i].length > limit) {
-                tmp += a[i].substr(0,limit) + " " + a[i].substr(limit);
-            } else {
-                tmp += a[i];
-            }
-            if (isurl) {
-                tmp += "</a>";
-            }
-            a[i] = tmp;
+            content = a.join(" ");
         }
-        content = a.join(" ");
 
         if (content.length > 140 && typeof shorten !== 'undefined') {
             content = content.substring(0, 139) + '…'
