@@ -70,10 +70,17 @@
 	        });
 	    }
 	    $('#nytimes a').click(function() {
-	    	analytics.recordOutboundLink(this, 'Outbound Links', $(this).prop('href'));
+	    	var classy = toLocation($(this).prop('href')).hostname;
+	    	analytics.recordOutboundLink(this, 'Outbound Links', classy);
 	    	return false;
 	    });
 	}
+
+	function toLocation(url) {
+	    var a = document.createElement('a');
+	    a.href = url;
+	    return a;
+	};
 
 	function showError() {
 		tickerDOM.empty();
