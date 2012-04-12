@@ -8,8 +8,7 @@
 			//typical header bar
 			setCurrent('#nav_bar a');
 			//track analytics
-			//analytics.track('UA-1420324-103');
-			analytics.track('UA-30856373-1');
+			analytics.track('UA-1420324-103');
 		});
 	}
 
