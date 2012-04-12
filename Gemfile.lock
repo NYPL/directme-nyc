@@ -36,7 +36,7 @@ GEM
       thor (>= 0.13.6)
     geocoder (1.1.1)
     hashie (1.2.0)
-    heroku (2.24.0)
+    heroku (2.24.1)
       launchy (>= 0.3.2)
       netrc (~> 0.7.1)
       rest-client (~> 1.6.1)

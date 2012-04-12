@@ -44,18 +44,12 @@ def paging_time(model, request, params)
 	end
 
 	if objs.count() < Integer(limit)
-		last_result = nil
+		before_url = nil
 	else
-		last_result = objs[Integer(limit) - 1].created_at
+		before_url = {:limit => limit, :before_timestamp => objs[Integer(limit) - 1].created_at}.to_query
 	end
 
 	url = request.url.split('?')[0]
-
-	if !last_result.nil?
-		before_url = {:limit => limit, :before_timestamp => last_result}.to_query
-	else
-		before_url = nil
-	end	
 
 	#after_url = {:limit => limit, :after_timestamp => first_result}.to_query
 

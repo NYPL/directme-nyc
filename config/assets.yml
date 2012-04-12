@@ -36,6 +36,7 @@ javascripts:
         - public/js/libs/underscore.js
         - public/js/libs/respond.min.js
         - public/js/plugins.js
+        - public/js/analytics.js
         - public/js/app.js
 
     index:
@@ -60,9 +61,6 @@ javascripts:
 
     latest:
         - public/js/modules/latest.js
-
-    analytics:
-        - public/js/analytics.js
 
     fuzzy:
         - public/js/modules/fuzzy.js

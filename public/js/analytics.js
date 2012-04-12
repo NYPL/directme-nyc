@@ -1,22 +1,27 @@
 //thanks to http://paceyourself.net/2011/05/14/managing-client-side-javascript-with-requirejs/
 
-(function(){
-	var analytics = {
-		track: function(accountId) {
-			var _gaq = window._gaq = _gaq || [],
-				ga = document.createElement('script'),
-				s = document.getElementsByTagName('script')[0];
+var analytics = {
+	track: function(accountId) {
+		var _gaq = window._gaq = _gaq || [],
+			ga = document.createElement('script'),
+			s = document.getElementsByTagName('script')[0];
 
-			_gaq.push(['_setAccount', accountId]);
-			_gaq.push(['_trackPageview']);
+		_gaq.push(['_setAccount', accountId]);
+		_gaq.push(['_trackPageview']);
 
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ?
-				'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ?
+			'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 
-			s.parentNode.insertBefore(ga, s);
+		s.parentNode.insertBefore(ga, s);
+	},
+	recordOutboundLink: function(link, category, action) {
+		try {
+			var myTracker=_gat._getTrackerByName();
+			_gaq.push(['myTracker._trackEvent', category ,  action ]);
+			setTimeout('document.location = "' + link.href + '"', 100)
 		}
-	};
-	return analytics;
-}());
+		catch(err){}
+	}
+};

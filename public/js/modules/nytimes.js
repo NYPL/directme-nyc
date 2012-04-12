@@ -69,6 +69,10 @@
 	            $(this).trigger('start');
 	        });
 	    }
+	    $('#nytimes a').click(function() {
+	    	analytics.recordOutboundLink(this, 'Outbound Links', $(this).prop('href'));
+	    	return false;
+	    });
 	}
 
 	function showError() {

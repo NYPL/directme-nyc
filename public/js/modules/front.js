@@ -39,6 +39,6 @@
 
 	/** Return instantiated function */
 	return {
-		init: _init(),
+		init: _init()
 	};
 }(jQuery));
