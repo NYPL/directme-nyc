@@ -17,12 +17,17 @@ window.log = function(){
         var limit = 28;
         // http://en.wikipedia.org/wiki
         // 28
+        for (i=0;i<l;++i) {
+            // is it a url?
+            var tmp = "";
+            var isurl = a[i].match(/(^|\s)((https?:\/\/)[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
 
-        if (typeof shorten === 'undefined') {
-            for (i=0;i<l;++i) {
-                // is it a url?
-                var tmp = "";
-                var isurl = a[i].match(/(^|\s)((https?:\/\/)[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi);
+            if (isurl && typeof shorten !== 'undefined') {
+                tmp = "... ";
+            }
+
+            else {
+
                 if (isurl) {
                     if (a[i].substr(0,7)!="http://" && a[i].substr(0,8)!="https://") {
                         tmp = "<a href=\"http://" + a[i] + "\">";
@@ -39,16 +44,16 @@ window.log = function(){
                 if (isurl) {
                     tmp += "</a>";
                 }
-                a[i] = tmp;
             }
-            content = a.join(" ");
+
+            a[i] = tmp;
         }
+        content = a.join(" ");
 
         if (content.length > 140 && typeof shorten !== 'undefined') {
             content = content.substring(0, 139) + '…'
         }
         
-
         if (typeof url !== 'undefined' && typeof token !== 'undefined' && typeof address !== null) {
             return "<div class='" + css + "'><p class='loc'><strong>" + address + "</strong></p><p class='author'>" + author + " wrote:</p><p class='content'>" + content + "</p><p><a rel='nofollow' href=\""+url+"/results?token="+token+"\" class=\"hl\">" + time_dist + " ago</a></p></div>";
         }
