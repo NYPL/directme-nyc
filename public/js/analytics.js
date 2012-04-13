@@ -16,10 +16,9 @@ var analytics = {
 
 		s.parentNode.insertBefore(ga, s);
 	},
-	recordOutboundLink: function(link, category, action) {
+	recordOutboundLink: function(link, category, event, href) {
 		try {
-			var myTracker=_gat._getTrackerByName();
-			_gaq.push(['myTracker._trackEvent', category ,  action ]);
+			_gaq.push(['_trackEvent', category, event, href]);
 			setTimeout('document.location = "' + link.href + '"', 100)
 		}
 		catch(err){}

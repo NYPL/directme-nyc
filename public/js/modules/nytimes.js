@@ -12,6 +12,12 @@
 	function _init() {
 		//defined module inits
 		getHeadlines();
+
+		$('#nytimes a').click(function() {
+			var classy = toLocation($(this).prop('href')).hostname;
+			analytics.recordOutboundLink('headlines', 'click', classy);
+			return false;
+		});
 	}
 
 	function getHeadlines() {
@@ -69,11 +75,6 @@
 	            $(this).trigger('start');
 	        });
 	    }
-	    $('#nytimes a').click(function() {
-	    	var classy = toLocation($(this).prop('href')).hostname;
-	    	analytics.recordOutboundLink(this, 'Outbound Links', classy);
-	    	return false;
-	    });
 	}
 
 	function toLocation(url) {

@@ -53,6 +53,15 @@ li {
 	margin-top: 4px;
 }
 
+.needjs {
+	color: #f00;
+	font-size: 16px;
+}
+
+.needjs a:hover {
+	color: #666;
+}
+
 #main h1 {
 	font-size: 24px;
 }
