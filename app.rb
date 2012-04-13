@@ -35,7 +35,7 @@ def paging_time(model, request, params)
 	end
 
 	if params.has_key?("after_timestamp")
-		objs = model.where(:created_at.gt => Time.parse(params['after_timestamp']).getutc).order_by(:created_at, :asc).limit(limit)
+		objs = model.where(:created_at.gt => Time.parse(params['after_timestamp']).getutc).order_by(:created_at, :desc).limit(limit)
 	elsif params.has_key?("before_timestamp")
 		objs = model.where(:created_at.lt => Time.parse(params['before_timestamp']).getutc).order_by(:created_at, :desc).limit(limit)
 	else
@@ -49,9 +49,13 @@ def paging_time(model, request, params)
 		before_url = {:limit => limit, :before_timestamp => objs[Integer(limit) - 1].created_at}.to_query
 	end
 
-	url = request.url.split('?')[0]
+	if objs.count() == 0
+		after_url = nil
+	else
+		after_url = {:limit => limit, :after_timestamp => objs[0].created_at}.to_query
+	end
 
-	#after_url = {:limit => limit, :after_timestamp => first_result}.to_query
+	url = request.url.split('?')[0]
 
 	changed_objs = time_ago(objs)
 
@@ -59,7 +63,8 @@ def paging_time(model, request, params)
 		:count => model.count,
 		:objs => changed_objs, 
 		:url => url, 
-		:before_url => before_url
+		:before_url => before_url,
+		:after_url => after_url
 	}
 end
 
@@ -220,16 +225,22 @@ class Api < Application
 				ret_hash = paging_time(Locations, request, params)
 
 				if !ret_hash[:before_url].nil?
-					hash = {
-						:count => ret_hash[:count],
-						:locations => ret_hash[:objs],
-						:before_timestamp => "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
-					}.to_json
+					before_timestamp = "%s?%s" % [ret_hash[:url], ret_hash[:before_url]]
 				else
-					hash = {
-						:locations => ret_hash[:objs]
-					}.to_json
+					before_timestamp = nil
 				end
+				if !ret_hash[:after_url].nil?
+					after_timestamp = "%s?%s" % [ret_hash[:url], ret_hash[:after_url]]
+				else
+					after_timestamp = nil
+				end
+
+				hash = {
+					:count => ret_hash[:count],
+					:locations => ret_hash[:objs],
+					:before_timestamp => before_timestamp,
+					:after_timestamp => after_timestamp
+				}.to_json
 
 			else
 				log.info 'no location searches'
