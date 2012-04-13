@@ -16,10 +16,10 @@ var analytics = {
 
 		s.parentNode.insertBefore(ga, s);
 	},
-	recordOutboundLink: function(link, category, event, href) {
+	recordOutboundLink: function(link, category, _event, _href) {
 		try {
-			_gaq.push(['_trackEvent', category, event, href]);
-			setTimeout('document.location = "' + link.href + '"', 100)
+			_gaq.push(['_trackEvent', category, _event, _href]);
+			setTimeout('document.location = "' + link + '"', 100)
 		}
 		catch(err){}
 	}
