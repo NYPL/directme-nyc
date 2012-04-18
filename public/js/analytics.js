@@ -19,7 +19,7 @@ var analytics = {
 	recordOutboundLink: function(link, category, _event, _href) {
 		try {
 			_gaq.push(['_trackEvent', category, _event, _href]);
-			setTimeout('document.location = "' + link + '"', 100)
+			//setTimeout('document.location = "' + link + '"', 100)
 		}
 		catch(err){}
 	}

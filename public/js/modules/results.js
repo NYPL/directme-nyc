@@ -85,11 +85,6 @@
 
 					//call methods based on ED
 					CSResolve(data.eds, data.fullcity_id, data.state, results, cross_string);
-
-					// $('.EDcontent').on('click', function() {
-					// 	analytics.recordOutboundLink($(this).prop('href'), 'census', 'click', 'nara');
-					// 	return false;
-					// });
 				}
 
 				if (data.hasOwnProperty('coordinates') && data.hasOwnProperty('map_urls')) {
@@ -228,6 +223,10 @@
 			oldText = $('select.crossstreets option:selected').text();
 		});
 
+		//add content event
+		$('#EDlist').on('click', 'a.EDcontent', function() {
+			analytics.recordOutboundLink($(this).prop('href'), 'census', 'click', 'nara');
+		});
 	}
 
 	function showMap(lat, lon, divid, tileset, attribution, callback, canZoom) {

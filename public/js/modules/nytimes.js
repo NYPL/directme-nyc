@@ -58,7 +58,7 @@
 				// NYTimes.com url
 				url = hl.nyt_url;
 			}
-			tickercontent += ' <a href="' +  url + '" title="Times Headline">' + hl.hdl + '</a> &middot; &middot; &middot;';
+			tickercontent += ' <a href="' +  url + '" title="Times Headline" target="_blank">' + hl.hdl + '</a> &middot; &middot; &middot;';
 		}
 		tickerDOM.empty();
 		tickerDOM.append(tickercontent);
@@ -73,7 +73,6 @@
 	    $('#nytimes a').click(function() {
 	    	var classy = toLocation($(this).prop('href')).hostname;
 	    	analytics.recordOutboundLink($(this).prop('href'), 'headlines', 'click', classy);
-	    	return false;
 	    });
 	}
 
