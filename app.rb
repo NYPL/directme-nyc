@@ -426,9 +426,8 @@ class Api < Application
 
 	post '/session.json' do
 		sess = checkSession(session)
-
-		if !sess.nil?
-			UserSessions.where(:session => session['session_id']).delete_all
+		if !sess.nil? or sess == true
+			UserSessions.where(:session => session['session_id']).destroy_all
 		end
 
 		status 204
