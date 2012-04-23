@@ -426,6 +426,8 @@ class Api < Application
 
 	post '/session.json' do
 		sess = checkSession(session)
+		puts sess
+		puts "jdjdljldjldjldljdjl"
 		if !sess.nil? or sess == true
 			UserSessions.where(:session => session['session_id']).destroy_all
 		end
