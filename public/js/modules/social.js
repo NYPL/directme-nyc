@@ -52,7 +52,7 @@ function social() {
 
 			setTimeout(function() {
 				window.location.reload(callback_url);
-			}, 100);
+			}, 200);
 		});
 	}
 
