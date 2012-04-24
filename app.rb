@@ -79,7 +79,7 @@ end
 def checkSession(session)
 	if session
 		obj = UserSessions.where(:session => session['session_id']).first()
-		if !obj.blank? and !obj.nil?
+		if !obj.blank? and !obj.nil? and obj[:sess] != false
 			return {:conn => obj.connection, :user => obj.user_name, :sess => true}
 		else
 			return nil
@@ -194,15 +194,20 @@ class Application < Sinatra::Base
 			service = params['name']
 		end
 
-		token = auth["credentials"]["token"]
-		hash = {
-			:session => session['session_id'],
-			:user_name => name,
-			:user_token => token,
-			:connection => service
-		}
-
-		UserSessions.safely.create(hash)
+		obj = UserSessions.where(:session => session['session_id']).first()
+		if !obj.blank? and !obj.nil?
+			obj.sess = true
+			obj.save!
+		else
+			token = auth["credentials"]["token"]
+			hash = {
+				:session => session['session_id'],
+				:user_name => name,
+				:user_token => token,
+				:connection => service,
+			}
+			UserSessions.safely.create(hash)
+		end
 		redirect '/callback'
 	end
 
@@ -413,7 +418,6 @@ class Api < Application
 
 	get '/session.json' do
 		sess = checkSession(session)
-
 		if sess.nil?
 			json = {:sess => false}.to_json
 		else
@@ -426,8 +430,8 @@ class Api < Application
 
 	post '/session.json' do
 		sess = checkSession(session)
-		if !sess.nil? or sess[:sess] == true
-			UserSessions.where(:session => session['session_id']).destroy_all
+		if !sess.nil?
+			UserSessions.where(:session => session['session_id']).update_all(sess: false)
 		end
 
 		status 204
