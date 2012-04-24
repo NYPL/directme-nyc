@@ -205,6 +205,7 @@ class Application < Sinatra::Base
 				:user_name => name,
 				:user_token => token,
 				:connection => service,
+				:sess => true
 			}
 			UserSessions.safely.create(hash)
 		end
