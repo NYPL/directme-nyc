@@ -60,6 +60,7 @@ class UserSessions
 	field :user_name, :type => String
 	field :user_token, :type => String
 	field :connection, :type => Hash
+	field :sess, :type => Boolean
 
 	validates :session, :presence => true
 	validates :user_token, :presence => true
