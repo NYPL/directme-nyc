@@ -11,6 +11,7 @@
 nohup.out
 .DS_Store
 .project
+out
 
 #[RUBY]
 *.gem
