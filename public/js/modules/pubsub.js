@@ -3,7 +3,7 @@
 	function _init() {
 		pubsub();
 	}
-
+	//publish-subscribe implementation
 	function pubsub() {
 		var o = $({});
 		s = 'subscribe';

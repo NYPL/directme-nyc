@@ -1,5 +1,5 @@
 //thanks to http://paceyourself.net/2011/05/14/managing-client-side-javascript-with-requirejs/
-
+//google analytics setup
 var analytics = {
 	track: function(accountId) {
 		var _gaq = window._gaq = _gaq || [],

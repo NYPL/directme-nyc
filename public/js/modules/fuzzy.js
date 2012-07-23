@@ -8,6 +8,7 @@ function fuzzy() {
 		addPopovers();
 	}
 
+	//add twitter bootstrap Popups for Modal
 	function addPopovers() {
 		var namePop = {title:"Person Name", content:"The name of the person <em>as you see it</em> in the phone book. This field is optional."};
 		var numberPop = {title:"Address number", content:"e.g.: Type '1178' (no quotes) if address is '1178RemsnAv'."};
@@ -20,6 +21,7 @@ function fuzzy() {
 		$('#frm-modal-street').popover({placement:"right",trigger:"focus",title:streetPop.title,content:streetPop.content});
 	}
 
+	//when submit is clicked on the modal obatain info and make a post to the api
 	function onSubmitModal(page_idx) {
 		$('#submitED').on('click', function(e) {
 			e.preventDefault();
@@ -61,6 +63,7 @@ function fuzzy() {
 		});
 	}
 
+	//give an error when the fuzzy search is unsuccessful
 	function appendModalError() {
 		$("<div class='post_error'><p> Search Unsuccessful. Try Again Later </p>").prependTo('.frm-modal-help')
 		setTimeout(function() {
@@ -115,6 +118,7 @@ function fuzzy() {
 		resp(filtered);
 	}
 
+	//load the borough streets information
 	function loadContent() {
 		$.getJSON(urlpath + '/api/streets/' + environment.borough + '.json?callback=?', function(data) {
 			environment.streets = data.streets;
@@ -125,6 +129,8 @@ function fuzzy() {
 		});
 	}
 
+	//run the autocomplete, jquery-ui method, check for no results, keyup, click. Once Instantiated, instantiate the onSubmitModal event method
+	//the source for autocomplete method is the callback, referenced above
 	function autoCompleteO(page_idx) {
 		$("#frm-modal-street").autocomplete({
 			source: callback

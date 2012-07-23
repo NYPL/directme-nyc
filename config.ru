@@ -6,6 +6,7 @@ puts "Starting in #{Sinatra::Base.environment} mode.."
 
 # ==============
 # = App It! =
+# Separate Application calls from API calls
 # ==============
 map '/' do
   run Application

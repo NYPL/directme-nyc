@@ -1,6 +1,6 @@
 #globals
 #-------------------------------------
-#read flat json file for parsing
+#read flat json file for parsing of streets
 $JSON = {}
 Dir.glob('public/*.json') do |file|
 	json = File.read(file)
@@ -12,7 +12,9 @@ $LIMIT = 10
 $MAPS = ['http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-16.jsonp', 'http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp']
 #------------------------------------
 
-# app only methods
+# app only global methods
+
+# create jsonp response with callback
 def JsonP(json, params)
 	callback = params.delete('callback') # jsonp
 
@@ -27,6 +29,7 @@ def JsonP(json, params)
 	response
 end
 
+# paging by timestamp
 def paging_time(model, request, params)
 	if params['limit']
 		limit = params['limit']
@@ -68,6 +71,7 @@ def paging_time(model, request, params)
 	}
 end
 
+# is this an ajax request?
 def ajaxcheck(request)
 	if request.xhr? == true
 		return true
@@ -76,6 +80,7 @@ def ajaxcheck(request)
 	end
 end
 
+# check to make sure that session exists
 def checkSession(session)
 	if session
 		obj = UserSessions.where(:session => session['session_id']).first()
@@ -89,6 +94,7 @@ end
 
 class Application < Sinatra::Base
 	#########################main handlers###########################
+	# GET /
 	get '/' do
 		if isMobile(request.user_agent)
 			redirect '/latest'
@@ -110,6 +116,7 @@ class Application < Sinatra::Base
 		end
 	end
 
+	# GET /directory/{borough}
 	get '/directory/:borough' do
     	@title = params['borough'].split(/(\W)/).map(&:capitalize).join
 		if isMobile(request.user_agent)
@@ -122,6 +129,7 @@ class Application < Sinatra::Base
 		end
 	end
 
+	# GET /latest
 	get '/latest' do
 		@title = 'Latest'
 		@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', '/assets/latest.js']
@@ -131,16 +139,21 @@ class Application < Sinatra::Base
 		slim :latest
 	end
 
-  get '/faq' do
+	# GET /faq
+	get '/faq' do
     	@title = 'FAQ'
+    	#use slim layout with erb view
 		erb :faq, :layout_engine => :slim
 	end
 
+	# GET /about
 	get '/about' do
     	@title = 'About'
+    	#use slim layout with erb view
 		erb :about, :layout_engine => :slim
 	end
 
+	# GET /results
 	get '/results' do
 		if !params['token'].blank? and !params['token'].nil?
 
@@ -175,6 +188,7 @@ class Application < Sinatra::Base
 	end
 
 #---------------MOBILE&NOT-FOUND&<=IE7-------------------------------------------------------
+	# GET /upgrade 
 	get '/upgrade' do
 		slim :upgrade, :layout => :'eww/layout'
 	end 
@@ -184,6 +198,8 @@ class Application < Sinatra::Base
 		slim :not_found
 	end
 
+	# GET /auth/{name}/callback
+	# name being google/twitter/facebook
 	get '/auth/:name/callback' do
 		auth = request.env["omniauth.auth"]
 		name = auth["info"]["name"]
@@ -212,19 +228,23 @@ class Application < Sinatra::Base
 		redirect '/callback'
 	end
 
+	# GET /auth/failure
+	# when auth fails
 	get '/auth/failure' do
 		#flash[:notice] = "Not Able to Log You In"
 		redirect '/callback'
 	end
 
+	# GET /callback
+	# On Callback of Failure, Error has occurred
 	get '/callback' do
 		slim :callback, :layout => :'eww/layout'
 	end
 	#################################################################
 end
 #---------------API-CALLs-------------------------------------------------------
-
 class Api < Application
+	# GET /api/locations.json
 	get '/locations.json' do
 		if ajaxcheck(request)
 			if Locations.exists?
@@ -262,6 +282,7 @@ class Api < Application
 		return JsonP(hash, params)
 	end
 
+	# POST /api/locations.json
 	post '/locations.json' do
 		if ajaxcheck(request)
 
@@ -348,6 +369,7 @@ class Api < Application
 		return JsonP(json, params)
 	end
 
+	# GET /api/locations/token.json
 	get '/locations/:token.json' do
 		if ajaxcheck(request)
 			obj = Locations.where(:token => params['token']).first()
@@ -404,6 +426,7 @@ class Api < Application
 		return JsonP(hash, params)
 	end
 
+	# GET /api/dvs/{borough}.json
 	get '/dvs/:borough.json' do
 		if ajaxcheck(request)
 			json = Loaders.where(:borough => params['borough']).first().to_json
@@ -417,6 +440,7 @@ class Api < Application
 		return JsonP(json, params)
 	end
 
+	# GET /api/session.json
 	get '/session.json' do
 		sess = checkSession(session)
 		if sess.nil?
@@ -429,6 +453,7 @@ class Api < Application
 		return JsonP(json, params)
 	end
 
+	# POST /api/session.json
 	post '/session.json' do
 		sess = checkSession(session)
 		if !sess.nil?
@@ -438,6 +463,7 @@ class Api < Application
 		status 204
 	end
 
+	# POST /api/stories.json
 	post '/stories.json' do
 		if ajaxcheck(request)
 			if !params['content'].blank? and !params['content'].nil? and !params['token'].blank? and !params['token'].nil?
@@ -476,6 +502,7 @@ class Api < Application
 		return JsonP(json, params)
 	end
 
+	# GET /api/stories.json
 	get '/stories.json' do
 		if ajaxcheck(request)
 			if Stories.exists?
@@ -523,6 +550,7 @@ class Api < Application
 		return JsonP(hash, params)
 	end
 
+	# GET /api/streets/{borough}.json
 	get '/streets/:borough.json' do
 		if ajaxcheck(request)
 			hash = {
@@ -540,6 +568,7 @@ class Api < Application
 		return JsonP(hash, params)
 	end
 
+	# GET /api/indexes/{borough}.json
 	get '/indexes/:borough.json' do
 		if ajaxcheck(request)
 			if !$JSON['%s_%s' % ['idx', params['borough']]].nil?		
@@ -561,6 +590,7 @@ class Api < Application
 		return JsonP(hash, params)
 	end
 
+	# GET /api/headlines.json
 	get '/headlines.json' do
 		if ajaxcheck(request)
 			if Headlines.exists?

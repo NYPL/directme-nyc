@@ -6,6 +6,7 @@
 		latestStories();
 	}
 
+	//get the latest stories through the api
 	function latestStories() {
 		return $.getJSON(urlpath + '/api/stories.json?limit=8&include_loc=true&callback=?', function(data) {
 			if (data.hasOwnProperty('stories')) {
@@ -15,6 +16,7 @@
 
 	}
 
+	//add each story to the #stories div
 	function addStories(stories, addresses) {
 		var str = "";
 		for (var i=0; i<stories.length; ++i) {

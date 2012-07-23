@@ -214,6 +214,7 @@ DV.Page.prototype.loadImage = function(argHash) {
         clearTimeout(me.loadTimer);
         delete me.loadTimer;
       }
+      //update Magnifiers when new pages are loaded, done here in the preloader
       base.api.updateMag(jQuery, 'pages')
     });
 

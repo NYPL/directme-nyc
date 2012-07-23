@@ -8,8 +8,8 @@ gem 'dalli'
 gem 'thin'
 
 #if mongo
-gem 'bson_ext'
-gem 'mongoid'
+gem "bson_ext", "~> 1.5"
+gem "mongoid", "~> 2.4"
 
 gem 'typhoeus'
 gem 'json'

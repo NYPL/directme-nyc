@@ -10,6 +10,7 @@
 		latest();
 	}
 
+	//load the latest stories and maps concurrently once they've received data from the api
 	function latest() {
 		$.when(latestLocations(), latestStories()).done(function(loc_data, story_data) {
 			if (loc_data[0].hasOwnProperty('locations')) {
@@ -57,6 +58,7 @@
 
 	}
 	
+	//get more stories on a click
 	function moreClick() {
 		$.when(moreStories()).done(function(story_data) {
 			if (story_data.hasOwnProperty('stories')) {
@@ -78,6 +80,7 @@
 		});
 	}
 
+	//show the location on the map
 	function showLocations(loc) {
 		wax.tilejson('http://a.tiles.mapbox.com/v3/nypllabs.nyc1940-11-13.jsonp',
 			function(tilejson) {

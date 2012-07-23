@@ -8,6 +8,7 @@ function jloupe() {
 	var locked_mode = null;
 	var drag_mode = null;
 
+	//subscribe to pages and dragging events published by DocumentViewer
 	function _init() {
 		$.subscribe('pages', reFunc)
 		$.subscribe('dragging', dragEvent)
@@ -34,6 +35,7 @@ function jloupe() {
 		}
 	}
 
+	//setup the magnifier to look for the set of three document viewer images that are currently (most recently) loaded
 	function reFunc(e) {
 		$('.thejloupe').remove().promise().done(function() {
 			$('.thejloupeview').remove().promise().done(function () {
@@ -43,6 +45,7 @@ function jloupe() {
 			});
 		});
 	}
+	//setup magnifier defaults
 	function setupMag(elem) {
 		var options = {		
 			margin:0,
@@ -160,6 +163,7 @@ function jloupe() {
 		}
 	}
 
+	//set up set of magnifier events, when a mouse moves, is clicked, double-cliked, and exits the div... also check for when the modal is cancelled
 	function browserEvents(elem, loupe, view, options) {
 		var clickRun = _.debounce(function(elem) {
 			if ($('.modal-backdrop').length == 0 && locked_mode !== true && drag_mode !== true) {
