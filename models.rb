@@ -1,6 +1,7 @@
 #------------------------------------NOTES--------------------------------------
 # The Models use Mongoid v2, not v3 -> http://two.mongoid.org/, which is built
 # on ActiveRecord
+# This app would need some modifications made for Mongoid v3. Don't upgrade unless you care
 #-------------------------------------------------------------------------------
 
 # Desc: Loader for each Borough, which DocumentViewer Looks for in order to get Assets from S3
