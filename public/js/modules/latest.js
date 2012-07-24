@@ -6,11 +6,12 @@
 	var isUpdating = false;
 	var story_limit = 32
 
+	//init method for module
 	function _init() {
 		latest();
 	}
 
-	//load the latest stories and maps concurrently once they've received data from the api
+	//load the latest stories and locations for the big map concurrently once they've received data from the api
 	function latest() {
 		$.when(latestLocations(), latestStories()).done(function(loc_data, story_data) {
 			if (loc_data[0].hasOwnProperty('locations')) {

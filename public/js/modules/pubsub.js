@@ -1,5 +1,6 @@
 (function($) {
 
+	//init method for module
 	function _init() {
 		pubsub();
 	}

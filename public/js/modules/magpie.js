@@ -3,11 +3,13 @@
 	//globals
 	var page_idx = 0;
 
+	//init method for module
 	function _init() {
 		//defined module inits
 		jloupe().init();
 		jloupe().tab_init();
 
+		//subscribe to when a person clicks on an area... referenced publish in DV/helpers/helpers.js
 		$.subscribe('clickSpot', funModal);
 		hide_Modal();
 	}
@@ -20,6 +22,7 @@
 		});
 	}
 
+	//hide and show events for the modal
 	function show_Modal(callback) {
 		$('#loc_add').on('show', function() {
 			resetForm();
@@ -31,6 +34,7 @@
 		}
 	}
 
+	//set where on the screen the modal shows up
 	function window_Modal(elem) {
 		var _modal = $('.modal');
 		_modal.css('left',($(window).width()/2) - ($(elem).width()/2) + 'px');
@@ -47,9 +51,12 @@
 		});
 	}
 
+	//changes page global to the proper page index (what page we're on) and if streets hasn't been set in the environment
+	//then load fuzzy.js and initialize it
 	function funModal(e, page) {
 		page_idx = page;
 		if (environment.hasOwnProperty('streets')) {
+			return false;
 		}
 		else {
 			$.getScript('/assets/fuzzy.js', function(script, textStatus, jqxhr) {
@@ -58,7 +65,7 @@
 				$('.popovers').popover();
 			});
 		}
-
+		//twitter bootstrap, typical setup of how to call modal
 		show_Modal(function() {
 			$('#loc_add').modal({
 				'show': true,
@@ -68,6 +75,7 @@
 		});
 	}
 
+	//re-initialize the magnifier and call publish on the pages event
 	function reInitMag() {
 		jloupe().init();
 		$.publish('pages', []);

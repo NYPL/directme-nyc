@@ -1,6 +1,8 @@
 (function($) {
 
 	//load the DV from the correct borough loader
+
+	//init method for module
 	function _init() {
 		$.getJSON(window.location.protocol + "//" + window.location.host + "/api/indexes/" + environment.borough + '.json', function(data) {
 			if (data.hasOwnProperty('idxs')) {

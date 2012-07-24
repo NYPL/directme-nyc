@@ -9,11 +9,12 @@
 	var dataloaded = false;
 	var islocalIP = false;
 
+	//init method for module
 	function _init() {
-		//defined module inits
 		getHeadlines();
 	}
 
+	//get headlines frm api call and call startTicker method
 	function getHeadlines() {
 		$.getJSON(urlpath + '/api/headlines.json?callback=?', function(data) {
 			var i, l=data.length;
@@ -42,6 +43,7 @@
 		});
 	}
 	
+	//ticker method for showcasing headlines in horz-scroll-like mode
 	function startTicker() {
 		// combine link/headline
 		var i, l=headlines.length, hl;

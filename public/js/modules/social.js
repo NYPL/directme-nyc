@@ -4,6 +4,7 @@ function social() {
 	var urlpath = window.location.protocol + "//" + window.location.host;
 	var callback_url =  window.location;
 
+	//init method for module
 	function _init() {
 		fbSetup();
 		twitterSetup();
@@ -183,6 +184,7 @@ function social() {
 		}
 	}
 
+	/** Return instantiated function **/
 	return {
 		init: _init,
 		appendStory: appendStory,

@@ -2,6 +2,7 @@
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
+	//init method for module
 	function _init() {
 		latestStories();
 	}

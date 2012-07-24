@@ -8,6 +8,7 @@ function jloupe() {
 	var locked_mode = null;
 	var drag_mode = null;
 
+	//init method for module
 	//subscribe to pages and dragging events published by DocumentViewer
 	function _init() {
 		$.subscribe('pages', reFunc)
@@ -276,6 +277,7 @@ function jloupe() {
 		});
 	}
 
+	/** Return instantiated function */
 	return {
 		init: _init,
 		tab_init: _tab_init

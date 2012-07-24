@@ -8,12 +8,14 @@
     SW = new L.LatLng(40.3984,-73.5212),
     NYCbounds = new L.LatLngBounds(SW, NE);
 
+    //init method for module
 	function _init() {
 		EDcall(getUrlVar('token'));
 		printMe();
 		submitStory();
 	}
 
+	//the submit a story method with loads social.js, checkes for a session, and then handles the submit event for a story
 	function submitStory() {
 		$.getScript('/assets/social.js', function(script, textStatus, jqxhr) {
 			social().checkSession();
@@ -39,7 +41,7 @@
 			});
 		});
 	}
-
+	//twitter bootstrap method for calling a modal
 	function socialStart() {
 		$('#conn_social').modal({
 			'show': true,
@@ -48,6 +50,7 @@
 		});
 	}
 
+	//this retrieves the specific location-page, based on the unique token created on the submission of a location/name/address
 	function EDcall(token, arr, city_id) {
 		$.getJSON(urlpath + '/api/locations/' + token + '.json?callback=?', function(data) {
 
@@ -126,11 +129,13 @@
 		});
 	}
 	
+	//showCutout does the work of displaying the cutout and changing the background position to show the right position of the name needed
 	function showCutout(x,y,href, quick_link) {
 		$("#cutout .cutoutlink").prop('href', quick_link)
 		$("#cutout .page").css('background', 'url(' + href + ') ' + (x-20) + 'px ' + y + 'px');
 	}
 
+	//CSResolve does the work of showing/hiding/removing/adding EDs based on select box changes
 	function CSResolve(arr, city_id, state, _results, _crosses) {
 		var oldText = "";
 		var curr_results = $('#EDlist').text().split(city_id + '-')
@@ -229,6 +234,7 @@
 		});
 	}
 
+	//show the maps on the results page for current and 1940 version
 	function showMap(lat, lon, divid, tileset, attribution, callback, canZoom) {
 		if (typeof attribution === 'undefined') attribution = '';
 		if (typeof canZoom === 'undefined') canZoom = false;

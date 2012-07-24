@@ -3,6 +3,7 @@ function fuzzy() {
 
 	var urlpath = window.location.protocol + "//" + window.location.host;
 
+	//init method for module
 	function _init() {
 		loadContent();
 		addPopovers();
@@ -171,6 +172,7 @@ function fuzzy() {
 		onSubmitModal(page_idx);
 	}
 
+	/** Return instantiated function */
 	return {
 		init: _init,
 		autoCompleteO: autoCompleteO
