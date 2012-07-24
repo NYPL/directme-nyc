@@ -22,8 +22,8 @@ from the app directory, then push to add/commit, push to github, push to heroku
 
 ##Pubsub
 The **Publisher-Subscriber Pattern**, aka **Observer Pattern** is covered extremely well in the following sources (and better than my simpleton explanations):
-[Javascript Playground](http://javascriptplayground.com/blog/2012/04/a-jquery-pub-sub-implementation)
-[Gist, Jquery Tiny PubSub](https://gist.github.com/661855)
+[Javascript Playground](http://javascriptplayground.com/blog/2012/04/a-jquery-pub-sub-implementation),
+[Gist, Jquery Tiny PubSub](https://gist.github.com/661855),
 [Addy Osmani's JS Design Pattern Book - work in progress](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript)
 
 
