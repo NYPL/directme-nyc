@@ -65,7 +65,7 @@ namespace :db do
 
 		Headlines.collection.remove()
 		t = Time.now.strftime("%m/%d")
-		$YEAR = Integer(Time.now.strftime("%Y")) - 72
+		$YEAR = 1940 # Integer(Time.now.strftime("%Y")) - 72
 		NY_api = "#{$APIURL}/#{$YEAR}/#{t}/P1.json?api-key=#{$APIKEY}"
 		request = Typhoeus::Request.new(NY_api, :method => :get, :timeout => 60000)
 		
