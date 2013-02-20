@@ -12,7 +12,7 @@ gem "bson_ext", "~> 1.5"
 gem "mongoid", "~> 2.4"
 
 gem 'typhoeus'
-gem 'json'
+gem 'json', '1.7.7'
 
 gem 'sinatra', :require => 'sinatra/base'                
 gem 'sinatra-flash', :require => 'sinatra/flash'
@@ -52,5 +52,5 @@ end
 
 group :production do
 	gem 'newrelic_rpm'
-	gem 'airbrake'
+	gem 'airbrake', '3.1.4'
 end
