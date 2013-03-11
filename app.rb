@@ -102,7 +102,7 @@ class Application < Sinatra::Base
 			@scripts = ['/assets/index.js']
 
 			@monthday = Time.now.strftime("%m/%d")
-			@year = (Time.new.year - 72)
+			@year = 1940 #(Time.new.year - 72)
 			@SOCIAL = true
 			@ogurl = 'http://directme.nypl.org'
 
@@ -162,7 +162,7 @@ class Application < Sinatra::Base
 			if !obj.blank? and !obj.nil?
 				@scripts = ['/js/libs/wax/ext/leaflet.js', '/js/libs/wax/wax.leaf.min.js', '/assets/results.js']
 				@monthday = Time.now.strftime("%m/%d")
-				@year = (Time.new.year - 72)
+				@year = 1940 #(Time.new.year - 72)
 
 				@RESULTS = true
 				@SOCIAL = true
