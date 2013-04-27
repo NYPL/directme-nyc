@@ -1,20 +1,21 @@
-defaults: &defaults  
+defaults: &defaults
     identity_map_enabled: true
     use_utc: true
     raise_not_found_error: false
 
-development:  
+development:
     <<: *defaults
     port: 27017
     host: localhost
     database: dev_project
 
-test:  
+test:
     <<: *defaults
     port: 27017
     host: localhost
     database: dev_project
 
-production:  
+production:
     <<: *defaults
     uri: <%= ENV['MONGOHQ_URL'] %>
+    logger: false

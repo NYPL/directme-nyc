@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 # = All =
 gem 'rake'
@@ -14,7 +14,7 @@ gem "mongoid", "~> 2.4"
 gem 'typhoeus'
 gem 'json', '1.7.7'
 
-gem 'sinatra', :require => 'sinatra/base'                
+gem 'sinatra', :require => 'sinatra/base'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 gem 'sinatra_more', :require => 'sinatra_more/markup_plugin'
 gem 'omniauth'
@@ -22,8 +22,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 
-#rack gems here	
-gem 'rack-cache', :require => 'rack/cache'  
+#rack gems here
+gem 'rack-cache', :require => 'rack/cache'
 gem 'rack_csrf', :require => 'rack/csrf'
 
 gem 'slim'
@@ -38,19 +38,19 @@ gem 'agent_orange'
 gem 'geocoder'
 
 group :test do
-	gem 'rack-test', :require => 'rack/test'
-	gem 'webmock'
+  gem 'rack-test', :require => 'rack/test'
+  gem 'webmock'
 end
 
 group :development do
-	gem 'heroku'
-	gem 'fl-rocco'
-	gem 'jammit'
-	gem 'foreman'
-	gem 'rerun' #yesness => https://github.com/alexch/rerun
+  gem 'heroku'
+  gem 'fl-rocco'
+  gem 'jammit'
+  gem 'foreman'
+  gem 'rerun' #yesness => https://github.com/alexch/rerun
 end
 
 group :production do
-	gem 'newrelic_rpm'
-	gem 'airbrake', '3.1.4'
+  gem 'newrelic_rpm'
+  gem 'airbrake', '3.1.4'
 end

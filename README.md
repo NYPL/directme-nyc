@@ -2,11 +2,11 @@
 There are **2** important rakes in this application
 
 The first creates the new set of headlines for NY Times ticker by getting the new day's content from Evan's api and then storing it in Mongo.
- 
+
 ```bash
-rake db:times_cron 
+rake db:times_cron
 ```
-The second should be run each time javascript or css files are added/modified. The rake converts less and scss files to css and compiles all javascript and css according to the assets.yml [file](https://github.com/NYPL/census_app/blob/master/config/assets.yml) and moves the compiled (jammifyed - jammit) assets to [public/assets](https://github.com/NYPL/census_app/tree/master/public/assets). 
+The second should be run each time javascript or css files are added/modified. The rake converts less and scss files to css and compiles all javascript and css according to the assets.yml [file](https://github.com/NYPL/census_app/blob/master/config/assets.yml) and moves the compiled (jammifyed - jammit) assets to [public/assets](https://github.com/NYPL/census_app/tree/master/public/assets).
 
 ```bash
 rake app:setup
@@ -14,9 +14,9 @@ rake app:setup
 
 ##How to Update Streets
 simply run this…
- 
+
 ```bash
-python scripts/streets_to.py 
+python scripts/streets_to.py
 ```
 from the app directory, then push to add/commit, push to github, push to heroku
 
@@ -34,21 +34,21 @@ The **Publisher-Subscriber Pattern**, aka **Observer Pattern** is covered extrem
 - You should probably use/learn/know about [underscore.js](http://underscorejs.org/)
 - Understand javascript [prototypes](http://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/) & [constructors](http://phrogz.net/js/classes/OOPinJS2.html)
 - *helpers* are similar to Rails helpers… methods to get shiz done.
-- Like any MVC system, these *models* contain default methods and initialized variables for the object. 
+- Like any MVC system, these *models* contain default methods and initialized variables for the object.
 
 We'll go file by file that's not a vendor file or view, which are more self-explanatory.
 
- 
+
 
 #### [/controllers/api.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/controllers/api.js)
 This remains untouched from the original DV repo. Basically, this file allows for easy-to-use methods for getting page numbers, changing modes, etc…
 
 ####[/controllers/api_extend.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/controllers/api_extend.js)
 This is me extending the API… which is good practice… for the methods we needed for Census. The methods added are just publisher methods, which our own modules are subscribed to.
-	
+
 	updateMag() => refers to the publisher event when a new set of DV pages were loaded.
 	This let our jloupe module know to change the image urls.
-	
+
 	dragState() => refers to the publisher even when someone drags through the DV pages.
 
 ####[/controllers/document_viewer.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/controllers/document_viewer.js)
@@ -69,7 +69,7 @@ The ranges variable, shown below, takes in ranges that are set in the [document 
 ```
 
 ####[/events/history.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/events/history.js)
-This file contains all the history and pushState methods for DV. If you need a refresher on pushState and browser history, see [this](https://developer.mozilla.org/en/DOM/Manipulating_the_browser_history/). We use history events on *DirectMe* in order to restore the page of the viewer on back/forward events. 
+This file contains all the history and pushState methods for DV. If you need a refresher on pushState and browser history, see [this](https://developer.mozilla.org/en/DOM/Manipulating_the_browser_history/). We use history events on *DirectMe* in order to restore the page of the viewer on back/forward events.
 
 ####[/events/navigation.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/events/navigation.js)
 Deals with expander and annotation nav events, not really modified or used in *DirectMe*
@@ -78,7 +78,7 @@ Deals with expander and annotation nav events, not really modified or used in *D
 These files refer to next and previous events for the three types of views (Annotation view, Document view, and Thumbnail view).
 
 ####[/helpers/annotations.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/helpers/annotations.js)
-Helper methods for annotations. Not touched on *DirectMe*. 
+Helper methods for annotations. Not touched on *DirectMe*.
 
 ####[/helpers/construction.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/helpers/construction.js)
 **Super Important File**
@@ -91,7 +91,7 @@ This file refers to a browser editor for DV. Not used on **DirectMe**. You can s
 ####[/helpers/helpers.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/helpers/helpers.js)
 **Super Important File**
 
-This is where most click/move/release (interactive) events are bound to DOM elements and instantiated. **bindEvents** being the key method to look at. 
+This is where most click/move/release (interactive) events are bound to DOM elements and instantiated. **bindEvents** being the key method to look at.
 
 ####[/helpers/navigation.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/helpers/navigation.js)
 Mostly refers to Chapters and Annotations, extends the helper object within DV.Schema.
@@ -100,7 +100,7 @@ Mostly refers to Chapters and Annotations, extends the helper object within DV.S
 The key DV.Annotations object, extending its prototype.
 
 ####[/lib/drag_reporter.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/lib/drag_reporter.js)
-Creates and Extends the prototype of DV.DragReporter object, which reports drag & mouse positions. 
+Creates and Extends the prototype of DV.DragReporter object, which reports drag & mouse positions.
 
 ####[/lib/elements.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/lib/elements.js)
 Creates and Extends the DV.Elements prototype to get an element.
@@ -116,10 +116,10 @@ Initializes the DV namespaces.
 
 Creates and Extends the prototype of the DV.Page object. I manipulated the drawImage method on the prototype, adding information for the magnified image url and changing parts of the to-be rendered html in the view.
 
-	base.api.updateMag(jQuery, 'pages') => a call to the api (base references the viewer object) 
-	in order to publish an event when a new set of images is lazy-loaded. 
+	base.api.updateMag(jQuery, 'pages') => a call to the api (base references the viewer object)
+	in order to publish an event when a new set of images is lazy-loaded.
 	Remember, images (each document) are lazy-loaded in 3's, by default, in DV.
-	
+
 
 ####[/lib/page_set.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/lib/page_set.js)
 **Super Important File**
@@ -152,7 +152,7 @@ This refers to the model object, representing the set of pages in the document, 
 
 The creates and extends the prototype of to the schema object of the viewer. The schema incorporates the models, views, states, helpers, events, elements, text, and data objects of the viewer.
 
-	DV.Schema.prototype.importCanonicalDocument = function(json) {…} => Imports the document's JSON representation 
+	DV.Schema.prototype.importCanonicalDocument = function(json) {…} => Imports the document's JSON representation
 	into the DV.Schema form that the models expect.
 
 ####[/states/states.js](https://github.com/NYPL/census_app/blob/master/public/js/DV/states/states.js)
