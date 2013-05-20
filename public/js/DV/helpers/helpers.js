@@ -432,7 +432,8 @@ DV.Schema.helpers = {
     },
 
     unsupportedBrowser : function() {
-      if (!(DV.jQuery.browser.msie && DV.jQuery.browser.version <= "6.0")) return false;
+      var browser = DV.jQuery.browser;
+      if (!(browser.msie && parseFloat(browser.version, 10) <= 6.0)) return false;
       DV.jQuery(this.viewer.options.container).html(JST.unsupported({viewer : this.viewer}));
       return true;
     },
