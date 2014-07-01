@@ -9,7 +9,7 @@ Dir.glob('public/*.json') do |file|
 end
 
 $LIMIT = 10
-$MAPS = ['http://directme-topomap.s3.amazonaws.com/nyc1940.jsonp', 'http://a.tiles.mapbox.com/v3/examples.map-vyofok3q.jsonp']
+$MAPS = ['http://directme-topomap.s3.amazonaws.com/nyc1940.jsonp', 'http://a.tiles.mapbox.com/v3/nypllabs.ilj2572j.jsonp']
 #------------------------------------
 
 # app only global methods
