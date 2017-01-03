@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.0'
+
 # = All =
 gem 'rake'
 gem 'rack'
@@ -43,7 +45,7 @@ group :test do
 end
 
 group :development do
-  gem 'heroku'
+  # gem 'heroku'
   gem 'fl-rocco'
   gem 'jammit'
   gem 'foreman'
