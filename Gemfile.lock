@@ -170,6 +170,3 @@ DEPENDENCIES
   typhoeus
   uuidtools
   webmock
-
-BUNDLED WITH
-   1.10.3
